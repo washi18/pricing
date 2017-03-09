@@ -1,0 +1,46 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/configInterfaz.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmConfigInterfaz') @init('com.pricing.viewModel.ConfigInterfazVM')">
+		<div width="100%" sclass="div_content_config">
+			<div width="100%" sclass="div_content_config_title">
+				<a iconSclass="fa fa-industry estilos-iconos div_content_config_title_a"/>
+				<label value="CONFIGURACION DE INTERFAZ (Front-End)" sclass="div_content_config_title_lbl"/>
+			</div>
+			<div>
+				<div>
+					<label value="Configurar vista de Pricing:" sclass="lbl_congif_sutitle"/>
+					 <div>
+					 	<button label="CONFIGURAR" zclass="estilo_subir_imagen" id="configColores" onClick="@command('mostrarConfigColoresPricing')"/>
+					 </div>
+				</div>
+				<div>
+					<label value="CONFIGURACION DE LLENADO DE DATOS DE LOS PASAJEROS" sclass="lbl_select_title"/>
+					<div>
+						<radiogroup sclass="select_modo_pago" orient="vertical" onCheck="@command('selectModoLlenadoPax',opcion=self.selectedItem.value)">
+							<radio label="Subir sólo documentos" value="1" checked="@load(vmConfigInterfaz.oInterfaz.bSubirDocPax)"/>
+							<radio label="Subir documentos(estudiante o menor de edad) y llenar datos de los pasajeros" value="2" checked="@load(vmConfigInterfaz.oInterfaz.bSubirDoc_Y_llenarDatosPax)"/>
+							<radio label="Sólo llenar datos de los pasajeros" value="3" checked="@load(vmConfigInterfaz.oInterfaz.bSubirDoc_O_llenarDatosPax)"/>
+							<radio label="Sólo llenar datos del pasajero que reserva" value="4" checked="@load(vmConfigInterfaz.oInterfaz.bLlenarDatosUnPax)"/>
+						</radiogroup>
+					</div>
+				</div>
+				<div>
+					<label value="CONFIGURACION DE HOTELES" sclass="lbl_select_title"/>
+					<div>
+						<radiogroup sclass="select_modo_pago" orient="vertical" onCheck="@command('selectConfigHoteles',opcion=self.selectedItem.value)">
+							<radio label="Con cama adicional" value="1" checked="@load(vmConfigInterfaz.oInterfaz.bHotelesConCamaAdicional)"/>
+							<radio label="Sin cama adicional" value="2" checked="@load(vmConfigInterfaz.oInterfaz.bHotelesSinCamaAdicional)"/>
+						</radiogroup>
+					</div>
+				</div>
+				<space></space>
+			 	<div zclass="div_content_btns_operaciones" align="center" width="100%">
+			 		<button label="ACTUALIZAR" width="100%" zclass="btn_actualizar" onClick="@command('guardarCambiosModoPricing',componente=self)"/>
+			 		<button label="CANCELAR" width="100%" zclass="btn_editar" onClick="@command('Cancelar')"/>
+			 	</div>
+			</div>
+		</div>
+	</div>
+</zk>

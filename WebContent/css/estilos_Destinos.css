@@ -1,0 +1,57 @@
+.div_content_datos_destinos{
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+}
+.div_content_select_destino{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+	-moz-flex-direction:column;
+	-ms-flex-direction:column;
+	-o-flex-direction:column;
+}
+.nombre_depart{
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.div_busqueda_destino{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content: center !important;
+	-webkit-justify-content: center !important;
+	-moz-justify-content: center !important;
+	-ms-justify-content: center !important;
+	-o-justify-content: center !important;
+	align-items: center !important;
+	-webkit-align-items: center !important;
+	-moz-align-items: center !important;
+	-ms-align-items: center !important;
+	-o-align-items: center !important;
+	width: 30%;
+	padding: 4px;
+	background: lightgray;
+	border-radius: 3px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+}
+
+@media only screen and (max-width: 416px)
+{
+	.div_busqueda_destino {
+		width: 100%;
+	}
+}

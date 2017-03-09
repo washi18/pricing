@@ -1,0 +1,145 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_Generales.css"/>
+	<style src="css/estilos_Destinos.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmCupon') @init('com.pricing.viewModel.cuponesVM')">
+		 <div zclass="div_contenedor_nuevo" width="100%">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_cupon.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="180px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO CUPON"/>
+				</div>
+			</div>
+			<div id="div_llenar_cupon" visible="false">
+				<space></space>
+				<div zclass="div_contenedor_nuevo_subServicio" width="100%">
+					<div zclass="div_content_datos" width="280px">
+						<div>
+							<label value="CUPON: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmCupon.oCupon.cCupon)"
+									 placeholder="DIGITE CODIGO" zclass="txt_llenar_datos"
+									 width="100%" style="text-transform: uppercase;"/>
+						</div>
+						<div>
+							<label value="DESCUENTO: " zclass="lbl_llenar_datos"/>
+							<div>
+								<intbox value="@bind(vmCupon.oCupon.nPorcentajeDcto)" zclass="txt_llenar_datos"
+									width="50px" style="text-transform: uppercase;"/>
+								<label value="%" zclass="lbl_llenar_datos"/>
+							</div>
+						</div>
+						<div>
+							<label value="FECHA DE INICIO:" zclass="lbl_llenar_datos"/>
+							<div>
+								<datebox value="@bind(vmCupon.oCupon.dFechaInicio)" 
+										onChange="@command('recuperarFechas',fecha=self.value,cupon=vmCupon.oCupon,opcion=1)"
+										readonly="true" constraint="no past"/>
+							</div>
+						</div>
+						<div>
+							<label value="FECHA DE CULMINACION:" zclass="lbl_llenar_datos"/>
+							<div>
+								<datebox value="@bind(vmCupon.oCupon.dFechaFin)" 
+										onChange="@command('recuperarFechas',fecha=self.value,cupon=vmCupon.oCupon,opcion=2)"
+										readonly="true" constraint="no past"/>
+							</div>
+						</div>
+						<space></space>
+						<button label="Guardar" zclass="btn_guardar" 
+								onClick="@command('insertarCupon',componente=self)"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<space></space>
+		<listbox sclass="listados" model="@load(vmCupon.listaCupones) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+				   	<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nCuponCod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_servicio">
+					    		<space></space>
+					    		<div zclass="div_content_datos">
+					    			<div>
+					    				<label value="CUPON:" zclass="lbl_llenar_datos"/>
+					    				<label value="@load(each.cCupon)"/>
+					    			</div>
+					    			<div>
+					    				<label value="DESCUENTO:" zclass="lbl_llenar_datos"/>
+					    				<label value="@load(each.nPorcentajeDcto)"/>
+					    				<label value="%"/>
+					    			</div>
+					    			<div>
+					    				<label value="FECHA INICIO:" zclass="lbl_llenar_datos"/>
+					    				<label value="@load(each.fechaInicio)"/>
+					    			</div>
+					    			<div>
+					    				<label value="FECHA FIN:" zclass="lbl_llenar_datos"/>
+					    				<label value="@load(each.fechaFin)"/>
+					    			</div>
+					    			<button label="Editar"
+					    					onClick="@command('Editar',cupon=each)"
+					    					zclass="btn_editar" />					    			
+					    		</div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nCuponCod)"/>
+							</div>
+							<div zclass="div_content_datos">
+								<div>
+									<label value="CUPON: " zclass="lbl_llenar_datos"/>
+									<label value="@bind(each.cCupon)"/>
+								</div>
+								<div>
+									<label value="DESCUENTO: " zclass="lbl_llenar_datos"/>
+									<div>
+										<intbox value="@bind(each.nPorcentajeDcto)" zclass="txt_llenar_datos"
+											width="50px" style="text-transform: uppercase;"/>
+										<label value="%" zclass="lbl_llenar_datos"/>
+									</div>
+								</div>
+								<div>
+									<label value="FECHA DE INICIO:" zclass="lbl_llenar_datos"/>
+									<div>
+										<datebox value="@bind(each.dFechaInicio)" 
+												onChange="@command('recuperarFechas',fecha=self.value,cupon=each,opcion=1)"
+												readonly="true" constraint="no past"/>
+									</div>
+								</div>
+								<div>
+									<label value="FECHA DE CULMINACION:" zclass="lbl_llenar_datos"/>
+									<div>
+										<datebox value="@bind(each.dFechaFin)" 
+												onChange="@command('recuperarFechas',fecha=self.value,cupon=each,opcion=2)"
+												readonly="true" constraint="no past"/>
+									</div>
+								</div>
+							</div>
+				    		<div sclass="div_content_actualizar">
+				    			<button label="Actualizar"
+				    				onClick="@command('actualizarCupon',cupon=each,componente=self)"
+				    				zclass="btn_actualizar"/>
+				    		</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

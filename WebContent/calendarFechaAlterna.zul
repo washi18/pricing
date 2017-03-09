@@ -1,0 +1,159 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
+<zk>
+	<style src="css/disponibilidad.css"/>
+	<div apply="org.zkoss.bind.BindComposer" 
+		 viewModel="@id('vmDisp') @init('com.pricing.viewModel.disponibilidadVM')" align="center">
+<!-- 		<div sclass="div_leyenda"> -->
+<!-- 			<hbox> -->
+<!-- 				<div width="20px" height="20px" sclass="style_img_map_pri"/> -->
+<!-- 				<label value="@bind(vmPricing.etiqueta[44])" style="font-weight:bold;"/> -->
+<!-- 				<space></space> -->
+<!-- 				<div width="20px" height="20px" sclass="style_img_map_alt"/> -->
+<!-- 				<label value="@bind(vmPricing.etiqueta[45])" style="font-weight:bold;"/> -->
+<!-- 			</hbox> -->
+<!-- 		</div> -->
+		<hbox>
+			<vbox align="center">
+				<label value="@bind(vmDisp.etiqueta[23])"/>
+				<combobox id="cbMes" readonly="true" width="150px" onSelect="@command('changeMonth',valueMes=self.selectedItem.value)">
+					<comboitem value="Enero" label="@bind(vmDisp.etiqueta[24])"/>
+					<comboitem value="Marzo" label="@bind(vmDisp.etiqueta[26])"/>
+					<comboitem value="Abril" label="@bind(vmDisp.etiqueta[27])"/>
+					<comboitem value="Mayo" label="@bind(vmDisp.etiqueta[28])"/>
+					<comboitem value="Junio" label="@bind(vmDisp.etiqueta[29])"/>
+					<comboitem value="Julio" label="@bind(vmDisp.etiqueta[30])"/>
+					<comboitem value="Agosto" label="@bind(vmDisp.etiqueta[31])"/>
+					<comboitem value="Setiembre" label="@bind(vmDisp.etiqueta[32])"/>
+					<comboitem value="Octubre" label="@bind(vmDisp.etiqueta[33])"/>
+					<comboitem value="Noviembre" label="@bind(vmDisp.etiqueta[34])"/>
+					<comboitem value="Diciembre" label="@bind(vmDisp.etiqueta[35])"/>
+				</combobox>
+			</vbox>
+			<space></space>
+			<vbox align="center">
+				<label value="@bind(vmDisp.etiqueta[36])"/>
+				<combobox id="cbAnio" readonly="true" width="100px" onSelect="@command('changeAnio',valueAnio=self.value)">
+					<comboitem id="cbAnioActual"/>
+					<comboitem id="cbAnioSig"/>
+				</combobox>
+			</vbox>
+		</hbox>
+<!-- 		<label id="lblUpdateDate"/> -->
+<!-- 		<hbox> -->
+<!-- 			<hbox> -->
+<!-- 			 	<image src="img/dispon/ok.png" width="15px" height="15px"/> -->
+<!-- 			 	<label value="@bind(vmDisp.etiqueta[193])"/> -->
+<!-- 			</hbox> -->
+<!-- 			<hbox> 	 -->
+<!-- 			 	<image src="img/dispon/x1.png" height="15px" width="15x"/> -->
+<!-- 				<label value="@bind(vmDisp.etiqueta[194])"/> -->
+<!-- 			</hbox> -->
+<!-- 		</hbox> -->
+		
+		<div>
+			<grid sclass="calendar_grid" model="@bind(vmDisp.listaDias)" width="320px">
+				<columns>
+					<column label="@bind(vmDisp.etiqueta[37])" align="center" />
+					<column label="@bind(vmDisp.etiqueta[38])" align="center" />
+					<column label="@bind(vmDisp.etiqueta[39])" align="center" />
+					<column label="@bind(vmDisp.etiqueta[40])" align="center" />
+					<column label="@bind(vmDisp.etiqueta[41])" align="center" />
+					<column label="@bind(vmDisp.etiqueta[42])" align="center" />
+					<column label="@bind(vmDisp.etiqueta[43])" align="center" />
+				</columns>
+				<rows>
+					<template name="model" var="dias7">
+						<row style="cursor:pointer;">
+							<div align="center"  visible="@bind(dias7.dia_1.visible)" 
+								 onClick="@global-command('detFechaReservaCaminoInca',cantDisp=dias7.dia_1.cantDisp,fechas=vmDisp.listaFechasSeleccionadas,opcion=2) @command('onDiaAlterno',dias=dias7,dia=dias7.dia_1,valueMes=cbMes.selectedItem.value,componente=self)"
+								 style="@bind(dias7.dia_1.imgPrioridad)" tooltiptext="@bind(dias7.dia_1.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<textbox value="@bind(dias7.dia_1.cNroDia)" readonly="true" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<label value="@bind(dias7.dia_1.cantDisp)" sclass="style_disp"/>
+									<a iconSclass="@bind(dias7.dia_1.disponible)" sclass="@bind(dias7.dia_1.colorDisp)"/>
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_2.visible)" 
+								 onClick="@global-command('detFechaReservaCaminoInca',cantDisp=dias7.dia_2.cantDisp,fechas=vmDisp.listaFechasSeleccionadas,opcion=2) @command('onDiaAlterno',dias=dias7,dia=dias7.dia_2,valueMes=cbMes.selectedItem.value,componente=self)"
+								 style="@bind(dias7.dia_2.imgPrioridad)" tooltiptext="@bind(dias7.dia_2.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<textbox value="@bind(dias7.dia_2.cNroDia)" readonly="true" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<label value="@bind(dias7.dia_2.cantDisp)" sclass="style_disp"/>
+									<a iconSclass="@bind(dias7.dia_2.disponible)" sclass="@bind(dias7.dia_2.colorDisp)"/>
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_3.visible)" 
+								 onClick="@global-command('detFechaReservaCaminoInca',cantDisp=dias7.dia_3.cantDisp,fechas=vmDisp.listaFechasSeleccionadas,opcion=2) @command('onDiaAlterno',dias=dias7,dia=dias7.dia_3,valueMes=cbMes.selectedItem.value,componente=self)"
+								 style="@bind(dias7.dia_3.imgPrioridad)" tooltiptext="@bind(dias7.dia_3.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<textbox value="@bind(dias7.dia_3.cNroDia)" readonly="true" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<label value="@bind(dias7.dia_3.cantDisp)" sclass="style_disp"/>
+									<a iconSclass="@bind(dias7.dia_3.disponible)" sclass="@bind(dias7.dia_3.colorDisp)"/>
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_4.visible)" 
+								 onClick="@global-command('detFechaReservaCaminoInca',cantDisp=dias7.dia_4.cantDisp,fechas=vmDisp.listaFechasSeleccionadas,opcion=2) @command('onDiaAlterno',dias=dias7,dia=dias7.dia_4,valueMes=cbMes.selectedItem.value,componente=self)"
+								 style="@bind(dias7.dia_4.imgPrioridad)" tooltiptext="@bind(dias7.dia_4.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<textbox value="@bind(dias7.dia_4.cNroDia)" readonly="true" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<label value="@bind(dias7.dia_4.cantDisp)" sclass="style_disp"/>
+									<a iconSclass="@bind(dias7.dia_4.disponible)" sclass="@bind(dias7.dia_4.colorDisp)"/>
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_5.visible)" 
+								 onClick="@global-command('detFechaReservaCaminoInca',cantDisp=dias7.dia_5.cantDisp,fechas=vmDisp.listaFechasSeleccionadas,opcion=2) @command('onDiaAlterno',dias=dias7,dia=dias7.dia_5,valueMes=cbMes.selectedItem.value,componente=self)"
+								 style="@bind(dias7.dia_5.imgPrioridad)" tooltiptext="@bind(dias7.dia_5.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<textbox value="@bind(dias7.dia_5.cNroDia)" readonly="true" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<label value="@bind(dias7.dia_5.cantDisp)" sclass="style_disp"/>
+									<a iconSclass="@bind(dias7.dia_5.disponible)" sclass="@bind(dias7.dia_5.colorDisp)"/>
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_6.visible)" 
+								 onClick="@global-command('detFechaReservaCaminoInca',cantDisp=dias7.dia_6.cantDisp,fechas=vmDisp.listaFechasSeleccionadas,opcion=2) @command('onDiaAlterno',dias=dias7,dia=dias7.dia_6,valueMes=cbMes.selectedItem.value,componente=self)"
+								 style="@bind(dias7.dia_6.imgPrioridad)" tooltiptext="@bind(dias7.dia_6.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<textbox value="@bind(dias7.dia_6.cNroDia)" readonly="true" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<label value="@bind(dias7.dia_6.cantDisp)" sclass="style_disp"/>
+									<a iconSclass="@bind(dias7.dia_6.disponible)" sclass="@bind(dias7.dia_6.colorDisp)"/>
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_7.visible)" 
+								 onClick="@global-command('detFechaReservaCaminoInca',cantDisp=dias7.dia_7.cantDisp,fechas=vmDisp.listaFechasSeleccionadas,opcion=2) @command('onDiaAlterno',dias=dias7,dia=dias7.dia_7,valueMes=cbMes.selectedItem.value,componente=self)"
+								 style="@bind(dias7.dia_7.imgPrioridad)" tooltiptext="@bind(dias7.dia_7.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<textbox value="@bind(dias7.dia_7.cNroDia)" readonly="true" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<label value="@bind(dias7.dia_7.cantDisp)" sclass="style_disp"/>
+									<a iconSclass="@bind(dias7.dia_7.disponible)" sclass="@bind(dias7.dia_7.colorDisp)"/>
+								</hbox>
+							</div>
+						</row>
+					</template>
+				</rows>
+			</grid>
+		</div>
+
+	</div>
+</zk>

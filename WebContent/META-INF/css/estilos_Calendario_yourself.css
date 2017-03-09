@@ -1,0 +1,57 @@
+ .z-div.btn_crearDispo .z-button{
+	background: #1A5276;
+	border-radius: 5px;
+	color: white;
+	font-size: 15px;
+	font-weight:bold;
+	text-decoration: none;
+	text-shadow: none;
+	margin: 4px;
+	width: 10px;
+	height: 10px; 
+}
+
+/* .z-div.botonCrear .z-button:HOVER { */
+/* 	background: #1A5276; */
+/* } */
+
+/* .z-div.botonEditar .z-button{ */
+/* 	background: #1A5276; */
+/* 	border-radius: 5px; */
+/* 	color: white; */
+/* 	font-size: 15px; */
+/* 	font-weight:bold; */
+/* 	text-decoration: none; */
+/* 	text-shadow: none; */
+/* 	margin: 4px; */
+/* 	width: 80px; */
+/* 	height: 30px; */
+/* } */
+
+/* .z-div.botonEditar .z-button:HOVER { */
+/* 	background: #1A5276; */
+/* } */
+
+/* .z-div.botonActualizar .z-button{ */
+/* 	background: #1A5276; */
+/* 	border-radius: 5px; */
+/* 	color: white; */
+/* 	font-size: 15px; */
+/* 	font-weight:bold; */
+/* 	text-decoration: none; */
+/* 	text-shadow: none; */
+/* 	margin: 4px; */
+/* 	width: 100px; */
+/* 	height: 30px; */
+/* } */
+/* .z-div.botonActualizar .z-button:HOVER{ */
+/* 	background: #1A5276; */
+/* } */
+
+.contenedor_botones, .contenedor_cmb_mes_anio {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}

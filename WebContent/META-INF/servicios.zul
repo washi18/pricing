@@ -1,0 +1,364 @@
+<?page title="Servicios" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_Generales.css"></style>
+	<style src="css/estilos_Servicios.css"></style>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmServicio') @init('com.pricing_pat.viewModel.servicioVM')">
+		<div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_servicios.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="150px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO SERVICIO"/>
+				</div>
+			</div>
+			<div id="div_llenar_servicios" visible="false">
+				<space></space>
+				<div zclass="div_contenedor_nuevo_servicio">
+					<div zclass="div_content_img">
+						<div height="150px" width="200px" zclass="div_img">
+							<image width="100%" height="100%" src="@load(vmServicio.oServicioNuevo.cUrlImg)"/>
+						</div>
+						<button label="Subir Imagen" disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)" 
+								zclass="estilo_subir_imagen" onClick="@command('uploadImagen',componente=self)"/>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div>
+							<div zclass="div_contiene_banderas">
+								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(false);txtSpainDesc.setVisible(true);
+												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(false)"/>
+								<image src="img/en.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+												txtPortuName.setVisible(false);txtSpainDesc.setVisible(false);
+												txtInglesDesc.setVisible(true);txtPortuDesc.setVisible(false)"/>
+								<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(true);txtSpainDesc.setVisible(false);
+												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(true)"/>
+							</div>
+							<div>
+								<label value="SERVICIO: " zclass="lbl_llenar_datos"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cServicioIndioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false" style="text-transform: uppercase;"/>
+							</div>
+							<div>
+								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cDescripcionIdioma1)" zclass="txt_llenar_datos" id="txtSpainDesc" multiline="true" height="150px"
+									placeholder="ESPAÑOL" width="250px" visible="true"
+									style="@bind(vmServicio.oServicioNuevo.color_disabled)"
+									disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cDescripcionIdioma2)" zclass="txt_llenar_datos" id="txtInglesDesc" multiline="true" height="150px"
+									placeholder="INGLES" width="250px" visible="false"
+									style="@bind(vmServicio.oServicioNuevo.color_disabled)"
+									disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)"/>
+								<textbox value="@bind(vmServicio.oServicioNuevo.cDescripcionIdioma3)" zclass="txt_llenar_datos" id="txtPortuDesc" multiline="true" height="150px"
+									placeholder="PORTUGUES" width="250px" visible="false"
+									style="@bind(vmServicio.oServicioNuevo.color_disabled)"
+									disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)"/>
+							</div>
+						</div>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div>
+							<label value="ELEGIR UNA RESTRICCION:" zclass="lbl_llenar_datos"/>
+							<separator bar="true" zclass="lbl_llenar_datos"/>
+							<div>
+								<radiogroup sclass="style_restricciones" onCheck="@command('selectRestricciones',restriccion=self.selectedItem.value)">
+									<radio label="SI/NO" value="si_no" checked="@bind(vmServicio.oServicioNuevo.selectResYesNo)"/>
+									<radio id="rad_numeric" label="Numerica" value="numerica" checked="@bind(vmServicio.oServicioNuevo.selectResNumeric)"/>
+									<div visible="@bind(vmServicio.oServicioNuevo.selectResNumeric)" width="220px">
+										<label value="Cuantas unidades/pasajero ofrecerá como máximo por este servicio?" zclass="lbl_rest_num"/>
+										<intbox value="@bind(vmServicio.oServicioNuevo.cRestriccionNum)" zclass="txt_llenar_datos" width="80px"/>
+									</div>
+									<radio label="Sub Servicios" value="sub_servicios" checked="@bind(vmServicio.oServicioNuevo.selectResSubServ)"/>
+								</radiogroup>
+							</div>
+						</div>
+						<div>
+							<label value="URL : " zclass="lbl_llenar_datos"/>
+							<textbox width="200px" zclass="txt_llenar_datos" placeholder="LINK" value="@bind(vmServicio.oServicioNuevo.cLink)"/>
+						</div>
+						<div>
+							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmServicio.oServicioNuevo.nPrecioServicio_text)" disabled="@bind(vmServicio.oServicioNuevo.disabledConSubServicio)" 
+									width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+									style="@bind(vmServicio.oServicioNuevo.color_disabled)"
+									onChange="@command('changePrecios_nuevo',precio=self.value,componente=self)"/>
+						</div>
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('insertarServicio',componente=self) @global-command('actualizarServicioInsertado')">
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<space></space>
+		<div sclass="div_busqueda_etiqueta">
+			<textbox id="txtNombre" placeholder="Ingrese busqueda" sclass="txt_llenar_datos" onOK="@command('buscarServicios',nombre=self.value)"> 
+			</textbox>
+			<space orient="vertical"></space>
+			<button iconSclass="fa fa-search" height="30px" zclass="estilo_btn_buscar" onClick="@command('buscarServicios',nombre=txtNombre.value)"></button>
+		</div>
+		<space></space>
+		<listbox sclass="listados" model="@bind(vmServicio.listaServicios) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+				   		<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nServicioCod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_servicio">
+					    		<div zclass="div_content_img_list">
+					    			<div height="150px" zclass="div_img_list">
+					    				<image width="100%" height="100%" src="@bind(each.cUrlImg)"/>
+					    			</div>
+					    		</div>
+					    		<space></space>
+					    		<div zclass="div_content_info_listServicio">
+					    			<div sclass="estilo_start_descripcion">
+					    				<label width="100%" height="30px" sclass="estilo_nombre_servicio"
+					    					value="@bind(each.cServicioIndioma1) @save(each.cServicioIndioma1,before='actualizarServicio')" />
+					    				<div sclass="descripcion_costado">
+					    				<image src="img/eticket.png"></image>
+					    				<space></space>
+					    				<label multiline="true"
+					    					width="100%" height="auto"
+					    					value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarServicio')" sclass="estilo_desborde_descripcion"/>
+					    				</div>
+					    			</div>
+					    			<div>
+					    				<label value="@bind(each.nameRestriccion)" style="font-style: italic; font-weight: bold;"></label>
+					    			</div>
+					    			<div>
+					    				<label value="@bind(each.nPrecioServicio)" sclass="estilo_costo"></label>
+					    			</div>
+					    			<div
+					    				zclass="div_operacion_etiqueta">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',servicio=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)"/>
+					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
+					    			</div>
+					    		</div>
+					    		<space></space>
+					    		<div sclass="estilo_contenedor_costo">
+					    			<div>
+					    				<label value="$ " zclass="estilos_costos_normal"/>
+					    				<label value="@bind(each.nPrecioServicio_text)" zclass="estilos_costos_normal"/>
+					    			</div>
+					    		</div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nServicioCod)"/>
+							</div>
+				    		<div zclass="div_content_img_lista">
+				    			<div height="150px"
+				    				zclass="div_img">
+				    				<image width="100%" height="100%" src="@bind(each.cUrlImg)" />
+				    			</div>
+				    			<button label="Cambiar Imagen" disabled="@bind(each.disabledConSubServicio)"
+				    				onClick="@command('changeImagen',componente=self,servicio=each)"
+				    				zclass="estilo_subir_imagen" width="100%"/>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_datos_lista">
+				    			<div sclass="estilo_editar_respons">
+				    				<div
+				    					sclass="div_contiene_banderas">
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag-of-Spain.png"
+				    						onClick="@command('cambioIdiomas',idioma='Espanol',servicio=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/en.png"
+				    						onClick="@command('cambioIdiomas',idioma='Ingles',servicio=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag_of_Brazil.png"
+				    						onClick="@command('cambioIdiomas',idioma='Portugues',servicio=each)">
+				    					</image>
+				    				</div>
+				    				<separator spacing="2px"></separator>
+				    				<div
+				    					visible="@bind(each.visibleEspanol)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%"
+				    							sclass="horizontal_label_texbox">
+				    							<label value="Servicio:"
+				    								sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos" style="text-transform: uppercase;"
+				    								value="@bind(each.cServicioIndioma1) @save(each.cServicioIndioma1,before='actualizarServicio')" />
+				    						</div>
+				    						<separator spacing="2px"></separator>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox disabled="@bind(each.disabledConSubServicio)"
+				    								style="@bind(each.color_disabled)"
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarServicio')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visibleIngles)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label value="Servicio:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox width="100%" sclass="txt_llenar_datos" height="30px" style="text-transform: uppercase;"
+				    								value="@bind(each.cServicioIndioma2) @save(each.cServicioIndioma2,before='actualizarServicio')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox disabled="@bind(each.disabledConSubServicio)"
+				    								style="@bind(each.color_disabled)"
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarServicio')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visiblePortugues)">
+				    					<div width="100%" sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label value="Servicio:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos" style="text-transform: uppercase;"
+				    								value="@bind(each.cServicioIndioma3) @save(each.cServicioIndioma3,before='actualizarServicio')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox disabled="@bind(each.disabledConSubServicio)"
+				    									style="@bind(each.color_disabled)"
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarServicio')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos" style="text-transform: uppercase;"
+				    							value="@bind(each.cServicioIndioma4) @save(each.cServicioIndioma4,before='actualizarServicio')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<textbox multiline="true" sclass="txt_llenar_datos"
+				    							width="100%" hflex="1" height="100px"
+				    							value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarServicio')" />
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos" style="text-transform: uppercase;"
+				    							value="@bind(each.cServicioIndioma5) @save(each.cServicioIndioma5,before='actualizarServicio')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<textbox multiline="true"
+				    							width="100%" hflex="1" height="100px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cDescripcionIdioma5) @save(each.cDescripcionIdioma5,before='actualizarServicio')" />
+				    					</div>
+				    				</div>
+				    			</div>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_restricciones">
+				    			<div>
+				    				<label
+				    					value="CAMBIAR RESTRICCION:" zclass="lbl_llenar_datos" />
+				    				<separator bar="true" zclass="lbl_llenar_datos" />
+				    				<div>
+				    					<radiogroup sclass="style_restricciones" onCheck="@command('cambiarRestriccion',restriccion=self.selectedItem.value,servicio=each)">
+				    						<radio label="SI/NO" value="si_no" checked="@bind(each.selectResYesNo)"/>
+				    						<radio label="Numerica" value="numerica" checked="@bind(each.selectResNumeric)"/>
+				    						<div visible="@bind(each.selectResNumeric)" width="220px">
+												<label value="Cuantas unidades/pasajero ofrecerá como máximo por este servicio?" zclass="lbl_rest_num"/>
+												<intbox value="@bind(each.cRestriccionNum)" zclass="txt_llenar_datos" width="80px"/>
+											</div>
+				    						<radio label="Sub Servicios" value="sub_servicios" checked="@bind(each.selectResSubServ)"/>
+				    					</radiogroup>
+				    				</div>
+				    			</div>
+				    			<div>
+				    				<label
+				    					value="URL:" zclass="lbl_llenar_datos" />
+				    				<textbox value="@bind(each.cLink)" zclass="txt_llenar_datos" width="100%"></textbox>
+				    				<separator bar="true"
+				    					zclass="lbl_llenar_datos"/>
+				    			</div>
+				    			<div>
+				    				<label value="COSTO ($): " zclass="lbl_llenar_datos" />
+				    				<textbox width="80px" value="@bind(each.nPrecioServicio_text)" 
+				    						disabled="@bind(each.disabledConSubServicio)"
+				    						style="@bind(each.color_disabled)"
+				    						onChange="@command('changePrecios_update',precio=self.value,componente=self,servicio=each)"
+				    						zclass="txt_llenar_datos" />
+				    			</div>
+				    			<div>
+									<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+									<separator bar="true" zclass="lbl_llenar_datos"/>
+									<div>
+										<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_servicio',servicio=each,texto=self.selectedItem.value)">
+											<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
+											<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+										</radiogroup>
+									</div>
+								</div>
+				    		</div>
+				    		<div sclass="div_content_actualizar">
+				    			<button label="Actualizar"
+				    				onClick="@command('actualizarServicio',servicio=each,componente=self)"
+				    				zclass="btn_actualizar"/>
+				    		</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

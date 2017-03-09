@@ -1,0 +1,153 @@
+.div_contenedor_nuevo_creaUser{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	padding: 10px;
+	background: rgba(0,0,0,0.3);
+	margin-top: 5px;
+	border-radius:5px; 
+}
+.div_content_datos_nuevoUser{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 35%;
+}
+@MEDIA (max-width:700px) {
+	.div_contenedor_nuevo_creaUser{
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+	.div_content_datos_nuevoUser{
+		width: 100%;
+	}
+}
+.div_content_accesos{
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+	-moz-flex-direction:column;
+	-ms-flex-direction:column;
+	-o-flex-direction:column;
+}
+/*****/
+.accesos.z-listbox{
+	border-radius:5px;
+	border: none;
+}
+.list_paquete_servicios_destinos.z-listbox .z-listbox-header table tbody tr,
+.accesos.z-listbox .z-listbox-header table tbody tr .z-listheader{
+	border-radius:5px;
+	border: none;
+}
+.accesos.z-listbox .z-listbox-header table tbody tr th .z-listheader-content{
+	background: #2f2f2f;
+	border:none;
+	border-radius:5px;
+	color:white;
+	font-size:16px;
+	font-weight:bold;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.accesos.z-listbox{
+/* 	border: 1px solid #2f2f2f; */
+}
+.accesos .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content{
+	border: 0;
+	margin: 0;
+	padding: 0;
+}
+.accesos .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-listitem-checkable{
+	border-radius:0;
+	border: 1px solid #1A5276;
+}
+.accesos .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-listitem-checkable .z-listitem-icon{
+	color:#1A5276;
+}
+.accesos .z-listbox-body table tbody .z-listitem.z-listitem-selected,
+.accesos .z-listbox-body table tbody .z-listitem.z-listitem-selected .z-listcell{
+	background: transparent;
+}
+.accesos .z-listbox-body table tbody .z-listitem:hover .z-listcell{
+	background: transparent;
+}
+.accesos .z-listbox-body table tbody .z-listitem,
+.accesos .z-listbox-body table tbody .z-listitem .z-listcell{
+	background: transparent;
+}
+/*******/
+/* *CHECKBOX PARA SELECCIONAR ACCESOS* */
+.select_acceso.z-checkbox{
+	width:auto;
+}
+.select_acceso.z-checkbox input[type="checkbox"]{
+	display: none;
+}
+.select_acceso.z-checkbox label{
+/* 	color: #053351; */
+/* 	margin-left: 7px; */
+	display: inline-block;
+    cursor: pointer;
+    color: #053351;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    font-weight:bold;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.select_acceso.z-checkbox label{
+	width: 100%;
+}
+.select_acceso.z-checkbox label:hover{
+	background: rgba(0, 0, 0, 0.2);
+/* 	padding: 5px 15px; */
+/*       background: #1487D1; */
+      border-radius: 2px;
+      color: #fff;
+}
+.select_acceso.z-checkbox label:before{
+	  content:'';
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      position: absolute;
+      left: 15px;
+      background: none;
+      border: 2px solid #053351;
+}
+.select_acceso.z-checkbox input[type="checkbox"]:checked + label:before {
+      display: none; 
+}
+.select_acceso.z-checkbox input[type="checkbox"]:checked + label{
+	  padding: 5px 15px;
+      background: #1487D1;
+      border-radius: 2px;
+      color: #fff;
+}

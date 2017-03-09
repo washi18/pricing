@@ -1,0 +1,280 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_Generales.css"/>
+	<style src="css/estilos_reporte_pagos.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmPagos') @init('com.pricing.viewModel.reportePagosVM')">
+		<div sclass="div_opciones_busqueda" width="100%">
+			<div sclass="intervalo_fechas">
+				<div width="80%">
+					<label value="Desde" style="font-size: 13px; color: black; font-weight: bold;"></label>
+					<datebox id="db_desde" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
+				</div>
+				<space orient="horizontal"></space>
+				<div width="80%">
+					<label value="Hasta" style="font-size: 13px; color: black; font-weight: bold;"></label>
+					<datebox id="db_hasta" format="yyyy-MM-dd" onChange="@command('recuperarFechaDatebox',fecha=self.value,id=self.id)"/>
+				</div>
+			</div>
+			<space orient="horizontal"></space>
+			<div sclass="estilo_div_estado_pagos">
+				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
+					<radio id="rdPagoParcial" label="Pagos Parciales" value="PagosParciales" checked="@bind(vmPagos.estadoPagoParcial)" onCheck="@command('seleccion_radio',radio=self.id)" width="50%"/>
+					<radio id="rdPagoTotal" label="Pagos totales" value="PagosTotales" checked="@bind(vmPagos.estadoPagoTotal)" onCheck="@command('seleccion_radio',radio=self.id)" width="50%"/>
+				</radiogroup>
+			</div>
+			<space></space>
+			<button label="Buscar" zclass="btn_editar" width="8%" onClick="@command('Buscar_Pagos',componente=self)"></button>	
+		</div>
+	<listbox sclass="listados" model="@load(vmPagos.listaReportePagos)" mold="paging" pageSize="5" pagingPosition="both"> 
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="model">
+				<listitem>
+					<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+						    <div zclass="div_numeracion_reporte_pagos" width="auto">
+								<label value="@load(each.codReserva)"/>
+							</div>
+							<div sclass="div_contenedor_datos" >
+								<div width="100%">
+					    			<label value="@load(each.nombrePaquete)" sclass="estilo_nombre_subServicio"></label>
+					    		</div>
+					    		<div zclass="div_contenedor_datos_listRepReserva">
+					    		<div zclass="estilo_fechas" width="30%">
+					    			<div sclass="estilo_start_descripcion">
+					    				<label width="100%" height="15px" style="font-size: 15px; color: black; font-weight: bold;"
+					    					value="@load(each.nombreCliente)" />
+					    			</div>
+					    			<div>
+						    			<div width="auto">
+						    				<label value="Fecha Inicio:" style="font-size: 13px; color: black; font-weight: bold;"></label>
+						    				<space></space>
+						    				<label height="100%" value="@load(each.fechaInicio)"/>
+						    			</div>
+						    			<div width="auto">
+						    				<label value="Fecha Fin:" style="font-size: 13px; color: black; font-weight: bold;"></label>
+						    				<space></space>
+						    				<label height="100%" value="@load(each.fechaFin)"/>
+						    			</div>
+					    			</div>
+					    			<div width="auto">
+					    				<label value="Fecha Pago:" style="font-size: 13px; color: black; font-weight: bold;"></label>
+						    			<space></space>
+					    				<label height="100%" value="@load(each.fechayhoraTransaccion)"/>
+					    			</div>
+					    			<div sclass="div_destinos">
+							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarDestinosPOP',cdestino=each)" style="@bind(each.colornoExisteListaDestinos)">
+							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+							    			<space orient="vertical"></space>
+							    			<span sclass="icon-airplane estilos-iconos" ></span>
+							    		</div>
+							    		<space orient="vertical"></space>
+							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarHotelesPOP',chotel=each)" style="@bind(each.colornoExisteListaHoteles)">
+							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+							    			<space orient="vertical"></space>
+							    			<span sclass="icon-office estilos-iconos" ></span>
+							    		</div>
+							    		<space orient="vertical"></space>
+							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarServiciosPOP',cservicio=each)" style="@bind(each.colornoExisteListaServicios)">
+							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+							    			<space orient="vertical"></space>
+							    			<span sclass="icon-cogs estilos-iconos"></span>
+							    		</div>
+							    		<space orient="vertical"></space>
+							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarPasajerosPOP',cpasajero=each)" style="@bind(each.colornoExisteListaPasajeros)">
+							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+							    			<space orient="vertical"></space>
+							    			<span sclass="icon-users estilos-iconos"></span>
+							    		</div>
+					    			</div>
+					    		</div>
+					    		<space orient="vertical"></space>
+					    		<div width="46%">
+					    		  <window visible="@load(each.visiblepasajerospop)" mode="popup" position="parent" zclass="estilo_win_popup">
+					    			<div sclass="div_pasajeros" width="100%">
+					    			<div width="100%" sclass="div_content_destino">
+					    				<listbox style="border: none;" model="@load(each.listaPasajeros)" width="100%"> 
+					    					<listhead> 
+					    						<listheader label="LISTA PASAJEROS" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center"></listheader>
+					    					</listhead>
+					    					<template name="model" var="pasajero">
+					    					<listitem>
+					    						<listcell>
+					    						<div zclass="div_list_cell_pagos" width="100%">
+					    							<div sclass="estilo_contenidos_centrados" width="10%">
+					    								<label value="■"></label>
+					    								<space></space>
+					    								<label value="@load(pasajero.tipoDocumento)" sclass="estilo_texto_pop"></label>
+					    							</div>
+					    							<space orient="vertical"></space>
+					    							<div sclass="estilo_contenidos_centrados" width="15%">
+					    								<label value="@load(pasajero.cNroDoc)" sclass="estilo_texto_pop"></label>
+					    							</div>
+					    							<space orient="vertical"></space>
+					    							<div width="50%" sclass="estilo_contenidos_centrados">
+						    							<div sclass="estilo_contenidos_centrados">
+						    								<label value="@load(pasajero.cApellidos)" sclass="estilo_texto_pop"></label>
+						    							</div>
+						    							<space orient="vertical"></space>
+						    							<div sclass="estilo_contenidos_centrados">
+						    								<label value="@load(pasajero.cNombres)" sclass="estilo_texto_pop"></label>
+						    							</div>
+					    							</div>
+					    							<space orient="vertical"></space>
+					    							<div sclass="estilo_contenidos_centrados" width="11%">
+					    							    <label value="@load(pasajero.nEdad)" sclass="estilo_texto_pop"></label>
+					    							    <space orient="vertical"></space>
+					    								<label value="@load(pasajero.cSexo)" sclass="estilo_texto_pop"></label>
+					    							</div>
+					    							<space orient="vertical"></space>
+					    							<div sclass="estilo_contenidos_centrados" width="14%">
+					    								<label value="@load(pasajero.nombrePais)" sclass="estilo_texto_pop"></label>
+					    							</div>
+					    						 </div>
+					    						</listcell>
+					    					</listitem>
+					    					</template>
+					    				</listbox>
+					    				</div>
+					    			</div>
+					    			</window>
+					    			<window visible="@load(each.visibleHotelespop)" mode="popup" position="parent" zclass="estilo_win_popup">
+					    			<div width="100%" sclass="div_content_destino">
+					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaDestinosconHoteles)" >  
+					    					<listhead>
+					    						<listheader label="LISTA HOTELES" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center">
+					    						</listheader>
+					    					</listhead>
+					    					<template name="model" var="hoteles">
+					    					<listitem>
+					    						<listcell>
+					    						    <listbox model="@load(hoteles.listaDestinosHoteles)">
+						    						      <listhead>
+						    						        <listheader label="@load(hoteles.destino)" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_destinos"></listheader>
+						    						      </listhead>
+						    						    <template name="model" var="lista">
+						    						    	<listitem>
+						    						    	  <listcell>
+						    						    	     <div zclass="div_list_cell_pagos">
+						    						    	     	<label value="■"></label>
+					    											<space></space>
+						    						    	     	<label value="@load(lista.cHotel)" sclass="estilo_texto_pop_hoteles" width="50%"></label>
+						    						    	     	<div width="50%" sclass="estilo_datos_pop_reserva">
+									    								<image src="img/uno.png"></image>
+									    								<label value="$." sclass="estilo_texto_pop"></label>
+									    								<label value="@load(lista.nPrecioSimple)" sclass="estilo_texto_pop"></label>
+					    											</div>
+						    						    	     </div>
+						    						    	  </listcell>
+						    						    	</listitem>
+						    						    </template>
+					    						    </listbox>
+					    						</listcell>
+					    					</listitem>
+					    					</template>
+					    				</listbox>
+					    			</div>
+					    		  </window>
+					    		  <window visible="@load(each.visibleDestinospop)" mode="popup" position="parent" zclass="estilo_win_popup">
+					    			<div width="100%" sclass="div_content_destino">
+					    				<listbox style="border: none; overflow:auto;" model="@load(each.listaDestinos)"> 
+					    					<listhead> 
+					    						<listheader label="LISTA DESTINOS" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center">
+					    						</listheader>
+					    					</listhead>
+					    					<template name="model" var="destino">
+					    					<listitem>
+					    						<listcell>
+					    							<div width="100%" zclass="div_list_cell_pagos">
+					    								<label value="■"></label>
+					    								<space></space>
+					    								<label value="@load(destino.cDestino)" width="50%" sclass="estilo_texto_pop"></label>
+					    								<div width="50%" sclass="estilo_datos_pop_reserva">
+					    									<label value="@load(destino.nCodPostal)" sclass="estilo_texto_pop"></label>
+					    								</div>
+					    							</div>
+					    						</listcell>
+					    					</listitem>
+					    					</template>
+					    				</listbox>
+					    			</div>
+					    			</window>
+					    			<window visible="@load(each.visibleServiciospop)" mode="popup" position="parent" zclass="estilo_win_popup">
+					    			<div width="100%" sclass="div_content_destino">
+					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaServicios)"> 
+					    					<listhead>
+					    						<listheader label="LISTA SERVICIOS" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center">
+					    						</listheader>
+					    					</listhead>
+					    					<template name="model" var="servicio">
+					    					<listitem>
+					    						<listcell>
+					    							<div width="100%" zclass="div_list_cell_pagos">
+					    								<label value="■"></label>
+					    								<space></space>
+					    								<label value="@load(servicio.cServicioIndioma1)" width="50%" sclass="estilo_texto_pop"></label>
+					    								<div width="50%" sclass="estilo_datos_pop_reserva">
+						    								<label value="$." sclass="estilo_texto_pop"></label>
+						    								<label value="@load(servicio.nPrecioServicio)" sclass="estilo_texto_pop"></label>
+					    								</div>
+					    							</div>
+					    						</listcell>
+					    					</listitem>
+					    					</template>
+					    				</listbox>
+					    			</div>
+					    		  </window>
+					    		  </div>
+					    		<space></space>
+					    		<div sclass="contendor_montos">
+					    			<div sclass="estilo_pagos"  width="100%">
+					    				<div zclass="div_numeracion_reporte_pagos">
+											<label value="@load(each.formaPago)"/>
+										</div>
+										<div>
+						    				<label value="@load(each.estadoReserva)" style="font-style: italic; font-weight: bold; font-size: 16px; color: black;"></label>
+						    			</div>
+										<div style="display:flex;" width="100%">
+						    				<label value="Id Transaccion:" style="font-size: 14px; color: black; font-weight: bold;"></label>
+						    				<space></space>
+						    				<label height="auto"
+						    					value="@load(each.codTransaccion)" style="font-size: 14px; font-weight:bold;"/>
+					    				</div>    
+						    			<div sclass="estilo_monto_persona">
+						    				<div sclass="estilo_columnas_precios_etiqueta" width="70%">
+						    					<div style="display: flex;">
+							    					<label value="Pago"></label>
+							    					<label value="Parcial" visible="@bind(vmPagos.visiblePagoParcial)"></label>
+							    					<label value="(" visible="@bind(vmPagos.visiblePagoParcial)"></label>
+							    					<label value="@load(each.porcentaje)" visible="@bind(vmPagos.visiblePagoParcial)"></label>
+							    					<label value="%)" visible="@bind(vmPagos.visiblePagoParcial)"></label>
+						    					</div>
+						    					<div style="display: flex;">
+							    					<label value="Impuesto"></label>
+							    					<label value="("></label>
+							    					<label value="@load(each.impuesto)"></label>
+							    					<label value="%)"></label>
+						    					</div>
+						    					<space orient="horizontal"></space>
+						    					<label value="Total ($):" style="color: black; font-weight:bold;"></label>
+						    				</div>
+						    				<div sclass="estilo_columnas_precios" width="30%">
+							    				<label value="@load(each.importe)"></label>
+							    				<label value="@load(each.valorImpuesto)" style="text-align: right;"></label>
+							    				<space bar="true" orient="horizontal"></space>
+							    				<label value="@load(each.montoTotal)" style="color: black; font-weight:bold;"></label>
+						    				</div>
+						    			</div>
+					    			</div>
+					    		</div>
+					    	   </div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

@@ -1,0 +1,372 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<?page title="PRICING" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
+<zk xmlns:x="xhtml" xmlns:zk="zk">
+	<style src="css/pricing_vistaPrevia.css"/>
+	<style src="fonts/style.css"/>
+	<style src="css/style_zk.css"/>
+	<style src="fonts/font-awesome.css"/>
+<div sclass="div_contenedor_pricing"
+	 apply="org.zkoss.bind.BindComposer"
+	 viewModel="@id('vmVistaPrevia') @init('com.pricing.viewModel.pricing_vistaPreviaVM')"
+	 width="100%">
+		<!-- ======PASO 1======== -->
+<!-- 		<space></space> -->
+	 <div sclass="contenedor_proceso_pricing">
+		<div sclass="div_requerimientos">
+		<div sclass="div_paso1">
+				<div zclass="div-logoPaises visible-small" width="100%" style="@bind(vmVistaPrevia.oInterfaz.style_div_FondoBanderas)">
+					<a iconSclass="fa fa-cog" onClick='popup_logoPaises1.open(self,"after_start")' sclass="setting_interfaz" style="margin-left:8px;top:20%;"/>
+					<popup id="popup_logoPaises1" sclass="popup_senalIzq">
+						<label value="Color de Fondo:"/>
+							<div>
+								<colorbox hash="true" pickerPosition="bottom" 
+										  pickerMode="HVS" pickerFace="15" 
+										  pickerCloseText="CERRAR" 
+										  value="@bind(vmVistaPrevia.oInterfaz.cColor_div_FondoBanderas)"
+										  onChange="@command('AsignarEstilos',color=self.value,opcion=13)"/>
+							</div>
+					</popup>
+					<hbox style="float:right;">
+						  <image src="img/Flag-of-Spain.png" sclass="style-flag"/>
+					  	  <image src="img/en.png" sclass="style-flag"/>
+					</hbox>
+				</div>
+				<div width="100%">
+					<div width="100%" align="center" sclass="div_titulo_paquete" style="@bind(vmVistaPrevia.oInterfaz.style_div_TituloPaquete)">
+						<a iconSclass="fa fa-cog" onClick='popup_tituloPaquete.open(self,"after_start")' sclass="setting_interfaz" style="left:15px;top:20%;"/>
+						<popup id="popup_tituloPaquete" sclass="popup_senalIzq">
+							<label value="Color de Fondo:"/>
+							<div>
+								<colorbox hash="true" pickerPosition="bottom" 
+										  pickerMode="HVS" pickerFace="15"
+										  pickerClosable="false" 
+										  value="@bind(vmVistaPrevia.oInterfaz.cColor_div_TituloPaquete)"
+										  onChange="@command('AsignarEstilos',color=self.value,opcion=1)"/>
+							</div>
+							<label value="Color de Texto:"/>
+							<div>
+								<colorbox hash="true" pickerPosition="bottom"
+								          pickerMode="HVS" pickerFace="15" 
+								          pickerClosable="false"
+								          value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_TituloPaquete)"
+								          onChange="@command('AsignarEstilos',color=self.value,opcion=2)"/>
+							</div>
+						</popup>
+						<label value="NOMBRE DEL PAQUETE" sclass="style_lbl_tituloPaquete" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_TituloPaquete)"/>
+					</div>
+					<space></space>
+					<div sclass="div_fecha_pasajero" width="100%">
+						<div width="100%">
+							<groupbox width="100%" mold="3d">
+								<caption sclass="caption_pasos" style="@bind(vmVistaPrevia.oInterfaz.style_caption_FondoPasos)">
+									<label value="PASO" sclass="titulo-pasos" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_TextoFondoPasos)"/>
+									<label sclass="style_Step" value="1" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_CirclePasos)"/>
+									<a iconSclass="fa fa-cog" onClick='popup_captionPasos.open(self,"after_start")' sclass="setting_interfaz" style="font-size:30px;"/>
+									<popup id="popup_captionPasos" sclass="popup_senalIzq">
+										<label value="Color Fondo:"/>
+										<div>
+											<colorbox hash="true" pickerPosition="bottom"
+								          			  pickerMode="HVS" pickerFace="15" 
+								          			  pickerClosable="false"
+								          			  value="@bind(vmVistaPrevia.oInterfaz.cColor_caption_FondoPasos)"
+								          			  onChange="@command('AsignarEstilos',color=self.value,opcion=3)"/>
+										</div>
+										<label value="Color Texto:"/>
+										<div>
+											<colorbox hash="true" pickerPosition="bottom"
+								          			  pickerMode="HVS" pickerFace="15" 
+								          			  pickerClosable="false"
+								          			  value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_TextoFondoPasos)"
+								          			  onChange="@command('AsignarEstilos',color=self.value,opcion=4)"/>
+										</div>
+										<label value="Color Fondo Circulo:"/>
+										<div>
+											<colorbox hash="true" pickerPosition="bottom"
+								          			  pickerMode="HVS" pickerFace="15" 
+								          			  pickerClosable="false"
+								          			  value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_CircleFondoPasos)"
+								          			  onChange="@command('AsignarEstilos',color=self.value,opcion=5)"/>
+										</div>
+										<label value="Color Borde Circulo:"/>
+										<div>
+											<colorbox hash="true" pickerPosition="bottom"
+								          			  pickerMode="HVS" pickerFace="15" 
+								          			  pickerClosable="false"
+								          			  value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_CircleBordePasos)"
+								          			  onChange="@command('AsignarEstilos',color=self.value,opcion=6)"/>
+										</div>
+										<label value="Color Texto Circulo:"/>
+										<div>
+											<colorbox hash="true" pickerPosition="bottom"
+								          			  pickerMode="HVS" pickerFace="15" 
+								          			  pickerClosable="false"
+								          			  value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_CircleNumPasos)"
+								          			  onChange="@command('AsignarEstilos',color=self.value,opcion=7)"/>
+										</div>
+									</popup>
+								</caption>
+								<div width="100%">
+									<image width="100%" src="img/vista_previa/Captura_interfaz2.PNG"/>
+								</div>
+							</groupbox>
+						</div>
+					</div>
+				</div>
+		</div>
+		<!-- ========PASO 2========= -->
+		<div sclass="div_pasos">
+				<!-- ===Modo normal==== -->
+			<groupbox mold="3d">
+				<caption sclass="caption_pasos" style="@bind(vmVistaPrevia.oInterfaz.style_caption_FondoPasos)">
+					<label value="PASO" sclass="titulo-pasos" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_TextoFondoPasos)"/>
+					<label sclass="style_Step" value="2" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_CirclePasos)"/>
+				</caption>
+				<groupbox>
+					<caption>
+						<a iconSclass="icon-profile" sclass="titulo-groupbox"/>
+						<label value="LISTA DE PASAJEROS" sclass="titulo-groupbox"/>
+					</caption>
+					<a iconSclass="fa fa-cog" onClick='popup_tituloPasajeros.open(self,"after_start")' sclass="setting_interfaz" style="position:relative;"/>
+					<popup id="popup_tituloPasajeros" sclass="popup_senalIzq">
+						<label value="Color Fondo:"/>
+						<div>
+							<colorbox hash="true" pickerPosition="bottom"
+								      pickerMode="HVS" pickerFace="15" 
+								      pickerClosable="false"
+								      value="@bind(vmVistaPrevia.oInterfaz.cColor_div_ColFondoDatosPax)"
+								      onChange="@command('AsignarEstilos',color=self.value,opcion=8)"/>
+						</div>
+						<label value="Color Borde:"/>
+						<div>
+							<colorbox hash="true" pickerPosition="bottom"
+								      pickerMode="HVS" pickerFace="15" 
+								      pickerClosable="false"
+								      value="@bind(vmVistaPrevia.oInterfaz.cColor_div_ColBordeDatosPax)"
+								      onChange="@command('AsignarEstilos',color=self.value,opcion=9)"/>
+						</div>
+						<label value="Color Texto:"/>
+						<div>
+							<colorbox hash="true" pickerPosition="bottom"
+								      pickerMode="HVS" pickerFace="15" 
+								      pickerClosable="false"
+								      value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_ColDatosPasajeros)"
+								      onChange="@command('AsignarEstilos',color=self.value,opcion=10)"/>
+						</div>
+					</popup>
+					<div sclass="titulos_pasajeros" style="@bind(vmVistaPrevia.oInterfaz.style_div_ColDatosPax)">
+						<div sclass="div_upload visible-grande"><label value="Subir Doc.?" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_ColDatosPasajeros)"/></div>
+						<div sclass="div_tipoDoc visible-grande"><label value="Tipo Doc." style="@bind(vmVistaPrevia.oInterfaz.style_lbl_ColDatosPasajeros)"/></div>
+						<div sclass="div_nroDoc visible-grande"><label value="Nro. Doc." style="@bind(vmVistaPrevia.oInterfaz.style_lbl_ColDatosPasajeros)"/></div>
+						<div sclass="div_apellido visible-grande"><label value="Apellidos" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_ColDatosPasajeros)"/></div>
+						<div sclass="div_nombre visible-grande"><label value="Nombre" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_ColDatosPasajeros)"/></div>
+						<div sclass="div_sexo visible-grande"><label value="Sexo" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_ColDatosPasajeros)"/></div>
+						<div sclass="div_edad visible-grande"><label value="Edad" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_ColDatosPasajeros)"/></div>
+						<div sclass="div_pais visible-grande"><label value="Pais" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_ColDatosPasajeros)"/></div>
+					</div>
+					<div width="100%">
+						<image width="100%" src="img/vista_previa/Captura_interfaz3.PNG"/>
+					</div>
+				</groupbox>
+				<groupbox>
+						<caption>
+							<a iconSclass="icon-office" sclass="titulo-groupbox"/>
+							<label value="¿Desea Reservar Hotel?" sclass="titulo-groupbox"/>
+						</caption>
+						<div width="100%">
+							 <image width="100%" src="img/vista_previa/Captura_interfaz6.PNG"/>
+						</div>
+						<div sclass="div_hoteles">
+							<a iconSclass="fa fa-cog" onClick='popup_hotelList.open(self,"after_start")' sclass="setting_interfaz" style="position:relative;"/>
+							<popup id="popup_hotelList" sclass="popup_senalIzq">
+								<label value="Color Fondo:"/>
+								<div>
+									<colorbox hash="true" pickerPosition="bottom"
+								      pickerMode="HVS" pickerFace="15" 
+								      pickerClosable="false"
+								      value="@bind(vmVistaPrevia.oInterfaz.cColor_listHeader_DatosHotel)"
+								      onChange="@command('AsignarEstilos',color=self.value,opcion=11)"/>
+								</div>
+								<label value="Color Texto:"/>
+								<div>
+									<colorbox hash="true" pickerPosition="bottom"
+								      pickerMode="HVS" pickerFace="15" 
+								      pickerClosable="false"
+								      value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_DatosHotel)"
+								      onChange="@command('AsignarEstilos',color=self.value,opcion=12)"/>
+								</div>
+							</popup>
+							<listbox width="100%" sclass="hotel_list">
+								<listhead >
+									<listheader  align="center" width="6%" style="@bind(vmVistaPrevia.oInterfaz.style_listHeader_DatosHotel)">
+										<a iconSclass="icon-checkmark" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+									</listheader>
+									<listheader width="20%" style="@bind(vmVistaPrevia.oInterfaz.style_listHeader_DatosHotel)">
+										<label value="Categoria" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+									</listheader>
+									<listheader align="center" width="19%" style="@bind(vmVistaPrevia.oInterfaz.style_listHeader_DatosHotel)">
+										<label value="SWB" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+									</listheader>
+									<listheader align="center" width="19%" style="@bind(vmVistaPrevia.oInterfaz.style_listHeader_DatosHotel)">
+										<label value="DWB" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+									</listheader>
+									<listheader align="center" width="19%" style="@bind(vmVistaPrevia.oInterfaz.style_listHeader_DatosHotel)">
+										<label value="TWB" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+									</listheader>
+									<listheader width="17%" style="@bind(vmVistaPrevia.oInterfaz.style_listHeader_DatosHotel)">
+										<label value="Lista de Hoteles" sclass="stilo-a" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_DatosHotel)"/>
+									</listheader>
+								</listhead>
+							</listbox>
+							<div width="100%">
+								<image width="100%" src="img/vista_previa/Captura_interfaz7.PNG"/>
+							</div>
+						</div>
+					</groupbox>
+				<div width="100%">
+					<image width="100%" src="img/vista_previa/Captura_interfaz4.PNG"/>
+				</div>
+			</groupbox>
+		</div>
+		</div>
+		<space></space>
+		<!-- ======RESUMEN Y CONFIRMACION====== -->
+		<div sclass="div_resumen_reserva">
+			<div sclass="div-logoPaises visible-grande" width="100%" style="@bind(vmVistaPrevia.oInterfaz.style_div_FondoBanderas)">
+				<a iconSclass="fa fa-cog" onClick='popup_logoPaises2.open(self,"after_start")' sclass="setting_interfaz" style="left:15px;top:20%;"/>
+				<popup id="popup_logoPaises2" sclass="popup_senalIzq">
+					<label value="Color de Fondo:"/>
+						<div>
+							<colorbox hash="true" pickerPosition="bottom" 
+									  pickerMode="HVS" pickerFace="15" 
+									  pickerClosable="false" 
+									  value="@bind(vmVistaPrevia.oInterfaz.cColor_div_FondoBanderas)"
+									  onChange="@command('AsignarEstilos',color=self.value,opcion=13)"/>
+						</div>
+				</popup>
+				<hbox style="float:right;">
+					  <image src="img/Flag-of-Spain.png" sclass="style-flag"/>
+				  	  <image src="img/en.png" sclass="style-flag"/>
+				  </hbox>
+				  <space></space>
+			</div>
+			<div width="100%">
+				<groupbox mold="3d">
+					<caption sclass="caption_pasos" style="@bind(vmVistaPrevia.oInterfaz.style_caption_RyC)">
+						<label value="RES. Y CONF." sclass="style_info" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_RyC)"/>
+						<a iconSclass="fa fa-cog" onClick='popup_captionRyC.open(self,"after_start")' sclass="setting_interfaz" style="font-size:30px;"/>
+						<popup id="popup_captionRyC" sclass="popup_senalIzq">
+							<label value="Color Fondo:"/>
+							<div>
+								<colorbox hash="true" pickerPosition="bottom" 
+									  pickerMode="HVS" pickerFace="15" 
+									  pickerClosable="false" 
+									  value="@bind(vmVistaPrevia.oInterfaz.cColor_caption_RyC)"
+									  onChange="@command('AsignarEstilos',color=self.value,opcion=14)"/>
+							</div>
+							<label value="Color Texto:"/>
+							<div>
+								<colorbox hash="true" pickerPosition="bottom" 
+									  pickerMode="HVS" pickerFace="15" 
+									  pickerClosable="false" 
+									  value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_RyC)"
+									  onChange="@command('AsignarEstilos',color=self.value,opcion=15)"/>
+							</div>
+						</popup>
+					</caption>
+					<div sclass="div_info" style="@bind(vmVistaPrevia.oInterfaz.style_div_BordeRyC)">
+						<div sclass="div_titleInfo" align="center" style="@bind(vmVistaPrevia.oInterfaz.style_div_FondoTituloRyC)">
+							<a iconSclass="fa fa-cog" onClick='popup_titleInfo.open(self,"after_start")' sclass="setting_interfaz" style="left:15px;top:5%;"/>
+							<popup id="popup_titleInfo" sclass="popup_senalIzq">
+								<label value="Color Fondo:"/>
+								<div>
+									<colorbox hash="true" pickerPosition="bottom" 
+									  pickerMode="HVS" pickerFace="15" 
+									  pickerClosable="false" 
+									  value="@bind(vmVistaPrevia.oInterfaz.cColor_div_FondoTituloRyC)"
+									  onChange="@command('AsignarEstilos',color=self.value,opcion=16)"/>
+								</div>
+								<label value="Color Borde:"/>
+								<div>
+									<colorbox hash="true" pickerPosition="bottom" 
+									  pickerMode="HVS" pickerFace="15" 
+									  pickerClosable="false" 
+									  value="@bind(vmVistaPrevia.oInterfaz.cColor_div_BordeRyC)"
+									  onChange="@command('AsignarEstilos',color=self.value,opcion=17)"/>
+								</div>
+								<label value="Color Texto:"/>
+								<div>
+									<colorbox hash="true" pickerPosition="bottom" 
+									  pickerMode="HVS" pickerFace="15" 
+									  pickerClosable="false" 
+									  value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_TextoTituloRyC)"
+									  onChange="@command('AsignarEstilos',color=self.value,opcion=18)"/>
+								</div>
+							</popup>
+							<label value="NOMBRE DEL PAQUETE" sclass="style_tituloPaqueteRyC" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_TextoTituloRyC)"/>
+						</div>
+						<div width="100%">
+							<image width="100%" src="img/vista_previa/Captura_interfaz1.PNG"/>
+						</div>
+						<div sclass="div_info_item_Total" style="@bind(vmVistaPrevia.oInterfaz.style_div_FondoImporte)">
+							<div sclass="div_info_item_izq_Total">
+								<a iconSclass="fa fa-cog" onClick='popup_infoTotal.open(self,"after_start")' sclass="setting_interfaz" style="position:relative;margin-right:5px;"/>
+								<popup id="popup_infoTotal" sclass="popup_senalIzq">
+									<label value="Color Fondo:"/>
+									<div>
+										<colorbox hash="true" pickerPosition="bottom" 
+										  pickerMode="HVS" pickerFace="15" 
+										  pickerClosable="false" 
+										  value="@bind(vmVistaPrevia.oInterfaz.cColor_div_FondoImporte)"
+										  onChange="@command('AsignarEstilos',color=self.value,opcion=19)"/>
+									</div>
+									<label value="Color Texto:"/>
+									<div>
+										<colorbox hash="true" pickerPosition="bottom" 
+										  pickerMode="HVS" pickerFace="15" 
+										  pickerClosable="false" 
+										  value="@bind(vmVistaPrevia.oInterfaz.cColor_lbl_TextImporte)"
+										  onChange="@command('AsignarEstilos',color=self.value,opcion=20)"/>
+									</div>
+								</popup>
+								<label value="Importe: USD" sclass="div_info_item_label_Total" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_TextImporte)"/>
+								<space></space>
+							</div>
+							<div sclass="div_info_item_der_Total">
+								<label value="590.00" sclass="div_info_item_label_Total" style="@bind(vmVistaPrevia.oInterfaz.style_lbl_TextImporte)"/>
+							</div>
+						</div>
+					</div>
+				</groupbox>
+				<div width="100%">
+					<image width="100%" src="img/vista_previa/Captura_interfaz5.PNG"/>
+				</div>
+			</div>
+		</div>
+		<!-- ======PASO 4====== -->
+	</div>
+	<space></space>
+	<html width="100%">
+	  		<!-- PayPal Logo -->
+	  		<div class="div_content_autority">
+		  	<a href="https://www.paypal.com/webapps/mpp/paypal-popup" 
+		  	   title="How PayPal Works" 
+		  	   onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;">
+		  	   <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" border="0" alt="PayPal Logo"/>
+		  	</a>
+	  		<span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=D70S55dOUR6TffSfj01cDCmdXZUJygvTp01XnLZ41Xb4iNS4i6yXlnb4JqAk"></script></span>
+	  		</div>
+	  </html>
+	<div align="center" sclass="footer">
+		<a label="Copyright © 2016 todos los derechos reservados - EddyOnSoft.com" style="color:white;" target="_blanck" href="http://www.eddyonsoft.com"/>
+	</div>
+</div>
+</zk>
+</zk>

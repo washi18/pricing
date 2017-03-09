@@ -1,0 +1,51 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<style src="css/estilo_configPaypal.css"/>
+	<style src="css/formas_Generales.css"/>
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vmMDConfig') @init('com.pricing_pat.viewModel.CMasterDinersConfigVM')" >
+		<groupbox sclass="extras">
+		 		<caption>
+		 			<a iconSclass="fa fa-paypal estilos-iconos"/>
+		 			<label value="CONFIGURACION"/>
+		 		</caption>
+			  <div zclass="div_list_cell_conf_paypal" visible="@bind(vmMDConfig.oMasterDinersConfig.editable)">	
+				   <div>
+				   		<label value="CODIGO DE COMERCIO:" sclass="lbl_llenar_datos"></label>
+				   		<separator bar="true"></separator>
+				   		<textbox placeholder="Ingrese user Name" value="@bind(vmMDConfig.oMasterDinersConfig.cCodComercio)" sclass="txt_llenar_datos"></textbox>
+				   </div>
+				   <space></space>
+				   <div>
+				   		<label value="KEY MERCHANT:" sclass="lbl_llenar_datos"></label>
+				   		<separator bar="true"></separator>
+				   		<textbox placeholder="Ingrese Password" value="@bind(vmMDConfig.oMasterDinersConfig.cKeyMerchant)" sclass="txt_llenar_datos"></textbox>
+				   </div>
+				   <space></space>
+				   
+				   <space orient="horizontal"></space>
+				   <div zclass="div_content_btns_operaciones" align="center" width="100%">
+				 		<button label="GUARDAR" width="100%" zclass="btn_guardar" onClick="@command('guardarConfigMD',componente=self)"/>
+				 		<button label="CANCELAR" width="100%" zclass="btn_editar" onClick="@command('Cancelar')"/>
+				 	</div>
+			 </div>
+			  <div zclass="div_list_cell_conf_paypal" visible="@bind(!vmMDConfig.oMasterDinersConfig.editable)">	
+				   <div>
+				   		<label value="CODIGO DE COMERCIO:" sclass="lbl_llenar_datos"></label>
+				   		<separator bar="true"></separator>
+				   		<label value="@bind(vmMDConfig.oMasterDinersConfig.cCodComercio)"/>
+				   </div>
+				   <space></space>
+				   <div>
+				   		<label value="KEY MERCHANT:" sclass="lbl_llenar_datos"></label>
+				   		<separator bar="true"></separator>
+				   		<label value="@bind(vmMDConfig.oMasterDinersConfig.cKeyMerchant)"/>
+				   </div>
+				   <space></space>
+				   <space orient="horizontal"></space>
+				   <div width="100%" align="center">
+				 		<button label="EDITAR" width="200px" zclass="btn_editar" onClick="@command('Editar')"/>
+				 	</div>
+			 </div>
+		</groupbox>
+	 </div>
+</zk>

@@ -1,0 +1,7 @@
+<?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
+<zk>
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vmIndex') @init('com.pricing_pat.viewModel.indexVM')">
+<!-- 		<div visible="@bind(vmIndex.mostrarAdmin)"><include src="panelAdmin.zul"/></div> -->
+		<div visible="@bind(vmIndex.mostrarPricing)"><include src="pricing.zul"/></div>
+	</div>
+</zk>

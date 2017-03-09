@@ -1,0 +1,260 @@
+<?page title="Servicios" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_Generales.css"></style>
+	<style src="css/estilos_Actividades.css"></style>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmActividad') @init('com.pricing.viewModel.actividadVM')">
+		<div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_actividad.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="150px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVA ACTIVIDAD"/>
+				</div>
+			</div>
+			<div id="div_llenar_actividad" visible="false">
+				<space></space>
+				<div zclass="div_contenedor_nuevo_servicio">
+					<space></space>
+					<div zclass="div_content_datos_actividades">
+						<div>
+							<div zclass="div_contiene_banderas">
+								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(false);txtSpainDesc.setVisible(true);
+												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(false)"/>
+								<image src="img/en.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+												txtPortuName.setVisible(false);txtSpainDesc.setVisible(false);
+												txtInglesDesc.setVisible(true);txtPortuDesc.setVisible(false)"/>
+								<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(true);txtSpainDesc.setVisible(false);
+												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(true)"/>
+							</div>
+							<div>
+								<label value="ACTIVIDAD: " zclass="lbl_llenar_datos"/>
+								<textbox value="@bind(vmActividad.oActividadNuevo.cActividadIdioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmActividad.oActividadNuevo.cActividadIdioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmActividad.oActividadNuevo.cActividadIdioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false" style="text-transform: uppercase;"/>
+							</div>
+							<div>
+								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
+								<ckeditor value="@bind(vmActividad.oActividadNuevo.cDescripcionIdioma1)" id="txtSpainDesc" visible="true" width="100%"/>
+								<ckeditor value="@bind(vmActividad.oActividadNuevo.cDescripcionIdioma2)" id="txtInglesDesc" visible="false" width="100%"/>
+								<ckeditor value="@bind(vmActividad.oActividadNuevo.cDescripcionIdioma3)" id="txtPortuDesc" visible="false" width="100%"/>
+							</div>
+						</div>
+						<div>
+							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmActividad.oActividadNuevo.nPrecioActividad_text)" 
+									width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+									onChange="@command('changePrecios_nuevo',precio=self.value,componente=self)"/>
+						</div>
+						<button label="Guardar" zclass="btn_guardar" width="200px" onClick="@command('insertarActividad',componente=self) @global-command('actualizarActividadInsertado')">
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<space></space>
+		<div sclass="div_busqueda_etiqueta">
+			<textbox id="txtNombre" placeholder="Ingrese busqueda" sclass="txt_llenar_datos" onOK="@command('buscarActividades',nombre=self.value)"> 
+			</textbox>
+			<space orient="vertical"></space>
+			<button iconSclass="fa fa-search" height="30px" zclass="estilo_btn_buscar" onClick="@command('buscarActividades',nombre=txtNombre.value)"></button>
+		</div>
+		<space></space>
+		<listbox sclass="listados" model="@bind(vmActividad.listaActividades) @template((each.editable)? 'modeleditable':'noeditable')">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+				   		<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nActividadCod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_actividad">
+					    		<div zclass="div_content_info_listActividad">
+					    			<div sclass="estilo_start_descripcion">
+					    				<label width="100%" height="30px" sclass="estilo_nombre_actividad"
+					    					value="@bind(each.cActividadIdioma1) @save(each.cActividadIdioma1,before='actualizarActividad')" />
+					    			</div>
+					    			<div>
+					    				<label value="@bind(each.nPrecioActividad)" sclass="estilo_costo"></label>
+					    			</div>
+					    			<div
+					    				zclass="div_operacion_etiqueta">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',actividad=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)"/>
+					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
+					    			</div>
+					    		</div>
+					    		<space></space>
+					    		<div sclass="estilo_contenedor_costo">
+					    			<div>
+					    				<label value="$ " zclass="estilos_costos_normal"/>
+					    				<label value="@bind(each.nPrecioActividad_text)" zclass="estilos_costos_normal"/>
+					    			</div>
+					    		</div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nActividadCod)"/>
+							</div>
+				    		<space></space>
+				    		<div zclass="div_content_datos_lista" width="100%">
+				    			<div sclass="estilo_editar_respons">
+				    				<div
+				    					sclass="div_contiene_banderas">
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag-of-Spain.png"
+				    						onClick="@command('cambioIdiomas',idioma='Espanol',actividad=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/en.png"
+				    						onClick="@command('cambioIdiomas',idioma='Ingles',actividad=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag_of_Brazil.png"
+				    						onClick="@command('cambioIdiomas',idioma='Portugues',actividad=each)">
+				    					</image>
+				    				</div>
+				    				<separator spacing="2px"></separator>
+				    				<div
+				    					visible="@bind(each.visibleEspanol)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%"
+				    							sclass="horizontal_label_texbox">
+				    							<label value="Actividad:"
+				    								sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cActividadIdioma1) @save(each.cActividadIdioma1,before='actualizarActividad')" />
+				    						</div>
+				    						<separator spacing="2px"></separator>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<ckeditor value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarActividad')"/>
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visibleIngles)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label value="Actividad:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox width="100%" sclass="txt_llenar_datos" height="30px"
+				    								value="@bind(each.cActividadIdioma2) @save(each.cActividadIdioma2,before='actualizarActividad')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<ckeditor value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarActividad')"/>
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visiblePortugues)">
+				    					<div width="100%" sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label value="Actividad:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cActividadIdioma3) @save(each.cActividadIdioma3,before='actualizarActividad')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox">
+				    							<label
+				    								value="Descripcion:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<ckeditor value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarActividad')"/>
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cActividadIdioma4) @save(each.cActividadIdioma4,before='actualizarActividad')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<ckeditor value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarActividad')"/>
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cActividadIdioma5) @save(each.cActividadIdioma5,before='actualizarActividad')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<ckeditor value="@bind(each.cDescripcionIdioma5) @save(each.cDescripcionIdioma5,before='actualizarActividad')"/>
+				    					</div>
+				    				</div>
+				    			</div>
+				    			<div>
+				    				<label value="COSTO ($): " zclass="lbl_llenar_datos" />
+				    				<textbox width="80px" value="@bind(each.nPrecioActividad_text)"
+				    						onChange="@command('changePrecios_update',precio=self.value,componente=self,actividad=each)"
+				    						zclass="txt_llenar_datos" />
+				    			</div>
+				    			<div>
+									<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+									<separator bar="true" zclass="lbl_llenar_datos"/>
+									<div>
+										<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_actividad',actividad=each,texto=self.selectedItem.value)">
+											<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
+											<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+										</radiogroup>
+									</div>
+								</div>
+								<space></space>
+								<div>
+					    			<button label="Actualizar" width="200px"
+					    				onClick="@command('actualizarActividad',actividad=each,componente=self)"
+					    				zclass="btn_actualizar"/>
+					    		</div>
+				    		</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

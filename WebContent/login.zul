@@ -1,0 +1,26 @@
+<?page title="LOGIN" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/Login.css"/>
+	<div apply="org.zkoss.bind.BindComposer" 
+		 viewModel="@id('vm') @init('com.pricing.viewModel.LoginVM')"
+		 sclass="div_content_general_login">
+		<div zclass="content_login">
+			<label value="ADMIN" zclass="lbl_title_login"/>
+			<div zclass="div_content_ingresar_datos_usuario">
+				<textbox value="@bind(vm.tbNombreUsuario)" id="tbUserName" type="text" 
+						 placeholder="USUARIO"
+						 onOK="tbUserPass.setFocus(true)"
+						 onFocus="@command('limpiarPlaceTxtUsuario')"
+						 onBlur="@command('setPlaceTxtUsuario')"
+						 onChanging="@command('onChangeTxtUsuario',usuario=self.value)"/>		 
+				<space></space>
+				<textbox value="@bind(vm.tbContrasenia)" id="tbUserPass" type="password" 
+						 placeholder="CONTRASEÑA"
+					     onOK="@command('doLogin',componente=btn_login)"
+					     onBlur="@command('setPlaceTxtUsuario')"
+					     onFocus="@command('limpiarPlaceTxtUsuario')"/>
+		    	<button  id="btn_login" onClick="@command('doLogin',componente=self)" label="INICIAR SESION" width="204px" height="32px"/>
+			</div>
+		</div>
+	</div>  
+</zk>

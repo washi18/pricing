@@ -1,0 +1,69 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_generales.css"></style>
+	<style src="css/estilo_registro_Usuarios.css"></style>
+	 <div apply="org.zkoss.bind.BindComposer" 
+  		viewModel="@id('vmListaUser') @init('com.pricing.viewModel.registroUsuariosVM')"
+  		zclass="div_contenedor_registroUser">
+	<listbox sclass="listados" model="@load(vmListaUser.listaUsuarios)" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="model">
+				<listitem>
+				   	<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion_usuarios">
+								<label value="@load(each.cusuariocod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_usuario">
+					    		<space></space>
+					    		<div zclass="div_img_lista">
+					    		   <image src="@load(each.imgusuario)" height="150px" width="100%"></image>
+					    		</div>
+					    		<space></space>
+					    		<div zclass="div_content_info_usuarios">
+					    			<div>
+										<label value="@load(each.cnombres)" zclass="lbl_llenar_datos"/>
+									</div>
+									<div>
+										<label value="@load(each.cnombreperfil)" zclass="nombre_depart"/>
+									</div>
+					    			<div width="60%">
+									<radiogroup sclass="style_restricciones" onCheck="@command('activar_desactivar_usuarios',usuario=each,texto=self.selectedItem.value,componente=self)">
+										<radio label="ACTIVADO" value="activar" checked="@load(each.estadoActivo)" style="@load(each.color_activo)"/>
+										<radio label="DESACTIVADO" value="desactivar" checked="@load(each.estadoDesactivo)" style="@load(each.color_desactivo)"/>
+									</radiogroup>
+								    </div>
+					    		</div>
+					    		<space></space>
+					    		<div zclass="div_content_datos_personales">
+					    		   <div sclass="estilo_content_datos_personales" width="100%">
+					    			<div zclass="div_numeracion_usuarios">
+										<label value="Datos Personales"/>
+									</div>
+					    			<div>
+					    				<label value="Correo:" zclass="estilo_datos_personales"></label>
+					    				<space orient="vertical"></space>
+					    				<label value="@load(each.ccorreo)" zclass="estilo_datos_personales_label"></label>
+					    			</div>
+					    			<div>
+					    				<label value="Fecha Nacimiento:" zclass="estilo_datos_personales"></label>
+					    				<space orient="vertical"></space>
+					    			   <label value="@load(each.fechaNacimiento)" zclass="estilo_datos_personales_label"></label>
+					    			</div>
+					    			<div>
+					    				<label value="Telefono:" zclass="estilo_datos_personales"></label>
+					    				<space orient="vertical"></space>
+					    			   <label value="@load(each.ccelular)" zclass="estilo_datos_personales_label"></label>
+					    			</div>
+					    		  </div>
+					    		</div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				    </listitem>
+				  </template>
+	      </listbox>
+	</div>
+</zk>

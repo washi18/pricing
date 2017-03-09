@@ -1,0 +1,44 @@
+.div_ActualizarDispo{
+	width: 100%;
+	height: auto;
+/* 	background: rgba(0,0,0,0.2); */
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content:flex-start;
+	-webkit-justify-content:flex-start;
+	-moz-justify-content:flex-start;
+	-ms-justify-content:flex-start;
+	-o-justify-content:flex-start;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+	padding: 20px 0 0 0;
+	box-sizing:border-box;
+}
+.btn_subir_pdf{
+	width: 100px;
+	height: 50px;
+/* 	border-radius:10px; */
+	border:none;
+/* 	background: #2f2f2f; */
+	background:rgba(0,0,0,0.2);
+	color:white;
+	transition: 0.3s all ease;
+	-webkit-transition: 0.3s all ease;
+	-moz-transition: 0.3s all ease;
+	-ms-transition: 0.3s all ease;
+	-o-transition: 0.3s all ease;
+}
+.btn_subir_pdf:hover{
+	    background:#2f2f2f;
+	    border-radius:10px;
+}
+.btn_subir_pdf:focus{
+	    background:#2f2f2f;
+	    border-radius:10px;
+}

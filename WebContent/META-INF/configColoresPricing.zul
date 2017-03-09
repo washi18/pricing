@@ -1,0 +1,21 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<window id="win_ColoresInterfaz"
+		height="500px"
+		border="normal"
+		title="TC"
+		closable="true"
+		position="center"
+		sclass="win_configColores"
+		apply="org.zkoss.bind.BindComposer"
+		onClose="@global-command('cancelarCambiosInterfaz',window=win_ColoresInterfaz)">
+		<window height="400px"
+				contentStyle="overflow:auto;">
+				<div width="100%" height="350px">
+					<include src="pricing_vistaPrevia.zul"/>
+				</div>
+		</window>
+		<div height="50px" width="100%" align="right" sclass="div_btns">
+			<button label="CANCELAR" zclass="btn_cancelarColores" onClick="@global-command('cancelarCambiosInterfaz',window=win_ColoresInterfaz)"/>
+			<button label="GUARDAR" zclass="btn_guardarColores" onClick="@global-command('guardarCambiosInterfaz',window=win_ColoresInterfaz)"/>
+		</div>
+</window>

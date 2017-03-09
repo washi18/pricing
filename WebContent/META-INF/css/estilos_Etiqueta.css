@@ -1,0 +1,86 @@
+@media (max-width: 416px)
+{
+	.estilo_combobox {
+		margin-top: 4px; 
+		margin-bottom: 4px;
+	}
+	
+	.estilo_combobox.z-combobox .z-combobox-input {
+		width: 150px;
+	}
+	.div_busqueda_etiqueta {
+		width: 100% !important;
+	}
+}
+
+.div_busqueda_etiqueta{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content: center !important;
+	-webkit-justify-content: center !important;
+	-moz-justify-content: center !important;
+	-ms-justify-content: center !important;
+	-o-justify-content: center !important;
+	align-items: center !important;
+	-webkit-align-items: center !important;
+	-moz-align-items: center !important;
+	-ms-align-items: center !important;
+	-o-align-items: center !important;
+	width: 30%;
+	padding: 4px;
+	background: lightgray;
+	border-radius: 3px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+}
+.div_content_etiqueta_desc{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding:10px;
+	box-sizing:border-box;
+	height:auto;
+	width:70%;
+}
+.div_operacion_etiqueta{
+	width: 30%;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+@media (max-width:700px){
+	.div_content_etiqueta_desc,
+	.div_operacion_etiqueta{
+		width: auto;
+	}
+	.div_operacion_etiqueta{
+		justify-content:flex-start;
+		-webkit-justify-content:flex-start;
+		-moz-justify-content:flex-start;
+		-ms-justify-content:flex-start;
+		-o-justify-content:flex-start;
+	}
+}
+.lbl_idioma_etiqueta{
+	color: #37454d;
+	font-size: 15px;
+	font-weight: bold;
+}

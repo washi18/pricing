@@ -1,0 +1,681 @@
+<?page title="PAQUETES" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
+<zk>
+	<style src="css/formas_Generales.css"/>
+	<style src="css/estilos_Paquete.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmPaquete') @init('com.pricing_pat.viewModel.paquetesVM')" width="100%">
+		<div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_paquetes.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="180px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO PAQUETE"/>
+				</div>
+			</div>
+			<div>
+				<separator spacing="5px"/>
+				<div id="div_llenar_paquetes" visible="false">
+					<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete',opcion=self.selectedItem.value)">
+						<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA"
+							   sclass="radio_camino_inka"
+							   checked="@bind(vmPaquete.oPaquete.manejo_camino_inca)" 
+							   onCheck="div_lbl_solo_camino_inca.setVisible(true);
+							   div_select_destinos.setVisible(false);
+							   div_conDestino.setVisible(false)"/>
+<!-- 						<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" -->
+<!-- 							   sclass="radio_manejo_propio" -->
+<!-- 							   onCheck="div_lbl_solo_camino_inca.setVisible(false); -->
+<!-- 							   div_conDestino.setVisible(true)"/> -->
+						<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" 
+							   sclass="radio_manejo_normal"
+							   checked="@bind(vmPaquete.oPaquete.manejo_normal)"
+							   onCheck="div_lbl_solo_camino_inca.setVisible(false);
+							   div_conDestino.setVisible(true)"/>
+					</radiogroup>
+				</div>
+				<div visible="@bind(vmPaquete.select_manejo)">
+					<separator spacing="5px"/>
+					<label value="NOMBRE PAQUETE:" zclass="lbl_subtitle_nombre_paquete"/>
+					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete"/>
+					<space/>
+					<label value="N° DIAS Y NOCHES:" zclass="lbl_subtitle_nombre_paquete"/>
+					<label value="@bind(vmPaquete.oPaquete.dias_noches)" zclass="lbl_nombre_paquete"/>
+				</div>
+				<separator spacing="5px"/>
+				<div zclass="div_contenedor_nuevo_paquete" visible="@bind(vmPaquete.select_manejo)">
+					<div zclass="div_content_datos_paquete">
+						<div>
+							<div zclass="div_contiene_banderas">
+								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(false)"/>
+								<image src="img/en.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+												txtPortuName.setVisible(false)"/>
+								<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(true)"/>
+							</div>
+<!-- 							<div> -->
+<!-- 								<label value="COD PAQUETE:" zclass="lbl_llenar_datos"></label> -->
+<!-- 								<textbox placeholder="Inserte codigo Paquete" value="@bind(vmPaquete.oPaquete.cPaqueteCod)" zclass="txt_llenar_datos" style="text-transform: uppercase;" width="100%"></textbox> -->
+<!-- 							</div> -->
+							<div>
+								<label value="PAQUETE: " zclass="lbl_llenar_datos"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="100%" visible="true"
+										 onChange="@command('asignarNamePaquete')" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="100%" visible="false" style="text-transform: uppercase;"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="100%" visible="false" style="text-transform: uppercase;"/>
+							</div>
+						</div>
+						<div id="div_lbl_solo_camino_inca" visible="false">
+							<separator bar="true"/>
+							<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
+							<intbox value="@bind(vmPaquete.oPaquete.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
+									onChange="@command('diasCaminoInka',dias=self.value)"/>
+						</div>
+						<div id="div_conDestino" visible="false">
+							<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDestino',opcion=self.selectedItem.value)">
+								<radio label="CON DESTINO" checked="@bind(vmPaquete.oPaquete.conDestino)" value="con_destino" onCheck="div_select_destinos.setVisible(true);div_select_sindestinos.setVisible(false)"/>
+								<radio label="SIN DESTINO" checked="@bind(vmPaquete.oPaquete.sinDestino)" value="sin_destino" onCheck="div_select_destinos.setVisible(false);div_select_sindestinos.setVisible(true)"/>
+							</radiogroup>
+							<div id="div_select_sindestinos" visible="true">
+								<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
+								<intbox value="@bind(vmPaquete.oPaquete.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
+										onChange="@command('diasSinDestino',dias=self.value)"/>
+							</div>
+						</div>
+						<div>
+							<separator bar="true"/>
+							<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento',opcion=self.selectedItem.value)">
+								<radio label="CON DESCUENTO" checked="@bind(vmPaquete.oPaquete.conDescuento)" value="con_descuento" onCheck="div_conDescuento.setVisible(true);div_sinDescuento.setVisible(false)"/>
+								<radio label="SIN DESCUENTO" checked="@bind(vmPaquete.oPaquete.sinDescuento)" value="sin_descuento" onCheck="div_conDescuento.setVisible(false);div_sinDescuento.setVisible(true)"/>
+							</radiogroup>
+							<div id="div_sinDescuento" visible="true">
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
+									<space></space>
+								</div>
+							</div>
+							<div id="div_conDescuento" visible="false">
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 1($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
+									<space></space>
+								</div>
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 2($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio2_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio2',componente=self)"/>
+									<space></space>
+								</div>
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 3($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio3_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio3',componente=self)"/>
+									<space></space>
+								</div>
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 4($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio4_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio4',componente=self)"/>
+									<space></space>
+								</div>
+								<div>
+									<separator bar="true"/>
+									<label value="COSTO 5($): " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(vmPaquete.oPaquete.nPrecio5_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio5',componente=self)"/>
+									<space></space>
+								</div>
+							</div>
+						</div>
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('insertarPaquete',componente=self)"/>
+					</div>
+					<space></space>
+					<div id="div_select_destinos" zclass="div_content_datos_paquete" visible="false">
+							<div zclass="div_contiene_title">
+								<label value="DESTINOS" zclass="title_contiene_paquete"/>
+							</div>
+							<separator bar="true"/>
+							<listbox model="@load(vmPaquete.listaDestinos)" sclass="dest_serv_list">
+								<custom-attributes org.zkoss.zul.listbox.groupSelect="true" />
+								<listhead>
+									<listheader/>
+								</listhead>
+								<template name="model">
+									<listitem>
+										<listcell>
+											<div zclass="div_list_content_destino_servicio" width="100%">
+												<checkbox label="@load(each.cDestino)" width="100%" sclass="select_dest_serv" onClick="@command('selectDestinos',destino=each)"/>
+												<div visible="@bind(each.seleccionado)">
+													<hbox>
+														<label value="N° Noches: " zclass="lbl_nro_noches_Destino"/>
+													<intbox value="@bind(each.nNoches)" zclass="int_nroNoches_Destino"
+															onChange="@command('determinarNroNochesDestino',destino=each)" 
+															width="30px"/>
+													<space/>
+													<label value="N° Orden Itinerario: " zclass="lbl_nro_noches_Destino"/>
+													<label value="@bind(each.nOrdenItinerario)" zclass="lbl_orden_itinerario"/>
+													</hbox>
+													<div visible="@bind(each.puedeCaminoInka)">
+														<radiogroup sclass="style_restricciones_conCaminoInka" onCheck="@command('manejo_propio_CaminoInka',opcion=self.selectedItem.value,destino=each)">
+															<radio label="CON CAMINO INCA" checked="@bind(each.conCaminoInka)" value="con_camino_inka"/>
+															<radio label="SIN CAMINO INCA" checked="@bind(each.sinCaminoInka)" value="sin_camino_inka"/>
+														</radiogroup>
+													</div>
+													<separator bar="true"/>
+												</div>
+											</div>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos_paquete">
+						<div zclass="div_contiene_title">
+							<label value="SERVICIOS" zclass="title_contiene_paquete"/>
+						</div>
+						<separator bar="true"/>
+						<listbox model="@load(vmPaquete.listaServicios)" sclass="dest_serv_list">
+							<listhead>
+								<listheader/>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<div zclass="div_list_content_destino_servicio" width="100%">
+											<checkbox label="@load(each.cServicioIndioma1)" width="100%" sclass="select_dest_serv" onClick="@command('selectServicios',servicio=each)"/>
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+					<div zclass="div_content_datos_paquete">
+						<div zclass="div_contiene_title">
+							<label value="ACTIVIDADES" zclass="title_contiene_paquete"/>
+						</div>
+						<separator bar="true"/>
+						<listbox model="@load(vmPaquete.listaActividades)" sclass="dest_serv_list">
+							<listhead>
+								<listheader/>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<div zclass="div_list_content_destino_servicio" width="100%">
+											<checkbox label="@load(each.cActividadIdioma1)" width="100%" sclass="select_dest_serv" onClick="@command('selectActividades',actividad=each)"/>
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+					</div>
+				</div>
+			</div>
+		</div>
+		<space></space>
+		<div sclass="div_busqueda_etiqueta">
+			<textbox id="txtNombre" placeholder="Ingrese busqueda" sclass="txt_llenar_datos" onOK="@command('buscarPaquetes',nombre=self.value)"> 
+			</textbox>
+			<space orient="vertical"></space>
+			<button iconSclass="fa fa-search" height="30px" zclass="estilo_btn_buscar" onClick="@command('buscarPaquetes',nombre=txtNombre.value)"></button>
+		</div>
+		<space></space>
+		<listbox sclass="listados" model="@bind(vmPaquete.listaPaquetes) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+					<listcell>
+					   <div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.cPaqueteCod)"/>
+							</div>
+							<div sclass="div_contenedor_info_paquete">
+							      <div zclass="div_contenedor_datos_paquete">
+					    			<div sclass="estilo_start_descripcion">
+					    				<label width="100%" height="30px" sclass="estilo_nombre_paquete"
+					    					value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')" />
+					    				<div sclass="descripcion_costado_paquete">
+					    				<image src="img/eticket.png"></image>
+					    				<space></space>
+					    				<label multiline="true"
+					    					width="100%" height="auto"
+					    					value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarPaquete')" sclass="estilo_desborde_descripcion"/>
+					    				</div>
+					    			</div>
+					    			<div>
+					    				<label value="@bind(each.cDisponibilidad)" style="font-style: italic; font-weight: bold;"></label>
+					    			</div>
+					    			<div>
+					    				<a label="IR AL PAQUETE" href="@bind(each.url_pricingPaquete)" target="_blank"/>
+					    			</div>
+					    			<div visible="@bind(each.sinDescuento)">
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="1P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioUno)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    			</div>
+					    			<div visible="@bind(each.conDescuento)">
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="1P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioUno)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="2P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioDos)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="3P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioTres)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="4P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioCuatro)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    				<separator/>
+					    				<div zclass="estilo_contenedor_costo_paquete">
+					    					<label value="5P : " sclass="estilo_costo_subtitle"/>
+					    					<space></space>
+					    					<label value="@bind(each.nPrecioCinco)" sclass="estilo_costo_monto"></label>
+					    				</div>
+					    			</div>
+					    			<separator/>
+<!-- 					    			<div visible="@load(each.conCalendarioPropio)"> -->
+<!-- 					    				<button label="CALENDARIO PROPIO"/> -->
+<!-- 					    				<window> -->
+<!-- 					    					<listbox model="@load(each.listaDiasCalendarioPropio)"> -->
+<!-- 					    						<listhead><listheader></listheader></listhead> -->
+<!-- 					    						<template name="model" var="dia"> -->
+<!-- 					    							<listitem> -->
+<!-- 					    								<listcell> -->
+<!-- 					    									<div> -->
+<!-- 					    										<label value="@bind(dia.nCalendarioCod)" style="color:red;"/> -->
+<!-- 					    										<label value="@bind(dia.nDia)"/> -->
+<!-- 					    									</div> -->
+<!-- 					    								</listcell> -->
+<!-- 					    							</listitem> -->
+<!-- 					    						</template> -->
+<!-- 					    					</listbox> -->
+<!-- 					    				</window> -->
+<!-- 					    			</div> -->
+					    			<div zclass="div_operacion_paquete_normal">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',paquete=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)"/>
+					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
+					    			</div>
+					    		</div>
+					    		<separator spacing="4px" visible="@bind(each.conDestino)"/>
+					    		<div zclass="div_contenedor_datos_paquete" visible="@bind(each.conDestino)">
+					    			<listbox model="@bind(each.listaDestinos)" sclass="list_paquete_servicios_destinos">
+					    				<listhead>
+					    					<listheader label="DESTINOS"/>
+					    				</listhead>
+					    				<template name="model" var="destino">
+					    					<listitem>
+					    						<listcell visible="@bind(destino.seleccionado)">
+					    							<div>
+					    								<label value="@bind(destino.cDestino)"/>
+					    							</div>
+					    						</listcell>
+					    					</listitem>
+					    				</template>
+					    			</listbox>
+					    		</div>
+					    		<separator spacing="4px" visible="@bind(each.conServicio)"/>
+					    		<div zclass="div_contenedor_datos_paquete" visible="@bind(each.conServicio)">
+					    			<listbox model="@bind(each.listaServicios)" sclass="list_paquete_servicios_destinos">
+					    				<listhead>
+					    					<listheader label="SERVICIOS"/>
+					    				</listhead>
+					    				<template name="model" var="servicio">
+					    					<listitem>
+					    						<listcell visible="@bind(servicio.seleccionado)">
+					    							<div>
+					    								<label value="@bind(servicio.cServicioIndioma1)"/>
+					    							</div>
+					    						</listcell>
+					    					</listitem>
+					    				</template>
+					    			</listbox>
+					    		</div>
+					    		<separator spacing="4px" visible="@bind(each.conActividad)"/>
+					    		<div zclass="div_contenedor_datos_paquete" visible="@bind(each.conActividad)">
+					    			<listbox model="@bind(each.listaActividades)" sclass="list_paquete_servicios_destinos">
+					    				<listhead>
+					    					<listheader label="ACTIVIDADES"/>
+					    				</listhead>
+					    				<template name="model" var="actividad">
+					    					<listitem>
+					    						<listcell visible="@bind(actividad.seleccionado)">
+					    							<div>
+					    								<label value="@bind(actividad.cActividadIdioma1)"/>
+					    							</div>
+					    						</listcell>
+					    					</listitem>
+					    				</template>
+					    			</listbox>
+					    		</div>
+					    		<separator spacing="2px"/>
+					    		<div zclass="div_operacion_paquete_responsive">
+					    			<button label="Editar"
+					    					onClick="@command('Editar',paquete=each)"
+					    					zclass="btn_editar" />
+					    			<separator spacing="2px"></separator>
+					    			<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)"/>
+					    			<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
+					    		</div>
+					    	   </div>
+					    	</div>
+					</listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete_update',opcion=self.selectedItem.value,paquete=each)">
+							<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" 
+								   sclass="radio_camino_inka"
+								   checked="@bind(each.manejo_camino_inca)"/>
+<!-- 							<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" -->
+<!-- 								   sclass="radio_manejo_propio" -->
+<!-- 								   checked="@bind(each.manejo_propio)"/> -->
+							<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL"
+								   sclass="radio_manejo_normal"
+								   checked="@bind(each.manejo_normal)"/>
+						</radiogroup>
+						<div>
+							<separator spacing="5px"/>
+							<label value="NOMBRE PAQUETE:" zclass="lbl_subtitle_nombre_paquete"/>
+							<label value="@bind(each.titulo)" zclass="lbl_nombre_paquete"/>
+							<space/>
+							<label value="N° DIAS Y NOCHES:" zclass="lbl_subtitle_nombre_paquete"/>
+							<label value="@bind(each.dias_noches)" zclass="lbl_nombre_paquete"/>
+						</div>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.cPaqueteCod)"/>
+							</div>
+				    		<space></space>
+				    		<div zclass="div_content_datos_listaPaq">
+				    			<div sclass="estilo_editar_respons">
+				    				<div
+				    					sclass="div_contiene_banderas">
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag-of-Spain.png"
+				    						onClick="@command('cambioIdiomas',idioma='Espanol',paquete=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/en.png"
+				    						onClick="@command('cambioIdiomas',idioma='Ingles',paquete=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag_of_Brazil.png"
+				    						onClick="@command('cambioIdiomas',idioma='Portugues',paquete=each)">
+				    					</image>
+				    				</div>
+				    				<separator spacing="2px"></separator>
+				    				<div
+				    					visible="@bind(each.visibleEspanol)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%">
+				    							<label value="Paquete:"
+				    								sclass="lbl_llenar_datos">
+				    							</label>
+				    							<div width="100%">
+				    								<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cTituloIdioma1) @save(each.cTituloIdioma1,before='actualizarPaquete')" />
+				    							</div>
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visibleIngles)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%">
+				    							<label value="Paquete:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<div>
+				    								<textbox width="100%" sclass="txt_llenar_datos" height="30px"
+				    								value="@bind(each.cTituloIdioma2) @save(each.cTituloIdioma2,before='actualizarPaquete')" />
+				    							</div>
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visiblePortugues)">
+				    					<div width="100%" sclass="centrado_datos" height="100%">
+				    						<div width="100%">
+				    							<label value="Paquete:" sclass="lbl_llenar_datos">
+				    							</label>
+				    							<div>
+					    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+					    								value="@bind(each.cTituloIdioma3) @save(each.cTituloIdioma3,before='actualizarPaquete')" />
+				    							</div>
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cTituloIdioma4) @save(each.cTituloIdioma4,before='actualizarPaquete')" />
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')" />
+				    					</div>
+				    				</div>
+				    				<div visible="@bind(each.manejo_camino_inca)">
+										<separator bar="true"/>
+										<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
+										<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
+												onChange="@command('diasCaminoInka_update',dias=self.value,paquete=each)"/>
+									</div>
+				    				<div visible="@bind(!each.manejo_camino_inca)">
+										<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDestino_update',opcion=self.selectedItem.value,paquete=each)">
+											<radio label="CON DESTINO" checked="@bind(each.conDestino)" value="con_destino"/>
+											<radio label="SIN DESTINO" checked="@bind(each.sinDestino)" value="sin_destino"/>
+										</radiogroup>
+										<div visible="@bind(each.sinDestino)">
+											<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
+											<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
+													onChange="@command('diasSinDestino_update',dias=self.value,paquete=each)"/>
+										</div>
+									</div>
+				    				<div>
+										<separator bar="true"/>
+										<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento_update',opcion=self.selectedItem.value,paquete=each)">
+											<radio label="CON DESCUENTO" checked="@bind(each.conDescuento)" value="con_descuento"/>
+											<radio label="SIN DESCUENTO" checked="@bind(each.sinDescuento)" value="sin_descuento"/>
+										</radiogroup>
+										<div visible="@bind(each.sinDescuento)">
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio1',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+										</div>
+										<div visible="@bind(each.conDescuento)">
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 1($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio1',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 2($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio2_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio2',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 3($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio3_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio3',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 4($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio4_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio4',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 5($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio5_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio5',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+										</div>
+									</div>
+									<div>
+										<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+										<separator bar="true" zclass="lbl_llenar_datos"/>
+										<div>
+											<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_paquete',paquete=each,texto=self.selectedItem.value)">
+												<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
+												<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+											</radiogroup>
+										</div>
+									</div>
+				    				<button label="Actualizar"
+				    				onClick="@command('actualizarPaquete',paquete=each)"
+				    				zclass="btn_actualizar_paquete"/>
+				    			</div>
+				    		</div>
+				    		<space visible="@bind(each.conDestino)"/>
+				    		<div zclass="div_content_datos_listaPaq" visible="@bind(each.conDestino)">
+				    			<div zclass="div_contiene_title">
+									<label value="DESTINOS" zclass="title_contiene_paquete"/>
+								</div>
+				    			<listbox model="@bind(each.listaDestinos)" sclass="dest_serv_list">
+				    				<listhead>
+				    					<listheader></listheader>
+				    				</listhead>
+				    				<template name="model" var="destino">
+				    					<listitem>
+				    						<listcell>
+				    							<checkbox label="@bind(destino.cDestino)" checked="@load(destino.seleccionado)" width="100%" sclass="select_dest_serv" onClick="@command('selectDestinos_update',dest=destino,paquete=each)"/>
+												<div visible="@bind(destino.seleccionado)">
+													<hbox>
+														<label value="N° Noches: " zclass="lbl_nro_noches_Destino"/>
+													<intbox value="@bind(destino.nNoches)" zclass="int_nroNoches_Destino"
+															onChange="@command('determinarNroNochesDestino_update',paquete=each)" 
+															width="30px"/>
+													<space/>
+													<label value="N° Orden Itinerario: " zclass="lbl_nro_noches_Destino"/>
+													<label value="@bind(destino.nOrdenItinerario)" zclass="lbl_orden_itinerario"/>
+													</hbox>
+													<div visible="@bind(destino.puedeCaminoInka)">
+														<radiogroup sclass="style_restricciones_conCaminoInka" onCheck="@command('manejo_propio_CaminoInka_update',opcion=self.selectedItem.value,dest=destino,paquete=each)">
+															<radio label="CON CAMINO INCA" checked="@bind(destino.conCaminoInka)" value="con_camino_inka"/>
+															<radio label="SIN CAMINO INCA" checked="@bind(destino.sinCaminoInka)" value="sin_camino_inka"/>
+														</radiogroup>
+													</div>
+													<separator bar="true"/>
+												</div>
+				    						</listcell>
+				    					</listitem>
+				    				</template>
+				    			</listbox>
+				    		</div>
+				    		<separator spacing="4px"/>
+				    		<div zclass="div_content_datos_listaPaq">
+				    			<div zclass="div_contiene_title">
+									<label value="SERVICIOS" zclass="title_contiene_paquete"/>
+								</div>
+				    			<listbox model="@bind(each.listaServicios)" sclass="dest_serv_list">
+				    				<listhead>
+				    					<listheader></listheader>
+				    				</listhead>
+				    				<template name="model" var="servicio">
+				    					<listitem>
+				    						<listcell>
+				    							<div zclass="div_list_content_destino_servicio" width="100%">
+													<checkbox label="@bind(servicio.cServicioIndioma1)" checked="@load(servicio.seleccionado)" width="100%" sclass="select_dest_serv" onClick="@command('selectServicios_update',serv=servicio)"/>
+												</div>
+				    						</listcell>
+				    					</listitem>
+				    				</template>
+				    			</listbox>
+				    		</div>
+				    		<separator spacing="4px"/>
+				    		<div zclass="div_content_datos_listaPaq">
+				    			<div zclass="div_contiene_title">
+									<label value="ACTIVIDADES" zclass="title_contiene_paquete"/>
+								</div>
+				    			<listbox model="@bind(each.listaActividades)" sclass="dest_serv_list">
+				    				<listhead>
+				    					<listheader></listheader>
+				    				</listhead>
+				    				<template name="model" var="actividad">
+				    					<listitem>
+				    						<listcell>
+				    							<div zclass="div_list_content_destino_servicio" width="100%">
+													<checkbox label="@bind(actividad.cActividadIdioma1)" checked="@load(actividad.seleccionado)" width="100%" sclass="select_dest_serv" onClick="@command('selectActividades_update',act=actividad)"/>
+												</div>
+				    						</listcell>
+				    					</listitem>
+				    				</template>
+				    			</listbox>
+				    		</div>
+				    		<button label="Actualizar"
+				    				onClick="@command('actualizarPaquete',paquete=each)"
+				    				zclass="btn_actualizar_paquete_responsive"/>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

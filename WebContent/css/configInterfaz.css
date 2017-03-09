@@ -1,0 +1,124 @@
+.div_terminos{
+	width: 60%;
+	background: white;
+	box-sizing:border-box;
+	padding: 10px 10px 20px 10px;
+	text-align: justify;
+}
+.win_configColores{
+	width: 70%;
+}
+@media (max-width:991px){
+	.div_terminos{
+		width: 100%;
+	}
+	.win_configColores{
+		width: 100%;
+	}
+}
+.win_configColores.z-window{
+/* 	border:1px solid rgba(0,0,0,0.2); */
+/* 	background: #1A5276; */
+	background:#f9f9f9;
+	text-align: justify;
+	box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+	-webkit-box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+	-moz-box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+	-ms-box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+	-o-box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+/* 	box-sizing:border-box; */
+	border: none;
+}
+.win_configColores.z-window .z-window-content{
+	border:1px solid rgba(0,0,0,0.2);
+	background: white;
+	text-align: justify;
+	border-radius:4px;
+	box-sizing:border-box;
+	border: navy;
+}
+.win_configColores .z-window-header{
+	color: white;
+}
+.win_configColores .z-window-icon{
+	border:1px solid white;
+	background:#1A5276;
+	border-radius:0;
+}
+.win_configColores .z-window-icon .z-icon-times{
+	color: white;
+}
+.cabecera_terminos{
+	background:white;
+	margin-top:20px;
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.titulo_terminos{
+	display:flex;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+	background:#555;
+}
+.btn_guardarColores{
+	background: #1A5276;
+	border-radius:5px;
+	border:0;
+	color:white;
+	width: 100px;
+	padding: 10px;
+	font-weight: bold;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.btn_guardarColores:hover{
+	padding: 10px 11px 10px 11px;
+}
+.btn_cancelarColores{
+	background: gray;
+	border-radius:5px;
+	border:0;
+	color:black;
+	width: 100px;
+	padding: 10px;
+	font-weight: bold;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+.btn_cancelarColores:hover{
+	padding: 10px 11px 10px 11px;
+}
+.div_btns{
+	margin-top: 8px;
+}

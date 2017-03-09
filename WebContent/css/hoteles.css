@@ -1,0 +1,147 @@
+.z-modal-mask{
+	background: rgba(0,0,0,1);
+}
+.div_contenedor_nuevo_hoteles{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+@media (max-width:700px){
+	.div_contenedor_nuevo_hoteles{
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+}
+.estilo_contenedor_costo_hotel{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+	-moz-flex-direction:column;
+	-ms-flex-direction:column;
+	-o-flex-direction:column;
+	padding: 10px 0 0 20px;
+	box-sizing:border-box;
+	border-left: 1px solid black;
+	margin-left: 5px;
+}
+.div_busqueda_hoteles{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	background: lightgray;
+	border-radius: 3px;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+}
+
+@media (max-width: 416px){
+	.div_busqueda_hoteles{
+		flex-direction: column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+	.centrar_boton_busqueda{
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		justify-content:center;
+		-webkit-justify-content:center;
+		-moz-justify-content:center;
+		-ms-justify-content:center;
+		-o-justify-content:center;
+		align-items:center;
+		-webkit-align-items:center;
+		-moz-align-items:center;
+		-ms-align-items:center;
+		-o-align-items:center;
+	}
+}
+.lbl_nombres_precios_hotel{
+	color: #053351;
+	font-weight: bold;
+	font-size: 15px;
+}
+.lbl_nombre_categorias{
+	color: #EEB10C;
+	font-weight: bold;
+	font-size: 15px;
+}
+.estilos_costos_normal{
+	font-style: italic; 
+	font-weight: bold; 
+	font-size: 16px;
+}
+.estilo_nombre_hotel{
+	color: #069;
+	font-size: 16px;
+	font-weight: bold;
+	margin-bottom: 5px;
+}
+.lbl_subtitle_destino_Hotel{
+	color: black;
+	font-size: 15px;
+	font-weight: bold;
+}
+/**WINDOW - DESCRIPCION DEL HOTEL**/
+.win_descHotel.z-window{
+	border-radius:10px;
+}
+.win_descHotel.z-window .z-window-content{
+	box-shadow:2px 2px 10px 0 rgba(0,0,0,0.5);
+	-webkit-box-shadow:2px 2px 10px 0 rgba(0,0,0,0.5);
+	-moz-box-shadow:2px 2px 10px 0 rgba(0,0,0,0.5);
+	-ms-box-shadow:2px 2px 10px 0 rgba(0,0,0,0.5);
+	-o-box-shadow:2px 2px 10px 0 rgba(0,0,0,0.5);
+	border-radius:10px;
+	padding: 5px 10px 10px 10px;
+	border:2px solid #053351;
+}
+.div_cerrar_descHotel{
+	width: 100%;
+	padding: 10px;
+	border-bottom: 2px solid rgba(0,0,0,0.8);
+	margin-bottom: 10px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content:flex-end;
+	-webkit-justify-content:flex-end;
+	-moz-justify-content:flex-end;
+	-ms-justify-content:flex-end;
+	-o-justify-content:flex-end;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.btn_cerrar_descHotel{
+	border: none;
+	border-radius:2px;
+	padding:5px 10px;
+	background: #053351;
+	color: white;
+	font-weight: bold;
+}
+.btn_cerrar_descHotel:hover{
+	background: rgba(0,0,0,0.7);
+}
+.div_space_entre_botones{
+	margin: 2px 0 2px 0;
+}

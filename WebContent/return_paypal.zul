@@ -1,0 +1,36 @@
+<?page title="Return Paypal" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/return_paypal.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmReturn') @init('com.pricing.viewModel.returnPaypalVM')"
+		 zclass="div_content_returnPaypal">
+		 <window zclass="win_pago_exitoso">
+		 	<vbox align="center">
+		 		<image src="@load(vmReturn.configUrlDao.oConfigUrl.logoEmpresa)" width="100px" height="80px"/>
+		 		<space></space>
+		 		<div zclass="div_content_mensajeSatisfactorio">
+		 			<div zclass="div_ok">
+		 				<label value="✔" zclass="lbl_ok"/>
+		 			</div>
+		 			<label value="@bind(vmReturn.etiqueta[121])" zclass="lbl_txt_pago_efectuado"/>
+		 		</div>
+		 		<space></space>
+		 		<div width="80%" zclass="div_content_cod_reserva" visible="@bind(vmReturn.mostrarCodReserva)">
+		 			<hbox>
+		 				<label value="@bind(vmReturn.etiqueta[122])" zclass="lbl_txt_codReserva"/>
+		 				<label value="@bind(vmReturn.codReserva)" zclass="lbl_codreserva"/>
+		 			</hbox>
+		 		</div>
+		 		<hbox sclass="hb_codTransac">
+		 			<label value="@bind(vmReturn.etiqueta[123])" zclass="lbl_txt_codTransac"/>
+		 			<label value="@bind(vmReturn.codTransac)" sclass="lbl_transac"/>
+		 		</hbox>
+		 		<space></space>
+		 		<button label="@bind(vmReturn.etiqueta[124])" 
+		 			onClick="@command('regresarPaginaPrincipal')"
+		 			zclass="btn_continuar"/>
+		 		<space></space>
+		 	</vbox>
+		 </window>
+	</div>
+</zk>

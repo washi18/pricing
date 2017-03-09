@@ -1,0 +1,47 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vmMPMC') @init('com.pricing_pat.viewModel.montoPaymentMasterCardVM')"
+			border="normal"
+			title="." 
+			sclass="win_pay"
+			closable="true"
+			onClose="@command('cerrarVentanaPagoMC')">
+		<div width="100%" align="center">
+			<space></space>
+			<div sclass="div_porcentaje">
+				<label value="@bind(vmMPMC.textoPorcentajeMC)" style="color:white;font-size:30px;font-weight:bold;"/>
+			</div>
+			<space></space>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPMC.etiqueta[99])" sclass="lbl_desc"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPMC.montoTotalPorcentualMC)" sclass="lbl_monto"/>
+				</div>
+			</div>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPMC.etiqueta[100])" sclass="lbl_desc"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPMC.pagos.taxMC)" sclass="lbl_monto"/>
+				</div>
+			</div>
+			<separator bar="true"/>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPMC.etiqueta[101])" sclass="lbl_desc_Total"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPMC.pagos.totalConImpuestoMC)" sclass="lbl_monto_Total"/>
+				</div>
+			</div>
+			<div align="center" style="padding:10px;">
+				<label value="Payment --> "/>
+				<html content="@bind(vmMPMC.pagos.urlMasterCard)"/>
+			</div>
+		</div>
+	</window>
+</zk>

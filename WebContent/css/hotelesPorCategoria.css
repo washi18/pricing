@@ -1,0 +1,217 @@
+.z-modal-mask{
+	background: rgba(0,0,0,1);
+}
+.win_hotelesPorDestino{
+	width: 70%;
+}
+@media (max-width:991px){
+	.win_hotelesPorDestino{
+		width: 100%;
+	}
+}
+.win_hotelesPorDestino.z-window{
+/* 	border:1px solid rgba(0,0,0,0.2); */
+/* 	background: #1A5276; */
+/* 	background:#f9f9f9; */
+	background:white;
+	text-align: justify;
+	box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+	-webkit-box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+	-moz-box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+	-ms-box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+	-o-box-shadow:5px 5px 8px 0 rgba(0,0,0,0.7);
+/* 	box-sizing:border-box; */
+	border:2px solid #1A5276;
+}
+.win_hotelesPorDestino.z-window .z-window-content{
+	border:1px solid rgba(0,0,0,0.2);
+	background: white;
+	text-align: justify;
+	border-radius:4px;
+	box-sizing:border-box;
+	border: navy;
+}
+.win_hotelesPorDestino .z-window-header{
+	color: white;
+}
+.win_hotelesPorDestino .z-window-icon{
+	border:1px solid white;
+	background:#1A5276;
+	border-radius:0;
+}
+.win_hotelesPorDestino .z-window-icon .z-icon-times{
+	color: white;
+}
+.div_Destinohoteles{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	position: relative;
+	border: 1px solid rgba(0,0,0,0.1);
+	padding: 5px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.1);
+    flex-direction:column;
+	-webkit-flex-direction:column;
+	-moz-flex-direction:column;
+	-ms-flex-direction:column;
+	-o-flex-direction:column;
+}
+.div_hoteles_content{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	width: 100%;
+}
+.div_content_infoHotel{
+	width: 33%;
+}
+.div_content_htmlDesc{
+	overflow: hidden;
+}
+@media (max-width:700px){
+	.div_hoteles_content{
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+	.div_content_infoHotel{
+		width: 100%;
+	}
+}
+.div_titulo_Destino_hoteles{
+	background: #053351;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	width: auto;
+	height: 26px;
+	padding: 2px 8px;
+	position: relative;
+	top: -10px;
+	left: -10px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.div_titulo_Destino_hoteles:AFTER{
+	content: '';
+	border-bottom:15px solid #053351;
+	border-top:15px solid #053351;
+/* 	border-left:10px solid #2f2f2f; */
+	border-right:10px solid transparent;
+	top:0;
+	right: -10px;
+	position: absolute;
+}
+.div_titulo_Destino_hoteles:BEFORE {
+	content: '';
+	border-bottom:13px solid transparent;
+	border-top:13px solid gray;
+	border-left:5px solid transparent;
+	top:30px;
+	left:0;
+	position: absolute;
+}
+.lbl_Destino_Hoteles{
+	color: #40ea15;
+	font-size: 18px;
+	font-weight: bold;
+}
+.lbl_nameHotel{
+	font-weight: bold;
+}
+@media(max-width:700px){
+	.lbl_Destino_Hoteles{
+		font-size: 14px;
+	}
+	.lbl_nameHotel{
+		font-size: 14px;
+	}	
+}
+/** GALERIA DE FOTOS **/
+.bigImageContainer {
+    width: 200px;
+    overflow: hidden;
+    background: rgb(240, 240, 240);
+    height: 180px;
+    position: relative;
+}
+.div_content_nex_prev{
+	background:rgba(255,255,255,0.1);
+	position: relative;
+	height:180px;
+	width:200px;
+	margin-top: -180px;
+}
+.galleryPrev, .galleryNext {
+    position: absolute;
+    top: 59px !important;
+    width: 38px;
+    height: 50px;
+    background-color: rgba(0, 0, 0, 0.8);
+    background-image: url('../img/bannerbuttons.png');
+    background-position: 9px -43px;
+    border-radius: 5px;
+    border: 1px solid #242424;
+    text-indent: -9999px;
+    background-size: 165%;
+    opacity: 0.5;
+    display: block;
+    background-repeat: no-repeat;
+}
+
+.galleryPrev:hover {
+    background-position: 9px -43px;
+}
+.galleryPrev{
+	left: 10px;
+}
+.galleryNext {
+    right: 10px;
+    left: initial;
+    background-position: -31px -43px;
+}
+.galleryNext:hover {
+    background-position: -31px -43px;
+}
+
+.galleryPrev:hover, .galleryNext:hover {
+    opacity: 0.8
+}
+.popup_div_content_descripcion_hotel{
+	width: 600px;
+}
+@media (max-width:700px) and (min-width:401px){
+	.popup_div_content_descripcion_hotel{
+		width: 400px;
+	}
+}
+@media (max-width:400px){
+	.popup_div_content_descripcion_hotel{
+		width: 300px;
+	}
+}

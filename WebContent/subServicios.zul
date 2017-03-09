@@ -1,0 +1,335 @@
+<?page title="SUB SERVICIOS" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_Generales.css"/>
+	<style src="css/subServicios.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmServicio') @init('com.pricing.viewModel.subServicioVM')">
+		<div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_subservicios.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="180px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO SUB SERVICIO"/>
+				</div>
+			</div>
+			<div id="div_llenar_subservicios" visible="false">
+				<space></space>
+				<div>
+					<label value="SERVICIO: " zclass="lbl_llenar_datos"/>
+					<combobox model="@bind(vmServicio.listaServiciosNew)" readonly="true" onSelect="@command('asignacion_servicio',servicio=self.selectedItem.value)" sclass="cbox_llenar_datos" autodrop="true">
+						<template name="model">
+							<comboitem label="@bind(each.cServicioIndioma1)" value="@bind(each.nServicioCod)"/>
+						</template>
+					</combobox>
+				</div>
+				<space></space>
+				<div zclass="div_contenedor_nuevo_subServicio">
+					<div zclass="div_content_img">
+						<div height="150px" width="200px" zclass="div_img">
+							<image width="100%" height="100%" src="@load(vmServicio.oSubServicioNew.cUrlImg)"/>
+						</div>
+						<button label="Subir Imagen" zclass="estilo_subir_imagen" onClick="@command('uploadImagen',componente=self)"/>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div>
+							<div zclass="div_contiene_banderas">
+								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(false);txtSpainDesc.setVisible(true);
+												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(false)"/>
+								<image src="img/en.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+												txtPortuName.setVisible(false);txtSpainDesc.setVisible(false);
+												txtInglesDesc.setVisible(true);txtPortuDesc.setVisible(false)"/>
+								<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+										onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+												txtPortuName.setVisible(true);txtSpainDesc.setVisible(false);
+												txtInglesDesc.setVisible(false);txtPortuDesc.setVisible(true)"/>
+							</div>
+							<div>
+								<label value="SUB SERVICIO: " zclass="lbl_llenar_datos"/>
+								<textbox zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="250px" visible="true" value="@save(vmServicio.oSubServicioNew.cSubServicioIndioma1)" style="text-transform: uppercase;"/>
+								<textbox zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="250px" visible="false" value="@save(vmServicio.oSubServicioNew.cSubServicioIndioma2)" style="text-transform: uppercase;"/>
+								<textbox zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="250px" visible="false" value="@save(vmServicio.oSubServicioNew.cSubServicioIndioma3)" style="text-transform: uppercase;"/>
+							</div>
+							<div>
+								<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
+								<textbox zclass="txt_llenar_datos" id="txtSpainDesc" multiline="true" height="150px"
+									placeholder="ESPAÑOL" width="250px" visible="true" value="@save(vmServicio.oSubServicioNew.cDescripcionIdioma1)"/>
+								<textbox zclass="txt_llenar_datos" id="txtInglesDesc" multiline="true" height="150px"
+									placeholder="INGLES" width="250px" visible="false" value="@save(vmServicio.oSubServicioNew.cDescripcionIdioma2)"/>
+								<textbox zclass="txt_llenar_datos" id="txtPortuDesc" multiline="true" height="150px"
+									placeholder="PORTUGUES" width="250px" visible="false" value="@save(vmServicio.oSubServicioNew.cDescripcionIdioma3)"/>
+							</div>
+						</div>
+					</div>
+					<space></space>
+					<div zclass="div_content_datos">
+						<div>
+							<label value="URL : " zclass="lbl_llenar_datos"/>
+							<textbox width="200px" zclass="txt_llenar_datos" placeholder="LINK" value="@bind(vmServicio.oSubServicioNew.cLink)"/>
+						</div>
+						<div>
+							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+							<textbox width="80px" zclass="txt_llenar_datos" value="@bind(vmServicio.oSubServicioNew.nPrecioServicio_text)" onChange="@command('changePrecios_nuevo',precio=self.value,componente=self)"/>
+							<space></space>
+						</div>
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('InsertarSubServicio',componente=self) @global-command('actualizarEstadoServicios')"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<space></space>
+		<div sclass="div_busqueda_etiqueta">
+			<textbox id="txtNombre" placeholder="Ingrese busqueda" sclass="txt_llenar_datos" onOK="@command('buscarSubServicios',nombre=self.value)"> 
+			</textbox>
+			<space orient="vertical"></space>
+			<button iconSclass="fa fa-search" height="30px" zclass="estilo_btn_buscar" onClick="@command('buscarSubServicios',nombre=txtNombre.value)"></button>
+		</div>
+		<space></space>
+		<listbox sclass="listados" model="@bind(vmServicio.listaSubServicios) @template((each.editable)? 'modeleditable':'noeditable')" height="auto" mold="paging" autopaging="true">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+					<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nSubServicioCod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_subServicio">
+					    		<div zclass="div_content_img_listSub">
+					    			<div height="150px" width="100%" zclass="div_img_list">
+					    				<image width="100%" height="100%" src="@bind(each.cUrlImg)"/>
+					    			</div>
+					    		</div>
+					    		<space></space>
+					    		<div zclass="div_content_info_listSub">
+					    			<div sclass="estilo_start_descripcion">
+					    				<label width="100%" height="30px" sclass="estilo_nombre_subServicio"
+					    					value="@bind(each.cSubServicioIndioma1)" />
+					    				<div sclass="descripcion_costado">
+					    				<image src="img/eticket.png"></image>
+					    				<space></space>
+					    				<label multiline="true"
+					    					width="100%" height="auto"
+					    					value="@bind(each.cDescripcionIdioma1)" sclass="estilo_desborde_descripcion"/>
+					    				</div>
+					    			</div>
+					    			<div>
+					    				<label value="@bind(each.cNombreServicio)" style="font-size: 14px; font-weight: bold;"></label>
+					    			</div>
+					    			<div>
+					    				<a label="@bind(each.cLink)" href="@bind(each.cLink)" target="_blank" zclass="estilo_desborde_url"/>
+					    			</div>
+					    			<div>
+					    				<label value="@bind(each.nPrecioServicio)" sclass="estilo_costo"></label>
+					    			</div>
+					    			<div
+					    				zclass="div_operacion_etiqueta_subServicio">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',subServicio=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)" />
+					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)" />
+					    			</div>
+					    		</div>
+					    		<div sclass="estilo_contenedor_costo">
+					    		    <div>
+					    				<label value="$" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    				<label value="@bind(each.nPrecioServicio)" style="font-style: italic; font-weight: bold; font-size: 16px;"></label>
+					    			</div>
+					    		</div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+					<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion" width="3%">
+								<label value="@bind(each.nSubServicioCod)"/>
+							</div>
+				    		<div zclass="div_content_img_listaSub">
+				    			<div height="150px"
+				    				zclass="div_img">
+				    				<image id="pics" width="100%" height="100%" src="@bind(each.cUrlImg)" />
+				    			</div>
+				    			<button label="Cambiar Imagen" zclass="estilo_subir_imagen" width="100%" onClick="@command('cambiarImagen',subServicio=each,componente=self)"/>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_datos_listaSub">
+				    			<div sclass="estilo_editar_respons">
+				    				<div
+				    					sclass="div_contiene_banderas">
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag-of-Spain.png"
+				    						onClick="@command('cambioIdiomas',idioma='Espanol',subServicio=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/en.png"
+				    						onClick="@command('cambioIdiomas',idioma='Ingles',subServicio=each)">
+				    					</image>
+				    					<image sclass="estilo_banderas"
+				    						src="img/Flag_of_Brazil.png"
+				    						onClick="@command('cambioIdiomas',idioma='Portugues',subServicio=each)">
+				    					</image>
+				    				</div>
+				    				<separator spacing="2px"></separator>
+				    				<div
+				    					visible="@bind(each.visibleEspanol)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%"
+				    							sclass="horizontal_label_texbox_subServicio">
+				    							<label value="SubServicio:"
+				    								sclass="estilo_nombre_subServicio">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cSubServicioIndioma1) @save(each.cSubServicioIndioma1,before='actualizarSubServicio')" />
+				    						</div>
+				    						<separator spacing="2px"></separator>
+				    						<div width="100%" sclass="horizontal_label_texbox_subServicio">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_subServicio">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarSubServicio')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visibleIngles)">
+				    					<div width="100%"
+				    						sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox_subServicio">
+				    							<label value="SubServicio:" sclass="estilo_nombre_subServicio">
+				    							</label>
+				    							<textbox width="100%" sclass="txt_llenar_datos" height="30px"
+				    								value="@bind(each.cSubServicioIndioma2) @save(each.cSubServicioIndioma2,before='actualizarSubServicio')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox_subServicio">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_subServicio">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarSubServicio')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div
+				    					visible="@bind(each.visiblePortugues)">
+				    					<div width="100%" sclass="centrado_datos" height="100%">
+				    						<div width="100%" sclass="horizontal_label_texbox_subServicio">
+				    							<label value="SubServicio:" sclass="estilo_nombre_subServicio">
+				    							</label>
+				    							<textbox width="100%" height="30px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cSubServicioIndioma3) @save(each.cSubServicioIndioma3,before='actualizarSubServicio')" />
+				    						</div>
+				    						<div width="100%" sclass="horizontal_label_texbox_subServicio">
+				    							<label
+				    								value="Descripcion:" sclass="estilo_nombre_subServicio">
+				    							</label>
+				    							<textbox
+				    								multiline="true" width="100%" height="150px" sclass="txt_llenar_datos"
+				    								value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarSubServicio')" />
+				    						</div>
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cSubServicioIndioma4) @save(each.cSubServicioIndioma4,before='actualizarSubServicio')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<textbox multiline="true" sclass="txt_llenar_datos"
+				    							width="100%" hflex="1" height="100px"
+				    							value="@bind(each.cDescripcionIdioma4) @save(each.cDescripcionIdioma4,before='actualizarSubServicio')" />
+				    					</div>
+				    				</div>
+				    				<div visible="false">
+				    					<div width="100%"
+				    						sclass="centrado_datos">
+				    						<div width="100%">
+				    							<label
+				    								value="Nombre:">
+				    							</label>
+				    						</div>
+				    						<textbox hflex="1"
+				    							width="100%" height="30px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cSubServicioIndioma5) @save(each.cSubServicioIndioma5,before='actualizarSubServicio')" />
+				    						<div width="100%">
+				    							<label
+				    								value="Descripcion:">
+				    							</label>
+				    						</div>
+				    						<textbox multiline="true"
+				    							width="100%" hflex="1" height="100px" sclass="txt_llenar_datos"
+				    							value="@bind(each.cDescripcionIdioma5) @save(each.cDescripcionIdioma5,before='actualizarSubServicio')" />
+				    					</div>
+				    				</div>
+				    			</div>
+				    		</div>
+				    		<space></space>
+				    		<div zclass="div_content_datosAdicionales">
+				    			<div>
+				    				<label
+				    					value="URL:" zclass="lbl_llenar_datos" />
+				    				<textbox value="@bind(each.cLink)" zclass="txt_llenar_datos" width="100%"></textbox>
+				    				<separator bar="true"
+				    					zclass="lbl_llenar_datos"/>
+				    				<div>
+				    					<label value="Servicio al que pertenece:" zclass="lbl_llenar_datos"></label>
+				    					<combobox value="@bind(each.cNombreServicio)" readonly="true"
+				    							  onSelect="@command('asignacion_servicio_update',servicio=self.selectedItem.value,subServicio=each)" 
+				    							  model="@load(each.listaServicios)">
+					    					<template name="model" var="servicio">
+					    						<comboitem label="@bind(servicio.cServicioIndioma1)" value="@bind(servicio.nServicioCod)"/>
+					    					</template>
+					    				</combobox>
+					    			</div>
+				    			</div>
+				    			<div sclass="estilo_costo_horizontal">
+				    				<label value="COSTO ($):" zclass="lbl_llenar_datos" />
+				    				<textbox width="80px" zclass="txt_llenar_datos" value="@bind(each.nPrecioServicio_text)" onChange="@command('changePrecios_actualizar',precio=self.value,componente=self)"/>
+				    			</div>
+				    			<separator bar="true" zclass="lbl_llenar_datos"/>
+				    			<div>
+									<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+									<div>
+										<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar',subServicio=each,texto=self.selectedItem.value)">
+											<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
+											<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+										</radiogroup>
+									</div>
+								</div>
+				    		</div>
+				    		<div sclass="div_content_actualizarSub">
+				    			<button label="Actualizar"
+				    				onClick="@command('actualizarSubServicio',subServicio=each) @global-command('actualizarEstadoServicios')"
+				    				zclass="btn_actualizar"/>
+				    		</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

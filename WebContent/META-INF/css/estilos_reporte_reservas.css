@@ -1,0 +1,601 @@
+.estilo_div_disponibilidad {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
+}
+
+.estado_pagos.z-radiogroup{
+	background: rgba(0,0,0,0.2);
+	padding: 8px;
+	border-radius:5px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+.estado_pagos.z-radiogroup .z-radio input[type="radio"]{
+	display: none;
+}
+.estado_pagos.z-radiogroup .z-radio label{
+/* 	color: #053351; */
+/* 	margin-left: 7px; */
+	display: inline-block;
+    cursor: pointer;
+    color: #053351;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    font-weight:bold;
+    border-radius: 5px;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.estado_pagos.z-radiogroup .z-radio label:hover{
+	background: rgba(0, 0, 0, 0.2);
+}
+.estado_pagos.z-radiogroup .z-radio label:before{
+	  content:'';
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      position: absolute;
+      left: 15px;
+      border-radius: 50%;
+      background: none;
+      border: 3px solid #053351;
+}
+.estado_pagos.z-radiogroup input[type="radio"]:checked + label:before {
+      display: none; 
+}
+.estado_pagos.z-radiogroup input[type="radio"]:checked + label{
+	  padding: 5px 15px;
+      background: #053351;
+      border-radius: 2px;
+      color: #fff;
+}
+
+.div_opciones_busqueda_reservas{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content: start !important;
+	-webkit-justify-content: start !important;
+	-moz-justify-content: start !important;
+	-ms-justify-content: start !important;
+	-o-justify-content: start !important;
+	padding: 4px;
+	background: lightgray;
+	border-radius: 3px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+}
+
+.estilo_contenedor_estadoPago{
+   border: 1px solid rgba(0,0,0,0.1);
+   padding: 10px;
+   box-sizing:border-box;
+   box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   background: rgba(0,0,0,0.1); 
+}
+
+.estilo_datos_pop_reserva {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center; 
+	-ms-align-items: center; 
+	-o-align-items: center;    
+	justify-content: flex-end;
+	-webkit-justify-content: flex-end;
+	-ms-justify-content: flex-end;
+	-moz-justify-content: flex-end;
+	-o-justify-content: flex-end;
+	color: black;
+	font-size:15px;
+	font-weight: bold;
+}
+
+.estilo_texto_pop {
+	color: black;
+	font-size:12px;
+	font-weight: bold;
+}
+.estilo_texto_pop_hoteles
+{
+	color: black;
+	font-size:12px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.estilo_content_boton_pop{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center; 
+	-ms-align-items: center; 
+	-o-align-items: center;    
+	justify-content: end;
+	-webkit-justify-content: center;
+	-ms-justify-content: center;
+	-moz-justify-content: center;
+	-o-justify-content: center;
+	border: none;
+	border-radius: 3px;
+	background: #3BA420;
+	cursor: pointer;
+	color: white;
+	font-size: 13px;
+	text-shadow: none;
+	height: 30px;
+	font-weight: bold; 
+	
+}
+
+.estilo_content_boton_pop:FOCUS{
+	background: #3BA420;
+}
+
+.div_content_info_listRepReserva{
+	width: 45% ;
+}
+
+.div_contenedor_datos_listRepReserva{
+	display: flex;
+	display: -webkit-flex;
+   	display: -moz-flex;
+   	display: -ms-flex;
+   	display: -o-flex;
+	width: 100%;
+}
+
+.estilo_fechas {
+	font-weight: bold;
+	font-size: 13px;
+	color: black;
+	width: 35%;
+	display: flex;
+	display: -webkit-flex;
+   	display: -moz-flex;
+   	display: -ms-flex;
+   	display: -o-flex;
+   	flex-direction: column;
+   	-webkit-flex-direction: column;
+   	-moz-flex-direction: column;
+   	-ms-flex-direction: column;
+   	-o-flex-direction: column;
+}
+.intervalo_fechas{
+	display: flex;
+   display: -webkit-flex;
+   display: -moz-flex;
+   display: -ms-flex;
+   display: -o-flex;
+   align-items: center;
+   -webkit-align-items: center;
+   -moz-align-items: center;
+   -ms-align-items: center;
+   -o-align-items: center;
+   justify-content: start;
+   -webkit-justify-content: start;
+   -moz-justify-content: start;
+   -ms-justify-content: start;
+   -o-justify-content: start;
+   left: 0;
+   width: 35%;
+}
+.estilo_div_estado_pagos {
+	width: 57%;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
+}
+
+.checkbox_desktop {
+	display: block;
+}
+
+.checkbox_respons {
+	display: none;	
+}
+
+.div_paquete{
+	width:25%;
+}
+
+.div_destinos{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+.contiene_botones_reserva{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	width: 50%;
+	margin: 1.5px;
+}
+
+.div_content_destino .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content{
+	padding-left: 0;
+	padding-right: 0;
+	padding-top: 0;
+}
+
+.numeracion-desktop {
+	width: 10%;
+}
+.estilo_columnas_precios_etiqueta{
+	text-align: left;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	width: 70%;
+}
+.estilo_columnas_precios{
+	text-align: right;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	flex-direction: column;
+	-webkit-flex-direction: column;
+	-moz-flex-direction: column;
+	-ms-flex-direction: column;
+	-o-flex-direction: column;
+	width: 30%;
+}
+
+.estilo_monto_persona {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	}
+
+.estilo_monto_persona .z-label {
+	font-style: italic; 
+	font-size: 15px;
+}
+.estilo_nombre_paquete_reserva {
+	color: #069;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.contendor_montos {
+	width: 25% ;
+}
+
+.div_list_cell_reserva {
+	border: 1px solid rgba(0,0,0,0.1);
+	padding: 10px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.1);
+    display:flex;
+    display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+
+/********************* ESTILO LISTBOX **************************/
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-header table tbody .z-listhead .z-listheader .z-listheader-content {
+	border: 1px solid rgba(0,0,0,0.1);
+	border-radius: 4px;
+	padding: 2px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.2);
+    font-size: 13px;
+    font-weight: bold;
+    text-align: center;
+    height: 25px;
+    vertical-align: center;
+}
+
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem.z-listbox-odd{
+	background: none !important;
+}
+
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem{
+	background: transparent;
+}
+
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem:hover{
+	background: transparent;
+}
+
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
+	background: transparent;
+}
+.div_contenedor_datos_listRepReserva .z-listbox .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content:hover{
+	background: transparent;
+}
+
+.div_contenedor_datos {
+	display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   -webkit-flex-direction: column;
+	   -moz-flex-direction: column;
+	   -ms-flex-direction: column;
+	   -o-flex-direction: column;
+	   width: 100% ;
+}
+.estilo_win_popup_reserva {
+	border: 0.3px solid rgba(0,0,0,0.1);
+	padding: 2px;
+	box-sizing:border-box;
+    box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.1);
+    width: 29%;
+}
+
+.div_numeracion_reporte_reserva{
+	background: #053351;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	width: 10%;
+	height: 26px;
+	padding: 2px;
+	position: relative;
+	top: -15px;
+	left: -15px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.div_numeracion_reporte_reserva:AFTER{
+	content: '';
+	border-bottom:13px solid #053351;
+	border-top:13px solid #053351;
+/* 	border-left:10px solid #2f2f2f; */
+	border-right:10px solid transparent;
+	top:0;
+	right: -10px;
+	position: absolute;
+}
+.div_numeracion_reporte_reserva:BEFORE {
+	content: '';
+	border-bottom:13px solid transparent;
+	border-top:13px solid gray;
+	border-left:5px solid transparent;
+	top:26px;
+	left:0;
+	position: absolute;
+}
+
+.div_content_destino .z-listbox .z-listbox-item .z-listcell .z-listcell-content {
+	width: 100% !important;
+}
+
+.estilo_titulo_destinos {
+	background: #1487D1;
+}
+
+@media only screen and (max-width: 416px)
+{
+	.estilo_win_popup_reserva {
+		width: 77% !important;
+	}
+	.contendor_montos {
+		width: 100% !important;
+	}
+	.estilo_nombre_paquete_reserva {
+		font-size: 14px;
+	}
+	.numeracion-desktop {
+		display: 100px !important;
+	}
+	.div_numeracion_reporte_reserva {
+		width: 26% !important;
+	}
+	.intervalo_fechas .z-datebox{
+		width: 60% !important;
+	}
+	.intervalo_fechas .z-datebox .z-datebox-input{
+		width: 100% !important;
+	}
+	.estilo_contenedor_costo{
+    	display: none !important;
+    }
+    .intervalo_fechas{
+	   display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   -webkit-flex-direction: column;
+	   -moz-flex-direction: column;
+	   -ms-flex-direction: column;
+	   -o-flex-direction: column;
+	   justify-content: center;
+	   -webkit-justify-content: center;
+	   -moz-justify-content: center;
+	   -ms-justify-content: center;
+	   -o-justify-content: center;
+	   width: 100% !important;
+    }
+    .div_opciones_busqueda_reservas{
+       display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   -webkit-flex-direction: column;
+	   -moz-flex-direction: column;
+	   -ms-flex-direction: column;
+	   -o-flex-direction: column;
+	   width: 100% !important;
+    }
+    .estilo_div_estado_pagos {
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		align-items: center;
+		-webkit-align-items: center;
+		-moz-align-items: center;
+		-ms-align-items: center;
+		-o-align-items: center;
+		flex-direction: column;
+	   -webkit-flex-direction: column;
+	   -moz-flex-direction: column;
+	   -ms-flex-direction: column;
+	   -o-flex-direction: column;
+		width: 100% !important;
+	}
+	.checkbox_desktop {
+		display: none !important;
+	}
+
+	.checkbox_respons {
+		display: block !important;	
+	}
+	
+	.div_contenedor_datos_listRepReserva{
+		display: flex;
+		display: -webkit-flex;
+	   	display: -moz-flex;
+	   	display: -ms-flex;
+	   	display: -o-flex;
+	   	flex-direction: column;
+	   	-webkit-flex-direction: column;
+	   	-moz-flex-direction: column;
+	   	-ms-flex-direction: column;
+	   	-o-flex-direction: column;
+		width: 100% !important;
+	}
+	
+	.estilo_fechas {
+		width: 100% !important;
+		display: flex;
+		display: -webkit-flex;
+	   	display: -moz-flex;
+	   	display: -ms-flex;
+	   	display: -o-flex;
+	   	flex-direction: column;
+	   	-webkit-flex-direction: column;
+	   	-moz-flex-direction: column;
+	   	-ms-flex-direction: column;
+	   	-o-flex-direction: column;
+		justify-content: center;
+		-webkit-justify-content: center;
+		-moz-justify-content: center;
+		-ms-justify-content: center;
+		-o-justify-content: center;
+	}
+	
+	.div_content_info_listRepReserva{
+		width: 100% !important;
+	}
+	
+	.div_paquete{
+		width: 100% !important;
+	}
+	
+	.div_destinos{
+		flex-direction: column;
+	}
+	.estilo_contenedor_estadoPago{
+		width: 100% !important;
+		
+	}
+	.contiene_botones_reserva{
+		width: 100% !important;
+	}
+}
+
+

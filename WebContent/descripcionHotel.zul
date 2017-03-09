@@ -1,0 +1,8 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+
+<popup apply="org.zkoss.bind.BindComposer"
+	   viewModel="@id('vm') @init('com.pricing.viewModel.descripcionHotelVM')">
+	   <div zclass="popup_div_content_descripcion_hotel">
+	   		<html content="@bind(vm.descripcion)"/>
+	   </div>
+</popup>

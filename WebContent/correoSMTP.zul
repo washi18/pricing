@@ -1,0 +1,76 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style  src="css/configExtras.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmCorreoSmtp') @init('com.pricing.viewModel.correoSmtpVM')">
+		 	<space></space>
+		 	<div width="100%" sclass="div_content_config">
+		 		<div sclass="div_content_config_title">
+		 			<a iconSclass="fa fa-envelope estilos-iconos div_content_config_title_a"/>
+		 			<label value="CONFIGURACION SMTP DE CORREO" sclass="div_content_config_title_lbl"/>
+		 		</div>
+		 		<div visible="@bind(vmCorreoSmtp.oCorreoSMTP.editable)">
+		 			<div sclass="div_content_config_items">
+			 		 	<label value="SMTP Host: " sclass="lbl_congif_sutitle"/>
+			 		 	<div>
+			 		 		<textbox value="@bind(vmCorreoSmtp.oCorreoSMTP.cSMTPHost)" sclass="txt_config_valor"/>
+			 		 	</div>
+			 		</div>
+			 		<div sclass="div_content_config_items">
+			 		 	<label value="SMTP Port: " sclass="lbl_congif_sutitle"/>
+			 		 	<div>
+			 		 		<intbox width="70px" value="@bind(vmCorreoSmtp.oCorreoSMTP.nSMTPPort)" sclass="txt_config_valor"/>
+			 		 	</div>
+			 		</div>
+			 		<div>
+			 		 	<label value="Cifrado: " sclass="lbl_select_title"/>
+			 		 	<div>
+			 		 		<radiogroup sclass="select_modo_pago" onCheck="@command('selectCifrado',cifrado=self.selectedItem.value)">
+			 		 			<radio label="SSL" value="ssl" checked="@load(vmCorreoSmtp.oCorreoSMTP.bSSL)"/>
+			 		 			<radio label="TLS" value="tls" checked="@load(vmCorreoSmtp.oCorreoSMTP.bTLS)"/>
+			 		 		</radiogroup>
+			 		 	</div>
+			 		</div>
+			 		<div sclass="div_content_config_items">
+			 		 	<label value="SMTP UserName: " sclass="lbl_congif_sutitle"/>
+			 		 	<div>
+			 		 		<textbox value="@bind(vmCorreoSmtp.oCorreoSMTP.cSMTPUserName)" sclass="txt_config_valor"/>
+			 		 	</div>
+			 		</div>
+			 		<div sclass="div_content_config_items">
+			 		 	<label value="SMTP Password: " sclass="lbl_congif_sutitle"/>
+			 		 	<div>
+			 		 		<textbox type="password" value="@bind(vmCorreoSmtp.oCorreoSMTP.cSMTPPassword)" sclass="txt_config_valor"/>
+			 		 	</div>
+			 		</div>
+			 		<space></space>
+			 		<div zclass="div_content_btns_operaciones" align="center" width="100%">
+			 			<button label="ACTUALIZAR" width="100%" zclass="btn_actualizar" onClick="@command('insert_update_CorreoSMTP',componente=self)"/>
+			 			<button label="CANCELAR" width="100%" zclass="btn_editar" onClick="@command('Cancelar')"/>
+			 		</div>
+		 		</div>
+		 		<div visible="@bind(!vmCorreoSmtp.oCorreoSMTP.editable)">
+		 			<div sclass="div_content_config_items">
+			 		 	<label value="SMTP Host: " sclass="lbl_congif_sutitle"/>
+			 		 	<label value="@bind(vmCorreoSmtp.oCorreoSMTP.cSMTPHost)" sclass="lbl_config_porcentaje"/>
+			 		</div>
+			 		<div sclass="div_content_config_items">
+			 		 	<label value="SMTP Port: " sclass="lbl_congif_sutitle"/>
+			 		 	<label value="@bind(vmCorreoSmtp.oCorreoSMTP.nSMTPPort)" sclass="lbl_config_porcentaje"/>
+			 		</div>
+			 		<div sclass="div_content_config_items">
+			 		 	<label value="Cifrado: " sclass="lbl_congif_sutitle"/>
+			 		 	<label value="@bind(vmCorreoSmtp.oCorreoSMTP.cifrado)" sclass="lbl_config_porcentaje"/>
+			 		</div>
+			 		<div sclass="div_content_config_items">
+			 		 	<label value="SMTP UserName: " sclass="lbl_congif_sutitle"/>
+			 		 	<label value="@bind(vmCorreoSmtp.oCorreoSMTP.cSMTPUserName)" sclass="lbl_config_porcentaje"/>
+			 		</div>
+			 		<space></space>
+			 		<div width="100%" align="center">
+			 			<button label="EDITAR" width="200px" zclass="btn_editar" onClick="@command('Editar')"/>
+			 		</div>
+		 		</div>
+		 	</div>
+	</div>
+</zk>

@@ -1,0 +1,43 @@
+<?page title="PAYMENTS" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/PaymentsMasterCard_DinersClub.css"/>
+	<style src="fonts/font-awesome.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmPayment') @init('com.pricing_pat.viewModel.PaymentsMasterCard_DinersClubVM')"
+		 width="100%" height="100%" sclass="div_contenidoPagoMasterDiners">
+		<tabbox width="320px">
+			<tabs>
+				<tab label="MASTERCARD" sclass="tab_mastercard"/>
+				<tab label="DINERS CLUB" sclass="tab_diners"/>
+			</tabs>
+			<tabpanels>
+				<tabpanel>
+					<image src="img/payment/mc_accpt_113_gif.gif"/>
+					<div sclass="div_pagar">
+						<space></space>
+						<label value="Monto:" sclass="lbl_Subtitle_Monto"/>
+						<label value="USD " sclass="lbl_Subtitle_Monto"/>
+						<textbox value="@bind(vmPayment.montoMasterCard)"
+								 sclass="lbl_Subtitle_Monto"
+								 onOK="@command('changeMonto',tarjeta='master')"
+								 width="100px" height="25px"/>
+						<html content="@bind(vmPayment.urlPagoMaster)"/>
+					</div>
+				</tabpanel>
+				<tabpanel>
+					<image src="img/payment/Diners.png"/>
+					<div sclass="div_pagar">
+						<space></space>
+						<label value="Monto:" sclass="lbl_Subtitle_Monto"/>
+						<label value="USD " sclass="lbl_Subtitle_Monto"/>
+						<textbox value="@bind(vmPayment.montoDinersClub)"
+								 sclass="lbl_Subtitle_Monto"
+								 onOK="@command('changeMonto',tarjeta='diners')"
+								 width="100px" height="25px"/>
+						<html content="@bind(vmPayment.urlPagoDiners)"/>
+					</div>
+				</tabpanel>
+			</tabpanels>
+		</tabbox>
+	</div>
+</zk>

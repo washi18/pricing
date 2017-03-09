@@ -1,0 +1,48 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vmMPPaypal') @init('com.pricing.viewModel.montoPaymentPaypalVM')"
+			border="normal"
+			title="." 
+			sclass="win_pay"
+			closable="true"
+			onClose="@command('cerrarVentanaPago')">
+		<div width="100%" align="center">
+			<space></space>
+			<div sclass="div_porcentaje">
+				<label value="@bind(vmMPPaypal.textoPorcentaje)" style="color:white;font-size:30px;font-weight:bold;"/>
+			</div>
+			<space></space>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPPaypal.etiqueta[99])" sclass="lbl_desc"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPPaypal.montoTotalPorcentual)" sclass="lbl_monto"/>
+				</div>
+			</div>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPPaypal.etiqueta[100])" sclass="lbl_desc"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPPaypal.pagos.taxPaypal)" sclass="lbl_monto"/>
+				</div>
+			</div>
+			<separator bar="true"/>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPPaypal.etiqueta[101])" sclass="lbl_desc_Total"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPPaypal.pagos.totalConImpuestoPaypal)" sclass="lbl_monto_Total"/>
+				</div>
+			</div>
+			<div align="center" style="padding:10px;">
+				<button href="@bind(vmMPPaypal.pagos.urlPaypal)" 
+						image="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" 
+						zclass="btn_paypal"/>
+			</div>
+		</div>
+	</window>
+</zk>

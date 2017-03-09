@@ -1,0 +1,68 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<window height="500px"
+		border="normal"
+		title="HD"
+		closable="true"
+		position="center"
+		sclass="win_hotelesPorDestino"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vm') @init('com.pricing.viewModel.hotelesPorCategoriaVM')">
+		<window height="450px"
+				contentStyle="overflow:auto;">
+				<div width="100%" height="450px">
+					<listbox model="@load(vm.listaCategoriaDestinoHoteles)">
+						<listhead>
+							<listheader label=""/>
+						</listhead>
+						<template name="model" var="destino">
+							<listitem>
+								<listcell>
+									<listbox model="@load(destino.listaDestinosHoteles)">
+										<listhead>
+											<listheader label=""/>
+										</listhead>
+										<template name="model" var="hotel">
+											<listitem>
+												<listcell sclass="content_name_hoteles">
+													<div zclass="div_Destinohoteles">
+														<div zclass="div_titulo_Destino_hoteles">
+															<label value="@load(hotel.cHotel)" zclass="lbl_nameHotel"/>
+															<space/>
+															<label value="-" zclass="lbl_nameHotel"/>
+															<space/>
+															<label value="@load(hotel.nombreDestino)" zclass="lbl_Destino_Hoteles"/>
+														</div>
+														<div zclass="div_hoteles_content">
+															<div zclass="div_content_infoHotel">
+																<div zclass="bigImageContainer" width="100%">
+																	<image src="@load(hotel.imagenHotel)" height="180px" width="100%"/>
+																	<div zclass="div_content_nex_prev" width="100%">
+																		<a zclass="galleryPrev" onClick="@command('imagePrev',chotel=hotel)"/>
+																		<a zclass="galleryNext" onClick="@command('imageNext',chotel=hotel)"/>
+																	</div>
+																</div>
+															</div>
+															<space></space>
+															<div zclass="div_content_infoHotel">
+																<div height="150px" width="100%" zclass="div_content_htmlDesc">
+																	<html content="@load(hotel.descripcion)"/>
+																</div>
+																<a label="ver mas" onClick="@command('mostrarDescripcionHotel',componente=self) @global-command('descripcionHotel',cHotel=hotel)"/>
+															</div>
+															<space></space>
+															<div zclass="div_content_infoHotel">
+																<image src="@load(hotel.cImagenUbicacion)" height="180px" width="100%"/>
+															</div>
+														</div>
+													</div>
+												</listcell>
+											</listitem>
+										</template>
+									</listbox>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</div>
+		</window>
+</window>

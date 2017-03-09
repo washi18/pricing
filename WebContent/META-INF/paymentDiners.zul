@@ -1,0 +1,48 @@
+<?page title="PAYMENT DINERS" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/return_paypal.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmPDiners') @init('com.pricing_pat.viewModel.paymentDinersVM')"
+		 zclass="div_content_returnPaypal">
+		 <window zclass="win_pago_exitoso">
+		 	<vbox align="center" width="100%">
+		 		<image src="@load(vmPDiners.configUrlDao.oConfigUrl.logoEmpresa)" width="100px" height="80px"/>
+		 		<space></space>
+		 		<div zclass="div_content_mensajeSatisfactorio" visible="@bind(vmPDiners.bValido)">
+		 			<div zclass="div_ok">
+		 				<label value="✔" zclass="lbl_ok"/>
+		 			</div>
+		 			<div>
+		 				<label value="@bind(vmPDiners.mensaje)" zclass="lbl_txt_pago_efectuado"/>
+		 				<div>
+		 					<label value="Mensaje de Respuesta: "/>
+		 					<label value="@bind(vmPDiners.mensajeRespuesta)" zclass="lbl_txt_pago_efectuado"/>
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<div zclass="div_content_mensajeError" visible="@bind(vmPDiners.bNoValido)">
+		 			<div zclass="div_ok">
+		 				<label value="x" zclass="lbl_error"/>
+		 			</div>
+		 			<div>
+		 				<label value="@bind(vmPDiners.mensaje)" zclass="lbl_txt_pago_efectuado"/>
+		 				<div>
+		 					<label value="Mensaje de Respuesta: "/>
+		 					<label value="@bind(vmPDiners.mensajeRespuesta)" zclass="lbl_txt_pago_efectuado"/>
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<space></space>
+		 		<hbox sclass="hb_codTransac">
+		 			<label value="Código de Autorización:" zclass="lbl_txt_codTransac"/>
+		 			<label value="@bind(vmPDiners.strOutput[1])" sclass="lbl_transac"/>
+		 		</hbox>
+		 		<space></space>
+		 		<button label="IR A PAGINA PRINCIPAL" 
+		 			onClick="@command('regresarPaginaPrincipal')"
+		 			zclass="btn_continuar"/>
+		 		<space></space>
+		 	</vbox>
+		 </window>
+	</div>
+</zk>

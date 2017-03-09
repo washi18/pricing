@@ -1,0 +1,272 @@
+.div_opciones_busqueda{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content: center !important;
+	-webkit-justify-content: center !important;
+	-moz-justify-content: center !important;
+	-ms-justify-content: center !important;
+	-o-justify-content: center !important;
+	padding: 4px;
+	background: lightgray;
+	border-radius: 3px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+}
+
+.intervalo_fechas{
+	vertical-align: middle;
+	display: flex;
+   display: -webkit-flex;
+   display: -moz-flex;
+   display: -ms-flex;
+   display: -o-flex;
+   align-items: center;
+   -webkit-align-items: center;
+   -moz-align-items: center;
+   -ms-align-items: center;
+   -o-align-items: center;
+   width: 35%;
+}
+
+.estilo_div_estado_pagos {
+	width: 57%;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
+}
+
+.btn_lista_pasajeros{
+	background:#3BA420;
+	border-radius: 5px;
+	width: 100px;
+	height: 40px;
+	border: none;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	text-shadow: none;
+}
+
+.btn_lista_pasajeros:HOVER{
+	background: #3BA420 ;
+}
+
+.btn_lista_pasajeros:FOCUS{
+	background: #3BA420 ;
+	color: white;
+}
+
+.estilo_win_popup {
+	border: 0.3px solid rgba(0,0,0,0.1);
+	padding: 2px;
+	box-sizing:border-box;
+    box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 3px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.1);
+    width: 30%;
+}
+
+.div_pasajeros {
+	width: 57%;
+}
+
+.estilo_titulo_pasajeros {
+	background: -webkit-linear-gradient(top, #202751 0.2%, #053351 100%);
+    background: linear-gradient(to bottom, #202751 0.2%, #053351 100%);
+}
+
+.estilo_pago_porcentaje {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+
+.estilo_pagos {
+   border: 1px solid rgba(0,0,0,0.1);
+   padding: 10px;
+   box-sizing:border-box;
+   box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   background: rgba(0,0,0,0.1);
+}
+
+.estilo_contenidos_horizontales {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+
+.estilo_contenidos_centrados {
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
+}
+
+.div_numeracion_reporte_pagos{
+	background: #053351;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	width: 20%;
+	height: 26px;
+	padding: 2px;
+	position: relative;
+	top: -15px;
+	left: -15px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.div_numeracion_reporte_pagos:AFTER{
+	content: '';
+	border-bottom:13px solid #053351;
+	border-top:13px solid #053351;
+/* 	border-left:10px solid #2f2f2f; */
+	border-right:10px solid transparent;
+	top:0;
+	right: -10px;
+	position: absolute;
+}
+.div_numeracion_reporte_pagos:BEFORE {
+	content: '';
+	border-bottom:13px solid transparent;
+	border-top:13px solid gray;
+	border-left:5px solid transparent;
+	top:26px;
+	left:0;
+	position: absolute;
+}
+.contendor_montos {
+	width: 25% ;
+}
+
+.div_list_cell_pagos{
+	border: 1px solid rgba(0,0,0,0.1);
+	padding: 10px;
+	box-sizing:border-box;
+    box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+    background: rgba(0,0,0,0.1);
+    display:flex;
+    display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+}
+
+@media only screen and (max-width: 416px)
+{
+	.contendor_montos {
+		width: 100% !important;
+	}
+	.div_numeracion_reporte_pagos {
+		width: 30% !important;
+	}
+	.estilo_win_popup {
+		width: 80% ;
+	}	
+	.div_pasajeros {
+		width: 100% !important;
+	}
+	.div_opciones_busqueda{
+       display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   -webkit-flex-direction: column;
+	   -moz-flex-direction: column;
+	   -ms-flex-direction: column;
+	   -o-flex-direction: column;
+	   width: 100% !important;
+    }
+    .intervalo_fechas .z-datebox{
+		width: 60% !important;
+	}
+	.intervalo_fechas .z-datebox .z-datebox-input{
+		width: 100% !important;
+	}
+    .intervalo_fechas{
+	   display: flex;
+	   display: -webkit-flex;
+	   display: -moz-flex;
+	   display: -ms-flex;
+	   display: -o-flex;
+	   flex-direction: column;
+	   -webkit-flex-direction: column;
+	   -moz-flex-direction: column;
+	   -ms-flex-direction: column;
+	   -o-flex-direction: column;
+	   justify-content: center;
+	   -webkit-justify-content: center;
+	   -moz-justify-content: center;
+	   -ms-justify-content: center;
+	   -o-justify-content: center;
+	   width: 100% !important;
+    }
+    .estilo_div_estado_pagos {
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		align-items: center;
+		-webkit-align-items: center;
+		-moz-align-items: center;
+		-ms-align-items: center;
+		-o-align-items: center;
+		flex-direction: column;
+	   -webkit-flex-direction: column;
+	   -moz-flex-direction: column;
+	   -ms-flex-direction: column;
+	   -o-flex-direction: column;
+		width: 100% !important;
+	}
+}

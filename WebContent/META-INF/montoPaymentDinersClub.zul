@@ -1,0 +1,47 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<window apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vmMPDiners') @init('com.pricing_pat.viewModel.montoPaymentDinersClubVM')"
+			border="normal"
+			title="." 
+			sclass="win_pay"
+			closable="true"
+			onClose="@command('cerrarVentanaPagoDiners')">
+		<div width="100%" align="center">
+			<space></space>
+			<div sclass="div_porcentaje">
+				<label value="@bind(vmMPDiners.textoPorcentajeDiners)" style="color:white;font-size:30px;font-weight:bold;"/>
+			</div>
+			<space></space>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPDiners.etiqueta[99])" sclass="lbl_desc"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPDiners.montoTotalPorcentualDiners)" sclass="lbl_monto"/>
+				</div>
+			</div>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPDiners.etiqueta[100])" sclass="lbl_desc"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPDiners.pagos.taxDiners)" sclass="lbl_monto"/>
+				</div>
+			</div>
+			<separator bar="true"/>
+			<div sclass="win_div_pay">
+				<div sclass="win_div_pay_izq">
+					<label value="@bind(vmMPDiners.etiqueta[101])" sclass="lbl_desc_Total"/>
+				</div>
+				<div sclass="win_div_pay_der">
+					<label value="@bind(vmMPDiners.pagos.totalConImpuestoDiners)" sclass="lbl_monto_Total"/>
+				</div>
+			</div>
+			<div align="center" style="padding:10px;">
+				<label value="Payment --> "/>
+				<html content="@bind(vmMPDiners.pagos.urlDiners)"/>
+			</div>
+		</div>
+	</window>
+</zk>

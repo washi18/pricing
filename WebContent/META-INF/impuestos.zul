@@ -1,0 +1,113 @@
+<?page title="Impuestos" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_Generales.css"/>
+	<style  src="css/configExtras.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmImpuesto') @init('com.pricing_pat.viewModel.impuestoYcobrosVM')">
+		<space></space>
+		<div width="100%" sclass="div_content_config">
+		 	<div width="100%" sclass="div_content_config_title">
+		 		<a iconSclass="fa fa-credit-card-alt estilos-iconos div_content_config_title_a"/>
+		 		<label value="CONFIGURACION DE COBROS E IMPUESTOS" sclass="div_content_config_title_lbl"/>
+		 	</div>
+		 	<div visible="@bind(vmImpuesto.oImpuesto.editable)">
+		 		<div sclass="div_content_config_items">
+		 			<label value="Impuesto Paypal:" sclass="lbl_congif_sutitle"/>
+		 			<textbox value="@bind(vmImpuesto.oImpuesto.impuestoPaypal)" 
+		 					      onChange="@command('changeValorCobro',valor=1,componente=self)"
+		 					      width="50px"
+		 					      sclass="txt_config_valor"/>
+		 			<label value="%" sclass="lbl_config_porcentaje"/>
+		 		</div>
+		 		<div sclass="div_content_config_items">
+		 			<label value="Impuesto Visa:" sclass="lbl_congif_sutitle"/>
+		 			<textbox value="@bind(vmImpuesto.oImpuesto.impuestoVisa)" onChange="@command('changeValorCobro',valor=2,componente=self)" width="50px"
+		 					      sclass="txt_config_valor"/>
+		 			<label value="%" sclass="lbl_config_porcentaje"/>
+		 		</div>
+		 		<div sclass="div_content_config_items">
+		 			<label value="Impuesto Master Card:" sclass="lbl_congif_sutitle"/>
+		 			<textbox value="@bind(vmImpuesto.oImpuesto.impuestoMasterCard)" 
+		 				onChange="@command('changeValorCobro',valor=3,componente=self)"
+		 				width="50px" sclass="txt_config_valor"/>
+		 			<label value="%" sclass="lbl_config_porcentaje"/>
+		 		</div>
+		 		<div sclass="div_content_config_items">
+		 			<label value="Impuesto Dinners Club:" sclass="lbl_congif_sutitle"/>
+		 			<textbox value="@bind(vmImpuesto.oImpuesto.impuestoDinnersClub)" 
+		 					onChange="@command('changeValorCobro',valor=4,componente=self)"
+		 					width="50px" sclass="txt_config_valor"/>
+		 			<label value="%" sclass="lbl_config_porcentaje"/>
+		 		</div>
+		 		<div>
+		 			<label value="Modo de Cobro:" sclass="lbl_select_title"/>
+		 			<div>
+		 				<radiogroup sclass="select_modo_pago" orient="horizontal" onCheck="@command('selectModoDeCobro',modo=self.selectedItem.value)">
+		 					<radio label="Porcentual" value="porcentaje" checked="@bind(vmImpuesto.oImpuesto.modoPorcentual)"/>
+		 					<radio label="Minimo" value="minimo" checked="@bind(vmImpuesto.oImpuesto.modoMinimo)"/>
+		 				</radiogroup>
+		 				<div visible="@bind(vmImpuesto.oImpuesto.modoPorcentual)" sclass="div_content_config_items">
+		 					<label value="Porcentaje a cobrar:" sclass="lbl_congif_sutitle"/>
+		 					<textbox value="@bind(vmImpuesto.oImpuesto.porcentajeCobro)" 
+		 							onChange="@command('changeValorCobro',valor=5,componente=self)"
+		 							width="50px" sclass="txt_config_valor"/>
+		 					<label value="%" sclass="lbl_config_porcentaje"/>
+		 				</div>
+		 				<div visible="@bind(vmImpuesto.oImpuesto.modoMinimo)" sclass="div_content_config_items">
+		 					<label value="Minimo a cobrar: $" sclass="lbl_congif_sutitle"/>
+		 					<textbox value="@bind(vmImpuesto.oImpuesto.pagoMinimo)" 
+			 						onChange="@command('changeValorCobro',valor=6,componente=self)"
+			 						width="50px" sclass="txt_config_valor"/>
+		 					<label value="por pasajero." sclass="lbl_config_porcentaje"/>
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<space></space>
+			 	<div zclass="div_content_btns_operaciones" align="center" width="100%">
+			 		<button label="ACTUALIZAR" width="100%" zclass="btn_actualizar" onClick="@command('insert_update_impuesto',componente=self)"/>
+			 		<button label="CANCELAR" width="100%" zclass="btn_editar" onClick="@command('Cancelar')"/>
+			 	</div>
+		 	</div>
+		 	<div visible="@bind(!vmImpuesto.oImpuesto.editable)">
+		 		<div sclass="div_content_config_items">
+		 			<label value="Impuesto Paypal:" sclass="lbl_congif_sutitle"/>
+		 			<label value="@bind(vmImpuesto.oImpuesto.impuestoPaypal)" sclass="lbl_config_porcentaje"/>
+		 			<label value="%" sclass="lbl_config_porcentaje"/>
+		 		</div>
+		 		<div sclass="div_content_config_items">
+		 			<label value="Impuesto Visa:" sclass="lbl_congif_sutitle"/>
+		 			<label value="@bind(vmImpuesto.oImpuesto.impuestoVisa)" sclass="lbl_config_porcentaje"/>
+		 			<label value="%" sclass="lbl_config_porcentaje"/>
+		 		</div>
+		 		<div sclass="div_content_config_items">
+		 			<label value="Impuesto Master Card:" sclass="lbl_congif_sutitle"/>
+		 			<label value="@bind(vmImpuesto.oImpuesto.impuestoMasterCard)" sclass="lbl_config_porcentaje"/>
+		 			<label value="%" sclass="lbl_config_porcentaje"/>
+		 		</div>
+		 		<div sclass="div_content_config_items">
+		 			<label value="Impuesto Dinners Club:" sclass="lbl_congif_sutitle"/>
+		 			<label value="@bind(vmImpuesto.oImpuesto.impuestoDinnersClub)" sclass="lbl_config_porcentaje"/>
+		 			<label value="%" sclass="lbl_config_porcentaje"/>
+		 		</div>
+		 		<div>
+		 			<label value="Modo de Cobro:" sclass="lbl_select_title"/>
+		 			<div visible="@bind(vmImpuesto.oImpuesto.modoPorcentual)" sclass="div_content_config_items">
+		 				<label value="Porcentaje a cobrar:" sclass="lbl_congif_sutitle"/>
+		 				<label value="@bind(vmImpuesto.oImpuesto.porcentajeCobro)" sclass="lbl_config_porcentaje"/>
+		 				<label value="%" sclass="lbl_config_porcentaje"/>
+		 			</div>
+		 			<div visible="@bind(vmImpuesto.oImpuesto.modoMinimo)" sclass="div_content_config_items">
+		 				<label value="Minimo a cobrar:" sclass="lbl_congif_sutitle"/>
+		 				<label value="$" sclass="lbl_config_porcentaje"/>
+		 				<label value="@bind(vmImpuesto.oImpuesto.pagoMinimo)" sclass="lbl_config_porcentaje"/>
+		 				<label value="por pasajero." sclass="lbl_config_porcentaje"/>
+		 			</div>
+		 		</div>
+		 		<space></space>
+		 		<div width="100%" align="center">
+			 		<button label="EDITAR" width="200px" zclass="btn_editar" onClick="@command('Editar')"/>
+			 	</div>
+		 	</div>
+		</div>
+	</div>
+</zk>

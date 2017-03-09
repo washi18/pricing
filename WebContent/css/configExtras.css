@@ -1,0 +1,98 @@
+.div_content_config{
+	background: rgba(0,0,0,0.3);
+	border-radius:5px;
+	padding:8px;
+}
+.div_content_config_title{
+	background: #555;
+	border-radius:5px;
+	padding:10px;
+}
+.div_content_config_title_lbl{
+	color: white;
+	font-size: 15px;
+	font-weight: bold;
+	text-align: center;
+}
+.div_content_config_title_a{
+	color: white;
+}
+.div_content_config_items{
+	background: rgba(255,255,255,0.2);
+	border-radius:5px;
+	margin: 2px 0 2px 0;
+	padding: 5px;
+}
+.lbl_congif_sutitle{
+	color: #053351;
+	font-size: 13px;
+	font-weight: bold;
+}
+.txt_config_valor{
+	font-size: 17px;
+	font-weight: bold;
+	background: white;
+	border: 1px solid rgba(0,0,0,0.6);
+}
+.lbl_config_porcentaje{
+	color: black;
+	font-size: 17px;
+	font-weight: bold;
+}
+.lbl_select_title{
+	color: #053351;
+	font-size: 15px;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+}
+/**ESTILOS DE RADIO GROUP PARA MODO DE COBRO**/
+.select_modo_pago.z-radiogroup{
+/* 	background: rgba(0,0,0,0.2); */
+/* 	padding: 8px; */
+	border-radius:5px;
+}
+.select_modo_pago.z-radiogroup .z-radio input[type="radio"]{
+	display: none;
+}
+.select_modo_pago.z-radiogroup .z-radio label{
+/* 	color: #053351; */
+	margin-left: 7px;
+	display: inline-block;
+    cursor: pointer;
+    color: #053351;
+    position: relative;
+    padding: 5px 15px 5px 51px;
+    font-size: 1em;
+    font-weight:bold;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    transition: all 0.3s ease;
+}
+.select_modo_pago.z-radiogroup .z-radio label:hover{
+	background: rgba(0, 0, 0, 0.2);
+}
+.select_modo_pago.z-radiogroup .z-radio label:before{
+	  content:'';
+      display: inline-block;
+      width: 17px;
+      height: 17px;
+      position: absolute;
+      left: 15px;
+      border-radius: 50%;
+      background: none;
+      border: 3px solid #053351;
+}
+.select_modo_pago.z-radiogroup input[type="radio"]:checked + label:before {
+      display: none; 
+}
+.select_modo_pago.z-radiogroup input[type="radio"]:checked + label{
+	  padding: 5px 15px;
+      background: #053351;
+      border-radius: 2px;
+      color: #fff;
+}

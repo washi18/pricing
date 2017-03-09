@@ -1,0 +1,45 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/UpdateDispo.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmUpdateDispo') @init('com.pricing_pat.viewModel.UpdateDispoVM')" >
+		<div sclass="div_ActualizarDispo">
+			<div>
+				<combobox id="cbDispo" readonly="true" placeholder="Seleccionar destino" width="300px">
+<!-- 					<comboitem value="1" label="Machupicchu"></comboitem> -->
+<!-- 					<comboitem value="2" label="Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m."></comboitem> -->
+<!-- 					<comboitem value="3" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem> -->
+<!-- 					<comboitem value="4" label="Machupicchu + Montaña 7:00 a.m.-8:00 a.m."></comboitem> -->
+<!-- 					<comboitem value="5" label="Machupicchu + Montaña 9:00 a.m.-10:00 a.m."></comboitem> -->
+					<comboitem value="20" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+					<comboitem value="21" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+				</combobox>
+			</div>
+			<combobox id="cbAnio_pdf" readonly="true" width="70px">
+				<comboitem id="cbAnioActual_pdf"/>
+				<comboitem id="cbAnioSig_pdf"/>
+			</combobox>
+			<space></space>
+			<button label="subir pdf" zclass="btn_subir_pdf" onClick="@command('uploadFilePDF',idTb=txtNombreArchivo1.id,idLbl=lblMensaje1.id,dispo=cbDispo.selectedItem.value)"/>
+			<space></space>
+			<textbox id="txtNombreArchivo1" placeholder="NOMBRE PDF"/>
+			<space></space>
+			<label id="lblMensaje1"/>
+		</div>
+<!-- 		<div sclass="div_ActualizarDispo"> -->
+<!-- 			<combobox id="cbAnio" readonly="true" width="70px"> -->
+<!-- 				<comboitem id="cbAnioActual"/> -->
+<!-- 				<comboitem id="cbAnioSig"/> -->
+<!-- 			</combobox> -->
+<!-- 			<space></space> -->
+<!-- 			<button label="subir txt" zclass="btn_subir_pdf" onClick="@command('uploadFileTXT',idTb=txtNombreArchivo2.id,idLbl=lblMensaje2.id,opcion=2)"/> -->
+<!-- 			<space></space> -->
+<!-- 			<textbox id="txtNombreArchivo2" placeholder="NOMBRE TXT"/> -->
+<!-- 			<space></space> -->
+<!-- 			<label id="lblMensaje2"/> -->
+<!-- 		</div> -->
+		<div>
+			<include src="disponibilidad_yourself.zul"/>
+		</div>
+	</div>
+</zk>

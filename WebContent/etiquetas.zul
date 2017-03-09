@@ -1,0 +1,68 @@
+<?page title="Etiquetas" contentType="text/html;charset=UTF-8"?>
+<zk>
+    <style src="css/formas_Generales.css"/>
+    <style src="css/estilos_Etiqueta.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmEtiqueta') @init('com.pricing.viewModel.etiquetaVM')">
+		<separator spacing="2px"></separator>
+		<div sclass="div_busqueda_etiqueta">
+			<textbox id="txtNombre" placeholder="Ingrese busqueda" sclass="txt_llenar_datos" onOK="@command('buscarEtiquetas',nombre=self.value)"> 
+			</textbox>
+			<space orient="vertical"></space>
+			<button iconSclass="fa fa-search" height="30px" zclass="estilo_btn_buscar" onClick="@command('buscarEtiquetas',nombre=txtNombre.value)"></button>
+		</div>
+		<separator spacing="4px"></separator>
+		<listbox sclass="listados" model="@bind(vmEtiqueta.listaEtiquetas) @template((each.editable)? 'modeleditable':'noeditable')" mold="paging" pageSize="10"  pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="modeleditable">
+				<listitem>
+					<listcell>
+						 <div width="100%" zclass="div_list_cell">
+						 	<div zclass="div_numeracion">
+								<label value="@bind(each.codEtiqueta)"/>
+							</div>
+							<div zclass="div_content_etiqueta_desc">
+							  <div zclass="div_contiene_banderas">
+							 	<image src="img/Flag-of-Spain.png" sclass="estilo_banderas" onClick="@command('cambioIdiomas',idioma='Espanol',etiqueta=each)"></image>
+							 	<image src="img/en.png" sclass="estilo_banderas" onClick="@command('cambioIdiomas',idioma='Ingles',etiqueta=each)"></image>
+							 	<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas" onClick="@command('cambioIdiomas',idioma='Portugues',etiqueta=each)"></image>
+							  </div>
+							  <div sclass="estilo_editar_respons">
+								<textbox zclass="txt_llenar_datos" visible="@bind(each.visibleEspanol)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma1) @save(each.cIdioma1,before='actualizarEtiqueta')"/>
+								<textbox zclass="txt_llenar_datos" visible="@bind(each.visibleIngles)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma2) @save(each.cIdioma2,before='actualizarEtiqueta')"/>
+								<textbox zclass="txt_llenar_datos" visible="@bind(each.visiblePortugues)" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma3) @save(each.cIdioma3,before='actualizarEtiqueta')"/>
+								<textbox zclass="txt_llenar_datos" visible="false" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma4) @save(each.cIdioma4,before='actualizarEtiqueta')"/>
+								<textbox zclass="txt_llenar_datos" visible="false" multiline="true" width="100%" height="100px" value="@bind(each.cIdioma5) @save(each.cIdioma5,before='actualizarEtiqueta')"/>
+							  </div>
+							</div>
+							<space></space> 
+							<div zclass="div_operacion_etiqueta">
+								<button label="Actualizar" onClick="@command('actualizarEtiqueta',etiqueta=each)" zclass="btn_actualizar"/>
+							</div>
+						 </div>
+					</listcell>
+				</listitem>
+			</template>
+			<template name="noeditable">
+				<listitem>
+					<listcell>
+						<div width="100%" zclass="div_list_cell">
+							<div zclass="div_numeracion">
+								<label value="@bind(each.codEtiqueta)"/>
+							</div>
+							<div zclass="div_content_etiqueta_desc">
+								<label value="@bind(each.cIdioma1)" sclass="lbl_idioma_etiqueta"/>
+							</div>
+							<space></space>
+							<div zclass="div_operacion_etiqueta">
+								<button label="Editar" onClick="@command('Editar',etiqueta=each)" zclass="btn_editar"/>
+							</div>
+						</div>
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

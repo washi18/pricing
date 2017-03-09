@@ -1,0 +1,158 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/disponibilidad.css"/>
+	<style src="css/estilos_Calendario_yourself.css"/>
+	<div apply="org.zkoss.bind.BindComposer" 
+		 viewModel="@id('vmDisp_yourself') @init('com.pricing.viewModel.CDisponibilidadYourselfVM')">
+		<separator orient="horizontal"></separator>
+		<div class="cmb_lugar">
+			<label value="Destino"/>
+			<combobox id="cbLugares" readonly="true" placeholder="Seleccionar destino" width="300px" onSelect="@command('seleccionardestino',codDestino=self.selectedItem.value)">
+				<comboitem value="1" label="Machupicchu"></comboitem>
+				<comboitem value="2" label="Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m."></comboitem>
+				<comboitem value="3" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>
+				<comboitem value="4" label="Machupicchu + Montaña 7:00 a.m.-8:00 a.m."></comboitem>
+				<comboitem value="5" label="Machupicchu + Montaña 9:00 a.m.-10:00 a.m."></comboitem>
+				<comboitem value="20" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+				<comboitem value="21" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+			</combobox>
+		</div>
+<!-- 		<separator orient="horizontal"></separator> -->
+<!-- 		<div zclass="contenedor_botones" style="display:flex; margin-left:100px;"> -->
+<!-- 			<div zclass="btn_crearDispo"> -->
+<!-- 				<button label="Crear" zclass="btn_activo" disabled="@bind(vmDisp_yourself.deshabilitarBtnCrear)" onClick="@command('crearDisponibilidad',cDestino=cbLugares.selectedItem.value,componente=self)"></button> -->
+<!-- 			</div> -->
+<!-- 			<separator orient="vertical"></separator> -->
+<!-- 			<div > -->
+<!-- 				<button label="Editar" onClick="@command('modificacionDisponibilidadMes')" zclass="btn_actualizar"></button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+		<div zclass="contenedor_cmb_mes_anio" style="display:flex; margin:10px;">
+			<div class="cmb_mes">
+					<label value="Mes"/>
+					<combobox id="cbMes" readonly="true" width="150px" value="@bind(vmDisp_yourself.valorcmbmeses)" onSelect="@command('changeMonth',valueAnio=cbAnio.value,valueMes=self.selectedItem.value)">
+						<comboitem value="Enero" label="Enero"/>
+						<comboitem value="Febrero" label="Febrero" disabled="@bind(vmDisp_yourself.desabilitarFebrero)"/>
+						<comboitem value="Marzo" label="Marzo"/>
+						<comboitem value="Abril" label="Abril"/>
+						<comboitem value="Mayo" label="Mayo"/>
+						<comboitem value="Junio" label="Junio"/>
+						<comboitem value="Julio" label="Julio"/>
+						<comboitem value="Agosto" label="Agosto"/>
+						<comboitem value="Setiembre" label="Setiembre"/>
+						<comboitem value="Octubre" label="Octubre"/>
+						<comboitem value="Noviembre" label="Noviembre"/>
+						<comboitem value="Diciembre" label="Diciembre"/>
+					</combobox>
+			</div>
+			<separator orient="vertical"></separator>
+			<div class="cmb_anio">
+				<label value="Año"></label>
+				<combobox id="cbAnio" readonly="true" width="100px" value="@bind(vmDisp_yourself.valorcmbAnios)" onChange="@command('AnioSeleccionado',nAnio=self.value)" onSelect="@command('changeAnio',valueAnio=self.selectedItem.label)">
+						<comboitem id="cbAnioActual" label="@bind(vmDisp_yourself.valorcmbAnio)"/>
+						<comboitem id="cbAnioSig" label="@bind(vmDisp_yourself.valorcmbAnioSiguiente)"/>
+					</combobox>
+			</div>
+		</div>
+		<div>
+			<grid sclass="calendar_grid" model="@bind(vmDisp_yourself.listaDias)" width="480px">
+				<columns>
+					<column label="Lunes"></column>
+					<column label="Martes"></column>
+					<column label="Miercoles"></column>
+					<column label="Jueves"></column>
+					<column label="Viernes"></column>
+					<column label="Sabado"></column>
+					<column label="Domingo"></column>
+				</columns>
+				<rows>
+					<template name="model" var="dias7">
+						<row>
+							<div align="center"  visible="@bind(dias7.dia_1.visible)" 
+								 style="@bind(dias7.dia_1.imgPrioridad)" tooltiptext="@bind(dias7.dia_1.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<label value="@bind(dias7.dia_1.cNroDia)" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<textbox value="@bind(dias7.dia_1.cantDisp)" onChange="@command('huboModificacion',mes=cbMes.value,anio=cbAnio.value,objetoDispo=dias7.dia_1,comp=self)" sclass="style_disp"/>
+<!-- 									<a iconSclass="@bind(dias7.dia_1.disponible)" sclass="@bind(dias7.dia_1.colorDisp)"/> -->
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_2.visible)" 
+								 style="@bind(dias7.dia_2.imgPrioridad)" tooltiptext="@bind(dias7.dia_2.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<label value="@bind(dias7.dia_2.cNroDia)" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<textbox value="@bind(dias7.dia_2.cantDisp)" onChange="@command('huboModificacion',mes=cbMes.value,anio=cbAnio.value,objetoDispo=dias7.dia_2,comp=self)" sclass="style_disp"/>
+<!-- 									<a iconSclass="@bind(dias7.dia_2.disponible)" sclass="@bind(dias7.dia_2.colorDisp)"/> -->
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_3.visible)" 
+								 style="@bind(dias7.dia_3.imgPrioridad)" tooltiptext="@bind(dias7.dia_3.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<label value="@bind(dias7.dia_3.cNroDia)" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<textbox value="@bind(dias7.dia_3.cantDisp)" onChange="@command('huboModificacion',mes=cbMes.value,anio=cbAnio.value,objetoDispo=dias7.dia_3,comp=self)" sclass="style_disp"/>
+<!-- 									<a iconSclass="@bind(dias7.dia_3.disponible)" sclass="@bind(dias7.dia_3.colorDisp)"/> -->
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_4.visible)" 
+								 style="@bind(dias7.dia_4.imgPrioridad)" tooltiptext="@bind(dias7.dia_4.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<label value="@bind(dias7.dia_4.cNroDia)" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<textbox value="@bind(dias7.dia_4.cantDisp)" onChange="@command('huboModificacion',mes=cbMes.value,anio=cbAnio.value,objetoDispo=dias7.dia_4,comp=self)" sclass="style_disp"/>
+<!-- 									<a iconSclass="@bind(dias7.dia_4.disponible)" sclass="@bind(dias7.dia_4.colorDisp)"/> -->
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_5.visible)" 
+								 style="@bind(dias7.dia_5.imgPrioridad)" tooltiptext="@bind(dias7.dia_5.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<label value="@bind(dias7.dia_5.cNroDia)" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<textbox value="@bind(dias7.dia_5.cantDisp)" onChange="@command('huboModificacion',mes=cbMes.value,anio=cbAnio.value,objetoDispo=dias7.dia_5,comp=self)" sclass="style_disp"/>
+<!-- 									<a iconSclass="@bind(dias7.dia_5.disponible)" sclass="@bind(dias7.dia_5.colorDisp)"/> -->
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_6.visible)" 
+								 style="@bind(dias7.dia_6.imgPrioridad)" tooltiptext="@bind(dias7.dia_6.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<label value="@bind(dias7.dia_6.cNroDia)" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<textbox value="@bind(dias7.dia_6.cantDisp)" onChange="@command('huboModificacion',mes=cbMes.value,anio=cbAnio.value,objetoDispo=dias7.dia_6,comp=self)" sclass="style_disp"/>
+<!-- 									<a iconSclass="@bind(dias7.dia_6.disponible)" sclass="@bind(dias7.dia_6.colorDisp)"/> -->
+								</hbox>
+							</div>
+							<div align="center"  visible="@bind(dias7.dia_7.visible)" 
+								 style="@bind(dias7.dia_7.imgPrioridad)" tooltiptext="@bind(dias7.dia_7.descDiaElegido)"
+								 sclass="div_dia">
+								<div>
+									<label value="@bind(dias7.dia_7.cNroDia)" zclass="style_dia"/>
+								</div>
+								<hbox align="center">
+									<textbox value="@bind(dias7.dia_7.cantDisp)" onChange="@command('huboModificacion',mes=cbMes.value,anio=cbAnio.value,objetoDispo=dias7.dia_7,comp=self)" sclass="style_disp"/>
+<!-- 									<a iconSclass="@bind(dias7.dia_7.disponible)" sclass="@bind(dias7.dia_7.colorDisp)"/> -->
+								</hbox>
+							</div>
+						</row>
+					</template>
+				</rows>
+			</grid>
+		</div>
+		<separator orient="horizontal"></separator>
+		<div style="display:flex; right:0px;">
+			<button label="Actualizar" zclass="btn_activo" onClick="@command('actualizarCantDispo',nAnio=cbAnio.value,cDestino=cbLugares.selectedItem.value,componente=self)"></button>
+		</div>
+	</div>
+</zk>

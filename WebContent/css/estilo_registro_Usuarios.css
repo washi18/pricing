@@ -1,0 +1,146 @@
+.div_numeracion_usuarios{
+	background: #053351;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	width: auto;
+	height: 26px;
+	padding: 2px;
+	position: relative;
+	top: -15px;
+	left: -15px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+	-moz-justify-content:center;
+	-ms-justify-content:center;
+	-o-justify-content:center;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+.div_numeracion_usuarios:AFTER{
+	content: '';
+	border-bottom:13px solid #053351;
+	border-top:13px solid #053351;
+/* 	border-left:10px solid #2f2f2f; */
+	border-right:10px solid transparent;
+	top:0;
+	right: -10px;
+	position: absolute;
+}
+.div_numeracion_usuarios:BEFORE {
+	content: '';
+	border-bottom:13px solid transparent;
+	border-top:13px solid gray;
+	border-left:5px solid transparent;
+	top:26px;
+	left:0;
+	position: absolute;
+}
+
+.div_content_info_usuarios{
+	width: 45%;
+}
+
+.div_contenedor_registroUser{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	padding: 10px;
+	background: rgba(0,0,0,0.1);
+	margin-top: 5px;
+	border-radius:5px; 
+}
+
+.estilo_datos_personales {
+	font-size: 15px;
+	color: black; 
+	font-weight:bold;
+}
+.estilo_datos_personales_label {
+	font-size: 15px;
+	color: rgb(0,0,0,0.1); 
+	font-weight:bold;
+}
+.div_content_datos_personales {
+	width: 35%;
+}
+
+.div_contenedor_datos_usuario{
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	width: 90%;
+}
+
+.div_img_lista {
+	background: white;
+	background-size: cover;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+	margin: 0 0 10px 0;
+	padding: 3px;
+	box-sizing:border-box;
+	width: 20%;
+}
+
+.estilo_content_datos_personales {
+   border: 1px solid rgba(0,0,0,0.1);
+   padding: 10px;
+   box-sizing:border-box;
+   box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -webkit-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -moz-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -ms-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   -o-box-shadow: 0 1px 4px rgba(41,51,57,.5);
+   background: rgba(0,0,0,0.1);
+}
+
+@media only screen and (max-width: 416px){
+	
+	.div_contenedor_registroUser {
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+	.div_contenedor_datos_usuario{
+		width: 100% !important;
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+	.div_content_info_usuarios{
+		width: 100% !important;
+	}
+	.div_content_datos_personales {
+		width: 100% !important;
+	}
+	
+	.estilo_datos_personales {
+		width: 100% !important;
+	}
+	.div_img_lista {
+		width: 100% !important;
+	}
+}

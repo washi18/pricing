@@ -1,0 +1,123 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/formas_Generales.css"/>
+	<style src="css/estilos_Destinos.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmDestino') @init('com.pricing_pat.viewModel.DestinosVM')">
+		 <div zclass="div_contenedor_nuevo" width="100%">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_destino.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="180px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO DESTINO"/>
+				</div>
+			</div>
+			<div id="div_llenar_destino" visible="false">
+				<space></space>
+				<div zclass="div_contenedor_nuevo_subServicio" width="100%">
+					<div zclass="div_content_datos" width="200px">
+						<div>
+							<label value="DEPARTAMENTO: " zclass="lbl_llenar_datos"/>
+							<combobox model="@load(vmDestino.listaCodigosPostales)" readonly="true" sclass="cbox_llenar_datos" onSelect="@command('selectCodPostal',codPostal=self.selectedItem.value)">
+								<template name="model">
+									<comboitem label="@load(each.departamento)" value="@load(each.codPostal)" droppable="true"/>
+								</template>
+							</combobox>
+						</div>
+						<div>
+							<label value="DESTINO: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmDestino.oDestinoNuevo.cDestino)" zclass="txt_llenar_datos"
+									placeholder="NOMBRE DESTINO" width="100%" style="text-transform: uppercase;"/>
+						</div>
+						<button label="Guardar" zclass="btn_guardar" 
+								onClick="@command('insertarDestino',componente=self) @global-command('actualizarDestinoInsertado')"/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<separator spacing="3px"></separator>
+		<div sclass="div_busqueda_destino">
+			<textbox id="txtbuscar" placeholder="Ingrese busqueda" sclass="txt_llenar_datos" onOK="@command('buscarDestinos',destino=self.value)"> 
+			</textbox>
+			<space orient="vertical"></space>
+			<button iconSclass="fa fa-search" height="30px" zclass="estilo_btn_buscar" onClick="@command('buscarDestinos',destino=txtbuscar.value)"></button>
+		</div>
+		<space></space>
+		<listbox sclass="listados" model="@load(vmDestino.listaDestinos) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+				   	<listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nDestinoCod)"/>
+							</div>
+							<div zclass="div_contenedor_datos_servicio">
+					    		<space></space>
+					    		<div zclass="div_content_info_listServicio">
+					    			<div>
+										<label value="@load(each.cDestino)" zclass="lbl_llenar_datos"/>
+									</div>
+									<div>
+										<label value="@bind(each.nameDepartamento)" zclass="nombre_depart"/>
+									</div>
+					    			<div
+					    				zclass="div_operacion_etiqueta">
+					    				<button label="Editar"
+					    					onClick="@command('Editar',destino=each)"
+					    					zclass="btn_editar" />
+					    				<separator spacing="2px"></separator>
+					    				<button label="Activo" zclass="btn_activo" visible="@bind(each.bEstado)"/>
+					    				<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.bEstado)"/>
+					    			</div>
+					    		</div>
+					    	</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.nDestinoCod)"/>
+							</div>
+				    		<div>
+				    			<div>
+									<label value="DEPARTAMENTO: " zclass="lbl_llenar_datos"/>
+									<combobox value="@bind(each.nameDepartamento)" readonly="true" model="@load(vmDestino.listaCodigosPostales)" sclass="cbox_llenar_datos" onSelect="@command('selectCodPostal_update',codPostal=self.selectedItem.value,destino=each)">
+										<template name="model">
+											<comboitem label="@load(each.departamento)" value="@load(each.codPostal)" droppable="true"/>
+										</template>
+									</combobox>
+								</div>
+				    			<div>
+				    				<label value="DESTINO:" zclass="lbl_llenar_datos"/>
+				    				<div>
+				    					<textbox value="@load(each.cDestino)" zclass="txt_llenar_datos" style="text-transform: uppercase;"/>
+				    				</div>
+				    			</div>
+								<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+								<separator bar="true" zclass="lbl_llenar_datos"/>
+								<div>
+									<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_destino',destino=each,texto=self.selectedItem.value)">
+										<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
+										<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+									</radiogroup>
+								</div>
+							</div>
+				    		<div sclass="div_content_actualizar">
+				    			<button label="Actualizar"
+				    				onClick="@command('actualizarDestino',destino=each,componente=self)"
+				    				zclass="btn_actualizar"/>
+				    		</div>
+				    	</div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

@@ -1,0 +1,48 @@
+<?page title="PAYMENT MASTERCARD" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/return_paypal.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmPMC') @init('com.pricing_pat.viewModel.paymentMasterCardVM')"
+		 zclass="div_content_returnPaypal">
+		 <window zclass="win_pago_exitoso">
+		 	<vbox align="center" width="100%">
+		 		<image src="@load(vmPMC.configUrlDao.oConfigUrl.logoEmpresa)" width="100px" height="80px"/>
+		 		<space></space>
+		 		<div zclass="div_content_mensajeSatisfactorio" visible="@bind(vmPMC.bValido)">
+		 			<div zclass="div_ok">
+		 				<label value="✔" zclass="lbl_ok"/>
+		 			</div>
+		 			<div>
+		 				<label value="@bind(vmPMC.mensaje)" zclass="lbl_txt_pago_efectuado"/>
+		 				<div>
+		 					<label value="Mensaje de Respuesta: "/>
+		 					<label value="@bind(vmPMC.mensajeRespuesta)" zclass="lbl_txt_pago_efectuado"/>
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<div zclass="div_content_mensajeError" visible="@bind(vmPMC.bNoValido)">
+		 			<div zclass="div_ok">
+		 				<label value="x" zclass="lbl_error"/>
+		 			</div>
+		 			<div>
+		 				<label value="@bind(vmPMC.mensaje)" zclass="lbl_txt_pago_efectuado"/>
+		 				<div>
+		 					<label value="Mensaje de Respuesta: "/>
+		 					<label value="@bind(vmPMC.mensajeRespuesta)" zclass="lbl_txt_pago_efectuado"/>
+		 				</div>
+		 			</div>
+		 		</div>
+		 		<space></space>
+		 		<hbox sclass="hb_codTransac">
+		 			<label value="Código de Autorización:" zclass="lbl_txt_codTransac"/>
+		 			<label value="@bind(vmPMC.strOutput[1])" sclass="lbl_transac"/>
+		 		</hbox>
+		 		<space></space>
+		 		<button label="IR A PAGINA PRINCIPAL" 
+		 			onClick="@command('regresarPaginaPrincipal')"
+		 			zclass="btn_continuar"/>
+		 		<space></space>
+		 	</vbox>
+		 </window>
+	</div>
+</zk>

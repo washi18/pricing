@@ -1,0 +1,302 @@
+<?page title="PANEL ADMIN" contentType="text/html;charset=UTF-8"?>
+<?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
+<zk>
+	<style src="css/style_zk.css"/>
+	<style src="fonts/style.css"/>
+	<style src="fonts/bootstrap.css"/>
+	<style src="fonts/font-awesome.css"/>
+	<style src="css/Estilos_Panel_Admi.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmAdmin') @init('com.pricing.viewModel.panelAdminVM')"
+		 zclass="contenedor_admin" visible="@bind(vmAdmin.cargarAdmin)">
+		<div sclass="contendor_cabezera" width="100%" height="90px">
+			<image src="img/logo_eddyonsoft.png" sclass="logoAdmi"/>
+			<div sclass="contenedor_desplegable_responsive">
+				<button width="40px" height="30px" image="ICO/menu6.png"
+					zclass="boton_desplegable" onClick="div_config_perfil.setVisible(div_config_perfil.isVisible()?false:true)">
+				</button>
+			</div>
+			<div sclass="cabezera">
+				<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
+				<space></space>
+				<label value="@bind(vmAdmin.oUsuario.cNombres)" zclass="lbl_nombre_usuario"/>
+				<space></space>
+				<menubar sclass="cabezera_menubar">
+					<menu label="MI CUENTA">
+						<menupopup sclass="cabecera_menubar_menupopup">
+							<menuitem id="itemUpdateUsuario" iconSclass="icon-cog" label="Cambiar Cuenta" 
+										onClick="@command('Cambio',cambioInterfaz=self.id)"/>
+							<menuitem id="itemCrearUser1" iconSclass="icon-user" label="Crear Usuario" 
+										  visible="@bind(vmAdmin.oAcceso.accesoCrearNuevoUser)"
+										  onClick="@command('Cambio',cambioInterfaz=self.id)"/>
+							<menuitem iconSclass="icon-switch" label="Cerrar Sesion" onClick="@command('cerrarSession')"/>
+						</menupopup>
+					</menu>
+<!-- 					<menu label="MENSAJES"></menu> -->
+				</menubar>
+			</div>
+		</div>
+		<div sclass="contenedor_cuerpo" height="100vh" width="100%">
+			<div zclass="estilo_div_tree">
+						<div height="40px" zclass="encima_tree"></div>
+						<div height="100vh" zclass="div_tree">
+							<div zclass="div_mantenimiento">
+								<!-- ==CONFIGURACION== -->
+								<div zclass="div_mantenimiento_items" onClick="d_config.setVisible(d_config.isVisible()?false:true)">
+									<div>
+										<span sclass="icon-cog estilos-iconos"/>
+										<label value="CONFIGURACION" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_config" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoUpdateDispo)">
+										<div id="itemDisponibilidad" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-accessibility estilos-iconos"/>
+											<label value="Actualizar Disponibilidad" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)">
+										<div id="itemEtiqueta" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-bookmark estilos-iconos"/>
+											<label value="Etiquetas" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoVisa)">
+										<div id="itemVisa" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-cc-visa estilos-iconos"/>
+											<label value="Visa" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaypal)">
+										<div id="itemPaypal" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-paypal estilos-iconos"/>
+											<label value="Paypal" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoMasterdCard)">
+										<div id="itemMasterdCard" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-cc-mastercard estilos-iconos"/>
+											<label value="Masterd Card" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoWesternUnion)">
+										<div id="itemWesternUnion" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-cc-diners-club estilos-iconos"/>
+											<label value="Diners Club" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoExtras)">
+										<div id="itemExtras" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-wrench estilos-iconos estilos-iconos"/>
+											<label value="Configuraciones Extras" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
+								<!-- ==USUARIOS== -->
+								<div zclass="div_mantenimiento_items" onClick="d_usuarios.setVisible(d_usuarios.isVisible()?false:true)">
+									<div>
+										<span sclass="icon-users estilos-iconos"/>
+										<label value="USUARIOS" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_usuarios" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoRegUsuarios)">
+										<div id="itemUsuario" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-address-book-o estilos-iconos"/>
+											<label value="Registro de Usuarios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
+								<!-- ==PAQUETES== -->
+								<div zclass="div_mantenimiento_items" onClick="d_paquete.setVisible(d_paquete.isVisible()?false:true)">
+									<div>
+										<span sclass="icon-package estilos-iconos"/>
+										<label value="PAQUETES" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_paquete" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)">
+										<div id="itemPaquete" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-package estilos-iconos"/>
+											<label value="Tours" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoServicios)">
+										<div id="itemServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-cogs estilos-iconos"/>
+											<label value="Servicios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)">
+										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-tree estilos-iconos"/>
+											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoActividades)">
+										<div id="itemActividad" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-profile estilos-iconos"/>
+											<label value="Actividades" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoHoteles)">
+										<div id="itemHoteles" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-office estilos-iconos"/>
+											<label value="Hoteles" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoDestinos)">
+										<div id="itemDestinos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="icon-airplane estilos-iconos"/>
+											<label value="Destinos" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)">
+										<div id="itemCupones" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-percent estilos-iconos"/>
+											<label value="Cupones" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
+								<!-- ==REPORTES== -->
+								<div zclass="div_mantenimiento_items" onClick="d_reporte.setVisible(d_reporte.isVisible()?false:true)">
+									<div>
+										<span sclass="icon-stats-dots estilos-iconos"/>
+										<label value="REPORTES" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_reporte" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoReporReservas)">
+										<div id="itemReporteReservas" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-file-text-o estilos-iconos"/>
+											<label value="Reporte de reservas" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoReporPagos)">
+										<div id="itemReportePagos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-file-text-o estilos-iconos"/>
+											<label value="Reporte de pagos" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoEstadPagos)">
+										<div id="itemEstadisticaPagos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-area-chart estilos-iconos"/>
+											<label value="Top Pagos" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoEstadPaquMasVendidos)">
+										<div id="itemEstadisticaPaquetesmasVendidos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-area-chart estilos-iconos"/>
+											<label value="Top Paquetes" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+			</div >
+			<div zclass="contenedor_botones" height="auto">
+			    <div id="div_config_perfil" width="100%" visible="false" zclass="div_perfil_responsive">
+			    	<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
+					<label value="@bind(vmAdmin.oUsuario.cNombres)" zclass="lbl_nombre_usuario"/>
+					<menubar sclass="cabezera_menubar">
+						<menu label="MI CUENTA">
+							<menupopup sclass="cabecera_menubar_menupopup">
+								<menuitem id="itemUpdateUsuario2" iconSclass="icon-cog" label="Cambiar Cuenta" 
+											onClick="@command('Cambio',cambioInterfaz=self.id)" />
+								<menuitem id="itemCrearUser2" iconSclass="icon-user" label="Crear Usuario" 
+										  visible="@bind(vmAdmin.oAcceso.accesoCrearNuevoUser)"
+										  onClick="@command('Cambio',cambioInterfaz=self.id)"/>
+								<menuitem iconSclass="icon-switch" label="Cerrar Sesion" onClick="@command('cerrarSession')"/>
+							</menupopup>
+						</menu>
+<!-- 						<menu label="MENSAJES"></menu> -->
+					</menubar>
+			    </div>
+				<div  width="100%" height="200px" sclass="estilo_tabbox">
+					<div sclass="contenedor_botones" width="100%">
+						<div  width="100%" height="auto">
+							<div  visible="@bind(vmAdmin.visibleConfiguracion)" width="100%">
+								<div width="100%">
+								   	<button width="100%" iconSclass="icon-accessibility estilos-iconos" visible="@bind(vmAdmin.visibleDisponibilidad)" zclass="btn_opciones_config" label="DISPONIBILIDAD"/>
+								   	<button width="100%" iconSclass="icon-bookmark estilos-iconos" visible="@bind(vmAdmin.visibleEtiqueta)" zclass="btn_opciones_config" label="ETIQUETAS"/>
+								   	<button width="100%" iconSclass="icon-package estilos-iconos" visible="@bind(vmAdmin.visiblePaquetes)" zclass="btn_opciones_config" label="TOURS"/>
+								   	<button width="100%" iconSclass="fa fa-percent estilos-iconos" visible="@bind(vmAdmin.visibleCupones)" zclass="btn_opciones_config" label="CUPONES"/>
+								   	<button width="100%" iconSclass="icon-cogs estilos-iconos" visible="@bind(vmAdmin.visibleServicios)" zclass="btn_opciones_config" label="SERVICIOS"/>
+								   	<button width="100%" iconSclass="icon-tree estilos-iconos" visible="@bind(vmAdmin.visibleSubServicios)" zclass="btn_opciones_config" label="SUB SERVICIOS"/>
+								   	<button width="100%" iconSclass="icon-profile estilos-iconos" visible="@bind(vmAdmin.visibleActividades)" zclass="btn_opciones_config" label="ACTIVIDADES"/>
+								   	<button width="100%" iconSclass="icon-office estilos-iconos" visible="@bind(vmAdmin.visibleHoteles)" zclass="btn_opciones_config" label="HOTELES"/>
+								   	<button width="100%" iconSclass="icon-airplane estilos-iconos" visible="@bind(vmAdmin.visibleDestinos)" zclass="btn_opciones_config" label="DESTINOS"/>
+								   	<button width="100%" iconSclass="fa fa-user-plus estilos-iconos" visible="@bind(vmAdmin.visibleCrearUser)" zclass="btn_opciones_config" label="CREAR USUARIO"/>
+								   	<button width="100%" iconSclass="fa fa-user estilos-iconos" visible="@bind(vmAdmin.visibleActualizarUsuario)" zclass="btn_opciones_config" label="ACTUALIZAR DATOS USUARIO"/>
+								   	<button width="100%" iconSclass="fa fa-file-text-o estilos-iconos" visible="@bind(vmAdmin.visibleReportReservas)" zclass="btn_opciones_config" label="REPORTE RESERVAS"/>
+								   	<button width="100%" iconSclass="fa fa-file-text-o estilos-iconos" visible="@bind(vmAdmin.visibleReportPagos)" zclass="btn_opciones_config" label="REPORTE PAGOS"/>
+								   	<button width="100%" iconSclass="fa fa-area-chart estilos-iconos" visible="@bind(vmAdmin.visibleEstadisticaPagos)" zclass="btn_opciones_config" label="TOP PAGOS"/>
+								   	<button width="100%" iconSclass="fa fa-area-chart estilos-iconos" visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)" zclass="btn_opciones_config" label="TOP PAQUETES"/>
+								   	<button width="100%" iconSclass="fa fa-address-book-o estilos-iconos" visible="@bind(vmAdmin.visibleRegistroUsuarios)" zclass="btn_opciones_config" label="REGISTRO USUARIOS"/>
+									<button width="100%" iconSclass="fa fa-paypal estilos-iconos" visible="@bind(vmAdmin.visibleConfPaypal)" zclass="btn_opciones_config" label="CONFIGURACION DE PAYPAL"/>
+									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfExtras)" zclass="btn_opciones_config" label="CONFIGURACIONES ADICIONALES"/>
+								</div>
+								<div>
+									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
+										<include src="UpdateDispo.zul"/>	
+									</div>
+									<div visible="@bind(vmAdmin.visibleEtiqueta)">
+										<include src="etiquetas.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visiblePaquetes)">
+									   <include src="paquetes.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleCupones)">
+									   <include src="cupones.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleServicios)">
+									  <include src="servicios.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleSubServicios)">
+										<include src="subServicios.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleActividades)">
+										<include src="actividades.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleHoteles)">
+										<include src="hoteles.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleDestinos)">
+										<include src="destinos.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleCrearUser)">
+										<include src="crearUsuario.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleActualizarUsuario)">
+										<include src="cambiarCuenta.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleReportReservas)">
+										<include src="reporte_reservas.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleReportPagos)">
+										<include src="reporte_pagos.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleEstadisticaPagos)">
+										<include src="estadistica_Pagos.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleEstadisticaPaquetesmasVendidos)">
+										<include src="estadistica.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleRegistroUsuarios)">
+										<include src="registro_Usuarios.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleConfPaypal)">
+										<include src="config_Paypal.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleConfExtras)">
+										<include src="extras.zul"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</zk>

@@ -1,0 +1,23 @@
+.div_contenidoPagoMasterDiners{
+	display: flex;
+	justify-content:center;
+	align-items:center;
+}
+.lbl_Subtitle_Monto{
+	color: #053351;
+	font-size: 18px;
+	font-weight: bold;
+}
+.btn_pagar{
+	border: none;
+	background:#053351;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	border-radius:5px;
+	margin: 5px;
+}
+.div_pagar{
+	display: flex;
+	align-items:center;
+}
