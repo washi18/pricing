@@ -303,6 +303,15 @@
       border-radius: 2px;
       color: #fff;
 }
+.style_restricciones_paquete.z-radiogroup .radio_yourself input[type="radio"]:checked + label:before {
+      display: none; 
+}
+.style_restricciones_paquete.z-radiogroup .radio_yourself input[type="radio"]:checked + label{
+	  padding: 5px 15px;
+      background: #9F3941;
+      border-radius: 2px;
+      color: #fff;
+}
 .style_restricciones_paquete.z-radiogroup .radio_manejo_normal input[type="radio"]:checked + label:before {
       display: none; 
 }

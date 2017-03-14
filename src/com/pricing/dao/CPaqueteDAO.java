@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.pricing.model.CEtiqueta;
+import com.pricing.model.CHotel;
 import com.pricing.model.CPaquete;
 
 public class CPaqueteDAO extends CConexion 
@@ -58,7 +59,8 @@ public class CPaqueteDAO extends CConexion
 				(Number)row.get("npreciouno"),(Number)row.get("npreciodos"),
 				(Number)row.get("npreciotres"),(Number)row.get("npreciocuatro"), 
 				(Number)row.get("npreciocinco"),(String)row.get("cdisponibilidad"), 
-				(boolean)row.get("bestado"));
+				(boolean)row.get("bestado"),(String)row.get("cfoto1"),(String)row.get("cfoto2"),(String)row.get("cfoto3"),
+				(String)row.get("cfoto4"),(String)row.get("cfoto5"));
 	}
 	public void asignarListaPaquetes(List lista)
 	{
@@ -76,7 +78,8 @@ public class CPaqueteDAO extends CConexion
 					(Number)row.get("npreciouno"),(Number)row.get("npreciodos"),
 					(Number)row.get("npreciotres"),(Number)row.get("npreciocuatro"), 
 					(Number)row.get("npreciocinco"),(String)row.get("cdisponibilidad"), 
-					(boolean)row.get("bestado")));
+					(boolean)row.get("bestado"),(String)row.get("cfoto1"),(String)row.get("cfoto2"),(String)row.get("cfoto3"),
+					(String)row.get("cfoto4"),(String)row.get("cfoto5")));
 		}
 	}
 	public List buscarPaquetesBD(String nombre){
@@ -91,7 +94,7 @@ public class CPaqueteDAO extends CConexion
 				paquete.getnPrecioUno().doubleValue(),paquete.getnPrecioDos().doubleValue(),
 				paquete.getnPrecioTres().doubleValue(),paquete.getnPrecioCuatro().doubleValue(),
 				paquete.getnPrecioCinco().doubleValue(),paquete.getcDisponibilidad(),
-				paquete.getnDiaCaminoInka()};
+				paquete.getnDiaCaminoInka(),paquete.getcFoto1(),paquete.getcFoto2(),paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaquete", values);
 	}
 	/**METODOS DE PAQUETE SERVICIO**/
@@ -155,8 +158,15 @@ public class CPaqueteDAO extends CConexion
 				paquete.getnPrecioUno().doubleValue(),paquete.getnPrecioDos().doubleValue(),
 				paquete.getnPrecioTres().doubleValue(),paquete.getnPrecioCuatro().doubleValue(),
 				paquete.getnPrecioCinco().doubleValue(),paquete.getcDisponibilidad(),
-				paquete.getnDiaCaminoInka(),paquete.isbEstado()};
+				paquete.getnDiaCaminoInka(),paquete.isbEstado(),paquete.getcFoto1(),paquete.getcFoto2(),
+				paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarPaquetes", values);
+	}
+	public List modificarImagenesPaquete(CPaquete paquete)
+	{
+		Object[] values={paquete.getcPaqueteCod(),paquete.getcFoto1(),paquete.getcFoto2(),
+				paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5()};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarImagenesPaquete", values);
 	}
 	public boolean isOperationCorrect(List lista)
 	{

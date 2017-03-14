@@ -19,14 +19,17 @@ public class ScannUtil {
 		return saveFile(media,getPath());
 	}
 	public static boolean uploadFileServicios(Media media) {
-		System.out.println("aqui estoy="+separator);
-		System.out.println("Esta es la ruta=>"+getPathImagensSubServicios());
-		//return saveFile(media, "E:/SoftwareDevelopment/workspace/GPS/WebContent/image/unidades/");
 		return saveFile(media,getPathImagensSubServicios());
 	}
 	public static boolean uploadFileHoteles(Media media)
 	{
 		return saveFile(media, getPathImagenHoteles());
+	}
+	public static boolean uploadFilePaquetes(Media media){
+		return saveFile(media, getPathImagenPaquetes());
+	}
+	public static boolean uploadFileDestinos(Media media){
+		return saveFile(media, getPathImagenDestinos());
 	}
 	public static boolean uploadFileUsuario(Media media)
 	{
@@ -59,6 +62,12 @@ public class ScannUtil {
 	public static String getPathLogo(){
 		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator;
 	}
+	public static String getPathImagenPaquetes(){
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"tours"+separator;
+	}
+	public static String getPathImagenDestinos(){
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"destinos"+separator;
+	}
 	//save file
 	public static boolean saveFile(Media media, String path){
 		boolean uploaded = false;
@@ -67,7 +76,6 @@ public class ScannUtil {
 		try {
 			InputStream ins = media.getStreamData();
 			in = new BufferedInputStream(ins);
-
 			String fileName = media.getName();
 			File arc = new File(path + fileName);
 			OutputStream aout = new FileOutputStream(arc);

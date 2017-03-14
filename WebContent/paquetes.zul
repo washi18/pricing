@@ -17,10 +17,22 @@
 				<separator spacing="5px"/>
 				<div id="div_llenar_paquetes" visible="false">
 					<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete',opcion=self.selectedItem.value)">
-						<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA"
+						<radio visible="@bind(vmPaquete.visibilidadYourself)" label="MANEJO YOURSELF" value="MANEJO_YOURSELF"
+							   sclass="radio_yourself"
+							   checked="@bind(vmPaquete.oPaquete.manejo_yourself)" 
+							   onCheck="div_manejo_yourself.setVisible(true);
+							   div_contenedor_idioma.setVisible(false);
+							   div_lbl_solo_camino_inca.setVisible(false);
+							   div_select_destinos.setVisible(false);
+							   div_conDestino.setVisible(false);
+							   div_caminoinka_manejopropio.setVisible(false)"/>
+						<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA_CLASICO"
 							   sclass="radio_camino_inka"
 							   checked="@bind(vmPaquete.oPaquete.manejo_camino_inca)" 
-							   onCheck="div_lbl_solo_camino_inca.setVisible(true);
+							   onCheck="div_manejo_yourself.setVisible(false);
+							   div_caminoinka_manejopropio.setVisible(true);
+							   div_contenedor_idioma.setVisible(true);
+							   div_lbl_solo_camino_inca.setVisible(true);
 							   div_select_destinos.setVisible(false);
 							   div_conDestino.setVisible(false)"/>
 <!-- 						<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" -->
@@ -30,22 +42,25 @@
 						<radio label="MANEJO POR CALENDARIO NORMAL" value="MANEJO_NORMAL" 
 							   sclass="radio_manejo_normal"
 							   checked="@bind(vmPaquete.oPaquete.manejo_normal)"
-							   onCheck="div_lbl_solo_camino_inca.setVisible(false);
+							   onCheck="div_manejo_yourself.setVisible(false);
+							   div_caminoinka_manejopropio.setVisible(true);
+							   div_lbl_solo_camino_inca.setVisible(false);
+							   div_contenedor_idioma.setVisible(true);
 							   div_conDestino.setVisible(true)"/>
 					</radiogroup>
 				</div>
 				<div visible="@bind(vmPaquete.select_manejo)">
 					<separator spacing="5px"/>
 					<label value="NOMBRE PAQUETE:" zclass="lbl_subtitle_nombre_paquete"/>
-					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete"/>
+					<label value="@bind(vmPaquete.oPaquete.titulo)" zclass="lbl_nombre_paquete" visible="@bind(!vmPaquete.oPaquete.manejo_yourself)"/>
+					<label value="@bind(vmPaquete.oPaquete.cTituloIdioma1)" zclass="lbl_nombre_paquete" visible="@bind(vmPaquete.oPaquete.manejo_yourself)"></label>
 					<space/>
 					<label value="N° DIAS Y NOCHES:" zclass="lbl_subtitle_nombre_paquete"/>
 					<label value="@bind(vmPaquete.oPaquete.dias_noches)" zclass="lbl_nombre_paquete"/>
 				</div>
-				<separator spacing="5px"/>
 				<div zclass="div_contenedor_nuevo_paquete" visible="@bind(vmPaquete.select_manejo)">
 					<div zclass="div_content_datos_paquete">
-						<div>
+						<div id="div_contenedor_idioma" visible="false">
 							<div zclass="div_contiene_banderas">
 								<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
 										onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
@@ -86,7 +101,26 @@
 										onChange="@command('diasSinDestino',dias=self.value)"/>
 							</div>
 						</div>
-						<div>
+						<div id="div_manejo_yourself" visible="false">
+							<div class="cmb_lugar">
+								<label value="DESTINO:" zclass="lbl_llenar_datos"/>
+								<combobox id="cbLugares" readonly="true" placeholder="Seleccionar destino" width="100%" onSelect="@command('seleccionardestino',codDestino=self.selectedItem.label)">
+									<comboitem value="1" label="Machupicchu"></comboitem>
+									<comboitem value="2" label="Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m."></comboitem>
+									<comboitem value="3" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>
+									<comboitem value="4" label="Machupicchu + Montaña 7:00 a.m.-8:00 a.m."></comboitem>
+									<comboitem value="5" label="Machupicchu + Montaña 9:00 a.m.-10:00 a.m."></comboitem>
+									<comboitem value="20" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+									<comboitem value="21" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+								</combobox>
+							</div>
+							<separator orient="horizontal"></separator>
+							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmPaquete.oPaquete.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
+							<space></space>
+						</div>
+						<div id ="div_caminoinka_manejopropio" visible="false">
 							<separator bar="true"/>
 							<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento',opcion=self.selectedItem.value)">
 								<radio label="CON DESCUENTO" checked="@bind(vmPaquete.oPaquete.conDescuento)" value="con_descuento" onCheck="div_conDescuento.setVisible(true);div_sinDescuento.setVisible(false)"/>
@@ -138,6 +172,16 @@
 									<space></space>
 								</div>
 							</div>
+						</div>
+						<div zclass="div_space_entre_botones">
+								<button label="Subir Imagenes del paquete" 
+										onClick="@command('uploadImagenes',cPaquete=vmPaquete.oPaquete,componente=self)"
+										zclass="btn_guardar"/>
+						</div>
+						<div zclass="div_space_entre_botones">
+								<button label="Ver imagenes subidas" 
+										onClick="@command('invocaImagenesSubidas') @global-command('muestraImagenesSubidasPaquete',cPaquete=vmPaquete.oPaquete)"
+										zclass="btn_guardar"/>
 						</div>
 						<button label="Guardar" zclass="btn_guardar" onClick="@command('insertarPaquete',componente=self)"/>
 					</div>
@@ -399,7 +443,10 @@
 				<listitem>
 				    <listcell>
 				    	<radiogroup sclass="style_restricciones_paquete" onCheck="@command('select_manejo_paquete_update',opcion=self.selectedItem.value,paquete=each)">
-							<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA" 
+							<radio  visible="@bind(vmPaquete.visibilidadYourself)" label="MANEJO YOURSELF" value="MANEJO_YOURSELF"
+							   sclass="radio_yourself"
+							   checked="@bind(each.manejo_yourself)" />
+							<radio label="MANEJO SÓLO CAMINO INKA CLÁSICO" value="CAMINO_INKA_CLASICO" 
 								   sclass="radio_camino_inka"
 								   checked="@bind(each.manejo_camino_inca)"/>
 <!-- 							<radio label="MANEJO DE DISPONIBILIDAD PROPIA" value="MANEJO_PROPIO" -->
@@ -430,14 +477,16 @@
 				    						src="img/Flag-of-Spain.png"
 				    						onClick="@command('cambioIdiomas',idioma='Espanol',paquete=each)">
 				    					</image>
-				    					<image sclass="estilo_banderas"
-				    						src="img/en.png"
-				    						onClick="@command('cambioIdiomas',idioma='Ingles',paquete=each)">
-				    					</image>
-				    					<image sclass="estilo_banderas"
-				    						src="img/Flag_of_Brazil.png"
-				    						onClick="@command('cambioIdiomas',idioma='Portugues',paquete=each)">
-				    					</image>
+				    					<div visible="@bind(!each.manejo_yourself)">
+					    					<image sclass="estilo_banderas"
+					    						src="img/en.png"
+					    						onClick="@command('cambioIdiomas',idioma='Ingles',paquete=each)">
+					    					</image>
+					    					<image sclass="estilo_banderas"
+					    						src="img/Flag_of_Brazil.png"
+					    						onClick="@command('cambioIdiomas',idioma='Portugues',paquete=each)">
+					    					</image>
+				    					</div>
 				    				</div>
 				    				<separator spacing="2px"></separator>
 				    				<div
@@ -508,29 +557,43 @@
 				    							value="@bind(each.cTituloIdioma5) @save(each.cTituloIdioma5,before='actualizarPaquete')" />
 				    					</div>
 				    				</div>
-				    				<div visible="@bind(each.manejo_camino_inca)">
-										<separator bar="true"/>
-										<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
-										<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
-												onChange="@command('diasCaminoInka_update',dias=self.value,paquete=each)"/>
+				    				<div zclass="div_space_entre_botones">
+										<button label="Subir Imagenes del hotel" 
+												onClick="@command('uploadImagenes',cPaquete=each,componente=self)"
+												zclass="btn_guardar"/>
 									</div>
-				    				<div visible="@bind(!each.manejo_camino_inca)">
-										<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDestino_update',opcion=self.selectedItem.value,paquete=each)">
-											<radio label="CON DESTINO" checked="@bind(each.conDestino)" value="con_destino"/>
-											<radio label="SIN DESTINO" checked="@bind(each.sinDestino)" value="sin_destino"/>
-										</radiogroup>
-										<div visible="@bind(each.sinDestino)">
+									<div zclass="div_space_entre_botones">
+										<button label="Ver imagenes subidas" 
+												onClick="@command('invocaImagenesSubidas') @global-command('muestraImagenesSubidasPaquete',cPaquete=each)"
+												zclass="btn_guardar"/>
+									</div>
+									<div visible="@bind(!each.manejo_yourself)">
+					    				<div visible="@bind(each.manejo_camino_inca)">
+											<separator bar="true"/>
 											<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
 											<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
-													onChange="@command('diasSinDestino_update',dias=self.value,paquete=each)"/>
+													onChange="@command('diasCaminoInka_update',dias=self.value,paquete=each)"/>
+										</div>
+					    				<div visible="@bind(!each.manejo_camino_inca)">
+											<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDestino_update',opcion=self.selectedItem.value,paquete=each)">
+												<radio label="CON DESTINO" checked="@bind(each.conDestino)" value="con_destino"/>
+												<radio label="SIN DESTINO" checked="@bind(each.sinDestino)" value="sin_destino"/>
+											</radiogroup>
+											<div visible="@bind(each.sinDestino)">
+												<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
+												<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
+														onChange="@command('diasSinDestino_update',dias=self.value,paquete=each)"/>
+											</div>
 										</div>
 									</div>
 				    				<div>
-										<separator bar="true"/>
-										<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento_update',opcion=self.selectedItem.value,paquete=each)">
-											<radio label="CON DESCUENTO" checked="@bind(each.conDescuento)" value="con_descuento"/>
-											<radio label="SIN DESCUENTO" checked="@bind(each.sinDescuento)" value="sin_descuento"/>
-										</radiogroup>
+										<div visible="@bind(!each.manejo_yourself)">
+											<separator bar="true"/>
+											<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento_update',opcion=self.selectedItem.value,paquete=each)">
+												<radio label="CON DESCUENTO" checked="@bind(each.conDescuento)" value="con_descuento"/>
+												<radio label="SIN DESCUENTO" checked="@bind(each.sinDescuento)" value="sin_descuento"/>
+											</radiogroup>
+										</div>
 										<div visible="@bind(each.sinDescuento)">
 											<div>
 												<separator bar="true"/>

@@ -1,4 +1,23 @@
-﻿
+/****** mostrar configuraciones de alto nivel****/
+CREATE OR REPLACE FUNCTION Pricing_sp_MostrarConfAltoNivel
+(
+	nombreEntidad varchar(30)
+)
+returns setof Tconfigaltonivel as
+$$
+	select * from Tconfigaltonivel where cnombreentidad=$1;
+$$
+language sql;
+/**MOSTRAR LISTA DE IMAGENES DEL PAQUETE**/
+CREATE OR REPLACE FUNCTION Pricing_sp_MostrarImagenesPaquete
+(
+	codPaquete varchar(10)
+)
+returns setof TGaleriaPaquete as
+$$
+	select * from TGaleriaPaquete where cpaquetecod=$1;
+$$
+language sql;
 /**MOSTRAR LISTA DE IMAGENES DEL HOTEL**/
 CREATE OR REPLACE FUNCTION Pricing_sp_MostrarImagenesHotel
 (

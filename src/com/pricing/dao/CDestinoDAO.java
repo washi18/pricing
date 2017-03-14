@@ -78,7 +78,7 @@ public class CDestinoDAO extends CConexion
 		Map row=(Map)lista.get(0);
 		oDestino=new CDestino((int)row.get("ndestinocod"),
 				(String)row.get("cdestino"),(boolean)row.get("bestado"),
-				(int)row.get("ncodpostal"));
+				(int)row.get("ncodpostal"),(String)row.get("clatitud"),(String)row.get("clongitud"),(String)row.get("cimagen"));
 	}
 	public void asignarListaHotelesPorDestino(List lista)
 	{
@@ -106,29 +106,29 @@ public class CDestinoDAO extends CConexion
 			Map row=(Map)lista.get(i);
 			listaDestinos.add(new CDestino((int)row.get("ndestinocod"),
 					(String)row.get("cdestino"),(boolean)row.get("bestado"),
-					(int)row.get("ncodpostal")));
+					(int)row.get("ncodpostal"),(String)row.get("clatitud"),(String)row.get("clongitud"),(String)row.get("cimagen")));
 		}
 	}
 	public void asignarListaDestinosBusqueda(List lista)
 	{
 		listaDestinosBusqueda=new ArrayList<CDestino>();
-		listaDestinosBusqueda.add(new CDestino(0,"Todo los destinos",true,1));
+		listaDestinosBusqueda.add(new CDestino(0,"Todo los destinos",true,1,"","",""));
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
 			listaDestinosBusqueda.add(new CDestino((int)row.get("ndestinocod"),
 					(String)row.get("cdestino"),(boolean)row.get("bestado"),
-					(int)row.get("ncodpostal")));
+					(int)row.get("ncodpostal"),(String)row.get("clatitud"),(String)row.get("clongitud"),(String)row.get("cimagen")));
 		}
 	}
 	public List insertarDestino(CDestino destino)
 	{
-		Object[] values={destino.getcDestino(),destino.getnCodPostal()};
+		Object[] values={destino.getcDestino(),destino.getnCodPostal(),destino.getLatitud(),destino.getLongitud(),destino.getUrlImagen()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarDestino", values);
 	}
 	public List modificarDestino(CDestino destino)
 	{
-		Object[] values={destino.getnDestinoCod(),destino.getcDestino(),destino.isbEstado(),destino.getnCodPostal()};
+		Object[] values={destino.getnDestinoCod(),destino.getcDestino(),destino.isbEstado(),destino.getnCodPostal(),destino.getLatitud(),destino.getLongitud(),destino.getUrlImagen()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarDestino", values);
 	}
 	public boolean isOperationCorrect(List lista)

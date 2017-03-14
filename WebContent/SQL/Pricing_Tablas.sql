@@ -1,3 +1,23 @@
+/*****GALERIA PAQUETE***/
+CREATE TABLE TGaleriaPaquete
+(
+	nGaleriaPaqueteCod int not null,
+	cPaqueteCod varchar(10),
+	cImage varchar(100),
+	bEstado boolean,
+	primary key(nGaleriaPaqueteCod),
+	foreign key(cPaqueteCod)references tpaquete
+);
+/*****TABLA CONFIGURACION ALTO NIVEL***/
+
+create table tconfigAltoNivel(
+ codAltoNivel int,
+ nperfilcod int,
+ cnombreEntidad varchar(30),
+ bEstado boolean,
+ primary key(codAltoNivel),
+ foreign key(nperfilcod)references tperfil
+);
 /****************************************/
 /**TABLA GENERADOR DE ORDEN Y REGISTROS**/
 /****************************************/

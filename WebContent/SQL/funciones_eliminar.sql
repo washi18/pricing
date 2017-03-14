@@ -16,7 +16,24 @@ begin
 end
 $$
 language plpgsql;
-
+--eliminar usuario
+create or replace function Pricing_sp_EliminarUsuario
+(
+	usuarioCod varchar(150)
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		codUsuario varchar(150)) as
+$$
+begin
+	codUsuario=$1;
+	DELETE FROM tusuario WHERE cusuariocod=$1;
+	resultado='correcto';
+	mensaje='Datos Eliminados Correctamente';
+	return Query select resultado,mensaje,codUsuario;
+end
+$$
+language plpgsql;
 --Eliminar PAQUETE DESTINO
 create or replace function Pricing_sp_EliminarPaqueteDestino
 (

@@ -565,10 +565,6 @@ public class CDisponibilidadYourselfVM {
 			int actual=cal.get(Calendar.YEAR);
 			int nroDiasActual_febrero=obtenerPosFinMesOtro(actual,02);
 			int nroDiasSig_febrero=obtenerPosFinMesOtro(actual+1,02);
-			System.out.println("anio actual es->"+actual);
-			System.out.println("anio siguiente es->"+(actual+1));
-			System.out.println("retorna dias actual->"+nroDiasActual_febrero);
-			System.out.println("retorna dias siguiente->"+nroDiasSig_febrero);
 			for(int i=31;i<nroDiasActual_febrero+1;i++){
 				listaAnioActual.get(i).setVisible(false);
 			}

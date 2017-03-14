@@ -23,7 +23,12 @@ CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaquete
 	precio_4 decimal(10,2),
 	precio_5 decimal(10,2),
 	manejo varchar(100),
-	dia_caminoInka int
+	dia_caminoInka int,
+	foto1 varchar(100),
+	foto2 varchar(100),
+	foto3 varchar(100),
+	foto4 varchar(100),
+	foto5 varchar(100)
 )
 RETURNS TABLE (resultado varchar(20),
 		mensaje varchar(200),
@@ -32,7 +37,7 @@ $$
 begin
 	codPaquete=(select concat('P-',right(concat('00',count(p.cpaquetecod)+1),2)) from tpaquete p where left(p.cpaquetecod,2)='P-');
 	insert into tpaquete values(codPaquete,$1,$2,$3,$4,$5,'','','','','',
-								$6,$7,$8,$9,$10,$11,$12,$13,true,$14);
+								$6,$7,$8,$9,$10,$11,$12,$13,true,$14,$15,$16,$17,$18,$19);
 	resultado='correcto';
 	mensaje='Datos Registrados Correctamente';
 	return Query select resultado,mensaje,codPaquete;
@@ -616,7 +621,10 @@ language plpgsql;
 create or replace function Pricing_sp_RegistrarDestino
 (
 	nameDestino varchar(100),
-	codPostal int
+	codPostal int,
+	latitud varchar(20),
+	longitud varchar(20),
+	imagen varchar(100)
 )
 returns table(resultado varchar(20),mensaje varchar(200),codDestino int)as
 $$
@@ -627,7 +635,7 @@ begin
 	else
 		codDestino=codDestino+1;
 	end if;
-        insert into tdestino values(codDestino,$1,false,$2);
+        insert into tdestino values(codDestino,$1,false,$2,$3,$4,$5);
         resultado='correcto';
         mensaje='Datos Registrados Correctamente';
         return Query select resultado,mensaje,codDestino;

@@ -23,9 +23,34 @@ public class CDestino
 	private boolean estado_activo;
 	private boolean estado_desactivo;
 	private boolean seleccionado;
+	private String latitud;
+	private String longitud;
+	private String urlImagen;
 	//======================
+	
 	public int getnDestinoCod() {
 		return nDestinoCod;
+	}
+	
+	public String getUrlImagen() {
+		return urlImagen;
+	}
+
+	public void setUrlImagen(String urlImagen) {
+		this.urlImagen = urlImagen;
+	}
+
+	public String getLatitud() {
+		return latitud;
+	}
+	public void setLatitud(String latitud) {
+		this.latitud = latitud;
+	}
+	public String getLongitud() {
+		return longitud;
+	}
+	public void setLongitud(String longitud) {
+		this.longitud = longitud;
 	}
 	public void setnDestinoCod(int nDestinoCod) {
 		this.nDestinoCod = nDestinoCod;
@@ -127,6 +152,9 @@ public class CDestino
 		bEstado=false;
 		seleccionado=false;
 		nCodPostal=0;
+		latitud="";
+		longitud="";
+		urlImagen="img/destinos/destinoxdefecto.png";
 	}
 	public CDestino(String cDestino){
 		this.cDestino=cDestino;
@@ -138,11 +166,13 @@ public class CDestino
 		this.nDestinoCod=codDestino;
 		this.nCodPostal=codPostal;
 	}
-	public CDestino(int nDestinoCod, String cDestino, boolean bEstado,int nCodPostal) {
+	public CDestino(int nDestinoCod, String cDestino, boolean bEstado,int nCodPostal,String latitud,String longitud,String URLimagen) {
 		this.nDestinoCod = nDestinoCod;
 		this.cDestino = cDestino;
 		this.bEstado = bEstado;
 		this.nCodPostal=nCodPostal;
+		this.latitud=latitud;
+		this.longitud=longitud;
 		this.editable=false;
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
@@ -153,9 +183,11 @@ public class CDestino
 		this.conCaminoInka=false;
 		this.sinCaminoInka=true;
 		this.puedeCaminoInka=false;
+		this.urlImagen=URLimagen;
 		this.nameDepartamento=obtenerNombreCodPostal(nCodPostal);
 		darColor_estado();
 	}
+	
 	public void darColor_estado()
 	{
 		if(bEstado)

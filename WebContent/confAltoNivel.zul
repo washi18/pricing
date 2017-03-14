@@ -1,0 +1,14 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style src="css/extras.css"/>
+	<div>
+		<div sclass="div_content_configAdd">
+		 	<div><include src="impuestos.zul"/></div>
+			<div><include src="correoSMTP.zul"/></div>
+		</div>
+		<div sclass="div_content_configAdd">
+			<div><include src="confYourself.zul"/></div>
+			<div><include src="configURL.zul"/></div>
+		 </div>
+	</div>
+</zk>

@@ -91,6 +91,12 @@
 											<label value="Configuraciones Extras" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoImpuesto)">
+										<div id="itemConfSuper" onClick="@command('Cambio',cambioInterfaz=self.id)">
+											<span sclass="fa fa-wrench estilos-iconos estilos-iconos"/>
+											<label value="Configuraciones Alto Nivel" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
 								</div>
 								<!-- ==USUARIOS== -->
 								<div zclass="div_mantenimiento_items" onClick="d_usuarios.setVisible(d_usuarios.isVisible()?false:true)">
@@ -235,6 +241,7 @@
 								   	<button width="100%" iconSclass="fa fa-address-book-o estilos-iconos" visible="@bind(vmAdmin.visibleRegistroUsuarios)" zclass="btn_opciones_config" label="REGISTRO USUARIOS"/>
 									<button width="100%" iconSclass="fa fa-paypal estilos-iconos" visible="@bind(vmAdmin.visibleConfPaypal)" zclass="btn_opciones_config" label="CONFIGURACION DE PAYPAL"/>
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfExtras)" zclass="btn_opciones_config" label="CONFIGURACIONES ADICIONALES"/>
+									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfAltoNivel)" zclass="btn_opciones_config" label="CONFIGURACIONES ALTO NIVEL"/>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
@@ -290,6 +297,9 @@
 									</div>
 									<div visible="@bind(vmAdmin.visibleConfExtras)">
 										<include src="extras.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleConfAltoNivel)">
+										<include src="confAltoNivel.zul"/>
 									</div>
 								</div>
 							</div>

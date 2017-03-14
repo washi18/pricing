@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import com.pricing.dao.CActividadDAO;
 import com.pricing.dao.CCalendarioPropioDAO;
 import com.pricing.dao.CDestinoDAO;
+import com.pricing.dao.CGaleriaHotelDAO;
+import com.pricing.dao.CGaleriaPaqueteDAO;
 import com.pricing.dao.CPaqueteActividadDAO;
 import com.pricing.dao.CPaqueteDestinoDAO;
 import com.pricing.dao.CPaqueteServicioDAO;
@@ -55,6 +57,7 @@ public class CPaquete
 	private boolean manejo_propio;
 	private boolean manejo_normal;
 	private boolean manejoPropio_conCaminoInka;
+	private boolean manejo_yourself;
 	private boolean conDestino;
 	private boolean sinDestino;
 	private boolean conServicio;
@@ -78,9 +81,52 @@ public class CPaquete
 	private ArrayList<CActividad> listaActividades;
 	private ArrayList<CCalendarioPropio> listaAniosCalendarioPropio;
 	private ArrayList<CDiaPropio> listaDiasCalendarioPropio;
+	private String cFoto1;
+	private String cFoto2;
+	private String cFoto3;
+	private String cFoto4;
+	private String cFoto5;
+	private ArrayList<CGaleriaPaquete> listaImagenes;
 	//==========================
+	
 	public String getcPaqueteCod() {
 		return cPaqueteCod;
+	}
+	public ArrayList<CGaleriaPaquete> getListaImagenes() {
+		return listaImagenes;
+	}
+	public void setListaImagenes(ArrayList<CGaleriaPaquete> listaImagenes) {
+		this.listaImagenes = listaImagenes;
+	}
+	public String getcFoto1() {
+		return cFoto1;
+	}
+	public void setcFoto1(String cFoto1) {
+		this.cFoto1 = cFoto1;
+	}
+	public String getcFoto2() {
+		return cFoto2;
+	}
+	public void setcFoto2(String cFoto2) {
+		this.cFoto2 = cFoto2;
+	}
+	public String getcFoto3() {
+		return cFoto3;
+	}
+	public void setcFoto3(String cFoto3) {
+		this.cFoto3 = cFoto3;
+	}
+	public String getcFoto4() {
+		return cFoto4;
+	}
+	public void setcFoto4(String cFoto4) {
+		this.cFoto4 = cFoto4;
+	}
+	public String getcFoto5() {
+		return cFoto5;
+	}
+	public void setcFoto5(String cFoto5) {
+		this.cFoto5 = cFoto5;
 	}
 	public void setcPaqueteCod(String cPaqueteCod) {
 		this.cPaqueteCod = cPaqueteCod;
@@ -229,6 +275,13 @@ public class CPaquete
 	}
 	public void setVisiblePortugues(boolean visiblePortugues) {
 		this.visiblePortugues = visiblePortugues;
+	}
+	
+	public boolean isManejo_yourself() {
+		return manejo_yourself;
+	}
+	public void setManejo_yourself(boolean manejo_yourself) {
+		this.manejo_yourself = manejo_yourself;
 	}
 	public boolean isManejo_camino_inca() {
 		return manejo_camino_inca;
@@ -431,6 +484,7 @@ public class CPaquete
 		manejo_camino_inca=false;
 		manejo_propio=false;
 		manejo_normal=false;
+		manejo_yourself=false;
 		nDiaCaminoInka=0;
 		cTituloIdioma1="";
 		cTituloIdioma2="";
@@ -454,6 +508,12 @@ public class CPaquete
 		sinDescuento=true;
 		nroDestinosSelect=0;
 		ordenDesSelect=0;
+		this.cFoto1="img/tours/tourxdefecto.png";
+		this.cFoto2="img/tours/tourxdefecto.png";
+		this.cFoto3="img/tours/tourxdefecto.png";
+		this.cFoto4="img/tours/tourxdefecto.png";
+		this.cFoto5="img/tours/tourxdefecto.png";
+		this.listaImagenes=new ArrayList<CGaleriaPaquete>();
 	}
 	public CPaquete(String cPaqueteCod, String cTituloIdioma1,
 			String cTituloIdioma2, String cTituloIdioma3,
@@ -463,7 +523,8 @@ public class CPaquete
 			String cDescripcionIdioma5, int nDias, int nNoches,
 			Number nPrecioUno, Number nPrecioDos, Number nPrecioTres,
 			Number nPrecioCuatro, Number nPrecioCinco, String cDisponibilidad,
-			boolean bEstado) {
+			boolean bEstado,String cFoto1,
+			String cFoto2,String cFoto3,String cFoto4,String cFoto5) {
 		/*******************************/
 		simbolos= new DecimalFormatSymbols();
 		simbolos.setDecimalSeparator('.');
@@ -498,6 +559,11 @@ public class CPaquete
 		this.bEstado = bEstado;
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
+		this.cFoto1=cFoto1;
+		this.cFoto2=cFoto2;
+		this.cFoto3=cFoto3;
+		this.cFoto4=cFoto4;
+		this.cFoto5=cFoto5;
 		this.editable=false;
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
@@ -511,6 +577,7 @@ public class CPaquete
 		listaActividades=new ArrayList<CActividad>();
 		listaAniosCalendarioPropio=new ArrayList<CCalendarioPropio>();
 		listaDiasCalendarioPropio=new ArrayList<CDiaPropio>();
+		this.listaImagenes=new ArrayList<CGaleriaPaquete>();
 		//RECUPERAR LISTA DESTINOS
 		CDestinoDAO destinoDao=new CDestinoDAO();
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
@@ -525,6 +592,11 @@ public class CPaquete
 		setListaActividades(actividadDao.getListaActividades());
 		//RECUPERAR LA LISTA DE SUBSERVICIOS
 		recuperarListaSubServicios();
+		//recuperacion de imagenes
+		CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
+		galeriaPaqueteDao.asignarListaImagenesPaquete(galeriaPaqueteDao.recuperarImagenesPaqueteBD(cPaqueteCod));
+		setListaImagenes(galeriaPaqueteDao.getListaImagenesPaquete());
+		System.out.println("cual es el tamanio ....es->"+this.listaImagenes.size());
 		//RECUPERAMOS EL CALENDARIO PROPIO
 //		if(cDisponibilidad.equals("MANEJO_PROPIO"))
 //		{
@@ -579,7 +651,7 @@ public class CPaquete
 	}
 	public void determinarTipoDeManejoPaquete(String manejo)
 	{
-		if(manejo.equals("CAMINO_INKA"))
+		if(manejo.equals("CAMINO_INKA_CLASICO"))
 		{
 			manejo_camino_inca=true;
 			manejo_propio=false;
@@ -594,6 +666,11 @@ public class CPaquete
 			manejo_camino_inca=false;
 			manejo_propio=false;
 			manejo_normal=true;
+		}else if(manejo.equals("MANEJO_YOURSELF")){
+			manejo_camino_inca=false;
+			manejo_propio=false;
+			manejo_normal=false;
+			manejo_yourself=true;
 		}
 	}
 	public void inicializarEstadosDeDestinosYServicios()

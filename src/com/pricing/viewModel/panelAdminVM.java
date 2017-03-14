@@ -38,9 +38,9 @@ public class panelAdminVM
 	private boolean visibleActualizarUsuario;
 	private boolean visibleRegistroUsuarios;
 	private boolean visibleConfPaypal;
-	private boolean visibleConfigMasteDiners;
 	private boolean visibleConfExtras;
 	private boolean visibleCupones;
+	private boolean visibleConfAltoNivel;
 	//======================================
 	private crearUsuarioVM editarUsuario;
 	private CUsuarioLoginDAO usuarioDao;
@@ -48,8 +48,15 @@ public class panelAdminVM
 	private CUsuarioLogin oUsuario;
 	private HttpSession ses;
 	//=================GET Y SET SELECCION TABS=======
+	
 	public boolean isVisibleEstadisticaPagos() {
 		return visibleEstadisticaPagos;
+	}
+	public boolean isVisibleConfAltoNivel() {
+		return visibleConfAltoNivel;
+	}
+	public void setVisibleConfAltoNivel(boolean visibleConfAltoNivel) {
+		this.visibleConfAltoNivel = visibleConfAltoNivel;
 	}
 	public void setVisibleEstadisticaPagos(boolean visibleEstadisticaPagos) {
 		this.visibleEstadisticaPagos = visibleEstadisticaPagos;
@@ -75,12 +82,6 @@ public class panelAdminVM
 	}
 	public void setVisibleConfPaypal(boolean visibleConfPaypal) {
 		this.visibleConfPaypal = visibleConfPaypal;
-	}
-	public boolean isVisibleConfigMasteDiners() {
-		return visibleConfigMasteDiners;
-	}
-	public void setVisibleConfigMasteDiners(boolean visibleConfigMasteDiners) {
-		this.visibleConfigMasteDiners = visibleConfigMasteDiners;
 	}
 	public boolean isVisibleRegistroUsuarios() {
 		return visibleRegistroUsuarios;
@@ -265,7 +266,7 @@ public class panelAdminVM
 		visibleDisponibilidad=visibleEtiqueta = visiblePaquetes = visibleServicios = visibleSubServicios = visibleImpuestos =false;
 		visibleActividades=visibleHoteles=visibleEstadisticaPagos=visibleEstadisticaPaquetesmasVendidos=false;
 		visibleCrearUser=visibleDestinos=visibleReportReservas=visibleReportPagos=visibleActualizarUsuario=visibleConfPaypal=false;
-		visibleConfExtras=visibleCupones=visibleConfigMasteDiners=false;
+		visibleConfExtras=visibleCupones=visibleConfAltoNivel=false;
 	}
 	//================CAMBIO DE VISIBILIDAD========
 	@Command
@@ -275,13 +276,13 @@ public class panelAdminVM
 		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos","seleccionReportReservas",
 		"seleccionActividades","seleccionReportPagos","visibleEstadisticaPaquetesmasVendidos","visibleEstadisticaPagos",
 		"visibleCrearUser","visibleActualizarUsuario","visibleRegistroUsuarios","visibleConfPaypal","visibleConfExtras",
-		"visibleCupones","visibleConfigMasteDiners"})
+		"visibleCupones","visibleConfAltoNivel"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
 		System.out.println("entra a esta parte de mektodo cambio");
 		visibleConfiguracion=true;
 		if (cambios.equals("itemDisponibilidad") || cambios.equals("btnDisponibilidad") || cambios.equals("tabDisponibilidad") ) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=false;
 				visibleDisponibilidad=true;
 				visibleActividades=visibleConfPaypal=false;
@@ -289,10 +290,9 @@ public class panelAdminVM
 				visibleSubServicios=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			} else if (cambios.equals("itemEtiqueta") || cambios.equals("btnEtiquetas") || cambios.equals("tabEtiqueta") ) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visibleEtiqueta = true;
 				visibleDisponibilidad=visiblePaquetes=visibleServicios=visibleSubServicios=visibleReportReservas=visibleHoteles=false;
@@ -300,10 +300,9 @@ public class panelAdminVM
 				visibleActividades=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			} else if (cambios.equals("itemPaquete") || cambios.equals("btnPaquetes") || cambios.equals("tabPaquete")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visiblePaquetes=true;
 				visibleDisponibilidad=visibleEtiqueta=visibleServicios=visibleReportReservas=visibleHoteles=false;
@@ -311,10 +310,9 @@ public class panelAdminVM
 				visibleActividades=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			} else if (cambios.equals("itemServicio") || cambios.equals("btnServicios") || cambios.equals("tabServicio")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visibleServicios=true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleReportReservas=visibleHoteles=false;
@@ -322,10 +320,9 @@ public class panelAdminVM
 				visibleActividades=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			} else if (cambios.equals("itemSubServicio") || cambios.equals("btnSubServicios") || cambios.equals("tabSubServicio")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visibleSubServicios =true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleHoteles=false;
@@ -333,10 +330,9 @@ public class panelAdminVM
 				visibleActividades=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			} else if(cambios.equals("itemActividad")){
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visibleEstadisticaPaquetesmasVendidos=false;
 				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=visibleEstadisticaPagos=false;
@@ -345,10 +341,9 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if (cambios.equals("itemImpuesto") || cambios.equals("btnImpuestos") || cambios.equals("tabImpuesto")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visibleImpuestos=true;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=visibleHoteles=false;
@@ -356,10 +351,9 @@ public class panelAdminVM
 				visibleActividades=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if (cambios.equals("itemHoteles") || cambios.equals("btnHoteles") || cambios.equals("tabHotel")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visibleHoteles=true;
 				visibleImpuestos=false;
@@ -368,10 +362,9 @@ public class panelAdminVM
 				visibleActividades=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if (cambios.equals("itemDestinos") || cambios.equals("btnDestinos") || cambios.equals("tabDestino")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleConfPaypal=false;
+				visibleEstadisticaPagos=visibleConfPaypal=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleActualizarUsuario=false;
 				visibleDestinos=true;
 				visibleHoteles=visibleImpuestos=false;
@@ -380,11 +373,10 @@ public class panelAdminVM
 				visibleActividades=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if (cambios.equals("itemReporteReservas") || cambios.equals("btnReporteReservas") || cambios.equals("tabReporteReserva")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=false;
-				visibleCrearUser=visibleConfPaypal=false;
+				visibleCrearUser=visibleConfPaypal=visibleConfAltoNivel=false;
 				visibleReportReservas=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
 				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=false;
@@ -393,7 +385,7 @@ public class panelAdminVM
 				visibleCupones=false;
 			}else if (cambios.equals("itemReportePagos") || cambios.equals("btnReportePagos") || cambios.equals("tabReportePagos")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visibleReportPagos=true;
 				visibleHoteles=visibleImpuestos=visibleDestinos=false;
@@ -402,10 +394,9 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if (cambios.equals("itemEstadisticaPagos")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
+				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleCrearUser=visibleConfPaypal=false;
 				visibleEstadisticaPagos=true;
 				visibleEstadisticaPaquetesmasVendidos=false;
@@ -415,22 +406,20 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if (cambios.equals("itemEstadisticaPaquetesmasVendidos")) {
 					visibleCrearUser=visibleActualizarUsuario=visibleRegistroUsuarios=false;
 					visibleEstadisticaPaquetesmasVendidos=true;
-					visibleEstadisticaPagos=visibleConfPaypal=false;
+					visibleEstadisticaPagos=visibleConfPaypal=visibleConfAltoNivel=false;
 					visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=visibleEstadisticaPagos=false;
 					visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
 					visibleActividades=false;
 					visibleSubServicios=false;
 					visibleConfExtras=false;
 					visibleCupones=false;
-					visibleConfigMasteDiners=false;
 			}else if(cambios.equals("itemCrearUser1")||cambios.equals("itemCrearUser2"))
 			{
 				visibleEstadisticaPaquetesmasVendidos=visibleActualizarUsuario=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleConfPaypal=false;
+				visibleEstadisticaPagos=visibleConfPaypal=visibleConfAltoNivel=false;
 				visibleCrearUser=true;
 				visibleEstadisticaPaquetesmasVendidos=false;
 				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=visibleEstadisticaPagos=false;
@@ -439,13 +428,12 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if(cambios.equals("itemUpdateUsuario2") || cambios.equals("itemUpdateUsuario"))
 			{ 
 				System.out.println("entra a esta parte de update");
 				visibleActualizarUsuario=true;
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleConfPaypal=false;
+				visibleEstadisticaPagos=visibleConfPaypal=visibleConfAltoNivel=false;
 				visibleCrearUser=false;
 				visibleEstadisticaPaquetesmasVendidos=false;
 				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=visibleEstadisticaPagos=false;
@@ -454,12 +442,11 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if(cambios.equals("itemUsuario") || cambios.equals("itemUsuario2"))
 			{ 
 				System.out.println("entra a esta parte de update");
 				visibleRegistroUsuarios=true;
-				visibleActualizarUsuario=false;
+				visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleEstadisticaPaquetesmasVendidos=false;
 				visibleEstadisticaPagos=false;
 				visibleCrearUser=visibleConfPaypal=false;
@@ -470,11 +457,10 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if(cambios.equals("itemPaypal"))
 			{ 
 				System.out.println("entra a esta parte de update");
-				visibleConfPaypal=true;
+				visibleConfPaypal=visibleConfAltoNivel=true;
 				visibleRegistroUsuarios=false;
 				visibleActualizarUsuario=false;
 				visibleEstadisticaPaquetesmasVendidos=false;
@@ -487,23 +473,10 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				visibleConfExtras=false;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
-			}else if(cambios.equals("itemMasterdCard"))
-			{
-				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
-				visibleEstadisticaPagos=visibleActualizarUsuario=false;
-				visibleCrearUser=false;
-				visibleDisponibilidad=false;
-				visibleActividades=visibleConfPaypal=false;
-				visibleEtiqueta=visiblePaquetes=visibleServicios=visibleSubServicios=visibleReportReservas=visibleHoteles=false;
-				visibleSubServicios=visibleImpuestos=visibleDestinos=visibleReportPagos=false;
-				visibleConfExtras=false;
-				visibleCupones=false;
-				visibleConfigMasteDiners=true;
 			}else if(cambios.equals("itemExtras"))
 			{ 
 				System.out.println("entra a esta parte de update");
-				visibleConfPaypal=false;
+				visibleConfPaypal=visibleConfAltoNivel=false;
 				visibleRegistroUsuarios=false;
 				visibleActualizarUsuario=false;
 				visibleEstadisticaPaquetesmasVendidos=false;
@@ -516,8 +489,23 @@ public class panelAdminVM
 				visibleSubServicios=false;
 				visibleConfExtras=true;
 				visibleCupones=false;
-				visibleConfigMasteDiners=false;
 			}else if(cambios.equals("itemCupones"))
+			{
+				visibleConfPaypal=visibleConfAltoNivel=false;
+				visibleRegistroUsuarios=false;
+				visibleActualizarUsuario=false;
+				visibleEstadisticaPaquetesmasVendidos=false;
+				visibleEstadisticaPagos=false;
+				visibleCrearUser=false;
+				visibleEstadisticaPaquetesmasVendidos=false;
+				visibleHoteles=visibleImpuestos=visibleDestinos=visibleReportPagos=visibleEstadisticaPagos=false;
+				visibleDisponibilidad=visibleEtiqueta=visiblePaquetes=visibleServicios=visibleReportReservas=false;
+				visibleActividades=false;
+				visibleSubServicios=false;
+				visibleConfExtras=false;
+				visibleCupones=true;
+			}
+			else if(cambios.equals("itemConfSuper"))
 			{
 				visibleConfPaypal=false;
 				visibleRegistroUsuarios=false;
@@ -531,9 +519,8 @@ public class panelAdminVM
 				visibleActividades=false;
 				visibleSubServicios=false;
 				visibleConfExtras=false;
-				visibleCupones=true;
-				visibleConfigMasteDiners=false;
+				visibleCupones=false;
+				visibleConfAltoNivel=true;
 			}
-			
 	}
 }

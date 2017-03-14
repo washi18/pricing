@@ -20,6 +20,56 @@
 	-ms-flex-direction:column;
 	-o-flex-direction:column;
 }
+.div_content_imagendatos_destino{
+	width:30%;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	flex-direction:column;
+	-webkit-flex-direction:column;
+	-moz-flex-direction:column;
+	-ms-flex-direction:column;
+	-o-flex-direction:column;
+}
+.div_img_destinos{
+	background: white;
+	background-size: cover;
+	-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+	margin: 0 0 10px 0;
+	padding: 3px;
+	box-sizing:border-box;
+}
+
+.div_content_datos_listaDestinos{
+	background: rgba(0,0,0,0.1);
+	border-radius:5px;
+	padding: 10px;
+	width: 70%;
+}
+/**BOTON SUBIR IMAGEN**/
+.estilo_subir_imagen_destino{
+	width: 100%;
+	height: 50px;
+/* 	border-radius:10px; */
+	border:none;
+	background: #2f2f2f;
+/* 	background:rgba(0,0,0,0.5); */
+	color:white;
+	transition: 0.3s all ease;
+	-webkit-transition: 0.3s all ease;
+	-moz-transition: 0.3s all ease;
+	-ms-transition: 0.3s all ease;
+	-o-transition: 0.3s all ease;
+}
+.estilo_subir_imagen_destino:hover,
+.estilo_subir_imagen_destino:FOCUS{
+	background:#053351;
+	border-radius:5px;
+}
 .nombre_depart{
 	font-size: 14px;
 	font-weight: bold;
@@ -49,9 +99,22 @@
     box-shadow: 0 1px 4px rgba(41,51,57,.5);
 }
 
-@media only screen and (max-width: 416px)
+@media (max-width: 416px)
 {
 	.div_busqueda_destino {
 		width: 100%;
+	}
+	
+	.div_img_destinos {
+		width: 100px !important;
+		height:150px !important;
+		padding: 2px !important;
+	}
+	.div_content_datos_listaDestinos{
+		width: 100% !important;
+		height: 350px !important;
+	}
+	.div_content_imagendatos_destino{
+		width:100% !important;
 	}
 }

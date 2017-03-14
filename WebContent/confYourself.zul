@@ -1,0 +1,25 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<style  src="css/configExtras.css"/>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmConfYourself') @init('com.pricing.viewModel.ConfAltoNivelVM')">
+		 	<space></space>
+		 	<div width="100%" sclass="div_content_config">
+		 		<div sclass="div_content_config_title">
+		 			<a iconSclass="fa fa-envelope estilos-iconos div_content_config_title_a"/>
+		 			<label value="CONFIGURACION YOURSELF" sclass="div_content_config_title_lbl"/>
+		 		</div>
+		 		<div>
+			 		<div>
+			 		 	<label value="MANEJO YOURSELF: " sclass="lbl_select_title"/>
+			 		 	<div>
+			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoYourself',estado=self.selectedItem.value) @global-command('recuperarEstadoYourself')">
+			 		 			<radio label="CON MANEJO YOURSELF" value="CON" checked="@load(vmConfYourself.oConfAltoNievel.estadoConYourself)"/>
+			 		 			<radio label="SIN MANEJO YOURSELF" value="SIN" checked="@load(vmConfYourself.oConfAltoNievel.estadoSinYourself)"/>
+			 		 		</radiogroup>
+			 		 	</div>
+			 		</div>
+		 		</div>
+		 	</div>
+	</div>
+</zk>
