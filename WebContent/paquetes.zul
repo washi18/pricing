@@ -104,7 +104,7 @@
 						<div id="div_manejo_yourself" visible="false">
 							<div class="cmb_lugar">
 								<label value="DESTINO:" zclass="lbl_llenar_datos"/>
-								<combobox id="cbLugares" readonly="true" placeholder="Seleccionar destino" width="100%" onSelect="@command('seleccionardestino',codDestino=self.selectedItem.label,manejoYourself=self.selectedItem.value)">
+								<combobox id="cbLugares" readonly="true" placeholder="Seleccionar destino" width="100%" onSelect="@command('seleccionardestinoInsertar',codDestino=self.selectedItem.label,manejoYourself=self.selectedItem.value)">
 										<comboitem value="MACHUPICCHU" label="Machupicchu"></comboitem>
 										<comboitem value="MACHUPICCHU_HUAYNAPICCHU_1G" label="Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m."></comboitem>
 										<comboitem value="MACHUPICCHU_HUAYNAPICCHU_2G" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>
@@ -618,7 +618,7 @@
 				    				</div>
 				    				</div>
 				    				<div visible="@load(each.manejo_yourself)">
-				    				<combobox id="cbLugares2" value="@bind(each.cTituloIdioma1)" readonly="true" placeholder="Seleccionar destino" width="100%" onSelect="@command('seleccionardestino',codDestino=self.selectedItem.label,manejoYourself=self.selectedItem.value)">
+				    				<combobox id="cbLugares2" value="@bind(each.cTituloIdioma1)" readonly="true" placeholder="Seleccionar destino" width="100%" onSelect="@command('seleccionardestinoUpdate',codDestino=self.selectedItem.label,manejoYourself=self.selectedItem.value,paquete=each)">
 											<comboitem value="MACHUPICCHU" label="Machupicchu"></comboitem>
 											<comboitem value="MACHUPICCHU_HUAYNAPICCHU_1G" label="Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m."></comboitem>
 											<comboitem value="MACHUPICCHU_HUAYNAPICCHU_2G" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>

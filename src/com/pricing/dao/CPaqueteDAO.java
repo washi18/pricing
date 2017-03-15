@@ -153,38 +153,6 @@ public class CPaqueteDAO extends CConexion
 	}
 	public List modificarPaquete(CPaquete paquete)
 	{
-		System.out.println("valor->"+paquete.getcPaqueteCod());
-		System.out.println("valor->"+paquete.getcTituloIdioma1());
-		System.out.println("valor->"+paquete.getcTituloIdioma2());
-		System.out.println("valor->"+paquete.getcTituloIdioma3());
-		System.out.println("valor->"+paquete.getcTituloIdioma4());
-		System.out.println("valor->"+paquete.getcTituloIdioma5());
-		System.out.println("valor->"+paquete.getcDescripcionIdioma1());
-		System.out.println("valor->"+paquete.getcDescripcionIdioma2());
-		System.out.println("valor->"+paquete.getcDescripcionIdioma3());
-		System.out.println("valor->"+paquete.getcDescripcionIdioma4());
-		System.out.println("valor->"+paquete.getcDescripcionIdioma5());
-		System.out.println("valor->"+paquete.getnDias());
-		System.out.println("valor->"+paquete.getnNoches());
-		System.out.println("valor->"+paquete.getnPrecioUno());
-		System.out.println("valor->"+paquete.getnPrecioDos());
-		System.out.println("valor->"+paquete.getnPrecioTres());
-		System.out.println("valor->"+paquete.getnPrecioCuatro());
-		System.out.println("valor->"+paquete.getnPrecioCinco());
-		System.out.println("valor->"+paquete.getcDisponibilidad());
-		System.out.println("valor->"+paquete.getnDiaCaminoInka());
-		System.out.println("valor->"+paquete.isbEstado());
-		System.out.println("valor->"+paquete.getcFoto1());
-		System.out.println("valor->"+paquete.getcFoto2());
-		System.out.println("valor->"+paquete.getcFoto3());
-		System.out.println("valor->"+paquete.getcFoto4());
-		System.out.println("valor->"+paquete.getcFoto5());
-		System.out.println("valor->"+paquete.getcItinerarioIdioma1());
-		System.out.println("valor->"+paquete.getcItinerarioIdioma2());
-		System.out.println("valor->"+paquete.getcItinerarioIdioma3());
-		System.out.println("valor->"+paquete.getcItinerarioIdioma4());
-		System.out.println("valor->"+paquete.getcItinerarioIdioma5());
-		
 		Object[] values={paquete.getcPaqueteCod(),paquete.getcTituloIdioma1(),
 				paquete.getcTituloIdioma2(),paquete.getcTituloIdioma3(),
 				paquete.getcTituloIdioma4(),paquete.getcTituloIdioma5(),
