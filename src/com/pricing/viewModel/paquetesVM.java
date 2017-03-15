@@ -77,7 +77,6 @@ public class paquetesVM {
 	private boolean visibilidadYourself;
 	private ConfAltoNivel confAltoNivel;
 	private ConfAltoNivelDAO confAltoNivelDAO;
-	private String manejoSelectYourself;
 
 	/**
 	 * GETTER AND SETTER
@@ -85,14 +84,6 @@ public class paquetesVM {
 	
 	public CPaquete getoPaquete() {
 		return oPaquete;
-	}
-
-	public String getManejoSelectYourself() {
-		return manejoSelectYourself;
-	}
-
-	public void setManejoSelectYourself(String manejoSelectYourself) {
-		this.manejoSelectYourself = manejoSelectYourself;
 	}
 
 	public boolean isVisibilidadYourself() {
@@ -380,19 +371,19 @@ public class paquetesVM {
 				}
 			}
 		} else if (oPaquete.isManejo_yourself()) {
-			if(manejoSelectYourself.equals("MACHUPICCHU")){
+			if(oPaquete.getManejoSelectYourself().equals("Machupicchu")){
 				oPaquete.setcDisponibilidad("MACHUPICCHU");
-			}else if(manejoSelectYourself.equals("MACHUPICCHU_HUAYNAPICCHU_1G")){
+			}else if(oPaquete.getManejoSelectYourself().equals("Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m.")){
 				oPaquete.setcDisponibilidad("MACHUPICCHU_HUAYNAPICCHU_1G");
-			}else if(manejoSelectYourself.equals("MACHUPICCHU_HUAYNAPICCHU_2G")){
+			}else if(oPaquete.getManejoSelectYourself().equals("Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m.")){
 				oPaquete.setcDisponibilidad("MACHUPICCHU_HUAYNAPICCHU_2G");
-			}else if(manejoSelectYourself.equals("MACHUPICCHU_MONTANA_1G")){
+			}else if(oPaquete.getManejoSelectYourself().equals("Machupicchu + Montaña 7:00 a.m.-8:00 a.m.")){
 				oPaquete.setcDisponibilidad("MACHUPICCHU_MONTANA_1G");
-			}else if(manejoSelectYourself.equals("MACHUPICCHU_MONTANA_2G")){
+			}else if(oPaquete.getManejoSelectYourself().equals("Machupicchu + Montaña 9:00 a.m.-10:00 a.m.")){
 				oPaquete.setcDisponibilidad("MACHUPICCHU_MONTANA_2G");
-			}else if(manejoSelectYourself.equals("CAMINO_INKA_CLASICO")){
+			}else if(oPaquete.getManejoSelectYourself().equals("Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m.")){
 				oPaquete.setcDisponibilidad("CAMINO_INKA_CLASICO_YOURSELF");
-			}else if(manejoSelectYourself.equals("CAMINO_INKA_CORTO")){
+			}else if(oPaquete.getManejoSelectYourself().equals("Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m.")){
 				oPaquete.setcDisponibilidad("CAMINO_INKA_CORTO");
 			}
 			oPaquete.setnDiaCaminoInka(0);
@@ -661,9 +652,12 @@ public class paquetesVM {
 			{
 				for(CGaleriaPaquete imagenes:paquete.getListaImagenes())
 				{
-					imagenes.setCpaquetecod(paquete.getcPaqueteCod());
-					CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
-					boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
+					if(imagenes.getCpaquetecod()==null)
+					{
+						imagenes.setCpaquetecod(paquete.getcPaqueteCod());
+						CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
+						boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
+					}
 				}
 			}
 		} else if (paquete.isManejo_propio()) {
@@ -769,9 +763,12 @@ public class paquetesVM {
 			{
 				for(CGaleriaPaquete imagenes:paquete.getListaImagenes())
 				{
-					imagenes.setCpaquetecod(paquete.getcPaqueteCod());
-					CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
-					boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
+					if(imagenes.getCpaquetecod()==null)
+					{
+						imagenes.setCpaquetecod(paquete.getcPaqueteCod());
+						CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
+						boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
+					}
 				}
 			}
 			/**
@@ -865,14 +862,30 @@ public class paquetesVM {
 			{
 				for(CGaleriaPaquete imagenes:paquete.getListaImagenes())
 				{
-					imagenes.setCpaquetecod(paquete.getcPaqueteCod());
-					CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
-					boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
+					if(imagenes.getCpaquetecod()==null)
+					{
+						imagenes.setCpaquetecod(paquete.getcPaqueteCod());
+						CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
+						boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
+					}
 				}
 			}
 		} else if (paquete.isManejo_yourself()) {
-
-			paquete.setcDisponibilidad("MANEJO_YOURSELF");
+			if(paquete.getManejoSelectYourself().equals("Machupicchu")){
+				paquete.setcDisponibilidad("MACHUPICCHU");
+			}else if(paquete.getManejoSelectYourself().equals("Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m.")){
+				paquete.setcDisponibilidad("MACHUPICCHU_HUAYNAPICCHU_1G");
+			}else if(paquete.getManejoSelectYourself().equals("Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m.")){
+				paquete.setcDisponibilidad("MACHUPICCHU_HUAYNAPICCHU_2G");
+			}else if(paquete.getManejoSelectYourself().equals("Machupicchu + Montaña 7:00 a.m.-8:00 a.m.")){
+				paquete.setcDisponibilidad("MACHUPICCHU_MONTANA_1G");
+			}else if(paquete.getManejoSelectYourself().equals("Machupicchu + Montaña 9:00 a.m.-10:00 a.m.")){
+				paquete.setcDisponibilidad("MACHUPICCHU_MONTANA_2G");
+			}else if(paquete.getManejoSelectYourself().equals("Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m.")){
+				paquete.setcDisponibilidad("CAMINO_INKA_CLASICO_YOURSELF");
+			}else if(paquete.getManejoSelectYourself().equals("Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m.")){
+				paquete.setcDisponibilidad("CAMINO_INKA_CORTO");
+			}
 			paquete.setnDiaCaminoInka(0);
 			/** Se procede a actualizar el paquete **/
 			boolean b = paqueteDao.isOperationCorrect(paqueteDao.modificarPaquete(paquete));
@@ -1893,28 +1906,49 @@ public class paquetesVM {
 	}
 
 	@Command
-	@NotifyChange({"manejoSelectYourself"})
-	public void seleccionardestino(@BindingParam("codDestino") String codDestino,@BindingParam("manejoYourself") String manejoYourself) {
+	public void seleccionardestinoInsertar(@BindingParam("codDestino") String codDestino,@BindingParam("manejoYourself") String manejoYourself) {
 		oPaquete.setcTituloIdioma1(codDestino);
 		if(manejoYourself.equals("MACHUPICCHU")){
-			manejoSelectYourself=manejoYourself;
+			oPaquete.setManejoSelectYourself(codDestino);
 		}else if(manejoYourself.equals("MACHUPICCHU_HUAYNAPICCHU_1G")){
-			manejoSelectYourself=manejoYourself;
+			oPaquete.setManejoSelectYourself(codDestino);
 		}else if(manejoYourself.equals("MACHUPICCHU_HUAYNAPICCHU_2G")){
-			manejoSelectYourself=manejoYourself;
+			oPaquete.setManejoSelectYourself(codDestino);
 		}else if(manejoYourself.equals("MACHUPICCHU_MONTANA_1G")){
-			manejoSelectYourself=manejoYourself;
+			oPaquete.setManejoSelectYourself(codDestino);
 		}else if(manejoYourself.equals("MACHUPICCHU_MONTANA_2G")){
-			manejoSelectYourself=manejoYourself;
+			oPaquete.setManejoSelectYourself(codDestino);
 		}else if(manejoYourself.equals("CAMINO_INKA_CLASICO")){
-			manejoSelectYourself=manejoYourself;
+			oPaquete.setManejoSelectYourself(codDestino);
 		}else if(manejoYourself.equals("CAMINO_INKA_CORTO")){
-			manejoSelectYourself=manejoYourself;
+			oPaquete.setManejoSelectYourself(codDestino);
 		}
 		System.out.println("valor paquete->"+oPaquete.getcTituloIdioma1());
 		BindUtils.postNotifyChange(null, null, oPaquete, "cTituloIdioma1");
+		BindUtils.postNotifyChange(null, null, oPaquete, "manejoSelectYourself");
 	}
-
+	@Command
+	public void seleccionardestinoUpdate(@BindingParam("codDestino") String codDestino,@BindingParam("manejoYourself") String manejoYourself,@BindingParam("paquete") CPaquete paquete) {
+		paquete.setcTituloIdioma1(codDestino);
+		if(manejoYourself.equals("MACHUPICCHU")){
+			paquete.setManejoSelectYourself(codDestino);
+		}else if(manejoYourself.equals("MACHUPICCHU_HUAYNAPICCHU_1G")){
+			paquete.setManejoSelectYourself(codDestino);
+		}else if(manejoYourself.equals("MACHUPICCHU_HUAYNAPICCHU_2G")){
+			paquete.setManejoSelectYourself(codDestino);
+		}else if(manejoYourself.equals("MACHUPICCHU_MONTANA_1G")){
+			paquete.setManejoSelectYourself(codDestino);
+		}else if(manejoYourself.equals("MACHUPICCHU_MONTANA_2G")){
+			paquete.setManejoSelectYourself(codDestino);
+		}else if(manejoYourself.equals("CAMINO_INKA_CLASICO")){
+			paquete.setManejoSelectYourself(codDestino);
+		}else if(manejoYourself.equals("CAMINO_INKA_CORTO")){
+			paquete.setManejoSelectYourself(codDestino);
+		}
+		System.out.println("valor paquete->"+oPaquete.getcTituloIdioma1());
+		BindUtils.postNotifyChange(null, null, paquete, "cTituloIdioma1");
+		BindUtils.postNotifyChange(null, null, paquete, "manejoSelectYourself");
+	}
 	public void asignarRutaImagenPaquete(String nombreImagen, CPaquete paquete)// ===paquete																																						// hotel=====
 	{
 		if(estaEnLaListaImagenes("img/tours/"+nombreImagen,paquete)){

@@ -94,10 +94,17 @@ public class CPaquete
 	private ArrayList<CGaleriaPaquete> listaImagenes;
 	private boolean abrirEditorItinerario;
 	private boolean abrirEditorDescripcion;
+	private String manejoSelectYourself;
 	//==========================
 	
 	public String getcPaqueteCod() {
 		return cPaqueteCod;
+	}
+	public String getManejoSelectYourself() {
+		return manejoSelectYourself;
+	}
+	public void setManejoSelectYourself(String manejoSelectYourself) {
+		this.manejoSelectYourself = manejoSelectYourself;
 	}
 	public boolean isAbrirEditorItinerario() {
 		return abrirEditorItinerario;
@@ -574,6 +581,7 @@ public class CPaquete
 		this.cFoto3="img/tours/tourxdefecto.png";
 		this.cFoto4="img/tours/tourxdefecto.png";
 		this.cFoto5="img/tours/tourxdefecto.png";
+		manejoSelectYourself="";
 		this.listaImagenes=new ArrayList<CGaleriaPaquete>();
 	}
 	public CPaquete(String cPaqueteCod, String cTituloIdioma1,
@@ -735,13 +743,49 @@ public class CPaquete
 			manejo_camino_inca=false;
 			manejo_propio=false;
 			manejo_normal=true;
-		}else if(manejo.equals("MACHUPICCHU") || manejo.equals("MACHUPICCHU_HUAYNAPICCHU_1G") || manejo.equals("MACHUPICCHU_HUAYNAPICCHU_2G")
-				|| manejo.equals("MACHUPICCHU_MONTANA_1G") || manejo.equals("MACHUPICCHU_MONTANA_2G") || manejo.equals("CAMINO_INKA_CLASICO_YOURSELF")
-				|| manejo.equals("CAMINO_INKA_CORTO")){
+		}else if(manejo.equals("MACHUPICCHU")){
 			manejo_camino_inca=false;
 			manejo_propio=false;
 			manejo_normal=false;
 			manejo_yourself=true;
+			manejoSelectYourself="Machupicchu";
+		}else if(manejo.equals("MACHUPICCHU_HUAYNAPICCHU_1G"))
+		{
+			manejo_camino_inca=false;
+			manejo_propio=false;
+			manejo_normal=false;
+			manejo_yourself=true;
+			manejoSelectYourself="Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m.";
+		}else if(manejo.equals("MACHUPICCHU_HUAYNAPICCHU_2G")){
+			manejo_camino_inca=false;
+			manejo_propio=false;
+			manejo_normal=false;
+			manejo_yourself=true;
+			manejoSelectYourself="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m.";
+		}else if(manejo.equals("MACHUPICCHU_MONTANA_1G")){
+			manejo_camino_inca=false;
+			manejo_propio=false;
+			manejo_normal=false;
+			manejo_yourself=true;
+			manejoSelectYourself="Machupicchu + Montaña 7:00 a.m.-8:00 a.m.";
+		}else if(manejo.equals("MACHUPICCHU_MONTANA_2G")){
+			manejo_camino_inca=false;
+			manejo_propio=false;
+			manejo_normal=false;
+			manejo_yourself=true;
+			manejoSelectYourself="Machupicchu + Montaña 9:00 a.m.-10:00 a.m.";
+		}else if(manejo.equals("CAMINO_INKA_CLASICO_YOURSELF")){
+			manejo_camino_inca=false;
+			manejo_propio=false;
+			manejo_normal=false;
+			manejo_yourself=true;
+			manejoSelectYourself="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m.";
+		}else if(manejo.equals("CAMINO_INKA_CORTO")){
+			manejo_camino_inca=false;
+			manejo_propio=false;
+			manejo_normal=false;
+			manejo_yourself=true;
+			manejoSelectYourself="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m.";
 		}
 	}
 	public void inicializarEstadosDeDestinosYServicios()

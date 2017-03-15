@@ -333,7 +333,8 @@ public class pricingVM
 		else if(paquete.getcDisponibilidad().equals("MACHUPICCHU_HUAYNAPICCHU_2G"))cod="3";
 		else if(paquete.getcDisponibilidad().equals("MACHUPICCHU_MONTANA_1G"))cod="4";
 		else if(paquete.getcDisponibilidad().equals("MACHUPICCHU_MONTANA_2G"))cod="5";
-		else if(paquete.getcDisponibilidad().equals("CAMINO_INKA_CLASICO"))cod="20";
+		else if(paquete.getcDisponibilidad().equals("CAMINO_INKA_CLASICO") ||
+				paquete.getcDisponibilidad().equals("CAMINO_INKA_YOURSELF") )cod="20";
 		else if(paquete.getcDisponibilidad().equals("CAMINO_INKA_CORTO"))cod="21";
 		return cod;
 	}
