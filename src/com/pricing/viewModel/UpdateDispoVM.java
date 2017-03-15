@@ -233,7 +233,6 @@ public class UpdateDispoVM
 	    		    {
 	    		        public int compare(Integer o1, Integer o2)
 	    		        {
-//	    		            return map.get(o1).compareTo(map.get(o2));
 	    		            return o1.compareTo(o2);
 	    		        }
 	    		    });
@@ -279,7 +278,6 @@ public class UpdateDispoVM
 	    		    {
 	    		        public int compare(Integer o1, Integer o2)
 	    		        {
-//	    		            return map.get(o1).compareTo(map.get(o2));
 	    		            return o1.compareTo(o2);
 	    		        }
 	    		    });
