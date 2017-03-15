@@ -95,7 +95,7 @@
 				     				<div width="100%"><checkbox checked="@load(each.accesoIdiomas)" onCheck="@command('selectAcceso_update',opcion=1,acceso=each)" label="ACCESO A IDIOMAS" sclass="select_acceso" width="100%"/></div>
 				     				<div width="100%"><checkbox checked="@load(each.accesoUpdateDispo)" onCheck="@command('selectAcceso_update',opcion=2,acceso=each)" label="ACCESO A DISPONIBILIDADES" sclass="select_acceso" width="100%"/></div>
 				     				<div width="100%"><checkbox checked="@load(each.accesoEtiqueta)" onCheck="@command('selectAcceso_update',opcion=3,acceso=each)" label="ACCESO A ETIQUETAS" sclass="select_acceso" width="100%"/></div>
-				     				<div width="100%"><checkbox checked="@load(each.accesoImpuesto)" onCheck="@command('selectAcceso_update',opcion=4,acceso=each)" label="ACCESO A CONFIGURACIONES EXTRAS" sclass="select_acceso" width="100%"/></div>
+				     				<div width="100%"><checkbox checked="@load(each.accesoImpuesto)" onCheck="@command('selectAcceso_update',opcion=4,acceso=each)" label="ACCESO A CONFIGURACIONES ALTO NIVEL" sclass="select_acceso" width="100%"/></div>
 				     				<div width="100%"><checkbox checked="@load(each.accesoVisa)" onCheck="@command('selectAcceso_update',opcion=5,acceso=each)" label="ACCESO A VISA" sclass="select_acceso" width="100%"/></div>
 				     				<div width="100%"><checkbox checked="@load(each.accesoPaypal)" onCheck="@command('selectAcceso_update',opcion=6,acceso=each)" label="ACCESO A PAYPAL" sclass="select_acceso" width="100%"/></div>
 				     				<div width="100%"><checkbox checked="@load(each.accesoMasterdCard)" onCheck="@command('selectAcceso_update',opcion=7,acceso=each)" label="ACCESO A MASTER CARD" sclass="select_acceso" width="100%"/></div>
