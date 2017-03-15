@@ -6,6 +6,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
 
 import org.zkoss.bind.annotation.AfterCompose;
 import org.zkoss.bind.annotation.BindingParam;
@@ -210,6 +218,8 @@ public class UpdateDispoVM
 				{
 	        		int anioActual=cal.get(Calendar.YEAR);
 	        		ArrayList<Integer> listaDispMes=new ArrayList<Integer>();
+	        		ArrayList<Integer> listaDispMesAux=new ArrayList<Integer>();
+	        		Map<Integer, String> map = new HashMap<Integer,String>();
 	        		listaDispMes.add(Integer.parseInt(dispo));
 	        		listaDispMes.add(anioActual);
 	        		listaDispMes.add(mes);
@@ -217,7 +227,25 @@ public class UpdateDispoVM
 	    		    for(int j=6;j<s.length-4;j++)
 	    		    {
 	    		    	String[] aux=s[j].split(" ");
-	    		    	listaDispMes.add(Integer.parseInt(aux[1].trim()));
+	    		    	map.put(Integer.parseInt(aux[0].trim()),aux[1].trim());
+	    		    }
+	    		    final TreeMap<Integer,String>treeSortedByValues1 = new TreeMap<Integer,String>(new Comparator<Integer>()
+	    		    {
+	    		        public int compare(Integer o1, Integer o2)
+	    		        {
+//	    		            return map.get(o1).compareTo(map.get(o2));
+	    		            return o1.compareTo(o2);
+	    		        }
+	    		    });
+	    		    treeSortedByValues1.putAll(map);
+	    		    for ( Entry<Integer, String> e : treeSortedByValues1.entrySet() )
+	    		    {
+	    		        System.out.println(e.getKey() + ": " + e.getValue());
+	    		        listaDispMesAux.add(Integer.parseInt(e.getValue()));
+	    		        
+	    		    }
+	    		    for(Integer m:listaDispMesAux){
+	    		    	listaDispMes.add(m);
 	    		    }
 	    		    if(mes==4 || mes==6 || mes==9 || mes==11){
 	    		    	listaDispMes.add(-1);
@@ -236,6 +264,8 @@ public class UpdateDispoVM
 				{
 					int anioSig=cal.get(Calendar.YEAR)+1;
 	        		ArrayList<Integer> listaDispMes=new ArrayList<Integer>();
+	        		ArrayList<Integer> listaDispMesAux=new ArrayList<Integer>();
+	        		Map<Integer, String> map = new HashMap<Integer,String>();
 	        		listaDispMes.add(Integer.parseInt(dispo));
 	        		listaDispMes.add(anioSig);
 	        		listaDispMes.add(mes);
@@ -243,7 +273,25 @@ public class UpdateDispoVM
 	    		    for(int j=6;j<s.length-4;j++)
 	    		    {
 	    		    	String[] aux=s[j].split(" ");
-	    		    	listaDispMes.add(Integer.parseInt(aux[1].trim()));
+	    		    	map.put(Integer.parseInt(aux[0].trim()),aux[1].trim());
+	    		    }
+	    		    final TreeMap<Integer,String>treeSortedByValues1 = new TreeMap<Integer,String>(new Comparator<Integer>()
+	    		    {
+	    		        public int compare(Integer o1, Integer o2)
+	    		        {
+//	    		            return map.get(o1).compareTo(map.get(o2));
+	    		            return o1.compareTo(o2);
+	    		        }
+	    		    });
+	    		    treeSortedByValues1.putAll(map);
+	    		    for ( Entry<Integer, String> e : treeSortedByValues1.entrySet() )
+	    		    {
+	    		        System.out.println(e.getKey() + ": " + e.getValue());
+	    		        listaDispMesAux.add(Integer.parseInt(e.getValue()));
+	    		        
+	    		    }
+	    		    for(Integer m:listaDispMesAux){
+	    		    	listaDispMes.add(m);
 	    		    }
 	    		    if(mes==4 || mes==6 || mes==9 || mes==11){
 	    		    	listaDispMes.add(-1);

@@ -1,5 +1,5 @@
 --TABLA TPAQUETE--
-ALTER TABLE tpaquete ADD COLUMN citinerario text DEFAULT 'DAY 1: CUSCO - PISCACUCHO - HUAYLLABAMABA
+ALTER TABLE tpaquete ADD COLUMN citinerarioidioma1 text DEFAULT 'DAY 1: CUSCO - PISCACUCHO - HUAYLLABAMABA
 
 The Classic Inca Trail tour starts very early in the morning, we will depart from your hotel and then move by bus, going by the Sacred Valley, the towns of Urubamba and Ollantaytambo. We make a short stop here, you can visit the local market and buy some supplies for the trek to this place named Piscacucho, located at km 82, to start the walk along the Urubamba river. Continuing the section through a green area, it is likely to see the giant hummingbird beak. About 2 hours, we reach the community of Wayllabamba to 3,000 m, the first night we camp, the walk of the first day will be quiet. This first day is usually hot during the dry season (May to October), it is recommended to wear light clothing, a good sunscreen and a good hat or cap.
 
@@ -18,8 +18,20 @@ Includes: Breakfast, lunch, dinner and camping.
 DAY 4: WIÑAYWAYNA - MACHUPICCHU - CUSCO
 On this last day, we wake up early, heading to the famous Inti Punku or “Sun Gate” at 2,700 m.a.s.l to arrive on time and watch the sunrise. This center was one gateway to Machu Picchu, used as a control. It is an excellent opportunity to take panoramic pictures of the citadel of Machu Picchu. Camping is prohibited into Inti Punko (Sun Gate). You must leave your luggage at the control input and enjoy, you will reach the longed citadel, where after a short break, immersed in the energy of the place, will begin a guided tour. You will have time to walk around Machu Picchu, visit its squares, fountains and others. You’ll have free time to take photos. After a few hours, we descend to Aguas Calientes (2,160 m.a.s.l.) where you can visit the thermal baths by yourself (optional). Return to the city of Cusco. We recommend that you check the departure times of the train to return to Cusco.
 
-Includes: Breakfast.'
-ALTER TABLE tpaquete alter COLUMN citinerario drop DEFAULT
+Includes: Breakfast.';
+ALTER TABLE tpaquete alter COLUMN citinerarioidioma1 drop DEFAULT;
+
+ALTER TABLE tpaquete ADD COLUMN citinerarioidioma2 text DEFAULT '';
+ALTER TABLE tpaquete alter COLUMN citinerarioidioma2 drop DEFAULT;
+
+ALTER TABLE tpaquete ADD COLUMN citinerarioidioma3 text DEFAULT '';
+ALTER TABLE tpaquete alter COLUMN citinerarioidioma3 drop DEFAULT;
+
+ALTER TABLE tpaquete ADD COLUMN citinerarioidioma4 text DEFAULT '';
+ALTER TABLE tpaquete alter COLUMN citinerarioidioma4 drop DEFAULT;
+
+ALTER TABLE tpaquete ADD COLUMN citinerarioidioma5 text DEFAULT '';
+ALTER TABLE tpaquete alter COLUMN citinerarioidioma5 drop DEFAULT;
 --TABLA TDESTINO--
 ALTER TABLE tdestino ADD COLUMN cimagen varchar(100) DEFAULT 'img/destinos/destinoxdefecto.png'
 ALTER TABLE tdestino alter COLUMN cimagen drop DEFAULT

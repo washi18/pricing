@@ -60,7 +60,8 @@ public class CPaqueteDAO extends CConexion
 				(Number)row.get("npreciotres"),(Number)row.get("npreciocuatro"), 
 				(Number)row.get("npreciocinco"),(String)row.get("cdisponibilidad"), 
 				(boolean)row.get("bestado"),(String)row.get("cfoto1"),(String)row.get("cfoto2"),(String)row.get("cfoto3"),
-				(String)row.get("cfoto4"),(String)row.get("cfoto5"));
+				(String)row.get("cfoto4"),(String)row.get("cfoto5"),(String)row.get("citinerarioidioma1"),(String)row.get("citinerarioidioma2")
+				,(String)row.get("citinerarioidioma3"),(String)row.get("citinerarioidioma4"),(String)row.get("citinerarioidioma5"));
 	}
 	public void asignarListaPaquetes(List lista)
 	{
@@ -79,7 +80,8 @@ public class CPaqueteDAO extends CConexion
 					(Number)row.get("npreciotres"),(Number)row.get("npreciocuatro"), 
 					(Number)row.get("npreciocinco"),(String)row.get("cdisponibilidad"), 
 					(boolean)row.get("bestado"),(String)row.get("cfoto1"),(String)row.get("cfoto2"),(String)row.get("cfoto3"),
-					(String)row.get("cfoto4"),(String)row.get("cfoto5")));
+					(String)row.get("cfoto4"),(String)row.get("cfoto5"),(String)row.get("citinerarioidioma1"),(String)row.get("citinerarioidioma2")
+					,(String)row.get("citinerarioidioma3"),(String)row.get("citinerarioidioma4"),(String)row.get("citinerarioidioma5")));
 		}
 	}
 	public List buscarPaquetesBD(String nombre){
@@ -90,11 +92,13 @@ public class CPaqueteDAO extends CConexion
 	{
 		Object[] values={paquete.getcTituloIdioma1(),paquete.getcTituloIdioma2(),
 				paquete.getcTituloIdioma3(),paquete.getcTituloIdioma4(),
-				paquete.getcTituloIdioma5(),paquete.getnDias(),paquete.getnNoches(),
+				paquete.getcTituloIdioma5(),paquete.getcDescripcionIdioma1(),paquete.getcDescripcionIdioma2(),
+				paquete.getcDescripcionIdioma3(),paquete.getcDescripcionIdioma4(),paquete.getcDescripcionIdioma5(),paquete.getnDias(),paquete.getnNoches(),
 				paquete.getnPrecioUno().doubleValue(),paquete.getnPrecioDos().doubleValue(),
 				paquete.getnPrecioTres().doubleValue(),paquete.getnPrecioCuatro().doubleValue(),
 				paquete.getnPrecioCinco().doubleValue(),paquete.getcDisponibilidad(),
-				paquete.getnDiaCaminoInka(),paquete.getcFoto1(),paquete.getcFoto2(),paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5()};
+				paquete.getnDiaCaminoInka(),paquete.getcFoto1(),paquete.getcFoto2(),paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5(),
+				paquete.getcItinerarioIdioma1(),paquete.getcItinerarioIdioma2(),paquete.getcItinerarioIdioma3(),paquete.getcItinerarioIdioma4(),paquete.getcItinerarioIdioma5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaquete", values);
 	}
 	/**METODOS DE PAQUETE SERVICIO**/
@@ -149,6 +153,38 @@ public class CPaqueteDAO extends CConexion
 	}
 	public List modificarPaquete(CPaquete paquete)
 	{
+		System.out.println("valor->"+paquete.getcPaqueteCod());
+		System.out.println("valor->"+paquete.getcTituloIdioma1());
+		System.out.println("valor->"+paquete.getcTituloIdioma2());
+		System.out.println("valor->"+paquete.getcTituloIdioma3());
+		System.out.println("valor->"+paquete.getcTituloIdioma4());
+		System.out.println("valor->"+paquete.getcTituloIdioma5());
+		System.out.println("valor->"+paquete.getcDescripcionIdioma1());
+		System.out.println("valor->"+paquete.getcDescripcionIdioma2());
+		System.out.println("valor->"+paquete.getcDescripcionIdioma3());
+		System.out.println("valor->"+paquete.getcDescripcionIdioma4());
+		System.out.println("valor->"+paquete.getcDescripcionIdioma5());
+		System.out.println("valor->"+paquete.getnDias());
+		System.out.println("valor->"+paquete.getnNoches());
+		System.out.println("valor->"+paquete.getnPrecioUno());
+		System.out.println("valor->"+paquete.getnPrecioDos());
+		System.out.println("valor->"+paquete.getnPrecioTres());
+		System.out.println("valor->"+paquete.getnPrecioCuatro());
+		System.out.println("valor->"+paquete.getnPrecioCinco());
+		System.out.println("valor->"+paquete.getcDisponibilidad());
+		System.out.println("valor->"+paquete.getnDiaCaminoInka());
+		System.out.println("valor->"+paquete.isbEstado());
+		System.out.println("valor->"+paquete.getcFoto1());
+		System.out.println("valor->"+paquete.getcFoto2());
+		System.out.println("valor->"+paquete.getcFoto3());
+		System.out.println("valor->"+paquete.getcFoto4());
+		System.out.println("valor->"+paquete.getcFoto5());
+		System.out.println("valor->"+paquete.getcItinerarioIdioma1());
+		System.out.println("valor->"+paquete.getcItinerarioIdioma2());
+		System.out.println("valor->"+paquete.getcItinerarioIdioma3());
+		System.out.println("valor->"+paquete.getcItinerarioIdioma4());
+		System.out.println("valor->"+paquete.getcItinerarioIdioma5());
+		
 		Object[] values={paquete.getcPaqueteCod(),paquete.getcTituloIdioma1(),
 				paquete.getcTituloIdioma2(),paquete.getcTituloIdioma3(),
 				paquete.getcTituloIdioma4(),paquete.getcTituloIdioma5(),
@@ -159,7 +195,9 @@ public class CPaqueteDAO extends CConexion
 				paquete.getnPrecioTres().doubleValue(),paquete.getnPrecioCuatro().doubleValue(),
 				paquete.getnPrecioCinco().doubleValue(),paquete.getcDisponibilidad(),
 				paquete.getnDiaCaminoInka(),paquete.isbEstado(),paquete.getcFoto1(),paquete.getcFoto2(),
-				paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5()};
+				paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5(),paquete.getcItinerarioIdioma1(),
+				paquete.getcItinerarioIdioma2(),paquete.getcItinerarioIdioma3(),
+				paquete.getcItinerarioIdioma4(),paquete.getcItinerarioIdioma5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarPaquetes", values);
 	}
 	public List modificarImagenesPaquete(CPaquete paquete)

@@ -174,6 +174,12 @@
 							</div>
 						</div>
 						<div zclass="div_space_entre_botones">
+								<button label="Editar Itinerario" onClick="@command('abrirEditorItinerario',cPaquete=vmPaquete.oPaquete)" zclass="btn_guardar"/>
+						</div>
+						<div zclass="div_space_entre_botones">
+								<button label="Editar Descripcion" onClick="@command('abrirEditorDescripcion',cPaquete=vmPaquete.oPaquete)" zclass="btn_guardar"/>
+						</div>
+						<div zclass="div_space_entre_botones">
 								<button label="Subir Imagenes del paquete" 
 										onClick="@command('uploadImagenes',cPaquete=vmPaquete.oPaquete,componente=self)"
 										zclass="btn_guardar"/>
@@ -184,6 +190,58 @@
 										zclass="btn_guardar"/>
 						</div>
 						<button label="Guardar" zclass="btn_guardar" onClick="@command('insertarPaquete',componente=self)"/>
+						<window mode="modal" sclass="win_descHotel" visible="@load(vmPaquete.oPaquete.abrirEditorItinerario)" position="center">
+								<div zclass="div_cerrar_descHotel">
+									<button label="X" onClick="@command('cerrarEditorItinerario',cPaquete=vmPaquete.oPaquete)" zclass="btn_cerrar_descHotel"/>
+								</div>
+								<div zclass="div_content_datos">
+									<div>
+										<div zclass="div_contiene_banderas">
+											<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+													onClick="txtSpainItinerario.setVisible(true);
+															txtInglesItinerario.setVisible(false);txtPortuItinerario.setVisible(false)"/>
+											<image src="img/en.png" sclass="estilo_banderas"
+													onClick="txtSpainItinerario.setVisible(false);
+															txtInglesItinerario.setVisible(true);txtPortuItinerario.setVisible(false)"/>
+											<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+													onClick="txtSpainItinerario.setVisible(false);
+															txtInglesItinerario.setVisible(false);txtPortuItinerario.setVisible(true)"/>
+										</div>
+										<div>
+											<label value="ITINERARIO: " zclass="lbl_llenar_datos"/>
+											<ckeditor value="@bind(vmPaquete.oPaquete.cItinerarioIdioma1)" id="txtSpainItinerario" visible="true" width="100%"/>
+											<ckeditor value="@bind(vmPaquete.oPaquete.cItinerarioIdioma2)" id="txtInglesItinerario" visible="false" width="100%"/>
+											<ckeditor value="@bind(vmPaquete.oPaquete.cItinerarioIdioma3)" id="txtPortuItinerario" visible="false" width="100%"/>
+										</div>
+									</div>
+								</div>
+							</window>
+							<window mode="modal" sclass="win_descHotel" visible="@load(vmPaquete.oPaquete.abrirEditorDescripcion)" position="center">
+								<div zclass="div_cerrar_descHotel">
+									<button label="X" onClick="@command('cerrarEditorDescripcion',cPaquete=vmPaquete.oPaquete)" zclass="btn_cerrar_descHotel"/>
+								</div>
+								<div zclass="div_content_datos">
+									<div>
+										<div zclass="div_contiene_banderas">
+											<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+													onClick="txtSpainItinerario.setVisible(true);
+															txtInglesItinerario.setVisible(false);txtPortuItinerario.setVisible(false)"/>
+											<image src="img/en.png" sclass="estilo_banderas"
+													onClick="txtSpainItinerario.setVisible(false);
+															txtInglesItinerario.setVisible(true);txtPortuItinerario.setVisible(false)"/>
+											<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+													onClick="txtSpainItinerario.setVisible(false);
+															txtInglesItinerario.setVisible(false);txtPortuItinerario.setVisible(true)"/>
+										</div>
+										<div>
+											<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
+											<ckeditor value="@bind(vmPaquete.oPaquete.cDescripcionIdioma1)" id="txtSpainItinerario" visible="true" width="100%"/>
+											<ckeditor value="@bind(vmPaquete.oPaquete.cDescripcionIdioma2)" id="txtInglesItinerario" visible="false" width="100%"/>
+											<ckeditor value="@bind(vmPaquete.oPaquete.cDescripcionIdioma3)" id="txtPortuItinerario" visible="false" width="100%"/>
+										</div>
+									</div>
+								</div>
+							</window>
 					</div>
 					<space></space>
 					<div id="div_select_destinos" zclass="div_content_datos_paquete" visible="false">
@@ -558,6 +616,12 @@
 				    					</div>
 				    				</div>
 				    				<div zclass="div_space_entre_botones">
+											<button label="Editar Itinerario" onClick="@command('abrirEditorItinerario',cPaquete=each)" zclass="btn_guardar"/>
+									</div>
+									<div zclass="div_space_entre_botones">
+											<button label="Editar Descripcion" onClick="@command('abrirEditorDescripcion',cPaquete=each)" zclass="btn_guardar"/>
+									</div>
+				    				<div zclass="div_space_entre_botones">
 										<button label="Subir Imagenes del hotel" 
 												onClick="@command('uploadImagenes',cPaquete=each,componente=self)"
 												zclass="btn_guardar"/>
@@ -567,6 +631,94 @@
 												onClick="@command('invocaImagenesSubidas') @global-command('muestraImagenesSubidasPaquete',cPaquete=each)"
 												zclass="btn_guardar"/>
 									</div>
+									<window mode="modal"
+										sclass="win_descHotel"
+										visible="@load(each.abrirEditorItinerario)"
+										position="center">
+										<div
+											zclass="div_cerrar_descHotel">
+											<button label="X"
+												onClick="@command('cerrarEditorItinerario',cPaquete=each)"
+												zclass="btn_cerrar_descHotel" />
+										</div>
+										<div
+											zclass="div_content_datos">
+											<div>
+												<div
+													zclass="div_contiene_banderas">
+													<image
+														src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+														onClick="txtSpainItinerario.setVisible(true);
+															txtInglesItinerario.setVisible(false);txtPortuItinerario.setVisible(false)" />
+													<image
+														src="img/en.png" sclass="estilo_banderas"
+														onClick="txtSpainItinerario.setVisible(false);
+															txtInglesItinerario.setVisible(true);txtPortuItinerario.setVisible(false)" />
+													<image
+														src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+														onClick="txtSpainItinerario.setVisible(false);
+															txtInglesItinerario.setVisible(false);txtPortuItinerario.setVisible(true)" />
+												</div>
+												<div>
+													<label
+														value=" EDITAR ITINERARIO: " zclass="lbl_llenar_datos" />
+													<ckeditor
+														value="@bind(each.cItinerarioIdioma1) @save(each.cItinerarioIdioma1,before='actualizarPaquete')"
+														id="txtSpainItinerario" visible="true" width="100%" />
+													<ckeditor
+														value="@bind(each.cItinerarioIdioma2) @save(each.cItinerarioIdioma2,before='actualizarPaquete')"
+														id="txtInglesItinerario" visible="false" width="100%" />
+													<ckeditor
+														value="@bind(each.cItinerarioIdioma3) @save(each.cItinerarioIdioma3,before='actualizarPaquete')"
+														id="txtPortuItinerario" visible="false" width="100%" />
+												</div>
+											</div>
+										</div>
+									</window>
+									<window mode="modal"
+										sclass="win_descHotel"
+										visible="@load(each.abrirEditorDescripcion)"
+										position="center">
+										<div
+											zclass="div_cerrar_descHotel">
+											<button label="X"
+												onClick="@command('cerrarEditorDescripcion',cPaquete=each)"
+												zclass="btn_cerrar_descHotel" />
+										</div>
+										<div
+											zclass="div_content_datos">
+											<div>
+												<div
+													zclass="div_contiene_banderas">
+													<image
+														src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+														onClick="txtSpainItinerario.setVisible(true);
+															txtInglesItinerario.setVisible(false);txtPortuItinerario.setVisible(false)" />
+													<image
+														src="img/en.png" sclass="estilo_banderas"
+														onClick="txtSpainItinerario.setVisible(false);
+															txtInglesItinerario.setVisible(true);txtPortuItinerario.setVisible(false)" />
+													<image
+														src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+														onClick="txtSpainItinerario.setVisible(false);
+															txtInglesItinerario.setVisible(false);txtPortuItinerario.setVisible(true)" />
+												</div>
+												<div>
+													<label
+														value=" EDITAR DESCRIPCION: " zclass="lbl_llenar_datos" />
+													<ckeditor
+														value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarPaquete')"
+														id="txtSpainItinerario" visible="true" width="100%" />
+													<ckeditor
+														value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarPaquete')"
+														id="txtInglesItinerario" visible="false" width="100%" />
+													<ckeditor
+														value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarPaquete')"
+														id="txtPortuItinerario" visible="false" width="100%" />
+												</div>
+											</div>
+										</div>
+									</window>
 									<div visible="@bind(!each.manejo_yourself)">
 					    				<div visible="@bind(each.manejo_camino_inca)">
 											<separator bar="true"/>

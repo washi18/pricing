@@ -32,6 +32,11 @@ public class CPaquete
 	private String cDescripcionIdioma3;// text,		        --Descripcion del paquete el el idioma 3
 	private String cDescripcionIdioma4;// text,		        --Descripcion del paquete el el idioma 4
 	private String cDescripcionIdioma5;// text,		        --Descripcion del paquete el el idioma 5
+	private String cItinerarioIdioma1;// text,	
+	private String cItinerarioIdioma2;// text,	
+	private String cItinerarioIdioma3;// text,	
+	private String cItinerarioIdioma4;// text,	
+	private String cItinerarioIdioma5;// text,	
 	private int nDias;// int,					--numero de dias
 	private int nNoches;// int,					--numero de noches del paquete
 	private Number nPrecioUno;// decimal(10,2),			--precio del paquete para una persona
@@ -87,10 +92,54 @@ public class CPaquete
 	private String cFoto4;
 	private String cFoto5;
 	private ArrayList<CGaleriaPaquete> listaImagenes;
+	private boolean abrirEditorItinerario;
+	private boolean abrirEditorDescripcion;
 	//==========================
 	
 	public String getcPaqueteCod() {
 		return cPaqueteCod;
+	}
+	public boolean isAbrirEditorItinerario() {
+		return abrirEditorItinerario;
+	}
+	public void setAbrirEditorItinerario(boolean abrirEditorItinerario) {
+		this.abrirEditorItinerario = abrirEditorItinerario;
+	}
+	public boolean isAbrirEditorDescripcion() {
+		return abrirEditorDescripcion;
+	}
+	public void setAbrirEditorDescripcion(boolean abrirEditorDescripcion) {
+		this.abrirEditorDescripcion = abrirEditorDescripcion;
+	}
+	public String getcItinerarioIdioma1() {
+		return cItinerarioIdioma1;
+	}
+	public void setcItinerarioIdioma1(String cItinerarioIdioma1) {
+		this.cItinerarioIdioma1 = cItinerarioIdioma1;
+	}
+	public String getcItinerarioIdioma2() {
+		return cItinerarioIdioma2;
+	}
+	public void setcItinerarioIdioma2(String cItinerarioIdioma2) {
+		this.cItinerarioIdioma2 = cItinerarioIdioma2;
+	}
+	public String getcItinerarioIdioma3() {
+		return cItinerarioIdioma3;
+	}
+	public void setcItinerarioIdioma3(String cItinerarioIdioma3) {
+		this.cItinerarioIdioma3 = cItinerarioIdioma3;
+	}
+	public String getcItinerarioIdioma4() {
+		return cItinerarioIdioma4;
+	}
+	public void setcItinerarioIdioma4(String cItinerarioIdioma4) {
+		this.cItinerarioIdioma4 = cItinerarioIdioma4;
+	}
+	public String getcItinerarioIdioma5() {
+		return cItinerarioIdioma5;
+	}
+	public void setcItinerarioIdioma5(String cItinerarioIdioma5) {
+		this.cItinerarioIdioma5 = cItinerarioIdioma5;
 	}
 	public ArrayList<CGaleriaPaquete> getListaImagenes() {
 		return listaImagenes;
@@ -491,6 +540,16 @@ public class CPaquete
 		cTituloIdioma3="";
 		cTituloIdioma4="";
 		cTituloIdioma5="";
+		cDescripcionIdioma1="";
+		cDescripcionIdioma2="";
+		cDescripcionIdioma3="";
+		cDescripcionIdioma4="";
+		cDescripcionIdioma5="";
+		cItinerarioIdioma1="";
+		cItinerarioIdioma2="";
+		cItinerarioIdioma3="";
+		cItinerarioIdioma4="";
+		cItinerarioIdioma5="";
 		nPrecio1_text=df.format(0);
 		nPrecio2_text=df.format(0);
 		nPrecio3_text=df.format(0);
@@ -506,6 +565,8 @@ public class CPaquete
 		sinDestino=true;
 		conDescuento=false;
 		sinDescuento=true;
+		abrirEditorItinerario=false;
+		abrirEditorDescripcion=false;
 		nroDestinosSelect=0;
 		ordenDesSelect=0;
 		this.cFoto1="img/tours/tourxdefecto.png";
@@ -524,7 +585,8 @@ public class CPaquete
 			Number nPrecioUno, Number nPrecioDos, Number nPrecioTres,
 			Number nPrecioCuatro, Number nPrecioCinco, String cDisponibilidad,
 			boolean bEstado,String cFoto1,
-			String cFoto2,String cFoto3,String cFoto4,String cFoto5) {
+			String cFoto2,String cFoto3,String cFoto4,String cFoto5,String cItinerarioIdioma1,String cItinerarioIdioma2,
+			String cItinerarioIdioma3,String cItinerarioIdioma4,String cItinerarioIdioma5) {
 		/*******************************/
 		simbolos= new DecimalFormatSymbols();
 		simbolos.setDecimalSeparator('.');
@@ -542,6 +604,11 @@ public class CPaquete
 		this.cDescripcionIdioma3 = cDescripcionIdioma3;
 		this.cDescripcionIdioma4 = cDescripcionIdioma4;
 		this.cDescripcionIdioma5 = cDescripcionIdioma5;
+		this.cItinerarioIdioma1=cItinerarioIdioma1;
+		this.cItinerarioIdioma2=cItinerarioIdioma2;
+		this.cItinerarioIdioma3=cItinerarioIdioma3;
+		this.cItinerarioIdioma4=cItinerarioIdioma4;
+		this.cItinerarioIdioma5=cItinerarioIdioma5;
 		this.nDias = nDias;
 		this.nNoches = nNoches;
 		this.dias_noches=nDias+" DIAS Y "+nNoches+" NOCHES";
@@ -569,6 +636,8 @@ public class CPaquete
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
 		this.conCalendarioPropio=false;
+		this.abrirEditorItinerario=false;
+		this.abrirEditorDescripcion=false;
 		this.url_pricingPaquete="https://www.e-ranti.com/pricing_pat/?var1="+cPaqueteCod;
 		/***Recuperando lo que contiene el paquete***/
 		listaDestinos=new ArrayList<CDestino>();

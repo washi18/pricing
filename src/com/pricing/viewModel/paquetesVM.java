@@ -1040,6 +1040,32 @@ public class paquetesVM {
 		}
 		return valido;
 	}
+	
+	@Command
+	public void cerrarEditorItinerario(@BindingParam("cPaquete")CPaquete paquete)
+	{
+		paquete.setAbrirEditorItinerario(false);
+		BindUtils.postNotifyChange(null, null, paquete, "abrirEditorItinerario");
+	}
+	@Command
+	public void abrirEditorItinerario(@BindingParam("cPaquete")CPaquete paquete)
+	{
+		paquete.setAbrirEditorItinerario(true);
+		BindUtils.postNotifyChange(null, null, paquete, "abrirEditorItinerario");
+	}
+	
+	@Command
+	public void cerrarEditorDescripcion(@BindingParam("cPaquete")CPaquete paquete)
+	{
+		paquete.setAbrirEditorDescripcion(false);
+		BindUtils.postNotifyChange(null, null, paquete, "abrirEditorDescripcion");
+	}
+	@Command
+	public void abrirEditorDescripcion(@BindingParam("cPaquete")CPaquete paquete)
+	{
+		paquete.setAbrirEditorDescripcion(true);
+		BindUtils.postNotifyChange(null, null, paquete, "abrirEditorDescripcion");
+	}
 
 	@Command
 	public void Editar(@BindingParam("paquete") CPaquete p) {
