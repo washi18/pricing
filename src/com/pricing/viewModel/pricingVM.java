@@ -2141,8 +2141,9 @@ public class pricingVM
 		File directorio=new File(ScannUtil.getPath());
 		String[] imagenes=directorio.list();
 		//=================================
-		System.out.println("valor de tamanio imagenes->"+imagenes.length);
-		String nuevoNombre="Doc_"+imagenes.length+"_";
+		String nuevoNombre="";
+		if(imagenes!=null)
+			nuevoNombre="Doc_"+imagenes.length+"_";
 		return nuevoNombre;
 	}
 	//========================================================

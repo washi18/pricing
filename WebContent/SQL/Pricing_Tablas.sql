@@ -9,7 +9,6 @@ CREATE TABLE TGaleriaPaquete
 	foreign key(cPaqueteCod)references tpaquete
 );
 /*****TABLA CONFIGURACION ALTO NIVEL***/
-
 create table tconfigAltoNivel(
  codAltoNivel int,
  nperfilcod int,
