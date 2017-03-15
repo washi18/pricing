@@ -889,35 +889,6 @@ public class paquetesVM {
 			paquete.setnDiaCaminoInka(0);
 			/** Se procede a actualizar el paquete **/
 			boolean b = paqueteDao.isOperationCorrect(paqueteDao.modificarPaquete(paquete));
-			if (paquete.isConDestino()) {
-				System.out.println("Nro de destinos: " + paquete.getListaDestinos().size());
-				for (CDestino destino : paquete.getListaDestinos()) {
-					boolean estaRegistrado = false;
-					for (CPaqueteDestino pd : listaPaqueteDestinos) {
-						if (pd.getnDestinoCod() == destino.getnDestinoCod()) {
-							estaRegistrado = true;
-							if (!destino.isSeleccionado()) {
-								/** ELIMINAR **/
-								b = paqueteDao.isOperationCorrect(
-										paqueteDao.eliminarPaqueteDestino(pd.getCodPaqueteDestino()));
-							} else
-								b = paqueteDao.isOperationCorrect(paqueteDao.modificarPaqueteDestino(
-										pd.getCodPaqueteDestino(), destino.getnNoches(), destino.getnOrdenItinerario(),
-										destino.isConCaminoInka()));
-							break;
-						}
-					}
-					if (destino.isSeleccionado() && !estaRegistrado) {
-						b = paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteDestino(paquete.getcPaqueteCod(),
-								destino.getnDestinoCod(), destino.getnNoches(), destino.getnOrdenItinerario(),
-								destino.isConCaminoInka()));
-					}
-				}
-			}
-			if (paquete.isSinDestino()) {
-				for (CPaqueteDestino pd : listaPaqueteDestinos)
-					b = paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteDestino(pd.getCodPaqueteDestino()));
-			}
 			for (CServicio servicio : paquete.getListaServicios()) {
 				boolean estaRegistrado = false;
 				for (CPaqueteServicio ps : listaPaqueteServicios) {
@@ -958,14 +929,12 @@ public class paquetesVM {
 							actividad.getnActividadCod()));
 				}
 			}
-			boolean r = paqueteDao.isOperationCorrect(paqueteDao.insertarPaqueteCatHotel(paquete.getcPaqueteCod()));
 			if(!paquete.getListaImagenes().isEmpty())
 			{
 				for(CGaleriaPaquete imagenes:paquete.getListaImagenes())
 				{
 					if(imagenes.getCpaquetecod()==null)
 					{
-						System.out.println("ENTRE AQUI FRANKLIN");
 						CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
 						imagenes.setCpaquetecod(paquete.getcPaqueteCod());
 						boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
@@ -1974,10 +1943,10 @@ public class paquetesVM {
 				paquete.setcFoto4("img/tours/" + nombreImagen);
 			else if (paquete.getcFoto5().equals("img/tours/tourxdefecto.png"))
 				paquete.setcFoto5("img/tours/" + nombreImagen);
-			System.out.println("Estoy en estado: " + oGaleriaPaquete.isBestado());
-			paquete.getListaImagenes().add(oGaleriaPaquete);
-			System.out.println("aqui el tamanio es->" + paquete.getListaImagenes().size());
 		}
+		System.out.println("Estoy en estado: " + oGaleriaPaquete.isBestado());
+		paquete.getListaImagenes().add(oGaleriaPaquete);
+		System.out.println("aqui el tamanio es->" + paquete.getListaImagenes().size());
 	}
 	public boolean estaEnLaListaImagenes(String nameImagen,CPaquete paquete)
 	{
