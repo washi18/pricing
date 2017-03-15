@@ -27,25 +27,25 @@ public class Util {
 	}
 	//Gets the path of the current web application
 	public static String getPathDispActual(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"DisponibilidadActual"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"DisponibilidadActual"+separator;
 	}
 	public static String getPathDispSig(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"DisponibilidadSig"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"DisponibilidadSig"+separator;
 	}
 	//Obtiene la ruta de las imagenes
 	public static String getPathIMG()
 	{
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator;
 	}
 	//Obtiene la ruta del archivo de la carpeta auxiliar
 	public static String getPathAuxDisp()
 	{
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"auxDisp"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"auxDisp"+separator;
 	}
 	//Obtiene la ruta de la carpeta donde estan los pdfs de reserva
 	public static String getPathReservas()
 	{
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"Reservas"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"Reservas"+separator;
 	}
 	//save file PDF
 	public static boolean saveFile(Media media, String path)

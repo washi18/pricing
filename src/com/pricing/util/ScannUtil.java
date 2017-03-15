@@ -44,29 +44,29 @@ public class ScannUtil {
 	}
 	//Gets the path of the current web application
 	public static String getPath(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"DocumentosScanneados"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"DocumentosScanneados"+separator;
 	}
 	public static String getPathImagenHoteles()
 	{
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"hoteles"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"hoteles"+separator;
 	}
 	public static String getPathImagensSubServicios(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"servicios"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"servicios"+separator;
 	}	
 	public static String getPathCertificados(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"WEB-INF"+separator+"classes"+separator+"com"+separator+"pricing_pat"+separator+"resources"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"WEB-INF"+separator+"classes"+separator+"com"+separator+"pricing_pat"+separator+"resources"+separator;
 	}
 	public static String getPathImagenUsuario(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"usuarios"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"usuarios"+separator;
 	}
 	public static String getPathLogo(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator;
 	}
 	public static String getPathImagenPaquetes(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"tours"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"tours"+separator;
 	}
 	public static String getPathImagenDestinos(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"img"+separator+"destinos"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"destinos"+separator;
 	}
 	//save file
 	public static boolean saveFile(Media media, String path){

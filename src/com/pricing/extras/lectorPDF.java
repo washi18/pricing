@@ -29,7 +29,7 @@ public class lectorPDF
     //=================================
     //Obteniendo la ruta de la aplicacion en en tiempo real
   	public String getPath(){
-  		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+"auxDisp"+separator;
+  		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"auxDisp"+separator;
   	}
    public String ToText() throws IOException
    {

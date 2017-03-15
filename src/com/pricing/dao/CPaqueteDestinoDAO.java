@@ -44,13 +44,16 @@ public class CPaqueteDestinoDAO extends CConexion
 	public void asignarListaPaqueteDestinos(List lista)
 	{
 		listaPaqueteDestinos=new ArrayList<CPaqueteDestino>();
-		for(int i=0;i<lista.size();i++)
+		if(!lista.isEmpty())
 		{
-			Map row=(Map)lista.get(i);
-			listaPaqueteDestinos.add(new CPaqueteDestino((int)row.get("codpaquetedestino"), 
-					(String)row.get("cpaquetecod"),(int)row.get("ndestinocod"),
-					(int)row.get("nnoches"),(int)row.get("nordenitinerario"),
-					(boolean)row.get("bconcaminoinka")));
+			for(int i=0;i<lista.size();i++)
+			{
+				Map row=(Map)lista.get(i);
+				listaPaqueteDestinos.add(new CPaqueteDestino((int)row.get("codpaquetedestino"), 
+						(String)row.get("cpaquetecod"),(int)row.get("ndestinocod"),
+						(int)row.get("nnoches"),(int)row.get("nordenitinerario"),
+						(boolean)row.get("bconcaminoinka")));
+			}
 		}
 	}
 }
