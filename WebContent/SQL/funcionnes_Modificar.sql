@@ -1,4 +1,23 @@
-  /**MODIFICAR IMPUESTOS**/
+/**MODIFICAR conf alto nivel**/
+CREATE OR REPLACE FUNCTION Pricing_sp_ModificarConfAltoNivel
+(
+    nombreEntidad varchar(30),
+    estado boolean
+)
+RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codEt int) as
+$$
+declare
+    codEt int;
+begin
+    codEt=(select codaltonivel from tconfigaltonivel where cnombreentidad=$1);
+    update Tconfigaltonivel set bestado=$2 where cnombreentidad=$1;
+    resultado='correcto';
+    mensaje='Datos Actualizados Correctamente';
+    return Query select resultado,mensaje,codEt;
+end
+$$
+LANGUAGE plpgsql; 
+/**MODIFICAR IMPUESTOS**/
 CREATE OR REPLACE FUNCTION Pricing_sp_ModificarImpuesto
 (
 	nCodImpuesto int,

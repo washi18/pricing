@@ -1,3 +1,27 @@
+/*registrar galeria paquete*/
+CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarGaleriaPaquete
+(
+    PaqueteCod varchar(10),
+    Imagen varchar(100),
+    Estado boolean
+)
+returns table(resultado varchar(20),mensaje varchar(200),codGaleria int)as
+$$
+begin
+    codGaleria=(select max(ngaleriapaquetecod) from tgaleriapaquete);
+    if(codGaleria is null)then
+        codGaleria=1;
+    else
+        codGaleria=codGaleria+1;
+    end if;
+    insert into tgaleriapaquete values(codGaleria,$1,$2,$3);
+    resultado='correcto';
+    mensaje='Datos Registrados Correctamente';
+    return Query select resultado,mensaje,codGaleria;
+end 
+$$
+language plpgsql;
+
 /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_RegistrarPaquete
 Utilizado en	:Aplicacion Web FootPathPeru

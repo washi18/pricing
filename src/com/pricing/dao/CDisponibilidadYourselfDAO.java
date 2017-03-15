@@ -64,7 +64,6 @@ public class CDisponibilidadYourselfDAO extends CConexion {
 	public void asignarDisponibilidadMes(List lista)
 	{
 		listaDispoMes=new ArrayList<Integer>();
-		System.out.println("valores lista->"+lista.isEmpty());
 		if(!lista.isEmpty())
 		{
 			Map row=(Map)lista.get(0);

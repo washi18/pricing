@@ -29,10 +29,10 @@ public class CConexion
     		//Pripiedades del pool. 
 //	        pds.setInitialPoolSize(5);
     		 PoolProperties p = new PoolProperties();
-             p.setUrl("jdbc:postgresql://localhost:5432/DBPricing_PAT");
+             p.setUrl("jdbc:postgresql://45.56.120.138:5432/DBPricing_FPP");
              p.setDriverClassName("org.postgresql.Driver");
              p.setUsername("postgres");
-             p.setPassword("12345");
+             p.setPassword("LAnube2016@db");
              p.setJmxEnabled(true);
              p.setTestWhileIdle(false);
              p.setTestOnBorrow(true);

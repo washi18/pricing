@@ -1,24 +1,5 @@
 --TABLA TPAQUETE--
-ALTER TABLE tpaquete ADD COLUMN citinerarioidioma1 text DEFAULT 'DAY 1: CUSCO - PISCACUCHO - HUAYLLABAMABA
-
-The Classic Inca Trail tour starts very early in the morning, we will depart from your hotel and then move by bus, going by the Sacred Valley, the towns of Urubamba and Ollantaytambo. We make a short stop here, you can visit the local market and buy some supplies for the trek to this place named Piscacucho, located at km 82, to start the walk along the Urubamba river. Continuing the section through a green area, it is likely to see the giant hummingbird beak. About 2 hours, we reach the community of Wayllabamba to 3,000 m, the first night we camp, the walk of the first day will be quiet. This first day is usually hot during the dry season (May to October), it is recommended to wear light clothing, a good sunscreen and a good hat or cap.
-
-INCLUDE: Lunch, dinner and overnight at camp.
-
-DAY 2: HUAYLLABANBA - PACAYMAYO (The Abra)
-On this day , we begin the difficult but not impossible walking, we walk until the Abra of Warmihuañuska, located 4,200 m.a.s.l., you will get all the encouragement and physical support of the enthusiastic team and our professional guide. You will see an incredible panoramic view around; we will pass through a cloud forest to Llulluchapampa, a good place to meet and relax before boarding the latter part of Warmihuañuska which means “step of the dead woman pass”, it has a distance of 11 km. You will appreciate how nature changes, once we have conquered the summit, we will be offset by a fascinating view of the snow. After this experience we will stop for lunch. During the trip you can observe sparrows and the spectacled bear. Following the route we descend into the valley of river Pacaymayo located at 3,500 m.a.s.l., where we have our second camp.
-
-Includes: Lunch, dinner and overnight at camp.
-
-DAY 3: PACAYAMAYO - WIÑAYWAYNA
-For many visitors, it’s one of the longest but the most fascinating day, because of the presence of archaeological sites along the trail days. We head toward the Runkuracay (3,800 m.a.s.l.) and then the complex Sayacmarca (3,600 m.a.s.l.), called “The dominant people” this ever came to be a temple and astronomic observatory. After a guided tour, we are passing through Phuyupatamarca (3,600 masl), called “Village above the clouds” and is certainly one of the original cities, here we can see terraced fields and ceremonial sources. After a short break lunch will be served. About 2,000 cobblestone stairs we descend to Wiñaywayna (2,700 m.a.s.l.), which means “Forever Young” because of the abundance of red, yellow and violet orchid flowers, they bloom almost throughout the year. After exploring every corner, we turn to the last camp. Here, in the evening a small party is held to thank everyone for joining the group at this beautiful experience.
-
-Includes: Breakfast, lunch, dinner and camping.
-
-DAY 4: WIÑAYWAYNA - MACHUPICCHU - CUSCO
-On this last day, we wake up early, heading to the famous Inti Punku or “Sun Gate” at 2,700 m.a.s.l to arrive on time and watch the sunrise. This center was one gateway to Machu Picchu, used as a control. It is an excellent opportunity to take panoramic pictures of the citadel of Machu Picchu. Camping is prohibited into Inti Punko (Sun Gate). You must leave your luggage at the control input and enjoy, you will reach the longed citadel, where after a short break, immersed in the energy of the place, will begin a guided tour. You will have time to walk around Machu Picchu, visit its squares, fountains and others. You’ll have free time to take photos. After a few hours, we descend to Aguas Calientes (2,160 m.a.s.l.) where you can visit the thermal baths by yourself (optional). Return to the city of Cusco. We recommend that you check the departure times of the train to return to Cusco.
-
-Includes: Breakfast.';
+ALTER TABLE tpaquete ADD COLUMN citinerarioidioma1 text DEFAULT '';
 ALTER TABLE tpaquete alter COLUMN citinerarioidioma1 drop DEFAULT;
 
 ALTER TABLE tpaquete ADD COLUMN citinerarioidioma2 text DEFAULT '';
@@ -33,6 +14,11 @@ ALTER TABLE tpaquete alter COLUMN citinerarioidioma4 drop DEFAULT;
 ALTER TABLE tpaquete ADD COLUMN citinerarioidioma5 text DEFAULT '';
 ALTER TABLE tpaquete alter COLUMN citinerarioidioma5 drop DEFAULT;
 --TABLA TDESTINO--
+ALTER TABLE tdestino ADD COLUMN clatitud varchar(20) DEFAULT '';
+ALTER TABLE tdestino alter COLUMN clatitud drop DEFAULT;
+
+ALTER TABLE tdestino ADD COLUMN clongitud varchar(20) DEFAULT '';
+ALTER TABLE tdestino alter COLUMN clongitud drop DEFAULT;
 ALTER TABLE tdestino ADD COLUMN cimagen varchar(100) DEFAULT 'img/destinos/destinoxdefecto.png'
 ALTER TABLE tdestino alter COLUMN cimagen drop DEFAULT
 --TABLA TPAQUETE--
