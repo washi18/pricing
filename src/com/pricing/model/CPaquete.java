@@ -735,7 +735,9 @@ public class CPaquete
 			manejo_camino_inca=false;
 			manejo_propio=false;
 			manejo_normal=true;
-		}else if(manejo.equals("MANEJO_YOURSELF")){
+		}else if(manejo.equals("MACHUPICCHU") || manejo.equals("MACHUPICCHU_HUAYNAPICCHU_1G") || manejo.equals("MACHUPICCHU_HUAYNAPICCHU_2G")
+				|| manejo.equals("MACHUPICCHU_MONTANA_1G") || manejo.equals("MACHUPICCHU_MONTANA_2G") || manejo.equals("CAMINO_INKA_CLASICO_YOURSELF")
+				|| manejo.equals("CAMINO_INKA_CORTO")){
 			manejo_camino_inca=false;
 			manejo_propio=false;
 			manejo_normal=false;

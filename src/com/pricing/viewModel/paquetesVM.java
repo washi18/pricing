@@ -77,6 +77,7 @@ public class paquetesVM {
 	private boolean visibilidadYourself;
 	private ConfAltoNivel confAltoNivel;
 	private ConfAltoNivelDAO confAltoNivelDAO;
+	private String manejoSelectYourself;
 
 	/**
 	 * GETTER AND SETTER
@@ -84,6 +85,14 @@ public class paquetesVM {
 	
 	public CPaquete getoPaquete() {
 		return oPaquete;
+	}
+
+	public String getManejoSelectYourself() {
+		return manejoSelectYourself;
+	}
+
+	public void setManejoSelectYourself(String manejoSelectYourself) {
+		this.manejoSelectYourself = manejoSelectYourself;
 	}
 
 	public boolean isVisibilidadYourself() {
@@ -371,7 +380,21 @@ public class paquetesVM {
 				}
 			}
 		} else if (oPaquete.isManejo_yourself()) {
-			oPaquete.setcDisponibilidad("MANEJO_YOURSELF");
+			if(manejoSelectYourself.equals("MACHUPICCHU")){
+				oPaquete.setcDisponibilidad("MACHUPICCHU");
+			}else if(manejoSelectYourself.equals("MACHUPICCHU_HUAYNAPICCHU_1G")){
+				oPaquete.setcDisponibilidad("MACHUPICCHU_HUAYNAPICCHU_1G");
+			}else if(manejoSelectYourself.equals("MACHUPICCHU_HUAYNAPICCHU_2G")){
+				oPaquete.setcDisponibilidad("MACHUPICCHU_HUAYNAPICCHU_2G");
+			}else if(manejoSelectYourself.equals("MACHUPICCHU_MONTANA_1G")){
+				oPaquete.setcDisponibilidad("MACHUPICCHU_MONTANA_1G");
+			}else if(manejoSelectYourself.equals("MACHUPICCHU_MONTANA_2G")){
+				oPaquete.setcDisponibilidad("MACHUPICCHU_MONTANA_2G");
+			}else if(manejoSelectYourself.equals("CAMINO_INKA_CLASICO")){
+				oPaquete.setcDisponibilidad("CAMINO_INKA_CLASICO_YOURSELF");
+			}else if(manejoSelectYourself.equals("CAMINO_INKA_CORTO")){
+				oPaquete.setcDisponibilidad("CAMINO_INKA_CORTO");
+			}
 			oPaquete.setnDiaCaminoInka(0);
 			/** se procede a insertar el paquete **/
 			String codPaquete = paqueteDao.recuperarCodigoPaquete(paqueteDao.insertarPaquete(oPaquete));
@@ -1870,8 +1893,24 @@ public class paquetesVM {
 	}
 
 	@Command
-	public void seleccionardestino(@BindingParam("codDestino") String codDestino) {
+	@NotifyChange({"manejoSelectYourself"})
+	public void seleccionardestino(@BindingParam("codDestino") String codDestino,@BindingParam("manejoYourself") String manejoYourself) {
 		oPaquete.setcTituloIdioma1(codDestino);
+		if(manejoYourself.equals("MACHUPICCHU")){
+			manejoSelectYourself=manejoYourself;
+		}else if(manejoYourself.equals("MACHUPICCHU_HUAYNAPICCHU_1G")){
+			manejoSelectYourself=manejoYourself;
+		}else if(manejoYourself.equals("MACHUPICCHU_HUAYNAPICCHU_2G")){
+			manejoSelectYourself=manejoYourself;
+		}else if(manejoYourself.equals("MACHUPICCHU_MONTANA_1G")){
+			manejoSelectYourself=manejoYourself;
+		}else if(manejoYourself.equals("MACHUPICCHU_MONTANA_2G")){
+			manejoSelectYourself=manejoYourself;
+		}else if(manejoYourself.equals("CAMINO_INKA_CLASICO")){
+			manejoSelectYourself=manejoYourself;
+		}else if(manejoYourself.equals("CAMINO_INKA_CORTO")){
+			manejoSelectYourself=manejoYourself;
+		}
 		System.out.println("valor paquete->"+oPaquete.getcTituloIdioma1());
 		BindUtils.postNotifyChange(null, null, oPaquete, "cTituloIdioma1");
 	}
