@@ -628,6 +628,61 @@
 											<comboitem value="CAMINO_INKA_CORTO" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem>
 									</combobox>
 									</div>
+									<div>
+										<div visible="@bind(!each.manejo_yourself)">
+											<separator bar="true"/>
+											<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento_update',opcion=self.selectedItem.value,paquete=each)">
+												<radio label="CON DESCUENTO" checked="@bind(each.conDescuento)" value="con_descuento"/>
+												<radio label="SIN DESCUENTO" checked="@bind(each.sinDescuento)" value="sin_descuento"/>
+											</radiogroup>
+										</div>
+										<div visible="@bind(each.sinDescuento)">
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio1',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+										</div>
+										<div visible="@bind(each.conDescuento)">
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 1($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio1',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 2($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio2_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio2',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 3($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio3_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio3',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 4($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio4_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio4',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+											<div>
+												<separator bar="true"/>
+												<label value="COSTO 5($): " zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.nPrecio5_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
+														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio5',componente=self,paquete=each)"/>
+												<space></space>
+											</div>
+										</div>
+									</div>
 				    				<div zclass="div_space_entre_botones">
 											<button label="Editar Itinerario" onClick="@command('abrirEditorItinerario',cPaquete=each)" zclass="btn_guardar"/>
 									</div>
@@ -748,61 +803,6 @@
 												<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
 												<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"
 														onChange="@command('diasSinDestino_update',dias=self.value,paquete=each)"/>
-											</div>
-										</div>
-									</div>
-				    				<div>
-										<div visible="@bind(!each.manejo_yourself)">
-											<separator bar="true"/>
-											<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_paquete_conDescuento_update',opcion=self.selectedItem.value,paquete=each)">
-												<radio label="CON DESCUENTO" checked="@bind(each.conDescuento)" value="con_descuento"/>
-												<radio label="SIN DESCUENTO" checked="@bind(each.sinDescuento)" value="sin_descuento"/>
-											</radiogroup>
-										</div>
-										<div visible="@bind(each.sinDescuento)">
-											<div>
-												<separator bar="true"/>
-												<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
-												<textbox value="@bind(each.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio1',componente=self,paquete=each)"/>
-												<space></space>
-											</div>
-										</div>
-										<div visible="@bind(each.conDescuento)">
-											<div>
-												<separator bar="true"/>
-												<label value="COSTO 1($): " zclass="lbl_llenar_datos"/>
-												<textbox value="@bind(each.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio1',componente=self,paquete=each)"/>
-												<space></space>
-											</div>
-											<div>
-												<separator bar="true"/>
-												<label value="COSTO 2($): " zclass="lbl_llenar_datos"/>
-												<textbox value="@bind(each.nPrecio2_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio2',componente=self,paquete=each)"/>
-												<space></space>
-											</div>
-											<div>
-												<separator bar="true"/>
-												<label value="COSTO 3($): " zclass="lbl_llenar_datos"/>
-												<textbox value="@bind(each.nPrecio3_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio3',componente=self,paquete=each)"/>
-												<space></space>
-											</div>
-											<div>
-												<separator bar="true"/>
-												<label value="COSTO 4($): " zclass="lbl_llenar_datos"/>
-												<textbox value="@bind(each.nPrecio4_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio4',componente=self,paquete=each)"/>
-												<space></space>
-											</div>
-											<div>
-												<separator bar="true"/>
-												<label value="COSTO 5($): " zclass="lbl_llenar_datos"/>
-												<textbox value="@bind(each.nPrecio5_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
-														 onChange="@command('changePrecios_update',precio=self.value,descuento='precio5',componente=self,paquete=each)"/>
-												<space></space>
 											</div>
 										</div>
 									</div>
