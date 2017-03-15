@@ -308,7 +308,12 @@ CREATE OR REPLACE FUNCTION Pricing_sp_ModificarPaquetes
   foto2 varchar(100),
   foto3 varchar(100),
   foto4 varchar(100),
-  foto5 varchar(100)
+  foto5 varchar(100),
+  itinerarioidioma1 text,
+  itinerarioidioma2 text,
+  itinerarioidioma3 text,
+  itinerarioidioma4 text,
+  itinerarioidioma5 text
 )
 RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codPaquete varchar(10)) as
 $$
@@ -338,7 +343,12 @@ begin
 			  cfoto2=$23,
 			  cfoto3=$24,
 			  cfoto4=$25,
-			  cfoto5=$26
+			  cfoto5=$26,
+			  citinerarioidioma1=$27,
+			  citinerarioidioma2=$28,
+			  citinerarioidioma3=$29,
+			  citinerarioidioma4=$30,
+			  citinerarioidioma5=$31
 			  where cpaquetecod=$1;
 	resultado='correcto';
 	mensaje='Datos Actualizados Correctamente';

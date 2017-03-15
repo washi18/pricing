@@ -15,6 +15,11 @@ CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaquete
 	tituloPaqueteIdioma_3 varchar(200),
 	tituloPaqueteIdioma_4 varchar(200),
 	tituloPaqueteIdioma_5 varchar(200),
+	descripcionidioma1 text,
+	descripcionidioma2 text,
+	descripcionidioma3 text,
+	descripcionidioma4 text,
+	descripcionidioma5 text,
 	nroDias int,
 	nroNoches int,
 	precio_1 decimal(10,2),
@@ -28,7 +33,13 @@ CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaquete
 	foto2 varchar(100),
 	foto3 varchar(100),
 	foto4 varchar(100),
-	foto5 varchar(100)
+	foto5 varchar(100),
+	itinerarioidioma1 text,
+	itinerarioidioma2 text,
+	itinerarioidioma3 text,
+	itinerarioidioma4 text,
+	itinerarioidioma5 text
+	
 )
 RETURNS TABLE (resultado varchar(20),
 		mensaje varchar(200),
@@ -36,8 +47,8 @@ RETURNS TABLE (resultado varchar(20),
 $$
 begin
 	codPaquete=(select concat('P-',right(concat('00',count(p.cpaquetecod)+1),2)) from tpaquete p where left(p.cpaquetecod,2)='P-');
-	insert into tpaquete values(codPaquete,$1,$2,$3,$4,$5,'','','','','',
-								$6,$7,$8,$9,$10,$11,$12,$13,true,$14,$15,$16,$17,$18,$19);
+	insert into tpaquete values(codPaquete,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
+								$11,$12,$13,$14,$15,$16,$17,$18,true,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29);
 	resultado='correcto';
 	mensaje='Datos Registrados Correctamente';
 	return Query select resultado,mensaje,codPaquete;
