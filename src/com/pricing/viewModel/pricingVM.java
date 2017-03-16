@@ -821,6 +821,7 @@ public class pricingVM
 	@NotifyChange({"lblTotalServicios","lblMontoTotal","mostrarCostoServicio"})
 	public void SelectOpcionService(@BindingParam("servicio")CServicio servicio,@BindingParam("cod")int cod,@BindingParam("opcion")Object opcion,@BindingParam("pos")int pos)
 	{
+		System.out.println("Tamaño del servico del paquete 2: "+oReservar.getoPaquete().getListaServicios().size());
 		ArrayList<CPaqueteServicio> listaPaqueteServicios=new ArrayList<CPaqueteServicio>();
 		listaPaqueteServicios=oReservar.getoPaquete().obtenerListaPaqueteServicio(oReservar.getoPaquete().getcPaqueteCod());
 		mostrarCostoServicio=true;
@@ -910,6 +911,7 @@ public class pricingVM
 		lblTotalServicios=""+df.format(TotalServicios);
 		montoTotal=TotalActividades+TotalHabitaciones+TotalPaquete+TotalServicios;
 		lblMontoTotal=""+df.format(montoTotal);
+		System.out.println("Tamaño del servico del paquete: "+oReservar.getoPaquete().getListaServicios().size());
 	}
 	@Command
 	public void redirectUrl(@BindingParam("servicio")int servicio)

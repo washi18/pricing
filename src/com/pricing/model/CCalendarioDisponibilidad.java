@@ -1,6 +1,6 @@
 package com.pricing.model;
 
-public class CDisponibilidadYourself {
+public class CCalendarioDisponibilidad {
 	//===================atributos=====
 	private int CodCalendario_yourself;
 	private String cdisponibilidad;
@@ -249,7 +249,7 @@ public class CDisponibilidadYourself {
 		this.ndia31 = ndia31;
 	}
 	//===================constructores===========
-	public CDisponibilidadYourself(int codCalendario_yourself, String cdisponibilidad, int nanio, int nmes, int ndia1,
+	public CCalendarioDisponibilidad(int codCalendario_yourself, String cdisponibilidad, int nanio, int nmes, int ndia1,
 			int ndia2, int ndia3, int ndia4, int ndia5, int ndia6, int ndia7, int ndia8, int ndia9, int ndia10,
 			int ndia11, int ndia12, int ndia13, int ndia14, int ndia15, int ndia16, int ndia17, int ndia18, int ndia19,
 			int ndia20, int ndia21, int ndia22, int ndia23, int ndia24, int ndia25, int ndia26, int ndia27, int ndia28,
@@ -290,7 +290,7 @@ public class CDisponibilidadYourself {
 		this.ndia30 = ndia30;
 		this.ndia31 = ndia31;
 	}
-	public CDisponibilidadYourself(int nanio, int nmes, int ndia1,
+	public CCalendarioDisponibilidad(int nanio, int nmes, int ndia1,
 			int ndia2, int ndia3, int ndia4, int ndia5, int ndia6, int ndia7, int ndia8, int ndia9, int ndia10,
 			int ndia11, int ndia12, int ndia13, int ndia14, int ndia15, int ndia16, int ndia17, int ndia18, int ndia19,
 			int ndia20, int ndia21, int ndia22, int ndia23, int ndia24, int ndia25, int ndia26, int ndia27, int ndia28,

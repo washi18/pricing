@@ -34,7 +34,7 @@ import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.model.CDestino;
 import com.pricing.model.CDia;
 import com.pricing.model.CDias7;
-import com.pricing.model.CDisponibilidadYourself;
+import com.pricing.model.CCalendarioDisponibilidad;
 import com.pricing.model.CReserva;
 import com.pricing.util.Util;
 
@@ -43,11 +43,11 @@ import sun.security.jca.GetInstance.Instance;
 
 public class CDisponibilidadYourselfVM {
 	//==============atributos===========
-	private ArrayList<CDisponibilidadYourself> listaDisponibilidad;
+	private ArrayList<CCalendarioDisponibilidad> listaDisponibilidad;
 	private ArrayList<Integer> listaDispoActual;
 	private ArrayList<Integer> listaDispoSiguiente;
 	private CDisponibilidadYourselfDAO cdisponibilidadDAO;
-	private CDisponibilidadYourself listaDiasMes;
+	private CCalendarioDisponibilidad listaDiasMes;
 	private String Mes;
 	//==================getter and setter=========
 	private ArrayList<String> listaDispActual;
@@ -205,10 +205,10 @@ public class CDisponibilidadYourselfVM {
 	public void setListaDispSiguiente(ArrayList<String> listaDispSiguiente) {
 		this.listaDispSiguiente = listaDispSiguiente;
 	}
-	public ArrayList<CDisponibilidadYourself> getListaDisponibilidad() {
+	public ArrayList<CCalendarioDisponibilidad> getListaDisponibilidad() {
 		return listaDisponibilidad;
 	}
-	public void setListaDisponibilidad(ArrayList<CDisponibilidadYourself> listaDisponibilidad) {
+	public void setListaDisponibilidad(ArrayList<CCalendarioDisponibilidad> listaDisponibilidad) {
 		this.listaDisponibilidad = listaDisponibilidad;
 	}
 	public String getMes() {
@@ -254,7 +254,7 @@ public class CDisponibilidadYourselfVM {
 		etiquetaDao=new CEtiquetaDAO();
 		etiquetaDao.asignarEtiquetaIdiomas(etiquetaDao.recuperarEtiquetasBD());
 		cdisponibilidadDAO=new CDisponibilidadYourselfDAO();
-		listaDisponibilidad=new ArrayList<CDisponibilidadYourself>();
+		listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
 		//cdisponibilidadDAO.setListaDisponibilidad(cdisponibilidadDAO.getListaDisponibilidad());
 		//separarAnioActual_AnioSiguiente(listaDisponibilidad);
 		etiqueta=(String[]) Sessions.getCurrent().getAttribute("etiqueta");

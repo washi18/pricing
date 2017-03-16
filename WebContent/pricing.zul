@@ -803,7 +803,7 @@
 										<listhead><listheader label=""/></listhead>
 										<template name="model">
 											<listitem>
-												<listcell zclass="list_costoServicios">
+												<listcell zclass="list_costoServicios" visible="@load(each.seleccionado)">
 													<div sclass="div_costoServicio">
 														<div sclass="div_costoServiceSubTitle">
 															<label value="@bind(each.servicio)" sclass="subDesc_costos_serv"/>
