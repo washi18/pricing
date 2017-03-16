@@ -44,8 +44,7 @@ public class CPaqueteDestinoDAO extends CConexion
 	public void asignarListaPaqueteDestinos(List lista)
 	{
 		listaPaqueteDestinos=new ArrayList<CPaqueteDestino>();
-		if(!lista.isEmpty())
-		{
+		System.out.println("tamanio lista paquetedestino ->"+lista.size());
 			for(int i=0;i<lista.size();i++)
 			{
 				Map row=(Map)lista.get(i);
@@ -54,6 +53,5 @@ public class CPaqueteDestinoDAO extends CConexion
 						(int)row.get("nnoches"),(int)row.get("nordenitinerario"),
 						(boolean)row.get("bconcaminoinka")));
 			}
-		}
 	}
 }
