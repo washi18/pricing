@@ -1,7 +1,12 @@
 <?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
 <zk>
+	<style src="css/pricing.css"/>
+	<style src="css/revisar.css"/>
+	<style src="fonts/style.css"/>
+	<style src="fonts/font-awesome.css"/>
+	<style src="css/style_zk.css"/>
+	<style src="css/hotelesPorCategoria.css"/>
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vmIndex') @init('com.pricing.viewModel.indexVM')">
 <!-- 		<div visible="@bind(vmIndex.mostrarAdmin)"><include src="panelAdmin.zul"/></div> -->
-		<div visible="@bind(vmIndex.mostrarPricing)"><include src="pricing.zul"/></div>
 	</div>
 </zk>

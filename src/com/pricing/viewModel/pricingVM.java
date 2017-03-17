@@ -84,6 +84,7 @@ import com.pricing.dao.CReservaPaqueteCategoriaHotelDAO;
 import com.pricing.dao.CReservaPaqueteDAO;
 import com.pricing.dao.CReservaPaqueteServicioDAO;
 import com.pricing.dao.CServicioDAO;
+import com.pricing.dao.ConfAltoNivelDAO;
 import com.pricing.model.CActividad;
 import com.pricing.model.CCategoriaConHoteles;
 import com.pricing.model.CCupon;
@@ -109,6 +110,7 @@ import com.pricing.model.CReservaPaqueteCategoriaHotel;
 import com.pricing.model.CReservaPaqueteServicio;
 import com.pricing.model.CServicio;
 import com.pricing.model.CSubServicio;
+import com.pricing.model.ConfAltoNivel;
 import com.pricing.paypal.ExpressCheckout;
 import com.pricing.util.CEmail;
 import com.pricing.util.ScannUtil;
@@ -180,6 +182,20 @@ public class pricingVM
 	private String lblTotalActividades;
 	private String lblCategoriaSeleccionada;
 	private String language;
+	private String estiloPaso1;
+	private String estiloPaso2;
+	private String estiloPaso3;
+	private boolean visiblePaso1;
+	private boolean visiblePaso2;
+	private boolean visiblePaso3;
+	private boolean visibleBarraPaso1;
+	private boolean visibleBarraPaso2;
+	private boolean visibleBarraPaso3;
+	private boolean visibleNroPaso1;
+	private boolean visibleNroPaso2;
+	private boolean visibleNroPaso3;
+	private boolean visibleContenedorPasos;
+	private boolean visiblecontentBotonesPasos;
 	//=======================
 	private CReservaPaqueteCategoriaHotel oReservaPaqCatHotel;
 	private CReservaPaqueteCategoriaHotelDAO reservaPaqCatHotelDao;
@@ -220,10 +236,23 @@ public class pricingVM
 	private String urlPdf;
 	private String[] SECResult;
 	private String codDisponibilidad;
+	private ConfAltoNivel confAltoNivel;
+	private ConfAltoNivelDAO confAltoNivelDAO;
 	//======METODOS===============
 	@Init
 	public void inicializarVM() throws IOException
 	{
+		confAltoNivel=new ConfAltoNivel();
+		confAltoNivelDAO=new ConfAltoNivelDAO();
+		this.visiblePaso1=true;
+		this.visiblePaso2=false;
+		this.visiblePaso3=false;
+		this.visibleBarraPaso1=true;
+		this.visibleBarraPaso2=false;
+		this.visibleBarraPaso3=false;
+		this.visibleNroPaso1=false;
+		this.visibleNroPaso2=false;
+		this.visibleNroPaso3=false;
 		/**Inicializamos las sessiones**/
 		seshttp=(HttpSession)Sessions.getCurrent().getNativeSession();
 		/*******************************/
@@ -344,6 +373,7 @@ public class pricingVM
 		for(int i=8;i<=99;i++)
 			listaEdades.add(Integer.toString(i));
 	}
+	
 	public void iniciarPasajeros()
 	{
 		if(!oInterfaz.isbLlenarDatosUnPax())
@@ -1285,6 +1315,84 @@ public class pricingVM
 		}
 		return rMes;
 	}
+	
+	@Command
+	@NotifyChange({"visiblePaso1","visiblePaso2","visiblePaso3","visibleBarraPaso1","visibleBarraPaso2","visibleBarraPaso3",
+		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2"})
+	public void SiguientePaso(@BindingParam("nroPaso")String nroPaso,@BindingParam("comp")Component comp){
+		if(nroPaso.equals("1")){
+			if(validoPaso1(comp)){
+				this.setVisiblePaso1(false);
+				this.setVisiblePaso2(true);
+				this.paso2=true;
+				this.setVisiblePaso3(false);
+				this.visibleBarraPaso1=false;
+				this.visibleBarraPaso2=true;
+				this.visibleBarraPaso3=false;
+				this.estiloPaso1="background:#72CB2E;";
+				this.estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				this.estiloPaso3="background:transparent;";
+				this.visibleNroPaso1=true;
+				this.visibleNroPaso2=false;
+				this.visibleNroPaso3=false;
+			}else{return;}
+		}else if(nroPaso.equals("2")){
+			if(validoPaso2(comp)){
+				this.setVisiblePaso1(false);
+				this.setVisiblePaso2(false);
+				this.paso2=false;
+				this.setVisiblePaso3(true);
+				this.visibleBarraPaso1=false;
+				this.visibleBarraPaso2=false;
+				this.visibleBarraPaso3=true;
+				this.estiloPaso1="background:#72CB2E;";
+				this.estiloPaso2="background:#72CB2E;";
+				this.estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				this.visibleNroPaso1=true;
+				this.visibleNroPaso2=true;
+				this.visibleNroPaso3=false;
+			}else{return;}
+		}
+		
+	}
+	@Command
+	@NotifyChange({"visiblePaso1","visiblePaso2","visiblePaso3","visibleBarraPaso1","visibleBarraPaso2","visibleBarraPaso3",
+		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2"})
+	public void RetornarPaso(@BindingParam("nroPaso")String nroPaso){
+		if(nroPaso.equals("1")){
+			if(validoPaso1(null)){
+				this.setVisiblePaso1(true);
+				this.setVisiblePaso2(false);
+				this.paso2=false;
+				this.setVisiblePaso3(false);
+				this.visibleBarraPaso1=true;
+				this.visibleBarraPaso2=false;
+				this.visibleBarraPaso3=false;
+				this.estiloPaso1="background:#72CB2E;";
+				this.estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				this.estiloPaso3="background:transparent;";
+				this.visibleNroPaso1=true;
+				this.visibleNroPaso2=false;
+				this.visibleNroPaso3=false;
+			}else{return;}
+		}else if(nroPaso.equals("2")){
+			if(validoPaso2(null)){
+				this.setVisiblePaso1(false);
+				this.setVisiblePaso2(true);
+				this.paso2=true;
+				this.setVisiblePaso3(false);
+				this.visibleBarraPaso1=false;
+				this.visibleBarraPaso2=true;
+				this.visibleBarraPaso3=false;
+				this.estiloPaso1="background:#72CB2E;";
+				this.estiloPaso2="background:#72CB2E;";
+				this.estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				this.visibleNroPaso1=true;
+				this.visibleNroPaso2=true;
+				this.visibleNroPaso3=false;
+			}else {return;}
+		}
+	}
 	//================================
 	public void reiniciarHoteles()
 	{
@@ -1314,7 +1422,12 @@ public class pricingVM
 		"lblTotalPaquete","paso2"})
 	public void changeNroPersonas(@BindingParam("nroPersonas")Object nroPer)
 	{
-		paso2=true;
+		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("pricing"));
+		setConfAltoNivel(confAltoNivelDAO.getoConfAltoNivel());
+		if(confAltoNivel.isbEstado())
+			paso2=false;
+		else
+			paso2=true;
 		//============================================
 		int n=Integer.parseInt(nroPer.toString());
 		nroPasajeros=n;//actualizamos el nro de pasajeros
@@ -2894,4 +3007,102 @@ public class pricingVM
 		public void setPagos(CPagos pagos) {
 			this.pagos = pagos;
 		}
+		public String getEstiloPaso1() {
+			return estiloPaso1;
+		}
+		public void setEstiloPaso1(String estiloPaso1) {
+			this.estiloPaso1 = estiloPaso1;
+		}
+		public String getEstiloPaso2() {
+			return estiloPaso2;
+		}
+		public void setEstiloPaso2(String estiloPaso2) {
+			this.estiloPaso2 = estiloPaso2;
+		}
+		public String getEstiloPaso3() {
+			return estiloPaso3;
+		}
+		public void setEstiloPaso3(String estiloPaso3) {
+			this.estiloPaso3 = estiloPaso3;
+		}
+		public boolean isVisiblePaso1() {
+			return visiblePaso1;
+		}
+		public void setVisiblePaso1(boolean visiblePaso1) {
+			this.visiblePaso1 = visiblePaso1;
+		}
+		public boolean isVisiblePaso2() {
+			return visiblePaso2;
+		}
+		public void setVisiblePaso2(boolean visiblePaso2) {
+			this.visiblePaso2 = visiblePaso2;
+		}
+		public boolean isVisiblePaso3() {
+			return visiblePaso3;
+		}
+		public void setVisiblePaso3(boolean visiblePaso3) {
+			this.visiblePaso3 = visiblePaso3;
+		}
+		public boolean isVisibleBarraPaso1() {
+			return visibleBarraPaso1;
+		}
+		public void setVisibleBarraPaso1(boolean visibleBarraPaso1) {
+			this.visibleBarraPaso1 = visibleBarraPaso1;
+		}
+		public boolean isVisibleBarraPaso2() {
+			return visibleBarraPaso2;
+		}
+		public void setVisibleBarraPaso2(boolean visibleBarraPaso2) {
+			this.visibleBarraPaso2 = visibleBarraPaso2;
+		}
+		public boolean isVisibleBarraPaso3() {
+			return visibleBarraPaso3;
+		}
+		public void setVisibleBarraPaso3(boolean visibleBarraPaso3) {
+			this.visibleBarraPaso3 = visibleBarraPaso3;
+		}
+		public boolean isVisibleNroPaso1() {
+			return visibleNroPaso1;
+		}
+		public void setVisibleNroPaso1(boolean visibleNroPaso1) {
+			this.visibleNroPaso1 = visibleNroPaso1;
+		}
+		public boolean isVisibleNroPaso2() {
+			return visibleNroPaso2;
+		}
+		public void setVisibleNroPaso2(boolean visibleNroPaso2) {
+			this.visibleNroPaso2 = visibleNroPaso2;
+		}
+		public boolean isVisibleNroPaso3() {
+			return visibleNroPaso3;
+		}
+		public void setVisibleNroPaso3(boolean visibleNroPaso3) {
+			this.visibleNroPaso3 = visibleNroPaso3;
+		}
+		public boolean isVisibleContenedorPasos() {
+			return visibleContenedorPasos;
+		}
+		public void setVisibleContenedorPasos(boolean visibleContenedorPasos) {
+			this.visibleContenedorPasos = visibleContenedorPasos;
+		}
+		public boolean isVisiblecontentBotonesPasos() {
+			return visiblecontentBotonesPasos;
+		}
+		public void setVisiblecontentBotonesPasos(boolean visiblecontentBotonesPasos) {
+			this.visiblecontentBotonesPasos = visiblecontentBotonesPasos;
+		}
+		public ConfAltoNivel getConfAltoNivel() {
+			return confAltoNivel;
+		}
+		public void setConfAltoNivel(ConfAltoNivel confAltoNivel) {
+			this.confAltoNivel = confAltoNivel;
+		}
+		public ConfAltoNivelDAO getConfAltoNivelDAO() {
+			return confAltoNivelDAO;
+		}
+		public void setConfAltoNivelDAO(ConfAltoNivelDAO confAltoNivelDAO) {
+			this.confAltoNivelDAO = confAltoNivelDAO;
+		}
+		
+		
 }

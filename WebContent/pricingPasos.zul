@@ -3,11 +3,64 @@
 <div sclass="div_contenedor_pricing" 
 		 apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmPricing') @init('com.pricing.viewModel.pricingVM')">
+	  <div width="100%" zclass="contenedor_barra_progreso">
+	  		<div zclass="contenedor_3_pasos">
+	  			<div zclass="div_pasos_inicio" onClick="@command('RetornarPaso',nroPaso='1')" >
+<!-- 	  				<span sclass="style_nro_paso" label="1"></span> -->
+	  				<label value="1" zclass="style_nro_paso" style="color:black;" visible="@bind(!vmPricing.visibleNroPaso1)"></label>
+	  				<label value="✓" zclass="style_nro_paso" style="color:#77BD37; font-size:26px;background: rgba(76, 175, 80, 0.3);" visible="@bind(vmPricing.visibleNroPaso1)"></label>
+	  				<label value="PASAJEROS Y FECHA" zclass="titulo_pasos"></label>
+	  				<image src="img/Icono_calendario.png" zclass="imagenes_pasos"></image>
+	  			</div>
+	  			<space width="30px"></space>
+	  			<div zclass="div_pasos_progres_interno" onClick="@command('RetornarPaso',nroPaso='2')">
+	  				<label value="2" zclass="style_nro_paso" style="color:black;" visible="@bind(!vmPricing.visibleNroPaso2)"></label>
+	  				<label value="✓" zclass="style_nro_paso" style="color:#77BD37;font-size:26px;background: rgba(76, 175, 80, 0.3);" visible="@bind(vmPricing.visibleNroPaso2)"></label>
+	  				<label value="OPCIONES" zclass="titulo_pasos"></label>
+	  				<image src="img/backpack_icon.png" zclass="imagenes_pasos"></image>
+	  			</div>
+	  			<space width="30px"></space>
+	  			<div zclass="div_pasos_final" onClick="@command('RetornarPaso',nroPaso='3')">
+	  				<label value="3" zclass="style_nro_paso" style="color:black;" visible="@bind(!vmPricing.visibleNroPaso3)"></label>
+	  				<label value="✓" zclass="style_nro_paso" style="color:#77BD37;font-size:26px;background: rgba(76, 175, 80, 0.3);" visible="@bind(vmPricing.visibleNroPaso3)"></label>
+	  				<label value="RESUMEN Y PAGO" zclass="titulo_pasos"></label>
+	  				<image src="img/credit-cards-icon.png" zclass="imagenes_pasos"></image>
+	  			</div>
+	  		</div>
+<!-- 			 <div width="50%" style="display:flex; position:absolute; top:10px; margin-left:auto; margin-right:auto; left:0;right:0;" zindex="2"> -->
+<!-- 			 	<div  zclass="secuencia_paso1"> -->
+<!-- 			 		<label value="Informacion Pasajeros y fecha"></label> -->
+<!-- 			 	</div> -->
+<!-- 			 	<space spacing="30%"></space> -->
+<!-- 			 	<div zclass="secuencia_paso1"> -->
+<!-- 			 		<label value="Opciones de viaje"></label> -->
+<!-- 			 	</div> -->
+<!-- 			 	<space spacing="30%"></space> -->
+<!-- 			 	<div zclass="secuencia_paso1"> -->
+<!-- 			 		<label value="Informacion reserva y pago"></label> -->
+<!-- 			 	</div> -->
+<!-- 			 </div> -->
+			 <div zclass="contendor_3_barras">
+			 	<div height="14px"></div>
+				<div height="8px" width="30.8%" style="background:#77BD37;" visible="@bind(vmPricing.visibleBarraPaso1)"></div>
+				<div width="100%" style="display:flex;">
+				    <div width="32%"></div>
+					<div height="8px" width="33%" style="background:#77BD37;" visible="@bind(vmPricing.visibleBarraPaso2)"></div>
+				</div>
+				<div width="100%" style="display:flex;">
+					<div width="34%"></div>
+					<div width="33%"></div>
+					<div height="8px" width="33%" style="background:#77BD37;" visible="@bind(vmPricing.visibleBarraPaso3)"></div>
+				</div>
+			</div>
+			<separator spacing="20px"></separator>
+	  </div>
+	<separator spacing="30px"></separator>
 		<!-- ======PASO 1======== -->
 <!-- 		<space></space> -->
-	 <div sclass="contenedor_proceso_pricing">
+	 <div sclass="contenedor_proceso_pricing_pasos">
 		<div sclass="div_requerimientos">
-		<div sclass="div_paso1">
+		<div sclass="div_paso1" visible="@bind(vmPricing.visiblePaso1)">
 				<div sclass="div-logoPaises visible-small" width="100%" style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)">
 					<hbox style="float:right;">
 						  <image src="img/Flag-of-Spain.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)"/>
@@ -24,6 +77,71 @@
 					<div sclass="div_fecha_pasajero" width="100%">
 						<div width="100%">
 							<groupbox visible="@bind(vmPricing.mostrarCalendarZK)" width="100%" mold="3d">
+<!-- 								desde aqui-->
+<!-- 								<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)"> -->
+<!-- 									<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/> -->
+<!-- 									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/> -->
+<!-- 								</caption> -->
+<!-- 								<div sclass="div_fechas"> -->
+<!-- 									<div zclass="div_comentarios"> -->
+<!-- 										<label value="@bind(vmPricing.etiqueta[46])"/> -->
+<!-- 									</div> -->
+<!-- 									<label value="@bind(vmPricing.etiqueta[1])" sclass="titulo-groupbox"/> -->
+<!-- 									<hbox id="hbCal2" onClick='calendarPop2.open(self, "after_start");'> -->
+<!-- 										<div zclass="div_content_icon_calendar_FP"> -->
+<!-- 											<a iconSclass="icon-calendar" sclass="titulo-groupbox" -->
+<!-- 												onClick='calendarPop2.open(hbCal2, "after_start");'/> -->
+<!-- 										</div> -->
+<!-- 										<textbox readonly="true" value="@bind(vmPricing.fecha)" -->
+<!-- 												 sclass="txtFechaPrincipal"/> -->
+<!-- 									</hbox> -->
+<!-- 									<popup id="calendarPop2" sclass="popup_calendar"> -->
+<!-- 										<space></space> -->
+<!-- 										<include src="disponibilidad.zul" /> -->
+<!-- 									</popup> -->
+<!-- 									<space></space> -->
+<!-- 									<label value="@bind(vmPricing.etiqueta[3])" sclass="titulo-groupbox"/> -->
+<!-- 									<hbox id="hbCalAlt2" onClick='calendarAltPop2.open(self, "after_start");'> -->
+<!-- 										<div zclass="div_content_icon_calendar_FP"> -->
+<!-- 											<a iconSclass="icon-calendar" sclass="titulo-groupbox" -->
+<!-- 												onClick='calendarAltPop2.open(hbCalAlt2, "after_start");'/> -->
+<!-- 										</div> -->
+<!-- 										<textbox readonly="true" value="@bind(vmPricing.fechaAlterna)" -->
+<!-- 												 sclass="txtFechaPrincipal"/> -->
+<!-- 									</hbox> -->
+<!-- 									<popup id="calendarAltPop2" sclass="popup_calendar"> -->
+<!-- 										<space></space> -->
+<!-- 										<include src="calendarFechaAlterna.zul" /> -->
+<!-- 									</popup> -->
+<!-- 								</div> -->
+<!-- 								<space></space> -->
+<!-- 								<div zclass="div_comentarios"> -->
+<!-- 									<label value="@bind(vmPricing.etiqueta[18])"/> -->
+<!-- 								</div> -->
+<!-- 								<div sclass="div_fechas"> -->
+<!-- 									<div> -->
+<!-- 										<label value="@bind(vmPricing.etiqueta[21])" sclass="titulo-groupbox"/> -->
+<!-- 									</div> -->
+<!-- 									<combobox readonly="true" width="60px" onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)"> -->
+<!-- 											<comboitem label="1" value="1" width="60px"/> -->
+<!-- 											<comboitem label="2" value="2" width="60px"/> -->
+<!-- 											<comboitem label="3" value="3" width="60px"/> -->
+<!-- 											<comboitem label="4" value="4" width="60px"/> -->
+<!-- 											<comboitem label="5" value="5" width="60px"/> -->
+<!-- 											<comboitem label="6" value="6" width="60px"/> -->
+<!-- 											<comboitem label="7" value="7" width="60px"/> -->
+<!-- 											<comboitem label="8" value="8" width="60px"/> -->
+<!-- 											<comboitem label="9" value="9" width="60px"/> -->
+<!-- 											<comboitem label="10" value="10" width="60px"/> -->
+<!-- 											<comboitem label="11" value="11" width="60px"/> -->
+<!-- 											<comboitem label="12" value="12" width="60px"/> -->
+<!-- 											<comboitem label="13" value="13" width="60px"/> -->
+<!-- 											<comboitem label="14" value="14" width="60px"/> -->
+<!-- 											<comboitem label="15" value="15" width="60px"/> -->
+<!-- 											<comboitem label="16" value="16" width="60px"/> -->
+<!-- 										</combobox> -->
+<!-- 								</div> -->
+<!-- 								hasta aqui -->
 								<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)">
 									<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/>
 									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/>
@@ -133,6 +251,12 @@
 						</div>
 					</div>
 
+				</div>
+				<separator></separator>
+				<div sclass="contenedor_btn_pasos">
+					<button label="Back" zclass="btn_retorno" iconSclass="fa fa-arrow-left" onClick="@command('AnteriorPaso',nroPaso='1')"></button>
+					<space width="50px"></space>
+					<button label="Next" zclass="btn_siguiente" iconSclass="fa fa-arrow-right" onClick="@command('SiguientePaso',nroPaso='1',comp=self)"></button>
 				</div>
 		</div>
 		<!-- ========PASO 2========= -->
@@ -649,11 +773,17 @@
 					</div>
 				</groupbox>
 			</groupbox>
+			<separator></separator>
+			<div sclass="contenedor_btn_pasos">
+				<button label="Back" zclass="btn_retorno" iconSclass="fa fa-arrow-left" onClick="@command('AnteriorPaso',nroPaso='2')"></button>
+				<space width="50px"></space>
+				<button label="Next" zclass="btn_siguiente" iconSclass="fa fa-arrow-right" onClick="@command('SiguientePaso',nroPaso='2',comp=self)"></button>
+			</div>
 		</div>
 		</div>
 		<space></space>
 		<!-- ======RESUMEN Y CONFIRMACION====== -->
-		<div sclass="div_resumen_reserva">
+		<div sclass="div_resumen_reserva" visible="@bind(vmPricing.visiblePaso3)">
 			<div sclass="div-logoPaises visible-grande" width="100%" style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)">
 				<div style="float:right;">
 					  <image src="img/Flag-of-Spain.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)"/>
@@ -664,7 +794,7 @@
 				  <space></space>
 			</div>
 			<div width="100%">
-				<groupbox mold="3d" visible="@bind(vmPricing.paso2)">
+				<groupbox mold="3d" visible="@bind(vmPricing.visiblePaso3)">
 					<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_RyC)">
 						<label value="@bind(vmPricing.etiqueta[20])" sclass="style_info" style="@bind(vmPricing.oInterfaz.style_lbl_RyC)"/>
 					</caption>
@@ -722,7 +852,7 @@
 							</div>
 						</div>
 						<separator bar="true" visible="@bind(vmPricing.mostrarDispIncaTrail)"/>
-						<div visible="@bind(vmPricing.paso2)">
+						<div visible="@bind(vmPricing.visiblePaso3)">
 						<div sclass="div_info_item">
 							<div sclass="div_info_item_izq">
 								<a iconSclass="icon-user" sclass="style_icon_info"/>
@@ -979,6 +1109,47 @@
 						<label value="@bind(vmPricing.etiqueta[207])" sclass="titulo-groupbox"/>
 					</caption>
 					<div width="100%">
+						<window mode="modal" border="normal" sclass="win_pay" visible="@bind(vmPricing.mostrarPaypal)">
+							<button style="color:black;font-size:20px;font-weight:bold;border:2px solid green;"
+									onClick="@command('cerrarVentanaPago')">X</button>
+							<div width="100%" align="center">
+								<space></space>
+								<div sclass="div_porcentaje">
+									<label value="@bind(vmPricing.textoPorcentaje)" style="color:white;font-size:30px;font-weight:bold;"/>
+								</div>
+								<space></space>
+								<div sclass="win_div_pay">
+									<div sclass="win_div_pay_izq">
+										<label value="@bind(vmPricing.etiqueta[99])" sclass="lbl_desc"/>
+									</div>
+									<div sclass="win_div_pay_der">
+										<label value="@bind(vmPricing.montoTotalPorcentual)" sclass="lbl_monto"/>
+									</div>
+								</div>
+								<div sclass="win_div_pay">
+									<div sclass="win_div_pay_izq">
+										<label value="@bind(vmPricing.etiqueta[100])" sclass="lbl_desc"/>
+									</div>
+									<div sclass="win_div_pay_der">
+										<label value="@bind(vmPricing.tax)" sclass="lbl_monto"/>
+									</div>
+								</div>
+								<separator bar="true"/>
+								<div sclass="win_div_pay">
+									<div sclass="win_div_pay_izq">
+										<label value="@bind(vmPricing.etiqueta[101])" sclass="lbl_desc_Total"/>
+									</div>
+									<div sclass="win_div_pay_der">
+										<label value="@bind(vmPricing.totalConImpuestoPaypal)" sclass="lbl_monto_Total"/>
+									</div>
+								</div>
+								<div align="center" style="padding:10px;">
+									<button href="@bind(vmPricing.urlPaypal)" 
+											image="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" 
+											zclass="btn_paypal"/>
+								</div>
+							</div>
+						</window>
 	<!-- 					<div width="40%" align="center" sclass="select_payment_content"> -->
 	<!-- 						<space></space> -->
 	<!-- 						<vbox visible="false"> -->
@@ -1067,11 +1238,11 @@
 								<label value="@bind(vmPricing.etiqueta[231])" zclass="lbl_txt_pago_paypal"/>
 								<label value=":" zclass="lbl_txt_pago_paypal"/>
 							</div>
-						    <div sclass="div_formas_pago" width="100%">
+						<div sclass="div_formas_pago" width="100%">
 								<div width="100%" align="center" sclass="select_payment" style="padding:8px;">
 									<image src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
 									<div width="100%">
-										<radiogroup onCheck="@command('selectPaypal',valor=self.selectedItem.value) @global-command('datosDePagoPaypal',textoPorcentaje=vmPricing.textoPorcentaje,montoTotalPorcentual=vmPricing.montoTotalPorcentual,pagos=vmPricing.pagos,etiqueta=vmPricing.etiqueta)">
+										<radiogroup onCheck="@command('selectPaypal',valor=self.selectedItem.value)">
 											<radio label="@bind(vmPricing.etiqueta[102])" value="1" sclass="radio_color" checked="@load(vmPricing.pagos.pagoParcialPaypal)"/>
 											<radio label="@bind(vmPricing.etiqueta[103])" value="2" sclass="radio_color" checked="@load(vmPricing.pagos.pagoTotalPaypal)"/>
 										</radiogroup>
@@ -1086,7 +1257,9 @@
 <!-- 									</radiogroup> -->
 <!-- 								</div> -->
 		<!-- 						<space></space> -->
+								
 							</div>
+							<space></space>
 	<!-- 						<div width="50%" align="center"> -->
 	<!-- 							<vbox> -->
 	<!-- 								<button label="@bind(vmPricing.etiqueta[111])" zclass="button_payment" onClick="@command('onPayment')"/> -->

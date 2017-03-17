@@ -7,15 +7,27 @@
 		 	<div width="100%" sclass="div_content_config">
 		 		<div sclass="div_content_config_title">
 		 			<a iconSclass="fa fa-envelope estilos-iconos div_content_config_title_a"/>
-		 			<label value="CONFIGURACION YOURSELF" sclass="div_content_config_title_lbl"/>
+		 			<label value="CONFIGURACION ALTO NIVEL" sclass="div_content_config_title_lbl"/>
 		 		</div>
 		 		<div>
 			 		<div>
 			 		 	<label value="MANEJO YOURSELF: " sclass="lbl_select_title"/>
 			 		 	<div>
 			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoYourself',estado=self.selectedItem.value) @global-command('recuperarEstadoYourself')">
-			 		 			<radio label="CON MANEJO YOURSELF" value="CON" checked="@load(vmConfYourself.oConfAltoNievel.estadoConYourself)"/>
-			 		 			<radio label="SIN MANEJO YOURSELF" value="SIN" checked="@load(vmConfYourself.oConfAltoNievel.estadoSinYourself)"/>
+			 		 			<radio label="CON MANEJO YOURSELF" value="CON" checked="@load(vmConfYourself.oConfAltoNievelYourSelf.estadoConEntidad)"/>
+			 		 			<radio label="SIN MANEJO YOURSELF" value="SIN" checked="@load(vmConfYourself.oConfAltoNievelYourSelf.estadoSinEntidad)"/>
+			 		 		</radiogroup>
+			 		 	</div>
+			 		</div>
+		 		</div>
+		 		<space></space>
+		 		<div>
+			 		<div>
+			 		 	<label value="VISTA PRICING: " sclass="lbl_select_title"/>
+			 		 	<div>
+			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoPricingPasos',estado=self.selectedItem.value) @global-command('recuperarEstadoPricing')">
+			 		 			<radio label="PRICING CON PASOS" value="CON" checked="@load(vmConfYourself.oConfAltoNievelPricing.estadoConEntidad)"/>
+			 		 			<radio label="PRICING SIN PASOS" value="SIN" checked="@load(vmConfYourself.oConfAltoNievelPricing.estadoSinEntidad)"/>
 			 		 		</radiogroup>
 			 		 	</div>
 			 		</div>
