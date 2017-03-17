@@ -21,6 +21,14 @@
 	display: -ms-flex;
 	display: -o-flex;
 }
+.btn_marcar_pagado{
+	background: #dff0d8;
+	border-color:#dff0d8; 
+}
+.btn_marcar_pagado:HOVER{
+	background: #C2EFB2;
+	border-color:#C2EFB2; 
+}
 .estado_pagos.z-radiogroup .z-radio input[type="radio"]{
 	display: none;
 }

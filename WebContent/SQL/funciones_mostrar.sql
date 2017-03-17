@@ -413,7 +413,7 @@ LANGUAGE SQL;
 Nombre		:Pricing_sp_BuscarReservasEntreFechas
 Detalle     : Esta fue la primera version que recupera todo en golpe pero fue reemplazada
 +++++++++++++++++++++++++++++++++++++++++++++++++*/
-    CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
+CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
 	fechaInicio varchar(12),
 	fechaFin varchar(12)
 )
@@ -424,13 +424,12 @@ $$
 	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( c.categoriahotelcod, 0 ),r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
 		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
 			from treserva as r 
-			left join treservapaqueteservicio as rps on(r.creservacod=rps.creservacod) 
-			left join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
-			left join treservapaquetecategoriahotel as pch on(r.creservacod=pch.creservacod)
-			left join tpaquetecategoriahotel as pc on (pch.codpaquetecategoriah=pc.codpaquetecategoriah)
-			left join tcategoriahotel as c on(pc.categoriahotelcod=c.categoriahotelcod)
-			left join tpaquete as p on(ps.cpaquetecod=p.cpaquetecod)
-			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado!='PAGO TOTAL'
+			left join treservapaquete as rp on(r.creservacod=rp.creservacod)
+			left join treservapaquetecategoriahotel as rpch on(rp.nreservapaquetecod=rpch.nreservapaquetecod)
+			left join tpaquetecategoriahotel as pch on(rpch.codpaquetecategoriah=pch.codpaquetecategoriah)
+			left join tcategoriahotel as c on(pch.categoriahotelcod=c.categoriahotelcod)
+			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod)
+			where (r.dfecha between to_date($1,'yyyy-MM-dd') and to_date($2,'yyyy-MM-dd')) and r.cestado='PENDIENTE DE PAGO'
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
 					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
 			order by r.creservacod;

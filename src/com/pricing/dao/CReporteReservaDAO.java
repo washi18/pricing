@@ -145,7 +145,6 @@ public class CReporteReservaDAO extends CConexion{
 	}
 	public void asignarListaReporteReservas(List lista)
 	{
-		System.out.println("entro aqui DAO");
 		this.listaReporteReservas = new ArrayList<CReporteReserva>();
 		for(int i=0;i<lista.size();i++)
 		{
@@ -162,7 +161,10 @@ public class CReporteReservaDAO extends CConexion{
 					(String)row.get("ccategoriaidioma1"),
 					(String)row.get("cestado"),(int)row.get("categoriahotelcod"),total));
 		}
-		System.out.println("termino aqui DAO");
+	}
+	public List modificarEstadoReserva(String codReserva,String estado){
+		Object[]values={codReserva,estado};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarEstadoPago",values);
 	}
 	public void asignarDestinosReserva(List lista)
 	{
@@ -236,5 +238,12 @@ public class CReporteReservaDAO extends CConexion{
 				Map row=(Map)lista.get(i);
 				listaActividadesReserva.add(new CActividad((String)row.get("cactividadidioma1"),(Number)row.get("nprecioactividad")));
 		}
+	}
+	public boolean isOperationCorrect(List lista)
+	{
+		Map row=(Map)lista.get(0);
+		boolean correcto=row.get("resultado").toString().equals("correcto");
+		if(correcto)return true;
+		else return false;
 	}
 }
