@@ -41,12 +41,38 @@ public class reporteReservasVM {
 	private CReporteReserva reporteReservaAnterior;
 	private ArrayList<CPasajero> listaPasajeros;
 	private ArrayList<CActividad> listaActividades;
-	
+	private boolean pagoParte;
+	private boolean pagoTotal;
+	private boolean visibleMarcarPagado;
 	//=======getter and setter=====
 	
 	
 	public ArrayList<CReporteReserva> getListaReporteReserva() {
 		return listaReporteReserva;
+	}
+
+	public boolean isVisibleMarcarPagado() {
+		return visibleMarcarPagado;
+	}
+
+	public void setVisibleMarcarPagado(boolean visibleMarcarPagado) {
+		this.visibleMarcarPagado = visibleMarcarPagado;
+	}
+
+	public boolean isPagoParte() {
+		return pagoParte;
+	}
+
+	public void setPagoParte(boolean pagoParte) {
+		this.pagoParte = pagoParte;
+	}
+
+	public boolean isPagoTotal() {
+		return pagoTotal;
+	}
+
+	public void setPagoTotal(boolean pagoTotal) {
+		this.pagoTotal = pagoTotal;
 	}
 
 	public ArrayList<CActividad> getListaActividades() {
@@ -173,6 +199,9 @@ public class reporteReservasVM {
 		listaReporteReserva=new ArrayList<CReporteReserva>();
 		FechaInicio="";
 		FechaFinal="";
+		pagoParte=false;
+		pagoTotal=false;
+		visibleMarcarPagado=false;
 		reporteReservaDAO=new CReporteReservaDAO();
 		reporteReservaAnterior=new CReporteReserva();
 		/**Obtencion de las etiquetas de la base de datos**/
@@ -437,6 +466,45 @@ public class reporteReservasVM {
 			FechaInicio=sdf.format(fecha);
 		else
 			FechaFinal=sdf.format(fecha);
+	}
+	
+	@Command
+	@NotifyChange({"pagoParte","pagoTotal","visibleMarcarPagado","listaReporteReserva"})
+	public void cambiarEstadoPago(@BindingParam("estado")String estado,@BindingParam("reporteReserva")CReporteReserva reporteReserva){
+		String estadoPago="";
+		if(estado.equals("parcial")){
+			reporteReserva.setPagoParte(true);
+			reporteReserva.setPagoTotal(false);
+			pagoParte=true;
+			pagoTotal=false;
+			estadoPago="PAGO PARCIAL";
+		}else{
+			reporteReserva.setPagoParte(false);
+			reporteReserva.setPagoTotal(true);
+			estadoPago="PAGO TOTAL";
+		}
+		boolean correcto=reporteReservaDAO.isOperationCorrect(reporteReservaDAO.modificarEstadoReserva(reporteReserva.getCodReserva(), estadoPago));
+		if(correcto)
+			Clients.showNotification("La reserva fue marcada como pagado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, null,"after_start",3700);
+		else
+			Clients.showNotification("La operacion fue fallida", Clients.NOTIFICATION_TYPE_ERROR, null,"after_start",3700);
+		visibleMarcarPagado=false;
+		reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(FechaInicio,FechaFinal));
+		this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
+	}
+	
+	@Command
+	@NotifyChange({"visibleMarcarPagado","pagoParte","pagoTotal"})
+	public void habilitarPagos(@BindingParam("reporteReserva")CReporteReserva reporteReserva){
+		reporteReserva.setVisibleMarcarPagado(true);
+		reporteReserva.setPagoParte(false);
+		reporteReserva.setPagoTotal(false);
+		visibleMarcarPagado=true;
+		pagoParte=false;
+		pagoTotal=false;
+		BindUtils.postNotifyChange(null, null, reporteReserva,"visibleMarcarPagado");
+		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoParte");
+		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoTotal");
 	}
 	
 	@Command

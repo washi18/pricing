@@ -321,6 +321,15 @@
 						    		    <div>
 						    				<label value="@load(each.estado)" style="font-style: italic; font-weight: bold; font-size: 16px; color: black;"></label>
 						    			</div>
+						    			<div>
+						    				<button label="Marcar Pagado ?" onClick="@command('habilitarPagos',reporteReserva=each)" zclass="btn_marcar_pagado"></button>
+						    				<div visible="@load(vmReserva.visibleMarcarPagado)">
+							 		 			<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoPago',estado=self.selectedItem.value,reporteReserva=each)">
+							 		 				<radio label="PAGO PARCIAL" value="parcial" checked="@load(each.pagoParte)"/>
+							 		 				<radio label="PAGO TOTAL" value="total" checked="@load(each.pagoTotal)"/>
+							 		 			</radiogroup>
+							 		 		</div>
+							 		 	</div>
 						    			<div sclass="estilo_monto_persona">
 						    				<div sclass="estilo_columnas_precios_etiqueta">
 						    					<label value="Total Paquete($):"></label>

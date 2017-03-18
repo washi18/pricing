@@ -1438,7 +1438,7 @@ public class CDisponibilidadYourselfVM {
 	
 	@Command
 	@NotifyChange({"mesesModificadasActual","mesesModificadasSig"})
-public void huboModificacion(@BindingParam("mes")String mes,@BindingParam("anio")String anio,@BindingParam("objetoDispo")CDia objetoDispo){
+	public void huboModificacion(@BindingParam("mes")String mes,@BindingParam("anio")String anio,@BindingParam("objetoDispo")CDia objetoDispo){
 		Calendar cal=Calendar.getInstance();
 		String anioActual=String.valueOf(cal.get(Calendar.YEAR));
 		String anioSig=String.valueOf(cal.get(Calendar.YEAR)+1);
@@ -1446,13 +1446,22 @@ public void huboModificacion(@BindingParam("mes")String mes,@BindingParam("anio"
 				mesesModificadasActual.add(mes);
 				System.out.println("el mes de actual es->"+mes);
 			}
-		else if(!mesesModificadasSig.contains(mes) && anio.equals(anioSig)) {
+		else if(!mesesModificadasSig.contains(mes) && anio.equals(anioSig)){
 			mesesModificadasSig.add(mes);
 			System.out.println("el mes de siguiente es->"+mes);
 		}
-		if(objetoDispo.getCantDisp().isEmpty()){
+		if(objetoDispo.getCantDisp().isEmpty() || !isInteger(objetoDispo.getCantDisp())){
 			objetoDispo.setCantDisp("0");
 		}
 		BindUtils.postNotifyChange(null, null, objetoDispo, "cantDisp");
+	}
+	public boolean isInteger(String n)
+	{
+		try {
+			Integer.parseInt(n);
+			return true;
+		} catch (NumberFormatException nfe){
+			return false;
+		}
 	}
 }

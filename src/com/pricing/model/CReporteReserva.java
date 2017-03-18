@@ -39,6 +39,9 @@ public class CReporteReserva {
 	private ArrayList<CServicioConSubServicios> listaServicioConSubServicios;
 	private ArrayList<CPasajero> listaPasajeros;
 	private String colornoExisteListaPasajeros;
+	private boolean pagoParte;
+	private boolean pagoTotal;
+	private boolean visibleMarcarPagado;
 	//=======getter and setter===========
 	
 	public String getCodReserva() {
@@ -258,6 +261,25 @@ public class CReporteReserva {
 	public void setVisiblePasajerospop(boolean visiblePasajerospop) {
 		this.visiblePasajerospop = visiblePasajerospop;
 	}
+	public boolean isPagoParte() {
+		return pagoParte;
+	}
+	public void setPagoParte(boolean pagoParte) {
+		this.pagoParte = pagoParte;
+	}
+	public boolean isPagoTotal() {
+		return pagoTotal;
+	}
+	public void setPagoTotal(boolean pagoTotal) {
+		this.pagoTotal = pagoTotal;
+	}
+	public boolean isVisibleMarcarPagado() {
+		return visibleMarcarPagado;
+	}
+	public void setVisibleMarcarPagado(boolean visibleMarcarPagado) {
+		this.visibleMarcarPagado = visibleMarcarPagado;
+	}
+	
 	//=============metodos constructores===============
 	public CReporteReserva()
 	{
@@ -275,6 +297,9 @@ public class CReporteReserva {
 		this.visibleServiciospop=false;
 		this.codCategoria=0;
 		this.PrecioTotal=0.0;
+		pagoParte=false;
+		pagoTotal=false;
+		visibleMarcarPagado=false;
 	}
 	public CReporteReserva(String codReserva, Date fechaInicio, Date fechaFin,
 			Date fecha,String nombreContacto, String Email,
@@ -295,6 +320,9 @@ public class CReporteReserva {
 		this.estado = estado;
 		this.codCategoria=codCategoria;
 		this.PrecioTotal=precioTotal;
+		pagoParte=false;
+		pagoTotal=false;
+		visibleMarcarPagado=false;
 		
 	}
 	//=================otros metodos======================

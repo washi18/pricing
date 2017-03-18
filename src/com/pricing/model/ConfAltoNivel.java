@@ -9,8 +9,8 @@ public class ConfAltoNivel {
 		private int nperfilCod;
 		private String cnombreEntidad;
 		private boolean bEstado;
-		private boolean estadoConYourself;
-		private boolean estadoSinYourself;
+		private boolean estadoConEntidad;
+		private boolean estadoSinEntidad;
 		//=====getter an setter====
 		
 		public int getCodAltoNivel() {
@@ -21,18 +21,6 @@ public class ConfAltoNivel {
 		}
 		public void setbEstado(boolean bEstado) {
 			this.bEstado = bEstado;
-		}
-		public boolean isEstadoConYourself() {
-			return estadoConYourself;
-		}
-		public void setEstadoConYourself(boolean estadoConYourself) {
-			this.estadoConYourself = estadoConYourself;
-		}
-		public boolean isEstadoSinYourself() {
-			return estadoSinYourself;
-		}
-		public void setEstadoSinYourself(boolean estadoSinYourself) {
-			this.estadoSinYourself = estadoSinYourself;
 		}
 		public void setCodAltoNivel(int codAltoNivel) {
 			this.codAltoNivel = codAltoNivel;
@@ -49,6 +37,19 @@ public class ConfAltoNivel {
 		public void setCnombreEntidad(String cnombreEntidad) {
 			this.cnombreEntidad = cnombreEntidad;
 		}
+		
+		public boolean isEstadoConEntidad() {
+			return estadoConEntidad;
+		}
+		public void setEstadoConEntidad(boolean estadoConEntidad) {
+			this.estadoConEntidad = estadoConEntidad;
+		}
+		public boolean isEstadoSinEntidad() {
+			return estadoSinEntidad;
+		}
+		public void setEstadoSinEntidad(boolean estadoSinEntidad) {
+			this.estadoSinEntidad = estadoSinEntidad;
+		}
 		//==========constructor====
 		public ConfAltoNivel(){
 			super();
@@ -59,11 +60,11 @@ public class ConfAltoNivel {
 			this.cnombreEntidad = cnombreEntidad;
 			this.bEstado=bEstado;
 			if(this.bEstado){
-				this.setEstadoConYourself(true);
-				this.setEstadoSinYourself(false);
+				this.setEstadoConEntidad(true);
+				this.setEstadoSinEntidad(false);
 			}else{
-				this.setEstadoSinYourself(true);
-				this.setEstadoConYourself(false);
+				this.setEstadoConEntidad(false);
+				this.setEstadoSinEntidad(true);
 			}
 		}
 		

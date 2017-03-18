@@ -32,7 +32,8 @@ public class CConexion
              p.setUrl("jdbc:postgresql://localhost:5432/DBPricing_FPP");
              p.setDriverClassName("org.postgresql.Driver");
              p.setUsername("postgres");
-             p.setPassword("12345");
+             p.setPassword("LAnube2016@db");
+//             p.setPassword("12345");
              p.setJmxEnabled(true);
              p.setTestWhileIdle(false);
              p.setTestOnBorrow(true);
