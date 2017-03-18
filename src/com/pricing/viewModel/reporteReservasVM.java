@@ -469,32 +469,42 @@ public class reporteReservasVM {
 	}
 	
 	@Command
-	@NotifyChange({"pagoParte","pagoTotal"})
-	public void cambiarEstadoPago(@BindingParam("estado")String estado,@BindingParam("codReserva")String codReserva){
+	@NotifyChange({"pagoParte","pagoTotal","visibleMarcarPagado","listaReporteReserva"})
+	public void cambiarEstadoPago(@BindingParam("estado")String estado,@BindingParam("reporteReserva")CReporteReserva reporteReserva){
 		String estadoPago="";
 		if(estado.equals("parcial")){
+			reporteReserva.setPagoParte(true);
+			reporteReserva.setPagoTotal(false);
 			pagoParte=true;
 			pagoTotal=false;
 			estadoPago="PAGO PARCIAL";
 		}else{
-			pagoParte=false;
-			pagoTotal=true;
+			reporteReserva.setPagoParte(false);
+			reporteReserva.setPagoTotal(true);
 			estadoPago="PAGO TOTAL";
 		}
-		boolean correcto=reporteReservaDAO.isOperationCorrect(reporteReservaDAO.modificarEstadoReserva(codReserva, estadoPago));
+		boolean correcto=reporteReservaDAO.isOperationCorrect(reporteReservaDAO.modificarEstadoReserva(reporteReserva.getCodReserva(), estadoPago));
 		if(correcto)
-			Clients.showNotification("La reserva fue pagado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, null,"after_start",3700);
+			Clients.showNotification("La reserva fue marcada como pagado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, null,"after_start",3700);
 		else
 			Clients.showNotification("La operacion fue fallida", Clients.NOTIFICATION_TYPE_ERROR, null,"after_start",3700);
 		visibleMarcarPagado=false;
+		reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(FechaInicio,FechaFinal));
+		this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
 	}
 	
 	@Command
 	@NotifyChange({"visibleMarcarPagado","pagoParte","pagoTotal"})
-	public void habilitarPagos(){
+	public void habilitarPagos(@BindingParam("reporteReserva")CReporteReserva reporteReserva){
+		reporteReserva.setVisibleMarcarPagado(true);
+		reporteReserva.setPagoParte(false);
+		reporteReserva.setPagoTotal(false);
 		visibleMarcarPagado=true;
 		pagoParte=false;
 		pagoTotal=false;
+		BindUtils.postNotifyChange(null, null, reporteReserva,"visibleMarcarPagado");
+		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoParte");
+		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoTotal");
 	}
 	
 	@Command

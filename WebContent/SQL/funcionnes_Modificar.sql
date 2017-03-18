@@ -4,19 +4,19 @@ CREATE OR REPLACE FUNCTION Pricing_sp_ModificarEstadoPago
     reservaCod  varchar(12),
     estado varchar(20)
 )
-RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codReserva int) as
+RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codReserva varchar(12)) as
 $$
 declare
     codReserva varchar(12);
 begin
-    codReserva=(select codaltonivel from treserva where creservacod=$1);
-    update Treserva set bestado=$2 where creservacod=$1;
+    codReserva=(select creservacod from treserva where creservacod=$1);
+    update Treserva set cestado=$2 where creservacod=$1;
     resultado='correcto';
     mensaje='Datos Actualizados Correctamente';
     return Query select resultado,mensaje,codReserva;
 end
 $$
-LANGUAGE plpgsql; 
+LANGUAGE plpgsql;  
 /**MODIFICAR conf alto nivel**/
 CREATE OR REPLACE FUNCTION Pricing_sp_ModificarConfAltoNivel
 (

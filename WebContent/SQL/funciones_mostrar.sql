@@ -453,18 +453,14 @@ RETURNS table (cdestino varchar(100),ncodpostal int,ndestinocod int) AS
 $$
 	select d.cdestino,d.ncodpostal,d.ndestinocod
 		  from treserva as r 
-		  inner join treservapaquetecategoriahotel as rpch on(r.creservacod=rpch.creservacod)
-	      inner join tpaquetecategoriahotel as pch on(rpch.codpaquetecategoriah=pch.codpaquetecategoriah)
-	      inner join tpaquetedestino as pd on(pch.cpaquetecod=pd.cpaquetecod)
+		inner join treservapaquete as rp on(r.creservacod=rp.creservacod)
+		inner join tpaquetedestino as pd on(rp.cpaquetecod=pd.cpaquetecod)
 	      inner join tdestino as d on(pd.ndestinocod=d.ndestinocod)
-		  where (rpch.creservacod=$1 and d.bestado=true)
+		  where (r.creservacod=$1 and d.bestado=true)
 		  group by d.cdestino, d.ncodpostal,d.ndestinocod
 		  order by d.cdestino;
 $$
   LANGUAGE sql;
-
-
- select Pricing_sp_BuscarDestinosReserva('R000000002');
  
   /*+++++++++++++++++++++++++++++++++++++++++++++++++
 Nombre		:Pricing_sp_BuscarServiciosReserva
@@ -478,10 +474,12 @@ Detalle     :Realiza la busqueda de servicios de acuerdo ala reserva donde se en
 RETURNS table (cservicioindioma1 varchar(200),nprecioservicio decimal(10,2)) AS
 $$
 	select s.cservicioindioma1, s.nprecioservicio 
-			from treservapaqueteservicio as rp 
-			inner join tpaqueteservicio as ps on(rp.codpaqueteservicio=ps.codpaqueteservicio)
+			from treserva as r
+			inner join treservapaquete as rp on(r.creservacod=rp.creservacod)
+			inner join treservapaqueteservicio as rps on(rp.nreservapaquetecod=rps.nreservapaquetecod)
+			inner join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
 			inner join tservicio as s on(ps.nserviciocod=s.nserviciocod)
-			where (rp.creservacod=$1 and s.bestado=true)
+			where (r.creservacod=$1 and s.bestado=true)
 			group by s.cservicioindioma1, s.nprecioservicio 
 			order by s.cservicioindioma1;
 $$
@@ -491,26 +489,6 @@ $$
 Nombre		:Pricing_sp_BuscarServiciosReserva
 Detalle     :Realiza la busqueda de servicios de acuerdo ala reserva donde se encuentre
 +++++++++++++++++++++++++++++++++++++++++++++++++*/
-  create or replace function Pricing_sp_BuscarsubServiciosReserva
-(
-  codReserva varchar(12)
-)
-RETURNS table (csubservicioindioma1 varchar(200),nprecioservicio decimal(10,2),cservicioindioma1 varchar(200)) AS
-$$
-	select ss.csubservicioindioma1, ss.nprecioservicio ,s.cservicioindioma1
-			from treservapaqueteservicio as rp 
-			inner join tpaqueteservicio as ps on(rp.codpaqueteservicio=ps.codpaqueteservicio)
-			inner join tservicio as s on(ps.nserviciocod=s.nserviciocod)
-			inner join tsubservicio as ss on(ss.nserviciocod=s.nserviciocod)
-			where (rp.creservacod=$1 and ss.bestado=true)
-			group by ss.csubservicioindioma1, ss.nprecioservicio, s.cservicioindioma1 
-			order by s.cservicioindioma1;
-$$
-  LANGUAGE sql;
-    /*+++++++++++++++++++++++++++++++++++++++++++++++++
-Nombre		:Pricing_sp_BuscarServiciosReservaLO QUE SE VA PONER CREOOOOOOO
-Detalle     :Realiza la busqueda de servicios de acuerdo ala reserva donde se encuentre
-+++++++++++++++++++++++++++++++++++++++++++++++++*/
     create or replace function Pricing_sp_BuscarsubServiciosReserva
 (
   codReserva varchar(12)
@@ -518,10 +496,13 @@ Detalle     :Realiza la busqueda de servicios de acuerdo ala reserva donde se en
 RETURNS table (csubservicioindioma1 varchar(200),nprecioservicio decimal(10,2),cservicioindioma1 varchar(200)) AS
 $$
 	select ss.csubservicioindioma1, ss.nprecioservicio ,s.cservicioindioma1
-			from treservapaqueteservicio as rp 
-			inner join tsubservicio as ss on(rp.nsubserviciocod=ss.nsubserviciocod)
-			inner join tservicio as s on(ss.nserviciocod=s.nserviciocod)
-			where (rp.creservacod=$1 and ss.bestado=true)
+			from treserva as r
+			inner join treservapaquete as rp on(r.creservacod=rp.creservacod)
+			inner join treservapaqueteservicio as rps on(rp.nreservapaquetecod=rps.nreservapaquetecod)
+			inner join tpaqueteservicio as ps on(rps.codpaqueteservicio=ps.codpaqueteservicio)
+			inner join tservicio as s on(ps.nserviciocod=s.nserviciocod)
+			inner join tsubservicio as ss on(ss.nsubserviciocod=rps.nsubserviciocod)
+			where (r.creservacod=$1 and ss.bestado=true)
 			group by ss.csubservicioindioma1, ss.nprecioservicio, s.cservicioindioma1 
 			order by s.cservicioindioma1;
 $$
@@ -530,7 +511,7 @@ $$
 Nombre		:Pricing_sp_BuscarHotelesReserva
 Detalle     :Realiza la busqueda de hoteles de acuerdo ala reserva donde se encuentre
 +++++++++++++++++++++++++++++++++++++++++++++++++*/
-   create or replace function Pricing_sp_BuscarHotelesReserva
+create or replace function Pricing_sp_BuscarHotelesReserva
 (
   codReserva varchar(12),
   categoriaHotel int
@@ -538,14 +519,14 @@ Detalle     :Realiza la busqueda de hoteles de acuerdo ala reserva donde se encu
 RETURNS table (chotel varchar(200),npreciosimple decimal(10,2),npreciodoble decimal(10,2),npreciotriple decimal(10,2),cdestino varchar(100)) AS
 $$
 	select h.chotel, h.npreciosimple,h.npreciodoble,h.npreciotriple,d.cdestino 
-			from treserva as r inner join treservapaquetecategoriahotel as rpch on(r.creservacod=rpch.creservacod)
-	      	inner join tpaquetecategoriahotel as pch on(rpch.codpaquetecategoriah=pch.codpaquetecategoriah)
-	      	inner join tcategoriahotel as ch on(pch.categoriahotelcod=ch.categoriahotel)
-	      	inner join thotel as h on(ch.categoriahotelcod=h.categoriahotelcod)
-	      	inner join tdestino as d on(h.ndestinocod=d.ndestinocod)
-			where (rpch.creservacod=$1 and d.bestado=true and h.categoriahotelcod=$2)
-			group by h.chotel, h.npreciosimple,h.npreciodoble,h.npreciotriple,d.cdestino
-			order by d.cdestino;
+		from treserva as r 
+		inner join treservapaquete as rp on(r.creservacod=rp.creservacod)
+		inner join tpaquetedestino as pd on(rp.cpaquetecod=pd.cpaquetecod)
+		inner join tdestino as d on(pd.ndestinocod=d.ndestinocod)
+		inner join thotel as h on(h.ndestinocod=d.ndestinocod)
+		where (r.creservacod=$1 and h.bestado=true)
+		group by h.chotel, h.npreciosimple,h.npreciodoble,h.npreciotriple,d.cdestino
+		order by d.cdestino;
 $$
   LANGUAGE sql;
  /*+++++++++++++++++++++++++++++++++++++++++++++++++
@@ -1033,16 +1014,17 @@ $$
   LANGUAGE sql;
  /**BUSCAR actividades reserva**/
   
-CREATE OR REPLACE FUNCTION Pricing_sp_BuscarActividadesReserva(
+  CREATE OR REPLACE FUNCTION Pricing_sp_BuscarActividadesReserva(
 	codReserva varchar(12)
 )
 RETURNS TABLE(cactividadidioma1 varchar(200),nprecioactividad numeric(10,2)) as
 $$
 	select a.cactividadidioma1,a.nprecioactividad
-		from treservapaqueteactividad as rpa
-		inner join tpaqueteactividad as pa on(rpa.codpaqueteactividad=pa.npaqueteactividad)
+		from treserva as r
+		inner join treservapaquete as rp on(r.creservacod=rp.creservacod)
+		inner join tpaqueteactividad as pa on(rp.cpaquetecod=pa.cpaquetecod)
 		inner join tactividad as a on(pa.nactividadcod=a.nactividadcod)
-		where (rpa.creservacod=$1 and a.bestado=true)
+		where (r.creservacod=$1 and a.bestado=true)
 		group by a.cactividadidioma1,a.nprecioactividad
 		order by a.cactividadidioma1
 $$
