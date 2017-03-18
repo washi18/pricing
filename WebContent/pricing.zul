@@ -802,8 +802,8 @@
 									<listbox model="@bind(vmPricing.oReservar.oPaquete.listaServicios)" style="border:none;" visible="@bind(vmPricing.mostrarCostoServicio)">
 										<listhead><listheader label=""/></listhead>
 										<template name="model">
-											<listitem>
-												<listcell zclass="list_costoServicios" visible="@load(each.seleccionado)">
+											<listitem visible="@load(each.seleccionado)">
+												<listcell zclass="list_costoServicios">
 													<div sclass="div_costoServicio">
 														<div sclass="div_costoServiceSubTitle">
 															<label value="@bind(each.servicio)" sclass="subDesc_costos_serv"/>
@@ -847,7 +847,7 @@
 									<listbox model="@bind(vmPricing.oReservar.oPaquete.listaActividades)" style="border:none;" visible="@bind(vmPricing.mostrarCostoActividades)">
 										<listhead><listheader label=""/></listhead>
 										<template name="model">
-											<listitem>
+											<listitem visible="@load(each.seleccionado)">
 												<listcell zclass="list_costoServicios">
 													<div sclass="div_costoServicio">
 														<div sclass="div_costoServiceSubTitle">
@@ -868,7 +868,7 @@
 									</listbox>
 									<div sclass="div_costoServicioTotal">
 										<div sclass="div_costoServiceSubTitleTotal">
-											<label value="@bind(vmPricing.etiqueta[7])" sclass="usd_MontoTotal"/>
+											<label value="@bind(vmPricing.etiqueta[236])" sclass="usd_MontoTotal"/>
 											<space></space>
 										</div>
 										<div sclass="div_costoServiceMontoTotal">

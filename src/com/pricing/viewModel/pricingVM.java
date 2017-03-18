@@ -613,7 +613,7 @@ public class pricingVM
 		}
 	}
 	@Command
-	@NotifyChange({"oActividad","mostrarVentanaActividad","mostrarCostoActividades","lblTotalActividades"})
+	@NotifyChange({"oActividad","mostrarVentanaActividad","lblMontoTotal","mostrarCostoActividades","lblTotalActividades"})
 	public void actividadSeleccionada(@BindingParam("actividad")CActividad actividad,@BindingParam("opcion")String opcion,@BindingParam("cod")int cod)
 	{
 		ArrayList<CPaqueteActividad> listaPaqueteActividades=new ArrayList<CPaqueteActividad>();
@@ -1356,6 +1356,7 @@ public class pricingVM
 		nroSimples=0;nroDobles=0;nroTriples=0;
 		reiniciarHoteles();
 		reiniciarServicios();
+		reiniciarActividades();
 		lblTotalPaquete=df.format(TotalPaquete);
 		//=======================
 		System.out.println("-->"+TotalPaquete+"-->"+TotalHabitaciones+"-->"+TotalServicios);
@@ -1428,6 +1429,23 @@ public class pricingVM
 			BindUtils.postNotifyChange(null, null, servicio,"opcionValue");
 		}
 		BindUtils.postNotifyChange(null, null, this, "lblTotalServicios");
+	}
+	public void reiniciarActividades()
+	{
+		/**El monto total de los servicios vuelve a ser 0.0**/
+		TotalActividades=0.0;
+		lblTotalActividades=""+df.format(TotalActividades);
+		/**Se reinicia la seleccion de las opciones**/
+		/**Se cierran las descripciones de los servicios seleccionados**/
+		
+		for(CActividad acti:oReservar.getoPaquete().getListaActividades())
+		{
+			acti.setNroPersonasActividad(0);
+			acti.setPrecioTotalActividad(df.format(0));
+			BindUtils.postNotifyChange(null, null, acti,"nroPersonasActividad");
+			BindUtils.postNotifyChange(null, null, acti,"precioTotalActividad");
+		}
+		BindUtils.postNotifyChange(null, null, this, "lblTotalActividades");
 	}
 	public void reiniciarReserva()
 	{
