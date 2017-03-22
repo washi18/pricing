@@ -65,17 +65,8 @@ public class CConexion
 	public Boolean getEstaconectado() {
 		return estaconectado;
 	}
-   /* public int[] mantenimientoMasivo(String procedimiento,String[][] params){
-    	return  getEjecutorSQL().ejecutarMantenimientoMasivo(procedimiento, params);
-    }
-    public List ejecutarProcedimiento(String procedimiento){
-    	return getEjecutorSQL().ejecutarProcedimiento(procedimiento);
-    }*/
     public List ejecutarProcedimiento(String procedimiento,String[] values){
     	return getEjecutorSQL().ejecutarProcedimiento(procedimiento, values);
     }
-    /*public List ejecutarConsulta(String consulta){
-    	return getEjecutorSQL().ejecutarConsulta(consulta);
-    }*/
 	
 }
