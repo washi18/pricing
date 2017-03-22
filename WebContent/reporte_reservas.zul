@@ -322,12 +322,19 @@
 						    				<label value="@load(each.estado)" style="font-style: italic; font-weight: bold; font-size: 16px; color: black;"></label>
 						    			</div>
 						    			<div>
-						    				<button label="Marcar Pagado ?" onClick="@command('habilitarPagos',reporteReserva=each)" zclass="btn_marcar_pagado"></button>
-						    				<div visible="@load(vmReserva.visibleMarcarPagado)">
+						    				<button label="Marcar Pagado ?" zclass="btn_marcar_pagado" width="100px" height="30px" onClick="@command('habilitarPagos',reporteReserva=each)"></button>
+						    				<div visible="@bind(each.visibleMarcarPagado)">
 							 		 			<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoPago',estado=self.selectedItem.value,reporteReserva=each)">
 							 		 				<radio label="PAGO PARCIAL" value="parcial" checked="@load(each.pagoParte)"/>
 							 		 				<radio label="PAGO TOTAL" value="total" checked="@load(each.pagoTotal)"/>
 							 		 			</radiogroup>
+							 		 			<label value="Metodo Pago:" sclass="lbl_llenar_datos"></label>
+							 		 			<textbox value="@save(each.metodoPago)" onChange="@command('asignarNameMetodoPago',reporteReserva=each)"
+							 		 				placeholder="Ingrese Metodo Pago" sclass="txt_llenar_datos" style="text-transform: uppercase;"></textbox>
+							 		 			<label value="Codigo Transaccion:" sclass="lbl_llenar_datos"></label>
+							 		 			<textbox value="@save(each.codTransaccion)" 
+							 		 				placeholder="Ingrese Codigo transaccion" sclass="txt_llenar_datos"></textbox>
+							 		 			<button label="Aceptar" width="100px" height="50px" zclass="btn_guardar" onClick="@command('ModificarReporteReserva',reporteReserva=each)"></button>
 							 		 		</div>
 							 		 	</div>
 						    			<div sclass="estilo_monto_persona">

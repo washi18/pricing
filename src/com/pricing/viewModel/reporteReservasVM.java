@@ -2,6 +2,7 @@ package com.pricing.viewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 import org.zkoss.bind.BindUtils;
@@ -24,6 +25,8 @@ import com.pricing.model.CServicio;
 import com.pricing.model.CServicioConSubServicios;
 import com.pricing.model.CSubServicio;
 
+import sun.security.jca.GetInstance;
+
 public class reporteReservasVM {
 	//======atributos=====
 	private ArrayList<CReporteReserva> listaReporteReserva;
@@ -41,9 +44,13 @@ public class reporteReservasVM {
 	private CReporteReserva reporteReservaAnterior;
 	private ArrayList<CPasajero> listaPasajeros;
 	private ArrayList<CActividad> listaActividades;
+	private CReporteReserva oReporteReserva;
 	private boolean pagoParte;
 	private boolean pagoTotal;
 	private boolean visibleMarcarPagado;
+	Date fecha=new Date();
+	SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
+	String fechaActual = formato.format(fecha);
 	//=======getter and setter=====
 	
 	
@@ -204,8 +211,11 @@ public class reporteReservasVM {
 		visibleMarcarPagado=false;
 		reporteReservaDAO=new CReporteReservaDAO();
 		reporteReservaAnterior=new CReporteReserva();
+		oReporteReserva=new CReporteReserva();
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
+		reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasInicialBD(fechaActual));
+		this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
 	}
 	
 	@Command
@@ -469,39 +479,52 @@ public class reporteReservasVM {
 	}
 	
 	@Command
-	@NotifyChange({"pagoParte","pagoTotal","visibleMarcarPagado","listaReporteReserva"})
 	public void cambiarEstadoPago(@BindingParam("estado")String estado,@BindingParam("reporteReserva")CReporteReserva reporteReserva){
-		String estadoPago="";
 		if(estado.equals("parcial")){
 			reporteReserva.setPagoParte(true);
 			reporteReserva.setPagoTotal(false);
-			pagoParte=true;
-			pagoTotal=false;
-			estadoPago="PAGO PARCIAL";
+			reporteReserva.setEstado("PAGO PARCIAL");
 		}else{
 			reporteReserva.setPagoParte(false);
 			reporteReserva.setPagoTotal(true);
-			estadoPago="PAGO TOTAL";
+			reporteReserva.setEstado("PAGO TOTAL");
 		}
-		boolean correcto=reporteReservaDAO.isOperationCorrect(reporteReservaDAO.modificarEstadoReserva(reporteReserva.getCodReserva(), estadoPago));
+		BindUtils.postNotifyChange(null, null, reporteReserva, "pagoParte");
+		BindUtils.postNotifyChange(null, null, reporteReserva, "pagoTotal");
+		BindUtils.postNotifyChange(null, null, reporteReserva, "estado");
+	}
+	
+	@Command
+	@NotifyChange({"listaReporteReserva"})
+	public void ModificarReporteReserva(@BindingParam("reporteReserva")CReporteReserva reporteReserva){
+		boolean correcto=reporteReservaDAO.isOperationCorrect(reporteReservaDAO.modificarEstadoReserva(reporteReserva.getCodReserva(), reporteReserva.getEstado(),reporteReserva.getMetodoPago(),reporteReserva.getCodTransaccion()));
 		if(correcto)
 			Clients.showNotification("La reserva fue marcada como pagado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, null,"after_start",3700);
 		else
 			Clients.showNotification("La operacion fue fallida", Clients.NOTIFICATION_TYPE_ERROR, null,"after_start",3700);
-		visibleMarcarPagado=false;
-		reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(FechaInicio,FechaFinal));
-		this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
+		if(FechaInicio.isEmpty() && FechaFinal.isEmpty()){
+			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasInicialBD(fechaActual));
+			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
+		}else{
+			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(FechaInicio,FechaFinal));
+			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
+		}
 	}
 	
 	@Command
-	@NotifyChange({"visibleMarcarPagado","pagoParte","pagoTotal"})
+	public void asignarNameMetodoPago(@BindingParam("reporteReserva")CReporteReserva reporteReserva){
+		reporteReserva.setMetodoPago(reporteReserva.getMetodoPago().toUpperCase());
+		BindUtils.postNotifyChange(null, null, reporteReserva, "metodoPago");
+	}
+	
+	@Command
 	public void habilitarPagos(@BindingParam("reporteReserva")CReporteReserva reporteReserva){
-		reporteReserva.setVisibleMarcarPagado(true);
+		oReporteReserva.setVisibleMarcarPagado(false);
+		BindUtils.postNotifyChange(null, null, oReporteReserva,"visibleMarcarPagado");
+		oReporteReserva=reporteReserva;
+		reporteReserva.setVisibleMarcarPagado(!reporteReserva.isVisibleMarcarPagado());
 		reporteReserva.setPagoParte(false);
 		reporteReserva.setPagoTotal(false);
-		visibleMarcarPagado=true;
-		pagoParte=false;
-		pagoTotal=false;
 		BindUtils.postNotifyChange(null, null, reporteReserva,"visibleMarcarPagado");
 		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoParte");
 		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoTotal");
@@ -519,10 +542,8 @@ public class reporteReservasVM {
 		{
 			/****Validando la fecha****/
 			listaReporteReserva.clear();
-			System.out.println("entro aqui 1");
 			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(FechaInicio,FechaFinal));
 			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
-			
 		}
 	}
 }

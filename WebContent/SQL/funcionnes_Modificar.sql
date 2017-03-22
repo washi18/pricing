@@ -27,7 +27,9 @@ language plpgsql;
 CREATE OR REPLACE FUNCTION Pricing_sp_ModificarEstadoPago
 (
     reservaCod  varchar(12),
-    estado varchar(20)
+    estado varchar(20),
+    metodoPago varchar(20),
+    codTransaccion varchar(20)
 )
 RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codReserva varchar(12)) as
 $$
@@ -35,13 +37,13 @@ declare
     codReserva varchar(12);
 begin
     codReserva=(select creservacod from treserva where creservacod=$1);
-    update Treserva set cestado=$2 where creservacod=$1;
+    update Treserva set cestado=$2,cmetodoPago=$3,ccodtransaccion=$4 where creservacod=$1;
     resultado='correcto';
     mensaje='Datos Actualizados Correctamente';
     return Query select resultado,mensaje,codReserva;
 end
 $$
-LANGUAGE plpgsql;  
+LANGUAGE plpgsql; 
 /**MODIFICAR conf alto nivel**/
 CREATE OR REPLACE FUNCTION Pricing_sp_ModificarConfAltoNivel
 (
@@ -659,6 +661,34 @@ begin
 	resultado='correcto';
 	mensaje='Datos no Actualizados';
 	return Query select resultado,mensaje,hotelcod;
+end 
+$$
+language plpgsql;
+/****************************************************************/
+/*************************modificar imagenes paquete************/
+/****************************************************************/
+CREATE OR REPLACE FUNCTION Pricing_sp_ModificarImagenesPaquete
+(
+	codPaquete varchar(10),
+	foto1 varchar(100),
+	foto2 varchar(100),
+	foto3 varchar(100),
+	foto4 varchar(100),
+	foto5 varchar(100)
+)
+returns table(resultado varchar(20),mensaje varchar(200),paqueteCod varchar(10))as
+$$
+begin
+	paqueteCod=$1;
+	update tpaquete set cfoto1=$2,
+					cfoto2=$3,
+					cfoto3=$4,
+					cfoto4=$5,
+					cfoto5=$6
+					where cpaquetecod=$1;
+	resultado='correcto';
+	mensaje='Datos Actualizados';
+	return Query select resultado,mensaje,paquetecod;
 end 
 $$
 language plpgsql;

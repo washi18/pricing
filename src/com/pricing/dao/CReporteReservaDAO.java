@@ -105,6 +105,11 @@ public class CReporteReservaDAO extends CConexion{
 		String[] values={FechaIni,FechaFin};
 		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarreservas",values);
 	}
+	public List recuperarReporteReservasInicialBD(String FechaActual)
+	{
+		String[] values={FechaActual};
+		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarreservasinicial",values);
+	}
 	public List recuperarDestinosReservaBD(String codReserva)
 	{
 		String[] values={codReserva};
@@ -162,13 +167,12 @@ public class CReporteReservaDAO extends CConexion{
 					(String)row.get("cestado"),(int)row.get("categoriahotelcod"),total));
 		}
 	}
-	public List modificarEstadoReserva(String codReserva,String estado){
-		Object[]values={codReserva,estado};
+	public List modificarEstadoReserva(String codReserva,String estado,String metodoPago,String codTransaccion){
+		Object[]values={codReserva,estado,metodoPago,codTransaccion};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarEstadoPago",values);
 	}
 	public void asignarDestinosReserva(List lista)
 	{
-		System.out.println("entro aqui DAO 2");
 		listaDestinosReserva=new ArrayList<CDestino>();
 		for(int i=0;i<lista.size();i++)
 		{
