@@ -25,11 +25,14 @@
 	background: #C2EFB2;
 	border-color:#C2EFB2;
 	border-radius: 4px; 
+	font-size: 10px;
 }
 .btn_marcar_pagado:HOVER{
-	background: #dff0d8;
-	border-color:#dff0d8; 
+	background: #3BA420;
+	border-color:#3BA420; 
+	color: white;
 	border-radius: 4px;
+	font-size: 10px;
 }
 .estado_pagos.z-radiogroup .z-radio input[type="radio"]{
 	display: none;

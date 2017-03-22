@@ -42,10 +42,24 @@ public class CReporteReserva {
 	private boolean pagoParte;
 	private boolean pagoTotal;
 	private boolean visibleMarcarPagado;
+	private String metodoPago;
+	private String codTransaccion;
 	//=======getter and setter===========
 	
 	public String getCodReserva() {
 		return CodReserva;
+	}
+	public String getMetodoPago() {
+		return metodoPago;
+	}
+	public void setMetodoPago(String metodoPago) {
+		this.metodoPago = metodoPago;
+	}
+	public String getCodTransaccion() {
+		return codTransaccion;
+	}
+	public void setCodTransaccion(String codTransaccion) {
+		this.codTransaccion = codTransaccion;
 	}
 	public boolean isVisibleActividadespop() {
 		return visibleActividadespop;
@@ -300,6 +314,8 @@ public class CReporteReserva {
 		pagoParte=false;
 		pagoTotal=false;
 		visibleMarcarPagado=false;
+		metodoPago="";
+		codTransaccion="";
 	}
 	public CReporteReserva(String codReserva, Date fechaInicio, Date fechaFin,
 			Date fecha,String nombreContacto, String Email,
