@@ -228,7 +228,7 @@ public class pricingVM
 	private CEtiquetaDAO etiquetaDao;
 	private String[] etiqueta;
 	private CConfigUrlDAO configUrlDao;
-	/***************************/
+	/***********************/
 	private String nombreDoc;
 	private ArrayList<CPasajero> listaPasajeros;
 	private ArrayList<String> listaEdades;
@@ -238,10 +238,17 @@ public class pricingVM
 	private String codDisponibilidad;
 	private ConfAltoNivel confAltoNivel;
 	private ConfAltoNivelDAO confAltoNivelDAO;
+	private String integrantes;
+	private String paquetes;
 	//======METODOS===============
 	@Init
 	public void inicializarVM() throws IOException
 	{
+		//===Recuperando los datos del APP
+		integrantes=(String)Executions.getCurrent().getAttribute("integrantes");
+		paquetes=(String)Executions.getCurrent().getAttribute("paquetes");
+		System.out.println("hola--> :"+integrantes+" --> :"+paquetes);
+		//================================
 		confAltoNivel=new ConfAltoNivel();
 		confAltoNivelDAO=new ConfAltoNivelDAO();
 		this.visiblePaso1=true;

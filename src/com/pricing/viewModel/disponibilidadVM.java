@@ -1,16 +1,17 @@
 package com.pricing.viewModel;
 
-import java.util.Date;
-import java.util.Calendar;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 
@@ -117,7 +118,7 @@ public class disponibilidadVM
 	}
 	//=======================================
 	@Init
-	public void inicializarVM() throws IOException
+	public void inicializarVM() throws Exception
 	{
 		etiquetaDao=new CEtiquetaDAO();
 		etiquetaDao.asignarEtiquetaIdiomas(etiquetaDao.recuperarEtiquetasBD());
@@ -156,7 +157,7 @@ public class disponibilidadVM
 		else
 			etiqueta=etiquetaDao.getIdioma().getIdioma2();
 	}
-	public void iniciarLosDiasAnio() throws IOException
+	public void iniciarLosDiasAnio() throws Exception
 	{
 		listaAnioActual=new ArrayList<CDia>();
 		listaAnioSig=new ArrayList<CDia>();
@@ -296,7 +297,7 @@ public class disponibilidadVM
 		}
 		return lista;
 	}
-	public void ingresarDatosListaDispoCaminoInka(ArrayList<CCalendarioDisponibilidad> listaDisponibilidad)
+	public void ingresarDatosListaDispoCaminoInka(ArrayList<CCalendarioDisponibilidad> listaDisponibilidad) throws Exception
 	{
 		Calendar cal=Calendar.getInstance();
 		int n=0;
@@ -304,7 +305,9 @@ public class disponibilidadVM
 		{
 			System.out.println("pos:"+n);
 			ArrayList<Integer> listDispoMesActual=new ArrayList<Integer>();
-			listDispoMesActual=recuperarDispoMes(cal.get(Calendar.YEAR),i+1,listaDisponibilidad);
+			listDispoMesActual=recuperarDispoMesUrl(cal.get(Calendar.YEAR),i+1);
+			if(listDispoMesActual.isEmpty())
+				listDispoMesActual=recuperarDispoMes(cal.get(Calendar.YEAR),i+1,listaDisponibilidad);
 			//if(i==1)continue;//mes de febrero
 			String mes=mesAnio(i);
 		    //Una vez obtenida las disponibilidades se almacena en la listaAnioActual
@@ -358,6 +361,151 @@ public class disponibilidadVM
 			    n++;
 		    }
 		}
+	}
+	public ArrayList<Integer> recuperarDispoMesUrl(int anio,int mes) throws Exception
+	{
+		Map<Integer, String> map = new HashMap<Integer,String>();
+		ArrayList<Integer> listaDispoMes=new ArrayList<Integer>();
+		String mesAux=mesAnio(mes-1);
+		//=====Leemos el archivo del mes correspondiente=====
+		String nameFileMes=txtMesCorrespondiente(mesAux);
+		boolean correcto=leerPdfDesdeUrl(mes);
+		if(correcto)
+		{
+			System.out.println("Es correcto: "+nameFileMes);
+			FileReader f = new FileReader(Util.getPathDispActual()+nameFileMes);
+	        BufferedReader b = new BufferedReader(f);
+	        String contenidoTxt="";
+	        String cadena;
+	        while((cadena = b.readLine())!=null) 
+	        	contenidoTxt+=cadena+"\n";
+	        b.close();
+	        //Se procede a obtener los dias disponibles
+			String[] s=contenidoTxt.split("\n");
+		    for(int j=6;j<s.length-4;j++)
+		    {
+		    	String[] aux=s[j].split(" ");
+		    	map.put(Integer.parseInt(aux[0].trim()),aux[1].trim());
+		    }
+		    final TreeMap<Integer,String>treeSortedByValues1 = new TreeMap<Integer,String>(new Comparator<Integer>()
+		    {
+		        public int compare(Integer o1, Integer o2)
+		        {
+		            return o1.compareTo(o2);
+		        }
+		    });
+		    treeSortedByValues1.putAll(map);
+		    for ( Entry<Integer, String> e : treeSortedByValues1.entrySet() )
+		    {
+		        System.out.println(e.getKey() + ": " + e.getValue());
+		        listaDispoMes.add(Integer.parseInt(e.getValue()));
+		    }
+		}
+		return listaDispoMes;
+	}
+	public boolean leerPdfDesdeUrl(int mes) throws Exception{
+		String mesTxt="";
+		if(mes<10)
+			mesTxt="0"+mes;
+		else
+			mesTxt=""+mes;
+		System.out.println("Recupere el mes de: "+mesTxt);
+		System.out.println("================================");
+		Calendar cal=Calendar.getInstance();
+		lectorPDF.descargarPdf("http://operadores.machupicchu.gob.pe/BoletoExtranet/servletReporteBoleto?reporte=600&idRuta=1&fechaIngreso=01-"+mesTxt+"-"+cal.get(Calendar.YEAR)+"&tipoRegistro=001",
+				new lectorPDF().getPath()+"auxPdf.pdf");
+		String contenidoPdf=leerContenidoPdfDescargado();
+		String mesNombre=obtenerMes(contenidoPdf);
+		if(!mesNombre.equals(""))
+		{
+			String monthFileName=obtenerNombreArchivoDelMes(mesNombre);
+			//Ahora se procede a sobreescribir el archivo txt correspodiente al
+			//mes de Disponibilidad con el contenido obtenido del pdf
+			try {
+				sobreescribirFileTxt(contenidoPdf,monthFileName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		}else
+			return false;
+	}
+	public String obtenerNombreArchivoDelMes(String mes)
+	{
+		String nameFile="";
+			//Esta condicional se hizo debido a que el nombre recuperado
+			//de los meses de SEPTIEMBRE, NOVIEMBRE Y DICIEMBRE
+			//tienen un espacio (" ") al final ejem. "DICIEMBRE " y no "DICIEMBRE"
+			//imposibilitando la validacion en el switch
+//		int ultimo=mes.length()-1;
+//		if(mes.charAt(ultimo)<'A' || mes.charAt(ultimo)>'Z')
+//		{
+//			mes=mes.substring(0, ultimo);
+//			System.out.println("----> "+mes);
+//		}
+		switch(mes)
+		{
+			case "ENERO":nameFile="enero.txt";break;
+			case "FEBRERO":nameFile="febrero.txt";break;
+			case "MARZO":nameFile="marzo.txt";break;
+			case "ABRIL":nameFile="abril.txt";break;
+			case "MAYO":nameFile="mayo.txt";break;
+			case "JUNIO":nameFile="junio.txt";break;
+			case "JULIO":nameFile="julio.txt";break;
+			case "AGOSTO":nameFile="agosto.txt";break;
+			case "SEPTIEMBRE":nameFile="setiembre.txt";break;
+			case "OCTUBRE":nameFile="octubre.txt";break;
+			case "NOVIEMBRE":nameFile="noviembre.txt";break;
+			case "DICIEMBRE":nameFile="diciembre.txt";break;
+		}
+		return nameFile;
+	}
+	public void sobreescribirFileTxt(String contentFile,String monthFileName) throws IOException
+	{
+		System.out.println("Este es el contenido del pdf aqui en sobreescribir txt :) \n"+contentFile);
+        Calendar cal=Calendar.getInstance();
+        File archivo=null;
+        archivo = new File(Util.getPathDispActual()+ monthFileName);
+        BufferedWriter bw;
+        if(archivo.exists()) {
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(contentFile);
+        } else {
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(contentFile);
+        }
+        bw.close();
+	}
+	public String obtenerMes(String contenidoPDF)
+	{
+		String nameMes="";
+			try
+			{
+
+				String[] datos=contenidoPDF.split("\n",5);
+				String[] auxDatos=datos[3].split(" ");
+				nameMes=auxDatos[0];
+			}
+			catch (Exception StringIndexOutOfBoundsException) {
+				// TODO: handle exception
+				return "";
+			}
+			return nameMes;
+	}
+	public String leerContenidoPdfDescargado()
+	{
+		String contenido="";
+		//Luego se procede a leer el pdf guardado para obtener el nombre del mes
+		lectorPDF lpdf=new lectorPDF();
+		lpdf.setFilePath("auxPdf.pdf");
+		try {
+			contenido=lpdf.ToText();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return contenido;
 	}
 	public ArrayList<CCalendarioDisponibilidad> recuperarListaDispoJson()
 	{
@@ -1219,6 +1367,7 @@ public class disponibilidadVM
 		switch(mes)
 		{
 			case "Enero":nameFile="enero.txt";break;
+			case "Febrero":nameFile="febrero.txt";break;
 			case "Marzo":nameFile="marzo.txt";break;
 			case "Abril":nameFile="abril.txt";break;
 			case "Mayo":nameFile="mayo.txt";break;
