@@ -2626,7 +2626,7 @@ public class pricingVM
 		SECResult=new String[2];
 		/*************************/
 		ExpressCheckout paypal=new ExpressCheckout();
-		SECResult=paypal.setExpressCheckoutTest(totalConImpuestoPaypal,oReservar.getoPaquete().getcTituloIdioma1());
+		SECResult=paypal.setExpressCheckoutTest(pagos.getTotalConImpuestoPaypal(),oReservar.getoPaquete().getcTituloIdioma1());
 		/*************************/
 		pagos.setUrlPaypal(SECResult[0]);
 		System.out.println("La url de paypal-> "+urlPaypal);

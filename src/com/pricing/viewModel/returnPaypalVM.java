@@ -155,7 +155,7 @@ public class returnPaypalVM
 				estado="PAGO TOTAL";
 				porcentaje=etiqueta[103];
 			}
-			boolean b=reservaDao.isCorrectOperation(reservaDao.modificarEstadoDePago(codReserva, estado));
+			boolean b=reservaDao.isCorrectOperation(reservaDao.modificarMetodoPago(codReserva, estado,"PAYPAL",codTransac));
 			String pdf=Util.getPathReservas()+"reservas.pdf";
 			CEmail mail=new CEmail();
 			boolean correct=mail.enviarCorreoPagoReserva(etiqueta[199],etiqueta,namePaquete, email, contacto, codReserva, porcentaje, codTransac, pdf);

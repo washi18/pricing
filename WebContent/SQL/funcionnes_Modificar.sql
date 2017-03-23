@@ -43,7 +43,7 @@ begin
     return Query select resultado,mensaje,codReserva;
 end
 $$
-LANGUAGE plpgsql; 
+LANGUAGE plpgsql;
 /**MODIFICAR conf alto nivel**/
 CREATE OR REPLACE FUNCTION Pricing_sp_ModificarConfAltoNivel
 (
