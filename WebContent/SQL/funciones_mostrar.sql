@@ -1,3 +1,28 @@
+ /****** mostrar reservaspagados****/
+ create or replace function Pricing_sp_BuscarReservasPagados
+(
+	fechaInicio varchar(12),
+	fechaFin varchar(12),
+	estadoPago varchar(10)
+)
+RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,categoriahotelcod int,npreciopaquetepersona numeric,nnropersonas int,ctituloidioma1 varchar(200),
+cmetodopago varchar(20),ccodtransaccion varchar(20),cestado varchar(20)) AS
+$$
+		
+		select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( ch.categoriahotelcod, 0 ),r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,
+		r.cmetodopago,r.ccodtransaccion,r.cestado
+				from treserva as r 
+				left join treservapaquete as rp on(r.creservacod=rp.creservacod)
+				left join tpaquete as paq on(rp.cpaquetecod=paq.cpaquetecod)
+				left join treservapaquetecategoriahotel as rpch on(rpch.nreservapaquetecod=rp.nreservapaquetecod)
+				left join tpaquetecategoriahotel as pch on(pch.codpaquetecategoriah=rpch.codpaquetecategoriah)
+				left join tcategoriahotel as ch on(ch.categoriahotelcod=pch.categoriahotelcod)
+				where (to_date($1,'yyyy-MM-dd')<=r.dfecha and r.dfecha<=to_date($2,'yyyy-MM-dd')) and r.cestado=$3
+				group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,ch.categoriahotelcod,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,r.cmetodopago,
+					 r.ccodtransaccion,r.cestado
+				order by r.dfecha desc;
+$$
+  LANGUAGE sql;
 /****** mostrar configuraciones de alto nivel****/
 CREATE OR REPLACE FUNCTION Pricing_sp_MostrarConfAltoNivel
 (
@@ -797,37 +822,6 @@ delete from treservapaqueteservicio where codreservapservicio=121;
   	   where to_date($1||''||'-01-01','yyy-MM-dd') <= fechayhora_initx AND fechayhora_initx <=  to_date($1||''||'-21-31','yyy-MM-dd')
   $$
   language sql;
-  
-  
-   /*======modificar datos usuario======*/
-   create or replace function Pricing_sp_ModificarDatosUsuario
- (
-	clave varchar(128),
-	nperfilcod int,
-	imgusuario varchar(200),
-	nrodoc varchar(12),
-	nombres varchar(150),
-	sexo varchar(1),
-	fechaNacimiento Date,
-	celular varchar(50),
-	fechaInicio Date,
-	correo varchar(100),
-	codusuario varchar(150)
- )
- RETURNS table(resultado varchar(20), mensaje varchar(200), usuariocod varchar(150)) as
- $$
-declare
-	usuariocod varchar(150);
-begin
-		usuariocod=(select cusuariocod from tusuario where cusuariocod=$11);
-		update tusuario set  cclave=$1,nperfilcod=$2,imgusuario=$3,cnrodoc=$4,
-		cnombres=$5,csexo=$6,dfechanac=$7,ccelular=$8,dfechainicio=$9,ccorreo=$10,bestado=true where cusuariocod=$11;
-		resultado='correcto';
-		mensaje='Datos Actualizados Correctamente';
-		return Query select resultado,mensaje,usuariocod;
-end
-$$
-LANGUAGE plpgsql;
 
  /*======registro usuarios======*/
 CREATE OR REPLACE FUNCTION Pricing_sp_MostrarTodosUsuarios()
@@ -839,46 +833,6 @@ $$
 	 order by u.cnombres;
 $$
   LANGUAGE sql;
-  
-  CREATE OR REPLACE FUNCTION Pricing_sp_ModificarEstadoUsuario
-(
-	usuariocod varchar(150),
-	estado boolean
-)
-RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codUsuario varchar(150)) as
-$$
-begin
-	codUsuario=$1;
-	update tusuario set bestado=$2 where cusuariocod=$1;
-	resultado='correcto';
-	mensaje='Datos Actualizados Correctamente';
-	return Query select resultado,mensaje,codUsuario;
-end
-$$
-LANGUAGE plpgsql;
-/**MODIFICAR IMPUESTOS**/
-CREATE OR REPLACE FUNCTION Pricing_sp_ModificarImpuesto
-(
-	nCodImpuesto int,
-	cImpuestoPaypal varchar(5),
-	cImpuestoVisa varchar(5),
-	cImpuestoMasterCard varchar(5),
-	cImpuestoDinnersClub varchar(5),
-	cPorcentajeCobro varchar(5)
-)
-RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codImp int) as
-$$
-begin
-	codImp=$1;
-	update timpuesto set impuestopaypal=$2,
-			impuestovisa=$3,impuestomastercard=$4,impuestodinnersclub=$5,
-			porcentajecobro=$6 where codimpuesto=$1;
-	resultado='correcto';
-	mensaje='Datos Actualizados Correctamente';
-	return Query select resultado,mensaje,codImp;
-end
-$$
-LANGUAGE plpgsql;
 
 select * from tusuario;
 /***********************************/

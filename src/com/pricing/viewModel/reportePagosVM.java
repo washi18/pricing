@@ -14,6 +14,7 @@ import org.zkoss.zk.ui.util.Clients;
 
 import com.pricing.dao.CReportePagosDAO;
 import com.pricing.dao.CReporteReservaDAO;
+import com.pricing.model.CActividad;
 import com.pricing.model.CDestino;
 import com.pricing.model.CDestinoConHoteles;
 import com.pricing.model.CHotel;
@@ -21,6 +22,7 @@ import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
+import com.pricing.model.CServicioConSubServicios;
 import com.pricing.model.CSubServicio;
 
 public class reportePagosVM {
@@ -41,9 +43,38 @@ public class reportePagosVM {
 	private CReportePagos reportePagosAnterior;
 	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
 	private ArrayList<CHotel> listaHotelesTemp;
+	private ArrayList<CActividad> listaActividades;
+	private ArrayList<CSubServicio> listasubServicios;
+	private ArrayList<CSubServicio> listaSubServiciosTemp;
+	private ArrayList<CServicioConSubServicios> listaServicioconSubServicios;
 	//===============getter and setter=======
+	
 	public String getFechaInicio() {
 		return fechaInicio;
+	}
+	public ArrayList<CSubServicio> getListaSubServiciosTemp() {
+		return listaSubServiciosTemp;
+	}
+	public void setListaSubServiciosTemp(ArrayList<CSubServicio> listaSubServiciosTemp) {
+		this.listaSubServiciosTemp = listaSubServiciosTemp;
+	}
+	public ArrayList<CServicioConSubServicios> getListaServicioconSubServicios() {
+		return listaServicioconSubServicios;
+	}
+	public void setListaServicioconSubServicios(ArrayList<CServicioConSubServicios> listaServicioconSubServicios) {
+		this.listaServicioconSubServicios = listaServicioconSubServicios;
+	}
+	public ArrayList<CActividad> getListaActividades() {
+		return listaActividades;
+	}
+	public void setListaActividades(ArrayList<CActividad> listaActividades) {
+		this.listaActividades = listaActividades;
+	}
+	public ArrayList<CSubServicio> getListasubServicios() {
+		return listasubServicios;
+	}
+	public void setListasubServicios(ArrayList<CSubServicio> listasubServicios) {
+		this.listasubServicios = listasubServicios;
 	}
 	public void setFechaInicio(String fechaInicio) {
 		this.fechaInicio = fechaInicio;
@@ -277,6 +308,94 @@ public class reportePagosVM {
 		BindUtils.postNotifyChange(null, null, servicio,"listaServicios");
 		BindUtils.postNotifyChange(null, null, servicio,"colornoExisteListaServicios");
 	}
+	@Command
+	@NotifyChange({"listaSubServicios","listaSubServiciosTemp","listaServiciosconSubServicios"})
+	public void habilitarSubServiciosPOP(@BindingParam("creserva") CReportePagos subServicio)
+	{
+		reportePagosDAO.asignarSubServiciosReserva(reportePagosDAO.recuperarSubServiciosReservaBD(subServicio.getCodReserva()));
+		this.setListasubServicios(reportePagosDAO.getListaSubServiciosReserva());
+		int valorincremento;
+		listaServicioconSubServicios=new ArrayList<CServicioConSubServicios>();
+		for(int i=0; i<listasubServicios.size();i=i+valorincremento)
+        {
+        	String ServicioAnterior=listasubServicios.get(i).getcNombreServicio();
+        	int contador=i;
+        	valorincremento=0;
+        	listaSubServiciosTemp=new ArrayList<CSubServicio>();
+        	while(contador<listasubServicios.size() && listasubServicios.get(contador).getcNombreServicio().equals(ServicioAnterior))
+        	{
+        		listaSubServiciosTemp.add(new CSubServicio(listasubServicios.get(contador).getcSubServicioIndioma1(),listasubServicios.get(contador).getnPrecioServicio()));
+        		valorincremento++;
+        		contador++;
+        		System.out.println("el valor de contador es:"+contador);
+        	}
+        	listaServicioconSubServicios.add(new CServicioConSubServicios(listasubServicios.get(i).getcNombreServicio().toString(),listaSubServiciosTemp));
+        	System.out.println("termina esto?");
+        }
+		subServicio.setListaServicioConSubServicios(listaServicioconSubServicios);
+		
+		if(!subServicio.getCodReserva().equals(reportePagosAnterior.getCodReserva()))
+		{
+			if(this.getListaServicioconSubServicios().isEmpty()){
+				subServicio.setVisibleSubServiciopop(false);
+				subServicio.setColornoExisteListaSubServicios("background: #DA0613;");
+			}
+			else{
+				subServicio.setVisibleSubServiciopop(true);
+				subServicio.setColornoExisteListaSubServicios("background: #3BA420;");
+			}
+			reportePagosAnterior.setVisibleSubServiciopop(false);
+			reportePagosAnterior=subServicio;
+		}
+		else {
+			subServicio.setVisibleHotelespop(true);
+			if(this.getListaServicioconSubServicios().isEmpty()){
+				subServicio.setVisibleSubServiciopop(false);
+				subServicio.setColornoExisteListaSubServicios("background: #DA0613;");
+			}
+			else{
+				subServicio.setVisibleSubServiciopop(true);
+				subServicio.setColornoExisteListaSubServicios("background: #3BA420;");
+			}
+		}
+		BindUtils.postNotifyChange(null, null, subServicio,"visibleSubServiciopop");
+		BindUtils.postNotifyChange(null, null, subServicio,"colornoExisteListaSubServicios");
+		BindUtils.postNotifyChange(null, null, subServicio,"listaServicioConSubServicios");
+	}
+	
+	@Command
+	@NotifyChange("listaActividades")
+	public void habilitarActividadesPOP(@BindingParam("creserva") CReportePagos actividades)
+	{
+		
+		System.out.println("entro a pasajeroVM");
+		reportePagosDAO.asignarActividadesReserva(reportePagosDAO.recuoperarActividadesReservaBD(actividades.getCodReserva()));
+		this.setListaActividades(reportePagosDAO.getListaActividadesReserva());
+		actividades.setListaActividades(this.getListaActividades());
+		if(!actividades.getCodReserva().equals(reportePagosAnterior.getCodReserva())){
+			if(this.getListaActividades().isEmpty()){
+				actividades.setVisibleActividadespop(false);
+				actividades.setColornoExisteListaActividades("background: #DA0613;");
+			}else{
+				actividades.setVisibleActividadespop(true);
+				actividades.setColornoExisteListaActividades("background: #3BA420;");
+			}
+			reportePagosAnterior.setVisibleActividadespop(false);
+			reportePagosAnterior=actividades;
+		}else{
+			if(this.getListaActividades().isEmpty()){
+				actividades.setVisibleActividadespop(false);
+				actividades.setColornoExisteListaActividades("background: #DA0613;");
+			}else{
+				actividades.setVisibleActividadespop(true);
+				actividades.setColornoExisteListaActividades("background: #3BA420;");
+			}
+		}
+		BindUtils.postNotifyChange(null, null, actividades,"visibleActividadespop");
+		BindUtils.postNotifyChange(null, null, actividades,"listaActividades");
+		BindUtils.postNotifyChange(null, null, actividades,"colornoExisteListaActividades");
+		System.out.println("entro a pasajeroVM fin");
+	}
 	
 	@Command
 	@NotifyChange("listaPasajeros")
@@ -358,8 +477,7 @@ public class reportePagosVM {
 			}
 			listaReportePagos.clear();
 			System.out.println("el valor de pago es:"+NombrePago);
-			reportePagosDAO.asignarVisaListaReportePagos(reportePagosDAO.recuperarPagosVisaBD(fechaInicio, fechaFinal,NombrePago));
-			reportePagosDAO.asignarVisaListaReportePagos(reportePagosDAO.recuperarPagosPaypalBD(fechaInicio,fechaFinal,NombrePago));
+			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarPagosBD(fechaInicio, fechaFinal,NombrePago));
 			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
 		}else{
 			Clients.showNotification("Eliga un ESTADO DE PAGO", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);

@@ -12,13 +12,8 @@ public class CReportePagos {
 	private Date fecha;
 	private String nombrePaquete;
 	private int nroPersonas;
-	private Number importe;
-	private Number porcentaje;
 	private String formaPago;
-	private String estado;
-	private Date fechayhoraTransaccion;
 	private String codTransaccion;
-	private String nombreCliente;
 	private String apellidos;
 	private String nombres;
 	private String sexo;
@@ -26,30 +21,76 @@ public class CReportePagos {
 	private String tipoDocumento;
 	private String nroDoc;
 	private String nombrePais;
-	private String nroTarjeta;
 	private String estadoReserva;
-	private String impuesto;
 	private ArrayList<CPasajero> listaPasajeros;
 	private int codCategoria;
 	private String colornoExisteListaDestinos;
 	private String colornoExisteListaHoteles;
 	private String colornoExisteListaServicios;
 	private String colornoExisteListaPasajeros;
+	private String colornoExisteListaSubServicios;
+	private String colornoExisteListaActividades;
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CHotel> listaHoteles;
 	private ArrayList<CServicio> listaServicios;
+	private ArrayList<CSubServicio> listasubServicios;
+	private ArrayList<CActividad> listaActividades;
 	private Double montoTotal;
 	private Double valorImpuesto;
 	private boolean visiblepasajerospop=false;
 	private boolean visibleDestinospop=false;
 	private boolean visibleHotelespop=false;
 	private boolean visibleServiciospop=false;
+	private boolean visibleActividadespop=false;
+	private boolean visibleSubServiciopop=false;
 	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
+	private ArrayList<CServicioConSubServicios> listaServicioConSubServicios;
 	//===============getter and setter=======
+	
 	public String getCodPago() {
 		return codPago;
 	}
 	
+	public ArrayList<CServicioConSubServicios> getListaServicioConSubServicios() {
+		return listaServicioConSubServicios;
+	}
+
+	public void setListaServicioConSubServicios(ArrayList<CServicioConSubServicios> listaServicioConSubServicios) {
+		this.listaServicioConSubServicios = listaServicioConSubServicios;
+	}
+
+	public ArrayList<CSubServicio> getListasubServicios() {
+		return listasubServicios;
+	}
+
+	public void setListasubServicios(ArrayList<CSubServicio> listasubServicios) {
+		this.listasubServicios = listasubServicios;
+	}
+
+	public ArrayList<CActividad> getListaActividades() {
+		return listaActividades;
+	}
+
+	public void setListaActividades(ArrayList<CActividad> listaActividades) {
+		this.listaActividades = listaActividades;
+	}
+
+	public boolean isVisibleActividadespop() {
+		return visibleActividadespop;
+	}
+
+	public void setVisibleActividadespop(boolean visibleActividadespop) {
+		this.visibleActividadespop = visibleActividadespop;
+	}
+
+	public boolean isVisibleSubServiciopop() {
+		return visibleSubServiciopop;
+	}
+
+	public void setVisibleSubServiciopop(boolean visibleSubServiciopop) {
+		this.visibleSubServiciopop = visibleSubServiciopop;
+	}
+
 	public void setCodPago(String codPago) {
 		this.codPago = codPago;
 	}
@@ -89,47 +130,17 @@ public class CReportePagos {
 	public void setNroPersonas(int nroPersonas) {
 		this.nroPersonas = nroPersonas;
 	}
-	public Number getImporte() {
-		return importe;
-	}
-	public void setImporte(Number importe) {
-		this.importe = importe;
-	}
-	public Number getPorcentaje() {
-		return porcentaje;
-	}
-	public void setPorcentaje(Number porcentaje) {
-		this.porcentaje = porcentaje;
-	}
 	public String getFormaPago() {
 		return formaPago;
 	}
 	public void setFormaPago(String formaPago) {
 		this.formaPago = formaPago;
 	}
-	public String getEstado() {
-		return estado;
-	}
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-	public Date getFechayhoraTransaccion() {
-		return fechayhoraTransaccion;
-	}
-	public void setFechayhoraTransaccion(Date fechayhoraTransaccion) {
-		this.fechayhoraTransaccion = fechayhoraTransaccion;
-	}
 	public String getCodTransaccion() {
 		return codTransaccion;
 	}
 	public void setCodTransaccion(String codTransaccion) {
 		this.codTransaccion = codTransaccion;
-	}
-	public String getNombreCliente() {
-		return nombreCliente;
-	}
-	public void setNombreCliente(String nombreCliente) {
-		this.nombreCliente = nombreCliente;
 	}
 	public String getApellidos() {
 		return apellidos;
@@ -170,12 +181,6 @@ public class CReportePagos {
 	public void setNombrePais(String nombrePais) {
 		this.nombrePais = nombrePais;
 	}
-	public String getNroTarjeta() {
-		return nroTarjeta;
-	}
-	public void setNroTarjeta(String nroTarjeta) {
-		this.nroTarjeta = nroTarjeta;
-	}
 	
 	public String getNroDoc() {
 		return nroDoc;
@@ -191,14 +196,6 @@ public class CReportePagos {
 
 	public void setEstadoReserva(String estadoReserva) {
 		this.estadoReserva = estadoReserva;
-	}
-	
-	public String getImpuesto() {
-		return impuesto;
-	}
-
-	public void setImpuesto(String impuesto) {
-		this.impuesto = impuesto;
 	}
 	
 	public ArrayList<CPasajero> getListaPasajeros() {
@@ -329,6 +326,23 @@ public class CReportePagos {
 			ArrayList<CDestinoConHoteles> listaDestinosconHoteles) {
 		this.listaDestinosconHoteles = listaDestinosconHoteles;
 	}
+	
+
+	public String getColornoExisteListaSubServicios() {
+		return colornoExisteListaSubServicios;
+	}
+
+	public void setColornoExisteListaSubServicios(String colornoExisteListaSubServicios) {
+		this.colornoExisteListaSubServicios = colornoExisteListaSubServicios;
+	}
+
+	public String getColornoExisteListaActividades() {
+		return colornoExisteListaActividades;
+	}
+
+	public void setColornoExisteListaActividades(String colornoExisteListaActividades) {
+		this.colornoExisteListaActividades = colornoExisteListaActividades;
+	}
 
 	//==================constructores==================
 	public CReportePagos()
@@ -337,31 +351,24 @@ public class CReportePagos {
 		this.codReserva = "";
 		this.nombrePaquete = "";
 		this.nroPersonas = 0;
-		this.importe = 0;
-		this.porcentaje =0;
 		this.formaPago = "";
-		this.estado = "";
 		this.codTransaccion = "";
-		this.nombreCliente = "";
 		this.apellidos = "";
 		this.nombres = "";
 		this.edad=0;
 		this.sexo="";
 		this.tipoDocumento = "";
 		this.nombrePais = "";
-		this.nroTarjeta = "";
 		this.nroDoc="";
 		this.estadoReserva="";
-		this.impuesto="";
 	}
 
 	public CReportePagos(String codReserva, Date fechaInicio,
 			Date fechaFin, Date fecha,int codCategoria,String nombrePaquete, int nroPersonas,
-			Number importe, Number porcentaje, String formaPago, String estado,
-			Date fechayhoraTransaccion,
-			String codTransaccion, String nombreCliente,
+			String formaPago,
+			String codTransaccion,
 			String apellidos, String nombres, String sexo,
-			String tipoDocumento,String nroDoc, String nombrePais, String nroTarjeta,String estadoReserva,String impuesto) {
+			String tipoDocumento,String nroDoc, String nombrePais,String estadoReserva) {
 		super();
 		this.codReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -370,24 +377,17 @@ public class CReportePagos {
 		this.codCategoria=codCategoria;
 		this.nombrePaquete = nombrePaquete;
 		this.nroPersonas = nroPersonas;
-		this.importe = importe;
-		this.porcentaje = porcentaje;
 		this.formaPago = formaPago;
-		this.estado = estado;
-		this.fechayhoraTransaccion = fechayhoraTransaccion;
 		this.codTransaccion = codTransaccion;
-		this.nombreCliente = nombreCliente;
 		this.apellidos = apellidos;
 		this.nombres = nombres;
 		this.sexo = sexo;
 		this.tipoDocumento = tipoDocumento;
 		this.nroDoc=nroDoc;
 		this.nombrePais = nombrePais;
-		this.nroTarjeta = nroTarjeta;
 		this.estadoReserva=estadoReserva;
-		this.impuesto=impuesto;
-		this.valorImpuesto=(Double.valueOf(impuesto)*importe.doubleValue())/100;
-	    this.montoTotal=importe.doubleValue()+this.valorImpuesto;
+//		this.valorImpuesto=(Double.valueOf(impuesto)*importe.doubleValue())/100;
+//	    this.montoTotal=importe.doubleValue()+this.valorImpuesto;
 	}
 	
 	
