@@ -114,7 +114,7 @@
 }
 
 .contenedor_3_pasos {
-	width: 50%; 
+	width: 100%; 
 	display : flex;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -123,7 +123,7 @@
 	display: flex;
 }
 .contendor_3_barras{
-	width: 50%;
+	width: 100%;
 }
 
 .imagenes_pasos {
@@ -1723,10 +1723,11 @@
 
 .div_pasos_progres_interno:BEFORE {
 	content: '';
-	border-bottom: 22px solid #d1d1d1;
-	border-top: 22px solid #d1d1d1;
+	border-bottom: 21px solid #d1d1d1;
+	border-top: 21px solid #d1d1d1;
 	/* 	border-left:10px solid transparente; */
 	border-left: 20px solid transparent;
+	border-right: 20px solid transparent;
 	top: 0;
 	left: -19px;
 	position: absolute;
@@ -1734,8 +1735,8 @@
 
 .div_pasos_final:BEFORE {
 	content: '';
-	border-bottom: 22px solid #d1d1d1;
-	border-top: 22px solid #d1d1d1;
+	border-bottom: 21px solid #d1d1d1;
+	border-top: 21px solid #d1d1d1;
 	/* 	border-left:10px solid transparente; */
 	border-left: 20px solid transparent;
 	top: 0;
@@ -1863,6 +1864,10 @@
 }
 .div_resumen_reserva_pasos.z-div {
 	width: 50%;
+}
+
+.subcontendor_barra_progreso{
+	width: 70%;
 }
 /*********************************************************************/
 /****************************FIN ESTILOS PRICING PASOS******************/
@@ -2058,6 +2063,9 @@
 		font-weight:bold; 
 		color:black;
 	}
+	.subcontendor_barra_progreso{
+		width: 100%;
+	}
 }
 
 .div_infoAdicional {
@@ -2182,6 +2190,9 @@
 		-moz-flex-direction: column;
 		-ms-flex-direction: column;
 		-o-flex-direction: column;
+	}
+	.subcontendor_barra_progreso{
+		width: 100% !important;
 	}
 }
 

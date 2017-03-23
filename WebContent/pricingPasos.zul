@@ -3,6 +3,24 @@
 <div sclass="div_contenedor_pricing" apply="org.zkoss.bind.BindComposer"
 	viewModel="@id('vmPricing') @init('com.pricing.viewModel.pricingVM')">
 	<div width="100%" zclass="contenedor_barra_progreso">
+	  <div zclass="subcontendor_barra_progreso">
+		<div width="100%" align="center"
+						sclass="div_titulo_paquete"
+						style="@bind(vmPricing.oInterfaz.style_div_TituloPaquete)">
+						<label
+							value="@bind(vmPricing.oReservar.oPaquete.titulo)"
+							sclass="style_lbl_tituloPaquete"
+							style="@bind(vmPricing.oInterfaz.style_lbl_TituloPaquete)" />
+						<div style="float:right;">
+							<image src="img/Flag-of-Spain.png"
+								sclass="style-flag"
+								onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)" />
+							<image src="img/en.png" sclass="style-flag"
+								onClick="@command('cambiarIdioma',idioma=2) @global-command('cambiarIdiomaDispo',idioma=2)" />
+						<!-- 					  <image src="img/Flag_of_Brazil.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=3) @global-command('cambiarIdiomaDispo',idioma=3)"/> -->
+						<!-- 					  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
+						</div>
+		</div>
 		<div zclass="contenedor_3_pasos">
 			<div zclass="div_pasos_inicio"
 				onClick="@command('cambioBarraPaso',nroPaso='1')">
@@ -14,7 +32,7 @@
 					style="color:#77BD37; font-size:26px;background: rgba(76, 175, 80, 0.3);"
 					visible="@bind(vmPricing.visibleNroPaso1)">
 				</label>
-				<label value="PASAJEROS Y FECHA"
+				<label value="@bind(vmPricing.etiqueta[237])"
 					zclass="titulo_pasos">
 				</label>
 				<image src="img/Icono_calendario.png"
@@ -31,7 +49,7 @@
 					style="color:#77BD37;font-size:26px;background: rgba(76, 175, 80, 0.3);"
 					visible="@bind(vmPricing.visibleNroPaso2)">
 				</label>
-				<label value="OPCIONES" zclass="titulo_pasos"></label>
+				<label value="@bind(vmPricing.etiqueta[238])" zclass="titulo_pasos"></label>
 				<image src="img/backpack_icon.png"
 					zclass="imagenes_pasos">
 				</image>
@@ -46,7 +64,7 @@
 					style="color:#77BD37;font-size:26px;background: rgba(76, 175, 80, 0.3);"
 					visible="@bind(vmPricing.visibleNroPaso3)">
 				</label>
-				<label value="RESUMEN Y PAGO" zclass="titulo_pasos"></label>
+				<label value="@bind(vmPricing.etiqueta[239])" zclass="titulo_pasos"></label>
 				<image src="img/credit-cards-icon.png"
 					zclass="imagenes_pasos">
 				</image>
@@ -67,25 +85,26 @@
 		<!-- 			 </div> -->
 		<div zclass="contendor_3_barras">
 			<div height="14px"></div>
-			<div height="8px" width="30.8%" style="background:#77BD37;"
+			<div height="8px" width="31.5%" style="background:#77BD37;"
 				visible="@bind(vmPricing.visibleBarraPaso1)">
 			</div>
 			<div width="100%" style="display:flex;">
-				<div width="32%"></div>
-				<div height="8px" width="33%"
+				<div width="32.5%"></div>
+				<div height="8px" width="33.3%"
 					style="background:#77BD37;"
 					visible="@bind(vmPricing.visibleBarraPaso2)">
 				</div>
 			</div>
 			<div width="100%" style="display:flex;">
-				<div width="34%"></div>
-				<div width="33%"></div>
-				<div height="8px" width="33%"
+				<div width="33.3%"></div>
+				<div width="33.3%"></div>
+				<div height="8px" width="33.3%"
 					style="background:#77BD37;"
 					visible="@bind(vmPricing.visibleBarraPaso3)">
 				</div>
 			</div>
 		</div>
+	   </div>
 		<separator spacing="20px"></separator>
 	</div>
 	<separator spacing="30px"></separator>
@@ -108,15 +127,6 @@
 					</hbox>
 				</div>
 				<div width="100%">
-					<div width="100%" align="center"
-						sclass="div_titulo_paquete"
-						style="@bind(vmPricing.oInterfaz.style_div_TituloPaquete)">
-						<label
-							value="@bind(vmPricing.oReservar.oPaquete.titulo)"
-							sclass="style_lbl_tituloPaquete"
-							style="@bind(vmPricing.oInterfaz.style_lbl_TituloPaquete)" />
-					</div>
-					<space></space>
 					<div sclass="div_fecha_pasajero" width="100%">
 						<div width="100%">
 							<groupbox
@@ -395,347 +405,6 @@
 						<label sclass="style_Step" value="2"
 							style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)" />
 					</caption>
-					<!-- LLENAR DATOS DE LOS PASAJEROS O SUBIR DOCUMENTOS (NO AMBOS A LA VEZ)-->
-					<groupbox>
-						<caption>
-							<a iconSclass="icon-profile"
-								sclass="titulo-groupbox" />
-							<label value="@bind(vmPricing.etiqueta[88])"
-								sclass="titulo-groupbox" />
-						</caption>
-						<!-- 					<div zclass="titulos_pasajeros visible-grande" style="@bind(vmPricing.oInterfaz.style_div_ColDatosPax)" visible="@bind(!vmPricing.oInterfaz.bLlenarDatosUnPax)"> -->
-						<!-- 						<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[68])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 						<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)"><label value="@bind(vmPricing.etiqueta[68])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 						<div sclass="div_tipoDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[69])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 						<div sclass="div_nroDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[70])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 						<div sclass="div_apellido" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[71])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 						<div sclass="div_nombre" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[72])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 						<div sclass="div_sexo" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[73])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 						<div sclass="div_edad" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[74])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 						<div sclass="div_pais" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[75])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-						<!-- 					</div> -->
-						<listbox width="100%" sclass="list_pasajeros"
-							model="@load(vmPricing.listaPasajeros)">
-							<listhead>
-								<listheader label="" />
-							</listhead>
-							<template name="model">
-								<listitem style="background:white;"
-									visible="@load(each.selectPasajero)">
-									<listcell
-										style="background:white;">
-										<div zclass="pasajeros"
-											width="100%">
-											<div zclass="div_nro_pax">
-												<label
-													value="@bind(each.nNro)" />
-											</div>
-											<div sclass="div_upload"
-												visible="@bind(vmPricing.oInterfaz.bSubirDocPax)">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[68])" />
-													<label value=": " />
-												</div>
-												<space
-													sclass="visible-small-item-pasajero" />
-												<vbox
-													visible="@bind(each.esEdit)">
-													<button
-														label="@bind(vmPricing.etiqueta[76])"
-														iconSclass="icon-upload"
-														onClick="@command('uploadFile',pasajero=each,compUpload=self)" />
-													<image
-														src="@load(each.cUrlMostrarDocumento)" width="70px"
-														height="50px" sclass="img_scan" />
-												</vbox>
-											</div>
-											<div sclass="div_upload"
-												visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[68])" />
-													<label value=": " />
-												</div>
-												<radiogroup
-													onCheck="@command('selectSubirDocScanneado',val=self.selectedItem.value,pasajero=each)">
-													<div
-														zclass="visible-grande">
-														<label
-															value="@bind(vmPricing.etiqueta[68])" />
-													</div>
-													<radio
-														label="@bind(vmPricing.etiqueta[48])" value="yes"
-														checked="@load(each.esEdit)">
-													</radio>
-													<radio
-														label="@bind(vmPricing.etiqueta[49])" value="no"
-														checked="@load(!each.esEdit)">
-													</radio>
-												</radiogroup>
-												<space
-													sclass="visible-small-item-pasajero" />
-												<vbox
-													visible="@bind(each.esEdit)">
-													<button
-														label="@bind(vmPricing.etiqueta[76])"
-														iconSclass="icon-upload"
-														onClick="@command('uploadFile',pasajero=each,compUpload=self)" />
-													<image
-														src="@load(each.cUrlMostrarDocumento)" width="70px"
-														height="50px" sclass="img_scan" />
-												</vbox>
-											</div>
-											<div sclass="div_tipoDoc"
-												visible="false">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[69])" />
-													<label value=": " />
-												</div>
-												<combobox
-													value="@bind(each.tipoDocumento)"
-													placeholder="@bind(vmPricing.etiqueta[84])"
-													onChange="@command('selectTipoDoc',codTipoDoc=self.selectedItem.value,nameDoc=self.selectedItem.label,pasajero=each,idCbTipoDoc=self)"
-													width="70px">
-													<comboitem
-														label="@bind(vmPricing.etiqueta[77])" value="1" />
-													<comboitem
-														label="@bind(vmPricing.etiqueta[78])" value="2" />
-													<comboitem
-														label="@bind(vmPricing.etiqueta[79])" value="3" />
-													<comboitem
-														label="@bind(vmPricing.etiqueta[80])" value="4" />
-													<comboitem
-														label="@bind(vmPricing.etiqueta[81])" value="5" />
-													<comboitem
-														label="@bind(vmPricing.etiqueta[82])" value="6" />
-													<comboitem
-														label="@bind(vmPricing.etiqueta[83])" value="7" />
-												</combobox>
-											</div>
-											<div sclass="div_nroDoc"
-												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[70])" />
-													<label value=": " />
-												</div>
-												<textbox
-													placeholder="@bind(vmPricing.etiqueta[85])"
-													value="@bind(each.cNroDoc)" width="100px"
-													onChange="@command('changeNroDoc',nro=self.value,idTbNroDoc=self,pasajero=each)"
-													style="text-transform: uppercase;" />
-											</div>
-											<div sclass="div_apellido"
-												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[71])" />
-													<label value=": " />
-												</div>
-												<textbox
-													placeholder="@bind(vmPricing.etiqueta[71])"
-													value="@bind(each.cApellidos)" width="150px"
-													onChange="@command('changeApellido',valor=self.value,idTbNombre=self,pasajero=each)"
-													style="text-transform: uppercase;" />
-											</div>
-											<div sclass="div_nombre"
-												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[72])" />
-													<label value=": " />
-												</div>
-												<textbox
-													placeholder="@bind(vmPricing.etiqueta[72])"
-													value="@bind(each.cNombres)" width="150px"
-													onChange="@command('changeNombre',valor=self.value,idTbNombre=self,pasajero=each)"
-													style="text-transform: uppercase;" />
-											</div>
-											<div sclass="div_sexo"
-												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[73])" />
-													<label value=": " />
-												</div>
-												<radiogroup width="65px"
-													onCheck="@command('selectOpcionSexo',sexo=self.selectedItem.value,pasajero=each)">
-													<div
-														zclass="visible-grande">
-														<label
-															value="@bind(vmPricing.etiqueta[73])" />
-													</div>
-													<radio
-														checked="@bind(each.selectM)"
-														label="@bind(vmPricing.etiqueta[86])" value="M" />
-													<radio
-														checked="@bind(each.selectF)"
-														label="@bind(vmPricing.etiqueta[87])" value="F" />
-												</radiogroup>
-											</div>
-											<div sclass="div_edad"
-												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[74])" />
-													<label value=": " />
-												</div>
-												<combobox
-													value="@bind(each.textoEdad)"
-													model="@load(vmPricing.listaEdades)"
-													onChange="@command('changeEdad',edad=self.value,pasajero=each,idCbEdad=self)"
-													width="50px">
-													<template
-														name="model" var="edad">
-														<comboitem
-															label="@load(edad)" value="@load(edad)" />
-													</template>
-												</combobox>
-											</div>
-											<div sclass="div_pais"
-												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-												<div
-													sclass="visible-small-item-pasajero" width="30%">
-													<label
-														value="@bind(vmPricing.etiqueta[75])" />
-													<label value=": " />
-												</div>
-												<combobox
-													model="@load(vmPricing.listaPaises)"
-													value="@bind(each.nombrePais)"
-													placeholder="@bind(vmPricing.etiqueta[75])"
-													onChange="@command('selectCodPais',codPais=self.selectedItem.value,pasajero=each,idCbPais=self)"
-													width="150px">
-													<template
-														name="model" var="pais">
-														<comboitem
-															label="@load(pais.cNombreEsp)"
-															value="@load(pais.nPaisCod)" />
-													</template>
-												</combobox>
-											</div>
-										</div>
-									</listcell>
-								</listitem>
-							</template>
-						</listbox>
-						<div zclass="div_contentAllInfoAdicional">
-							<div sclass="div_infoAdicional">
-								<div sclass="div_sub_infoAdicional">
-									<label
-										value="@bind(vmPricing.etiqueta[89])"
-										sclass="pasajeros_datos_add_text" />
-								</div>
-								<combobox width="240px"
-									value="@bind(vmPricing.oReservar.cContacto)"
-									placeholder="@bind(vmPricing.etiqueta[92])"
-									onChange="@command('changeContacto',contac=self.selectedItem.value,idTbContacto=self)"
-									style="text-transform: uppercase;"
-									model="@bind(vmPricing.listaPasajeros)" readonly="true"
-									visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
-									<template name="model"
-										var="pasajero">
-										<comboitem
-											label="@bind(pasajero.nombres_Apellidos)"
-											value="@bind(pasajero.nombres_Apellidos)"
-											visible="@bind(pasajero.selectPasajero)" />
-									</template>
-								</combobox>
-								<combobox width="240px"
-									value="@bind(vmPricing.oReservar.cContacto)"
-									placeholder="@bind(vmPricing.etiqueta[92])"
-									onChange="@command('changeContacto',contac=self.selectedItem.value,idTbContacto=self)"
-									style="text-transform: uppercase;"
-									model="@bind(vmPricing.listaPasajeros)" readonly="true"
-									visible=" @bind(vmPricing.oInterfaz.bSubirDoc_O_llenarDatosPax)">
-									<template name="model"
-										var="pasajero">
-										<comboitem
-											label="@bind(pasajero.nombres_Apellidos)"
-											value="@bind(pasajero.nombres_Apellidos)"
-											visible="@bind(pasajero.selectPasajero)" />
-									</template>
-								</combobox>
-								<textbox width="240px"
-									visible=" @bind(vmPricing.oInterfaz.bLlenarDatosUnPax)"
-									value="@bind(vmPricing.oReservar.cContacto)"
-									placeholder="@bind(vmPricing.etiqueta[92])"
-									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)"
-									style="text-transform: uppercase;" />
-								<textbox width="240px"
-									visible="@bind(vmPricing.oInterfaz.bSubirDocPax)"
-									value="@bind(vmPricing.oReservar.cContacto)"
-									placeholder="@bind(vmPricing.etiqueta[92])"
-									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)"
-									style="text-transform: uppercase;" />
-							</div>
-							<div sclass="div_infoAdicional"
-								visible="@bind(vmPricing.oInterfaz.bLlenarDatosUnPax)">
-								<div sclass="div_sub_infoAdicional">
-									<label
-										value="@bind(vmPricing.etiqueta[75])"
-										sclass="pasajeros_datos_add_text" />
-									<label value=":"
-										sclass="pasajeros_datos_add_text" />
-								</div>
-								<combobox
-									model="@load(vmPricing.listaPaises)"
-									value="@bind(vmPricing.oReservar.oPasajeroReservante.nombrePais)"
-									placeholder="@bind(vmPricing.etiqueta[75])"
-									onChange="@command('selectPaisReservante',codPais=self.selectedItem.value,idCbPais=self)"
-									width="150px">
-									<template name="model" var="pais">
-										<comboitem
-											label="@load(pais.cNombreEsp)" value="@load(pais.nPaisCod)" />
-									</template>
-								</combobox>
-							</div>
-							<div sclass="div_infoAdicional">
-								<div sclass="div_sub_infoAdicional">
-									<label
-										value="@bind(vmPricing.etiqueta[90])"
-										sclass="pasajeros_datos_add_text" />
-								</div>
-								<textbox id="tbMail" width="240px"
-									value="@bind(vmPricing.oReservar.cEmail)"
-									onChange="@command('changeMail',mail=self.value,idTbMail=tbMail)"
-									placeholder="@bind(vmPricing.etiqueta[93])" />
-							</div>
-							<div sclass="div_infoAdicional">
-								<div sclass="div_sub_infoAdicional">
-									<label
-										value="@bind(vmPricing.etiqueta[91])"
-										sclass="pasajeros_datos_add_text" />
-								</div>
-								<textbox id="tbTelefono" width="240px"
-									value="@bind(vmPricing.oReservar.cTelefono)"
-									onChange="@command('changeTelefono',telefono=self.value,idTbTelf=tbTelefono)"
-									placeholder="@bind(vmPricing.etiqueta[94])" />
-							</div>
-							<div sclass="div_infoAdicional">
-								<div sclass="div_sub_infoAdicional">
-									<label
-										value="@bind(vmPricing.etiqueta[95])"
-										sclass="pasajeros_datos_add_text" />
-								</div>
-								<textbox multiline="true" width="250px"
-									height="150px" style="margin:0px"
-									placeholder="@bind(vmPricing.etiqueta[96])"
-									value="@bind(vmPricing.oReservar.cInformacionAdicional)" />
-							</div>
-						</div>
-					</groupbox>
-					<space></space>
 					<groupbox visible="@bind(vmPricing.btnHoteles)">
 						<caption>
 							<a iconSclass="icon-office"
@@ -1260,6 +929,347 @@
 							</listbox>
 						</div>
 					</groupbox>
+					<space></space>
+					<!-- LLENAR DATOS DE LOS PASAJEROS O SUBIR DOCUMENTOS (NO AMBOS A LA VEZ)-->
+					<groupbox>
+						<caption>
+							<a iconSclass="icon-profile"
+								sclass="titulo-groupbox" />
+							<label value="@bind(vmPricing.etiqueta[88])"
+								sclass="titulo-groupbox" />
+						</caption>
+						<!-- 					<div zclass="titulos_pasajeros visible-grande" style="@bind(vmPricing.oInterfaz.style_div_ColDatosPax)" visible="@bind(!vmPricing.oInterfaz.bLlenarDatosUnPax)"> -->
+						<!-- 						<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[68])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)"><label value="@bind(vmPricing.etiqueta[68])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_tipoDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[69])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_nroDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[70])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_apellido" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[71])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_nombre" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[72])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_sexo" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[73])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_edad" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[74])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_pais" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[75])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 					</div> -->
+						<listbox width="100%" sclass="list_pasajeros"
+							model="@load(vmPricing.listaPasajeros)">
+							<listhead>
+								<listheader label="" />
+							</listhead>
+							<template name="model">
+								<listitem style="background:white;"
+									visible="@load(each.selectPasajero)">
+									<listcell
+										style="background:white;">
+										<div zclass="pasajeros"
+											width="100%">
+											<div zclass="div_nro_pax">
+												<label
+													value="@bind(each.nNro)" />
+											</div>
+											<div sclass="div_upload"
+												visible="@bind(vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[68])" />
+													<label value=": " />
+												</div>
+												<space
+													sclass="visible-small-item-pasajero" />
+												<vbox
+													visible="@bind(each.esEdit)">
+													<button
+														label="@bind(vmPricing.etiqueta[76])"
+														iconSclass="icon-upload"
+														onClick="@command('uploadFile',pasajero=each,compUpload=self)" />
+													<image
+														src="@load(each.cUrlMostrarDocumento)" width="70px"
+														height="50px" sclass="img_scan" />
+												</vbox>
+											</div>
+											<div sclass="div_upload"
+												visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[68])" />
+													<label value=": " />
+												</div>
+												<radiogroup
+													onCheck="@command('selectSubirDocScanneado',val=self.selectedItem.value,pasajero=each)">
+													<div
+														zclass="visible-grande">
+														<label
+															value="@bind(vmPricing.etiqueta[68])" />
+													</div>
+													<radio
+														label="@bind(vmPricing.etiqueta[48])" value="yes"
+														checked="@load(each.esEdit)">
+													</radio>
+													<radio
+														label="@bind(vmPricing.etiqueta[49])" value="no"
+														checked="@load(!each.esEdit)">
+													</radio>
+												</radiogroup>
+												<space
+													sclass="visible-small-item-pasajero" />
+												<vbox
+													visible="@bind(each.esEdit)">
+													<button
+														label="@bind(vmPricing.etiqueta[76])"
+														iconSclass="icon-upload"
+														onClick="@command('uploadFile',pasajero=each,compUpload=self)" />
+													<image
+														src="@load(each.cUrlMostrarDocumento)" width="70px"
+														height="50px" sclass="img_scan" />
+												</vbox>
+											</div>
+											<div sclass="div_tipoDoc"
+												visible="false">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[69])" />
+													<label value=": " />
+												</div>
+												<combobox
+													value="@bind(each.tipoDocumento)"
+													placeholder="@bind(vmPricing.etiqueta[84])"
+													onChange="@command('selectTipoDoc',codTipoDoc=self.selectedItem.value,nameDoc=self.selectedItem.label,pasajero=each,idCbTipoDoc=self)"
+													width="70px">
+													<comboitem
+														label="@bind(vmPricing.etiqueta[77])" value="1" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[78])" value="2" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[79])" value="3" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[80])" value="4" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[81])" value="5" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[82])" value="6" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[83])" value="7" />
+												</combobox>
+											</div>
+											<div sclass="div_nroDoc"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[70])" />
+													<label value=": " />
+												</div>
+												<textbox
+													placeholder="@bind(vmPricing.etiqueta[85])"
+													value="@bind(each.cNroDoc)" width="100px"
+													onChange="@command('changeNroDoc',nro=self.value,idTbNroDoc=self,pasajero=each)"
+													style="text-transform: uppercase;" />
+											</div>
+											<div sclass="div_apellido"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[71])" />
+													<label value=": " />
+												</div>
+												<textbox
+													placeholder="@bind(vmPricing.etiqueta[71])"
+													value="@bind(each.cApellidos)" width="150px"
+													onChange="@command('changeApellido',valor=self.value,idTbNombre=self,pasajero=each)"
+													style="text-transform: uppercase;" />
+											</div>
+											<div sclass="div_nombre"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[72])" />
+													<label value=": " />
+												</div>
+												<textbox
+													placeholder="@bind(vmPricing.etiqueta[72])"
+													value="@bind(each.cNombres)" width="150px"
+													onChange="@command('changeNombre',valor=self.value,idTbNombre=self,pasajero=each)"
+													style="text-transform: uppercase;" />
+											</div>
+											<div sclass="div_sexo"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[73])" />
+													<label value=": " />
+												</div>
+												<radiogroup width="65px"
+													onCheck="@command('selectOpcionSexo',sexo=self.selectedItem.value,pasajero=each)">
+													<div
+														zclass="visible-grande">
+														<label
+															value="@bind(vmPricing.etiqueta[73])" />
+													</div>
+													<radio
+														checked="@bind(each.selectM)"
+														label="@bind(vmPricing.etiqueta[86])" value="M" />
+													<radio
+														checked="@bind(each.selectF)"
+														label="@bind(vmPricing.etiqueta[87])" value="F" />
+												</radiogroup>
+											</div>
+											<div sclass="div_edad"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[74])" />
+													<label value=": " />
+												</div>
+												<combobox
+													value="@bind(each.textoEdad)"
+													model="@load(vmPricing.listaEdades)"
+													onChange="@command('changeEdad',edad=self.value,pasajero=each,idCbEdad=self)"
+													width="50px">
+													<template
+														name="model" var="edad">
+														<comboitem
+															label="@load(edad)" value="@load(edad)" />
+													</template>
+												</combobox>
+											</div>
+											<div sclass="div_pais"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[75])" />
+													<label value=": " />
+												</div>
+												<combobox
+													model="@load(vmPricing.listaPaises)"
+													value="@bind(each.nombrePais)"
+													placeholder="@bind(vmPricing.etiqueta[75])"
+													onChange="@command('selectCodPais',codPais=self.selectedItem.value,pasajero=each,idCbPais=self)"
+													width="150px">
+													<template
+														name="model" var="pais">
+														<comboitem
+															label="@load(pais.cNombreEsp)"
+															value="@load(pais.nPaisCod)" />
+													</template>
+												</combobox>
+											</div>
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+						<div zclass="div_contentAllInfoAdicional">
+							<div sclass="div_infoAdicional">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[89])"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<combobox width="240px"
+									value="@bind(vmPricing.oReservar.cContacto)"
+									placeholder="@bind(vmPricing.etiqueta[92])"
+									onChange="@command('changeContacto',contac=self.selectedItem.value,idTbContacto=self)"
+									style="text-transform: uppercase;"
+									model="@bind(vmPricing.listaPasajeros)" readonly="true"
+									visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
+									<template name="model"
+										var="pasajero">
+										<comboitem
+											label="@bind(pasajero.nombres_Apellidos)"
+											value="@bind(pasajero.nombres_Apellidos)"
+											visible="@bind(pasajero.selectPasajero)" />
+									</template>
+								</combobox>
+								<combobox width="240px"
+									value="@bind(vmPricing.oReservar.cContacto)"
+									placeholder="@bind(vmPricing.etiqueta[92])"
+									onChange="@command('changeContacto',contac=self.selectedItem.value,idTbContacto=self)"
+									style="text-transform: uppercase;"
+									model="@bind(vmPricing.listaPasajeros)" readonly="true"
+									visible=" @bind(vmPricing.oInterfaz.bSubirDoc_O_llenarDatosPax)">
+									<template name="model"
+										var="pasajero">
+										<comboitem
+											label="@bind(pasajero.nombres_Apellidos)"
+											value="@bind(pasajero.nombres_Apellidos)"
+											visible="@bind(pasajero.selectPasajero)" />
+									</template>
+								</combobox>
+								<textbox width="240px"
+									visible=" @bind(vmPricing.oInterfaz.bLlenarDatosUnPax)"
+									value="@bind(vmPricing.oReservar.cContacto)"
+									placeholder="@bind(vmPricing.etiqueta[92])"
+									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)"
+									style="text-transform: uppercase;" />
+								<textbox width="240px"
+									visible="@bind(vmPricing.oInterfaz.bSubirDocPax)"
+									value="@bind(vmPricing.oReservar.cContacto)"
+									placeholder="@bind(vmPricing.etiqueta[92])"
+									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)"
+									style="text-transform: uppercase;" />
+							</div>
+							<div sclass="div_infoAdicional"
+								visible="@bind(vmPricing.oInterfaz.bLlenarDatosUnPax)">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[75])"
+										sclass="pasajeros_datos_add_text" />
+									<label value=":"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<combobox
+									model="@load(vmPricing.listaPaises)"
+									value="@bind(vmPricing.oReservar.oPasajeroReservante.nombrePais)"
+									placeholder="@bind(vmPricing.etiqueta[75])"
+									onChange="@command('selectPaisReservante',codPais=self.selectedItem.value,idCbPais=self)"
+									width="150px">
+									<template name="model" var="pais">
+										<comboitem
+											label="@load(pais.cNombreEsp)" value="@load(pais.nPaisCod)" />
+									</template>
+								</combobox>
+							</div>
+							<div sclass="div_infoAdicional">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[90])"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<textbox id="tbMail" width="240px"
+									value="@bind(vmPricing.oReservar.cEmail)"
+									onChange="@command('changeMail',mail=self.value,idTbMail=tbMail)"
+									placeholder="@bind(vmPricing.etiqueta[93])" />
+							</div>
+							<div sclass="div_infoAdicional">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[91])"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<textbox id="tbTelefono" width="240px"
+									value="@bind(vmPricing.oReservar.cTelefono)"
+									onChange="@command('changeTelefono',telefono=self.value,idTbTelf=tbTelefono)"
+									placeholder="@bind(vmPricing.etiqueta[94])" />
+							</div>
+							<div sclass="div_infoAdicional">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[95])"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<textbox multiline="true" width="250px"
+									height="150px" style="margin:0px"
+									placeholder="@bind(vmPricing.etiqueta[96])"
+									value="@bind(vmPricing.oReservar.cInformacionAdicional)" />
+							</div>
+						</div>
+					</groupbox>
 				</groupbox>
 				<separator></separator>
 				<div sclass="contenedor_btn_pasos">
@@ -1281,19 +1291,10 @@
 		<!-- ======RESUMEN Y CONFIRMACION====== -->
 		<div sclass="div_resumen_reserva_pasos"
 			visible="@bind(vmPricing.visiblePaso3)">
-			<div sclass="div-logoPaises visible-grande" width="100%"
-				style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)">
-				<div style="float:right;">
-					<image src="img/Flag-of-Spain.png"
-						sclass="style-flag"
-						onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)" />
-					<image src="img/en.png" sclass="style-flag"
-						onClick="@command('cambiarIdioma',idioma=2) @global-command('cambiarIdiomaDispo',idioma=2)" />
-					<!-- 					  <image src="img/Flag_of_Brazil.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=3) @global-command('cambiarIdiomaDispo',idioma=3)"/> -->
-					<!-- 					  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
-				</div>
-				<space></space>
-			</div>
+<!-- 			<div sclass="div-logoPaises visible-grande" width="100%" -->
+<!-- 				style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)"> -->
+<!-- 				<space></space> -->
+<!-- 			</div> -->
 			<div width="100%">
 				<groupbox mold="3d"
 					visible="@bind(vmPricing.visiblePaso3)">
@@ -1511,7 +1512,7 @@
 											<listheader label="" />
 										</listhead>
 										<template name="model">
-											<listitem>
+											<listitem visible="@load(each.seleccionado)">
 												<listcell
 													zclass="list_costoServicios">
 													<div
@@ -1586,7 +1587,7 @@
 											<listheader label="" />
 										</listhead>
 										<template name="model">
-											<listitem>
+											<listitem visible="@load(each.seleccionado)">
 												<listcell
 													zclass="list_costoServicios">
 													<div

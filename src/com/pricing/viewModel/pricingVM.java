@@ -1338,9 +1338,6 @@ public class pricingVM
 				estiloPaso1="background:#72CB2E;";
 				estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
 				estiloPaso3="background:transparent;";
-				visibleNroPaso1=true;
-				visibleNroPaso2=false;
-				visibleNroPaso3=false;
 		}else if(nroPaso.equals("2")){
 			if(validoPaso1(comp)){
 				visibleBtnAtras=true;
@@ -1356,9 +1353,7 @@ public class pricingVM
 				estiloPaso2="background:#72CB2E;";
 				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
 				visibleNroPaso1=true;
-				visibleNroPaso2=true;
-				visibleNroPaso3=false;
-			}else{return;}
+			}else return;
 		}else if(nroPaso.equals("3")){
 			if(validoPaso2(comp)){
 				visibleBtnAtras=true;
@@ -1375,8 +1370,7 @@ public class pricingVM
 				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
 				visibleNroPaso1=true;
 				visibleNroPaso2=true;
-				visibleNroPaso3=false;
-			}else{return;}
+			}else return;
 		}
 		
 	}
