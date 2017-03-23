@@ -584,6 +584,75 @@ begin
 end
 $$
 language plpgsql;
+/*======modificar estado usuario======*/
+  CREATE OR REPLACE FUNCTION Pricing_sp_ModificarEstadoUsuario
+(
+	usuariocod varchar(150),
+	estado boolean
+)
+RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codUsuario varchar(150)) as
+$$
+begin
+	codUsuario=$1;
+	update tusuario set bestado=$2 where cusuariocod=$1;
+	resultado='correcto';
+	mensaje='Datos Actualizados Correctamente';
+	return Query select resultado,mensaje,codUsuario;
+end
+$$
+LANGUAGE plpgsql;
+/**MODIFICAR IMPUESTOS**/
+CREATE OR REPLACE FUNCTION Pricing_sp_ModificarImpuesto
+(
+	nCodImpuesto int,
+	cImpuestoPaypal varchar(5),
+	cImpuestoVisa varchar(5),
+	cImpuestoMasterCard varchar(5),
+	cImpuestoDinnersClub varchar(5),
+	cPorcentajeCobro varchar(5)
+)
+RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codImp int) as
+$$
+begin
+	codImp=$1;
+	update timpuesto set impuestopaypal=$2,
+			impuestovisa=$3,impuestomastercard=$4,impuestodinnersclub=$5,
+			porcentajecobro=$6 where codimpuesto=$1;
+	resultado='correcto';
+	mensaje='Datos Actualizados Correctamente';
+	return Query select resultado,mensaje,codImp;
+end
+$$
+LANGUAGE plpgsql;
+ /*======modificar datos usuario======*/
+   create or replace function Pricing_sp_ModificarDatosUsuario
+ (
+	clave varchar(128),
+	nperfilcod int,
+	imgusuario varchar(200),
+	nrodoc varchar(12),
+	nombres varchar(150),
+	sexo varchar(1),
+	fechaNacimiento Date,
+	celular varchar(50),
+	fechaInicio Date,
+	correo varchar(100),
+	codusuario varchar(150)
+ )
+ RETURNS table(resultado varchar(20), mensaje varchar(200), usuariocod varchar(150)) as
+ $$
+declare
+	usuariocod varchar(150);
+begin
+		usuariocod=(select cusuariocod from tusuario where cusuariocod=$11);
+		update tusuario set  cclave=$1,nperfilcod=$2,imgusuario=$3,cnrodoc=$4,
+		cnombres=$5,csexo=$6,dfechanac=$7,ccelular=$8,dfechainicio=$9,ccorreo=$10,bestado=true where cusuariocod=$11;
+		resultado='correcto';
+		mensaje='Datos Actualizados Correctamente';
+		return Query select resultado,mensaje,usuariocod;
+end
+$$
+LANGUAGE plpgsql;
 --**************************************
 create or replace function Pricing_sp_ModificarPaqueteDestino
 (
@@ -705,6 +774,24 @@ $$
 begin
 	galeriaCod=$1;
 	update tgaleriahotel set bestado=$2 where ngaleriahotelcod=$1;
+	resultado='correcto';
+	mensaje='Datos no Actualizados';
+	return Query select resultado,mensaje,galeriaCod;
+end 
+$$
+language plpgsql;
+/**MODIFICAR ESTADO DE LAS GALERIAS DEL PAQUETE**/
+/**********************************************/
+CREATE OR REPLACE FUNCTION Pricing_sp_ModificarGaleriaPaquete
+(
+	codGaleria int,
+	estado boolean
+)
+returns table(resultado varchar(20),mensaje varchar(200),galeriaCod int)as
+$$
+begin
+	galeriaCod=$1;
+	update tgaleriapaquete set bestado=$2 where ngaleriapaquetecod=$1;
 	resultado='correcto';
 	mensaje='Datos no Actualizados';
 	return Query select resultado,mensaje,galeriaCod;

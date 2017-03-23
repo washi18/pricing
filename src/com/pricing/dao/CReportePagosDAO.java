@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.pricing.model.CActividad;
 import com.pricing.model.CDestino;
 import com.pricing.model.CEstadistica_Pagos;
 import com.pricing.model.CHotel;
@@ -12,6 +13,7 @@ import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
+import com.pricing.model.CSubServicio;
 
 public class CReportePagosDAO  extends CConexion{
 	//==============atributos===================
@@ -22,9 +24,24 @@ public class CReportePagosDAO  extends CConexion{
 	private ArrayList<CServicio> listaServiciosReserva;
 	private ArrayList<CPasajero> listaPasajerosReserva;
 	private ArrayList<CEstadistica_Pagos> listaformasPagos;
+	private ArrayList<CActividad> listaActividadesReserva;
+	private ArrayList<CSubServicio> listaSubServiciosReserva;
 	//=================getter and setter=============
+	
 	public ArrayList<CReportePagos> getListaReportePagos() {
 		return listaReportePagos;
+	}
+	public ArrayList<CActividad> getListaActividadesReserva() {
+		return listaActividadesReserva;
+	}
+	public void setListaActividadesReserva(ArrayList<CActividad> listaActividadesReserva) {
+		this.listaActividadesReserva = listaActividadesReserva;
+	}
+	public ArrayList<CSubServicio> getListaSubServiciosReserva() {
+		return listaSubServiciosReserva;
+	}
+	public void setListaSubServiciosReserva(ArrayList<CSubServicio> listaSubServiciosReserva) {
+		this.listaSubServiciosReserva = listaSubServiciosReserva;
 	}
 	public ArrayList<CEstadistica_Pagos> getListaformasPagos() {
 		return listaformasPagos;
@@ -92,6 +109,11 @@ public class CReportePagosDAO  extends CConexion{
 		String[] values={fechaInicio,fechaFinal,estado};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarPagosPaypalEntreFechasBD",values);
 	}
+	public List recuperarPagosBD(String fechaInicio,String fechaFinal,String estado)
+	{
+		String[] values={fechaInicio,fechaFinal,estado};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarReservasPagados",values);
+	}
 	public List recuperarDestinosReservaBD(String codReserva)
 	{
 		String[] values={codReserva};
@@ -120,23 +142,31 @@ public class CReportePagosDAO  extends CConexion{
 		String []values={codReserva};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_buscarpasajerosreserva",values);
 	}
+	public List recuperarSubServiciosReservaBD(String codReserva)
+	{
+		String[] values={codReserva};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_buscarsubserviciosreserva",values);
+	}
+	public List recuoperarActividadesReservaBD(String codReserva){
+		String []values={codReserva};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_buscaractividadesreserva",values);
+	}
 	//=====este metodo asigna tanto para visa y tanto para paypal=====
-	public void asignarVisaListaReportePagos(List lista)
+	public void asignarListaReportePagos(List lista)
 	{
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
 			listaReportePagos.add(new CReportePagos((String)row.get("creservacod"),(Date)row.get("dfechainicio"), 
 					(Date)row.get("dfechafin"),(Date)row.get("dfecha"),(int)row.get("categoriahotelcod"),
-					(String)row.get("ctituloidioma1"),(int)row.get("nnropersonas"),
-					(Number)row.get("nimporte"),(Number)row.get("nporcentaje"),(String)row.get("formapago"),
-					(String)row.get("estado"),(Date)row.get("fechayhora_initx"),(String)row.get("codtransaccion"),
-					(String)row.get("nom_th"),(String)row.get("capellidos"),
+					(String)row.get("ctituloidioma1"),(int)row.get("nnropersonas"),(String)row.get("cmetodopago"),
+					(String)row.get("ccodtransaccion"),
+					(String)row.get("capellidos"),
 					(String)row.get("cnombres"),
 					(String)row.get("csexo"),
 					(String)row.get("cabrevtipodoc"),(String)row.get("cnrodoc"),
 					(String)row.get("cnombreesp"),
-					(String)row.get("nro_tarjeta"),(String)row.get("cestado"),(String)row.get("impuesto")));
+					(String)row.get("cestado")));
 		}
 	}
 	
@@ -191,5 +221,21 @@ public class CReportePagosDAO  extends CConexion{
 					(String)row.get("cnombres"),(String)row.get("cnombreesp"),(int)row.get("nedad"),(String)row.get("cnrodoc"),(String)row.get("csexo")));
 		}
 		System.out.println("entro a pasajero fin");
+	}
+	public void asignarSubServiciosReserva(List lista)
+	{
+		listaSubServiciosReserva=new ArrayList<CSubServicio>();
+		for(int i=0;i<lista.size();i++)
+		{
+			Map row=(Map)lista.get(i);
+			listaSubServiciosReserva.add(new CSubServicio((String)row.get("csubservicioindioma1"),(Number)row.get("nprecioservicio"),(String)row.get("cservicioindioma1")));
+		}
+	}
+	public void asignarActividadesReserva(List lista){
+		listaActividadesReserva=new ArrayList<CActividad>();
+		for(int i=0;i<lista.size();i++){
+				Map row=(Map)lista.get(i);
+				listaActividadesReserva.add(new CActividad((String)row.get("cactividadidioma1"),(Number)row.get("nprecioactividad")));
+		}
 	}
 }

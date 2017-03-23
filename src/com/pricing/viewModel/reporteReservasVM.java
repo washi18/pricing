@@ -496,12 +496,14 @@ public class reporteReservasVM {
 	
 	@Command
 	@NotifyChange({"listaReporteReserva"})
-	public void ModificarReporteReserva(@BindingParam("reporteReserva")CReporteReserva reporteReserva){
+	public void ModificarReporteReserva(@BindingParam("reporteReserva")CReporteReserva reporteReserva,@BindingParam("comp")Component comp){
+		if(!validoParaModificar(reporteReserva, comp))
+			return;
 		boolean correcto=reporteReservaDAO.isOperationCorrect(reporteReservaDAO.modificarEstadoReserva(reporteReserva.getCodReserva(), reporteReserva.getEstado(),reporteReserva.getMetodoPago(),reporteReserva.getCodTransaccion()));
 		if(correcto)
-			Clients.showNotification("La reserva fue marcada como pagado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, null,"after_start",3700);
+			Clients.showNotification("La reserva fue marcado pagado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, comp,"after_start",3700);
 		else
-			Clients.showNotification("La operacion fue fallida", Clients.NOTIFICATION_TYPE_ERROR, null,"after_start",3700);
+			Clients.showNotification("La operacion fue fallida", Clients.NOTIFICATION_TYPE_ERROR, comp,"after_start",3700);
 		if(FechaInicio.isEmpty() && FechaFinal.isEmpty()){
 			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasInicialBD(fechaActual));
 			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
@@ -530,6 +532,23 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoTotal");
 	}
 	
+	public boolean validoParaModificar(CReporteReserva reserva,Component comp){
+		boolean valido=true;
+		if(!reserva.isPagoParte() && !reserva.isPagoTotal()){
+			valido=false;
+			Clients.showNotification("El Pago debe debe ser parcial o total", Clients.NOTIFICATION_TYPE_ERROR,
+					comp, "before_start", 2700);
+		}else if(reserva.getMetodoPago()==null){
+			valido=false;
+			Clients.showNotification("El pago debe de tener un metodo de pago", Clients.NOTIFICATION_TYPE_ERROR,
+					comp, "before_start", 2700);
+		}else if(reserva.getCodTransaccion()==null){
+			valido=false;
+			Clients.showNotification("El pago debe de tener un codigo de transaccion", Clients.NOTIFICATION_TYPE_ERROR,
+					comp, "before_start", 2700);
+		}
+		return valido;
+	}
 	@Command
 	@NotifyChange({"listaReporteReserva","reporteReserva"})
 	public void Buscar_Reservas(@BindingParam("componente")Component componente)

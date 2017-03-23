@@ -71,38 +71,38 @@
 					    			<space orient="horizontal"></space>
 					    			<div sclass="div_destinos">
 					    			  <div class="contiene_botones_reserva">
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarPasajerosPOP',creserva=each)" style="@bind(each.colornoExisteListaPasajeros)">
+							    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista pasajeros reserva" width="32%" onClick="@command('habilitarPasajerosPOP',creserva=each)" style="@bind(each.colornoExisteListaPasajeros)">
 							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
 							    			<space orient="vertical"></space>
 							    			<span sclass="icon-users estilos-iconos"></span>
 							    		</div>
 							    		<space orient="vertical"></space>
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarDestinosPOP',creserva=each)" style="@bind(each.colornoExisteListaDestinos)">
+							    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista destinos reserva" width="32%" onClick="@command('habilitarDestinosPOP',creserva=each)" style="@bind(each.colornoExisteListaDestinos)">
 							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
 							    			<space orient="vertical"></space>
 							    			<span sclass="icon-airplane estilos-iconos" ></span>
 							    		</div>
 							    		<space orient="vertical"></space>
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarHotelesPOP',creserva=each)" style="@bind(each.colornoExisteListaHoteles)">
+							    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista hoteles reserva" width="32%" onClick="@command('habilitarHotelesPOP',creserva=each)" style="@bind(each.colornoExisteListaHoteles)">
 							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
 							    			<space orient="vertical"></space>
 							    			<span sclass="icon-office estilos-iconos" ></span>
 							    		</div>
 							    	</div>
 							    	 <div class="contiene_botones_reserva">
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarServiciosPOP',creserva=each)" style="@bind(each.colornoExisteListaServicios)">
+							    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista servicios reserva" width="32%" onClick="@command('habilitarServiciosPOP',creserva=each)" style="@bind(each.colornoExisteListaServicios)">
 							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
 							    			<space orient="vertical"></space>
 							    			<span sclass="icon-cogs estilos-iconos"></span>
 							    		</div>
 							    		<space orient="vertical"></space>
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarSubServiciosPOP',creserva=each)" style="@bind(each.colornoExisteListaSubServicios)">
+							    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista subServicios reserva" width="32%" onClick="@command('habilitarSubServiciosPOP',creserva=each)" style="@bind(each.colornoExisteListaSubServicios)">
 							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
 							    			<space orient="vertical"></space>
 							    			<span sclass="icon-tree estilos-iconos"></span>
 							    		</div>
 							    		<space orient="vertical"></space>
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarActividadesPOP',creserva=each)" style="@bind(each.colornoExisteListaActividades)">
+							    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista actividades reserva" width="32%" onClick="@command('habilitarActividadesPOP',creserva=each)" style="@bind(each.colornoExisteListaActividades)">
 							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
 							    			<space orient="vertical"></space>
 							    			<span sclass="icon-profile estilos-iconos"></span>
@@ -329,12 +329,12 @@
 							 		 				<radio label="PAGO TOTAL" value="total" checked="@load(each.pagoTotal)"/>
 							 		 			</radiogroup>
 							 		 			<label value="Metodo Pago:" sclass="lbl_llenar_datos"></label>
-							 		 			<textbox value="@save(each.metodoPago)" onChange="@command('asignarNameMetodoPago',reporteReserva=each)"
+							 		 			<textbox value="@bind(each.metodoPago)" onChange="@command('asignarNameMetodoPago',reporteReserva=each)"
 							 		 				placeholder="Ingrese Metodo Pago" sclass="txt_llenar_datos" style="text-transform: uppercase;"></textbox>
 							 		 			<label value="Codigo Transaccion:" sclass="lbl_llenar_datos"></label>
-							 		 			<textbox value="@save(each.codTransaccion)" 
+							 		 			<textbox value="@bind(each.codTransaccion)" 
 							 		 				placeholder="Ingrese Codigo transaccion" sclass="txt_llenar_datos"></textbox>
-							 		 			<button label="Aceptar" width="100px" height="50px" zclass="btn_guardar" onClick="@command('ModificarReporteReserva',reporteReserva=each)"></button>
+							 		 			<button label="Aceptar" width="100px" height="50px" zclass="btn_guardar" onClick="@command('ModificarReporteReserva',reporteReserva=each,comp=self)"></button>
 							 		 		</div>
 							 		 	</div>
 						    			<div sclass="estilo_monto_persona">

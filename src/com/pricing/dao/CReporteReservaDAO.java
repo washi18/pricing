@@ -25,7 +25,6 @@ public class CReporteReservaDAO extends CConexion{
 	private ArrayList<CEstadistica_Paquete> masVendidosxMeses;
 	private ArrayList<CPasajero> listaPasajerosReserva;
 	private ArrayList<CActividad> listaActividadesReserva;
-
 	
 	//=======================getter and setter==============
 	
@@ -144,6 +143,7 @@ public class CReporteReservaDAO extends CConexion{
 		String []values={codReserva};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_buscarpasajerosreserva",values);
 	}
+	
 	public List recuoperarActividadesReservaBD(String codReserva){
 		String []values={codReserva};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_buscaractividadesreserva",values);

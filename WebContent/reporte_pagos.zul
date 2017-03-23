@@ -43,10 +43,10 @@
 					    		</div>
 					    		<div zclass="div_contenedor_datos_listRepReserva">
 					    		<div zclass="estilo_fechas" width="30%">
-					    			<div sclass="estilo_start_descripcion">
-					    				<label width="100%" height="15px" style="font-size: 15px; color: black; font-weight: bold;"
-					    					value="@load(each.nombreCliente)" />
-					    			</div>
+<!-- 					    			<div sclass="estilo_start_descripcion"> -->
+<!-- 					    				<label width="100%" height="15px" style="font-size: 15px; color: black; font-weight: bold;" -->
+<!-- 					    					value="@load(each.nombreCliente)" /> -->
+<!-- 					    			</div> -->
 					    			<div>
 						    			<div width="auto">
 						    				<label value="Fecha Inicio:" style="font-size: 13px; color: black; font-weight: bold;"></label>
@@ -59,35 +59,50 @@
 						    				<label height="100%" value="@load(each.fechaFin)"/>
 						    			</div>
 					    			</div>
-					    			<div width="auto">
-					    				<label value="Fecha Pago:" style="font-size: 13px; color: black; font-weight: bold;"></label>
-						    			<space></space>
-					    				<label height="100%" value="@load(each.fechayhoraTransaccion)"/>
-					    			</div>
+<!-- 					    			<div width="auto"> -->
+<!-- 					    				<label value="Fecha Pago:" style="font-size: 13px; color: black; font-weight: bold;"></label> -->
+<!-- 						    			<space></space> -->
+<!-- 					    				<label height="100%" value="@load(each.fechayhoraTransaccion)"/> -->
+<!-- 					    			</div> -->
 					    			<div sclass="div_destinos">
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarDestinosPOP',cdestino=each)" style="@bind(each.colornoExisteListaDestinos)">
-							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
-							    			<space orient="vertical"></space>
-							    			<span sclass="icon-airplane estilos-iconos" ></span>
+					    				<div class="contiene_botones_reserva">
+					    					<div sclass="estilo_content_boton_pop" tooltiptext="Lista pasajeros reserva" width="32%" onClick="@command('habilitarPasajerosPOP',cpasajero=each)" style="@bind(each.colornoExisteListaPasajeros)">
+								    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+								    			<space orient="vertical"></space>
+								    			<span sclass="icon-users estilos-iconos"></span>
+								    		</div>								    		
+								    		<space orient="vertical"></space>
+								    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista destinos reserva" width="32%" onClick="@command('habilitarDestinosPOP',cdestino=each)" style="@bind(each.colornoExisteListaDestinos)">
+								    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+								    			<space orient="vertical"></space>
+								    			<span sclass="icon-airplane estilos-iconos" ></span>
+								    		</div>
+								    		<space orient="vertical"></space>
+								    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista hoteles reserva" width="32%" onClick="@command('habilitarHotelesPOP',chotel=each)" style="@bind(each.colornoExisteListaHoteles)">
+								    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+								    			<space orient="vertical"></space>
+								    			<span sclass="icon-office estilos-iconos" ></span>
+								    		</div>
 							    		</div>
-							    		<space orient="vertical"></space>
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarHotelesPOP',chotel=each)" style="@bind(each.colornoExisteListaHoteles)">
-							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
-							    			<space orient="vertical"></space>
-							    			<span sclass="icon-office estilos-iconos" ></span>
-							    		</div>
-							    		<space orient="vertical"></space>
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarServiciosPOP',cservicio=each)" style="@bind(each.colornoExisteListaServicios)">
-							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
-							    			<space orient="vertical"></space>
-							    			<span sclass="icon-cogs estilos-iconos"></span>
-							    		</div>
-							    		<space orient="vertical"></space>
-							    		<div sclass="estilo_content_boton_pop" width="32%" onClick="@command('habilitarPasajerosPOP',cpasajero=each)" style="@bind(each.colornoExisteListaPasajeros)">
-							    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
-							    			<space orient="vertical"></space>
-							    			<span sclass="icon-users estilos-iconos"></span>
-							    		</div>
+							    		<div class="contiene_botones_reserva">
+								    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista servicios reserva" width="32%" onClick="@command('habilitarServiciosPOP',cservicio=each)" style="@bind(each.colornoExisteListaServicios)">
+								    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+								    			<space orient="vertical"></space>
+								    			<span sclass="icon-cogs estilos-iconos"></span>
+								    		</div>
+								    		<space orient="vertical"></space>
+								    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista subServicios reserva" width="32%" onClick="@command('habilitarSubServiciosPOP',creserva=each)" style="@bind(each.colornoExisteListaSubServicios)">
+								    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+								    			<space orient="vertical"></space>
+								    			<span sclass="icon-tree estilos-iconos"></span>
+								    		</div>
+								    		<space orient="vertical"></space>
+								    		<div sclass="estilo_content_boton_pop" tooltiptext="Lista actividades reserva" width="32%" onClick="@command('habilitarActividadesPOP',creserva=each)" style="@bind(each.colornoExisteListaActividades)">
+								    			<label value=" Lista" style="font-size: 14px; font-weight:bold;"></label>
+								    			<space orient="vertical"></space>
+								    			<span sclass="icon-profile estilos-iconos"></span>
+								    		</div>
+							    	   </div>
 					    			</div>
 					    		</div>
 					    		<space orient="vertical"></space>
@@ -226,6 +241,69 @@
 					    				</listbox>
 					    			</div>
 					    		  </window>
+					    		  <window visible="@load(each.visibleSubServiciopop)" mode="popup" position="parent" zclass="estilo_win_popup_reserva">
+					    			<div width="100%" sclass="div_content_destino">
+					    				<listbox style="border: none; overflow: auto;" model="@load(each.listaServicioConSubServicios)" >  
+					    					<listhead>
+					    						<listheader label="LISTA SUB SERVICIOS" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center">
+					    						</listheader>
+					    					</listhead>
+					    					<template name="model" var="subservicio">
+					    					<listitem>
+					    						<listcell>
+					    						    <listbox model="@load(subservicio.listaServiciosconSubservicios)">
+						    						      <listhead>
+						    						        <listheader label="@load(subservicio.nombreServicio)" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_destinos"></listheader>
+						    						      </listhead>
+						    						    <template name="model" var="listaS">
+						    						    	<listitem>
+						    						    	  <listcell>
+						    						    	     <div zclass="div_list_cell_reserva">
+						    						    	     	<label value="■"></label>
+					    											<space></space>
+						    						    	     	<label value="@load(listaS.cSubServicioIndioma1)" sclass="estilo_texto_pop_hoteles" width="50%"></label>
+						    						    	     	<div width="50%" sclass="estilo_datos_pop_reserva">
+									    								<image src="img/uno.png"></image>
+									    								<label value="$." sclass="estilo_texto_pop"></label>
+									    								<label value="@load(listaS.nPrecioServicio)" sclass="estilo_texto_pop"></label>
+					    											</div>
+						    						    	     </div>
+						    						    	  </listcell>
+						    						    	</listitem>
+						    						    </template>
+					    						    </listbox>
+					    						</listcell>
+					    					</listitem>
+					    					</template>
+					    				</listbox>
+					    			</div>
+					    		  </window>
+					    		  <window visible="@load(each.visibleActividadespop)" mode="popup" position="parent" zclass="estilo_win_popup_reserva">
+					    			<div sclass="div_pasajeros" width="100%">
+					    			<div width="100%" sclass="div_content_destino">
+					    				<listbox style="border: none;" model="@load(each.listaActividades)" width="100%"> 
+					    					<listhead> 
+					    						<listheader label="LISTA ACTIVIDADES" style="font-size: 14px; color: white; font-weight: bold;" sclass="estilo_titulo_pasajeros" align="center"></listheader>
+					    					</listhead>
+					    					<template name="model" var="actividad">
+					    					<listitem>
+					    						<listcell>
+					    						<div width="100%" zclass="div_list_cell_reserva">
+					    								<label value="■"></label>
+					    								<space></space>
+					    								<label value="@load(actividad.cActividadIdioma1)" width="50%" sclass="estilo_texto_pop"></label>
+					    								<div width="50%" sclass="estilo_datos_pop_reserva">
+						    								<label value="$." sclass="estilo_texto_pop"></label>
+						    								<label value="@load(actividad.nPrecioActividad)" sclass="estilo_texto_pop"></label>
+					    								</div>
+					    						</div>
+					    						</listcell>
+					    					</listitem>
+					    					</template>
+					    				</listbox>
+					    				</div>
+					    			</div>
+					    		  </window>
 					    		  </div>
 					    		<space></space>
 					    		<div sclass="contendor_montos">
@@ -244,28 +322,28 @@
 					    				</div>    
 						    			<div sclass="estilo_monto_persona">
 						    				<div sclass="estilo_columnas_precios_etiqueta" width="70%">
-						    					<div style="display: flex;">
-							    					<label value="Pago"></label>
-							    					<label value="Parcial" visible="@bind(vmPagos.visiblePagoParcial)"></label>
-							    					<label value="(" visible="@bind(vmPagos.visiblePagoParcial)"></label>
-							    					<label value="@load(each.porcentaje)" visible="@bind(vmPagos.visiblePagoParcial)"></label>
-							    					<label value="%)" visible="@bind(vmPagos.visiblePagoParcial)"></label>
-						    					</div>
-						    					<div style="display: flex;">
-							    					<label value="Impuesto"></label>
-							    					<label value="("></label>
-							    					<label value="@load(each.impuesto)"></label>
-							    					<label value="%)"></label>
-						    					</div>
-						    					<space orient="horizontal"></space>
-						    					<label value="Total ($):" style="color: black; font-weight:bold;"></label>
+<!-- 						    					<div style="display: flex;"> -->
+<!-- 							    					<label value="Pago"></label> -->
+<!-- 							    					<label value="Parcial" visible="@bind(vmPagos.visiblePagoParcial)"></label> -->
+<!-- 							    					<label value="(" visible="@bind(vmPagos.visiblePagoParcial)"></label> -->
+<!-- 							    					<label value="@load(each.porcentaje)" visible="@bind(vmPagos.visiblePagoParcial)"></label> -->
+<!-- 							    					<label value="%)" visible="@bind(vmPagos.visiblePagoParcial)"></label> -->
+<!-- 						    					</div> -->
+<!-- 						    					<div style="display: flex;"> -->
+<!-- 							    					<label value="Impuesto"></label> -->
+<!-- 							    					<label value="("></label> -->
+<!-- 							    					<label value="@load(each.impuesto)"></label> -->
+<!-- 							    					<label value="%)"></label> -->
+<!-- 						    					</div> -->
+<!-- 						    					<space orient="horizontal"></space> -->
+<!-- 						    					<label value="Total ($):" style="color: black; font-weight:bold;"></label> -->
 						    				</div>
-						    				<div sclass="estilo_columnas_precios" width="30%">
-							    				<label value="@load(each.importe)"></label>
-							    				<label value="@load(each.valorImpuesto)" style="text-align: right;"></label>
-							    				<space bar="true" orient="horizontal"></space>
-							    				<label value="@load(each.montoTotal)" style="color: black; font-weight:bold;"></label>
-						    				</div>
+<!-- 						    				<div sclass="estilo_columnas_precios" width="30%"> -->
+<!-- 							    				<label value="@load(each.importe)"></label> -->
+<!-- 							    				<label value="@load(each.valorImpuesto)" style="text-align: right;"></label> -->
+<!-- 							    				<space bar="true" orient="horizontal"></space> -->
+<!-- 							    				<label value="@load(each.montoTotal)" style="color: black; font-weight:bold;"></label> -->
+<!-- 						    				</div> -->
 						    			</div>
 					    			</div>
 					    		</div>

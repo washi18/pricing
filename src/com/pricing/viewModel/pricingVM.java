@@ -196,6 +196,8 @@ public class pricingVM
 	private boolean visibleNroPaso3;
 	private boolean visibleContenedorPasos;
 	private boolean visiblecontentBotonesPasos;
+	private boolean visibleBtnAtras;
+	private boolean visibleBtnSiguiente;
 	//=======================
 	private CReservaPaqueteCategoriaHotel oReservaPaqCatHotel;
 	private CReservaPaqueteCategoriaHotelDAO reservaPaqCatHotelDao;
@@ -251,15 +253,17 @@ public class pricingVM
 		//================================
 		confAltoNivel=new ConfAltoNivel();
 		confAltoNivelDAO=new ConfAltoNivelDAO();
-		this.visiblePaso1=true;
-		this.visiblePaso2=false;
-		this.visiblePaso3=false;
-		this.visibleBarraPaso1=true;
-		this.visibleBarraPaso2=false;
-		this.visibleBarraPaso3=false;
-		this.visibleNroPaso1=false;
-		this.visibleNroPaso2=false;
-		this.visibleNroPaso3=false;
+		visiblePaso1=true;
+		visiblePaso2=false;
+		visiblePaso3=false;
+		visibleBarraPaso1=true;
+		visibleBarraPaso2=false;
+		visibleBarraPaso3=false;
+		visibleNroPaso1=false;
+		visibleNroPaso2=false;
+		visibleNroPaso3=false;
+		visibleBtnAtras=false;
+		visibleBtnSiguiente=true;
 		/**Inicializamos las sessiones**/
 		seshttp=(HttpSession)Sessions.getCurrent().getNativeSession();
 		/*******************************/
@@ -1327,39 +1331,97 @@ public class pricingVM
 	
 	@Command
 	@NotifyChange({"visiblePaso1","visiblePaso2","visiblePaso3","visibleBarraPaso1","visibleBarraPaso2","visibleBarraPaso3",
-		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2"})
+		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2",
+		"visibleBtnSiguiente","visibleBtnAtras"})
+	public void cambioBarraPaso(@BindingParam("nroPaso")String nroPaso,@BindingParam("comp")Component comp){
+		if(nroPaso.equals("1")){
+				visibleBtnAtras=false;
+				visibleBtnSiguiente=true;
+				setVisiblePaso1(true);
+				setVisiblePaso2(false);
+				paso2=false;
+				setVisiblePaso3(false);
+				visibleBarraPaso1=true;
+				visibleBarraPaso2=false;
+				visibleBarraPaso3=false;
+				estiloPaso1="background:#72CB2E;";
+				estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				estiloPaso3="background:transparent;";
+		}else if(nroPaso.equals("2")){
+			if(validoPaso1(comp)){
+				visibleBtnAtras=true;
+				visibleBtnSiguiente=true;
+				setVisiblePaso1(false);
+				setVisiblePaso2(true);
+				paso2=true;
+				setVisiblePaso3(false);
+				visibleBarraPaso1=false;
+				visibleBarraPaso2=true;
+				visibleBarraPaso3=false;
+				estiloPaso1="background:#72CB2E;";
+				estiloPaso2="background:#72CB2E;";
+				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				visibleNroPaso1=true;
+			}else return;
+		}else if(nroPaso.equals("3")){
+			if(validoPaso2(comp)){
+				visibleBtnAtras=true;
+				visibleBtnSiguiente=false;
+				setVisiblePaso1(false);
+				setVisiblePaso2(false);
+				paso2=false;
+				setVisiblePaso3(true);
+				visibleBarraPaso1=false;
+				visibleBarraPaso2=false;
+				visibleBarraPaso3=true;
+				estiloPaso1="background:#72CB2E;";
+				estiloPaso2="background:#72CB2E;";
+				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				visibleNroPaso1=true;
+				visibleNroPaso2=true;
+			}else return;
+		}
+		
+	}
+	
+	@Command
+	@NotifyChange({"visiblePaso1","visiblePaso2","visiblePaso3","visibleBarraPaso1","visibleBarraPaso2","visibleBarraPaso3",
+		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2",
+		"visibleBtnSiguiente","visibleBtnAtras"})
 	public void SiguientePaso(@BindingParam("nroPaso")String nroPaso,@BindingParam("comp")Component comp){
 		if(nroPaso.equals("1")){
 			if(validoPaso1(comp)){
-				this.setVisiblePaso1(false);
-				this.setVisiblePaso2(true);
-				this.paso2=true;
-				this.setVisiblePaso3(false);
-				this.visibleBarraPaso1=false;
-				this.visibleBarraPaso2=true;
-				this.visibleBarraPaso3=false;
-				this.estiloPaso1="background:#72CB2E;";
-				this.estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				this.estiloPaso3="background:transparent;";
-				this.visibleNroPaso1=true;
-				this.visibleNroPaso2=false;
-				this.visibleNroPaso3=false;
+				visibleBtnAtras=true;
+				setVisiblePaso1(false);
+				setVisiblePaso2(true);
+				paso2=true;
+				setVisiblePaso3(false);
+				visibleBarraPaso1=false;
+				visibleBarraPaso2=true;
+				visibleBarraPaso3=false;
+				estiloPaso1="background:#72CB2E;";
+				estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				estiloPaso3="background:transparent;";
+				visibleNroPaso1=true;
+				visibleNroPaso2=false;
+				visibleNroPaso3=false;
 			}else{return;}
 		}else if(nroPaso.equals("2")){
 			if(validoPaso2(comp)){
-				this.setVisiblePaso1(false);
-				this.setVisiblePaso2(false);
-				this.paso2=false;
-				this.setVisiblePaso3(true);
-				this.visibleBarraPaso1=false;
-				this.visibleBarraPaso2=false;
-				this.visibleBarraPaso3=true;
-				this.estiloPaso1="background:#72CB2E;";
-				this.estiloPaso2="background:#72CB2E;";
-				this.estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				this.visibleNroPaso1=true;
-				this.visibleNroPaso2=true;
-				this.visibleNroPaso3=false;
+				setVisiblePaso1(false);
+				setVisiblePaso2(false);
+				paso2=false;
+				setVisiblePaso3(true);
+				visibleBarraPaso1=false;
+				visibleBarraPaso2=false;
+				visibleBarraPaso3=true;
+				estiloPaso1="background:#72CB2E;";
+				estiloPaso2="background:#72CB2E;";
+				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+				visibleNroPaso1=true;
+				visibleNroPaso2=true;
+				visibleNroPaso3=false;
+				visibleBtnSiguiente=false;
 			}else{return;}
 		}
 		
@@ -1367,9 +1429,9 @@ public class pricingVM
 	@Command
 	@NotifyChange({"visiblePaso1","visiblePaso2","visiblePaso3","visibleBarraPaso1","visibleBarraPaso2","visibleBarraPaso3",
 		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2"})
-	public void RetornarPaso(@BindingParam("nroPaso")String nroPaso){
+	public void RetornarPaso(@BindingParam("nroPaso")String nroPaso,@BindingParam("comp")Component comp){
 		if(nroPaso.equals("1")){
-			if(validoPaso1(null)){
+			if(validoPaso1(comp)){
 				this.setVisiblePaso1(true);
 				this.setVisiblePaso2(false);
 				this.paso2=false;
@@ -1385,7 +1447,7 @@ public class pricingVM
 				this.visibleNroPaso3=false;
 			}else{return;}
 		}else if(nroPaso.equals("2")){
-			if(validoPaso2(null)){
+			if(validoPaso2(comp)){
 				this.setVisiblePaso1(false);
 				this.setVisiblePaso2(true);
 				this.paso2=true;
@@ -3129,6 +3191,18 @@ public class pricingVM
 		}
 		public void setConfAltoNivelDAO(ConfAltoNivelDAO confAltoNivelDAO) {
 			this.confAltoNivelDAO = confAltoNivelDAO;
+		}
+		public boolean isVisibleBtnAtras() {
+			return visibleBtnAtras;
+		}
+		public void setVisibleBtnAtras(boolean visibleBtnAtras) {
+			this.visibleBtnAtras = visibleBtnAtras;
+		}
+		public boolean isVisibleBtnSiguiente() {
+			return visibleBtnSiguiente;
+		}
+		public void setVisibleBtnSiguiente(boolean visibleBtnSiguiente) {
+			this.visibleBtnSiguiente = visibleBtnSiguiente;
 		}
 		
 		

@@ -110,8 +110,8 @@
 										<comboitem value="MACHUPICCHU_HUAYNAPICCHU_2G" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>
 										<comboitem value="MACHUPICCHU_MONTANA_1G" label="Machupicchu + Montaña 7:00 a.m.-8:00 a.m."></comboitem>
 										<comboitem value="MACHUPICCHU_MONTANA_2G" label="Machupicchu + Montaña 9:00 a.m.-10:00 a.m."></comboitem>
-										<comboitem value="CAMINO_INKA_CLASICO" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem>
-										<comboitem value="CAMINO_INKA_CORTO" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+<!-- 										<comboitem value="CAMINO_INKA_CLASICO" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
+<!-- 										<comboitem value="CAMINO_INKA_CORTO" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
 								</combobox>
 							</div>
 							<separator orient="horizontal"></separator>
@@ -625,8 +625,8 @@
 											<comboitem value="MACHUPICCHU_HUAYNAPICCHU_2G" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>
 											<comboitem value="MACHUPICCHU_MONTANA_1G" label="Machupicchu + Montaña 7:00 a.m.-8:00 a.m."></comboitem>
 											<comboitem value="MACHUPICCHU_MONTANA_2G" label="Machupicchu + Montaña 9:00 a.m.-10:00 a.m."></comboitem>
-											<comboitem value="CAMINO_INKA_CLASICO" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem>
-											<comboitem value="CAMINO_INKA_CORTO" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+<!-- 											<comboitem value="CAMINO_INKA_CLASICO" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
+<!-- 											<comboitem value="CAMINO_INKA_CORTO" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
 									</combobox>
 									</div>
 									<div>
