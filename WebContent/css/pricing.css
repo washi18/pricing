@@ -141,7 +141,7 @@
 }
 
 .div_resumen_reserva.z-div {
-	width: 50%;
+	width: 28%;
 }
 
 @media ( min-width :768px) and (max-width:1310px) {
@@ -151,6 +151,9 @@
 	.div_resumen_reserva.z-div {
 		width: 40%;
 	}
+	.div_resumen_reserva_pasos.z-div {
+	width: 40%;
+}
 }
 
 @media ( min-width :641px) and (max-width:767px) {
@@ -160,6 +163,9 @@
 	.div_resumen_reserva.z-div {
 		width: 50%;
 	}
+	.div_resumen_reserva_pasos.z-div {
+		width: 50%;
+	}
 }
 
 @media ( max-width :640px) {
@@ -167,6 +173,9 @@
 		width: 100%;
 	}
 	.div_resumen_reserva.z-div {
+		width: 100%;
+	}
+	.div_resumen_reserva_pasos.z-div {
 		width: 100%;
 	}
 	.contenedor_proceso_pricing, contenedor_proceso_pricing_pasos {
@@ -1662,6 +1671,9 @@
 	position: absolute;
 }
 
+/*********************************************************************/
+/**********************ESTILOS PARA PRICING PASOS*********************/
+/*********************************************************************/
 .div_pasos_progres_interno {
 	background: #d1d1d1;
 	color: black;
@@ -1799,6 +1811,25 @@
 	-o-align-items: center;
 }
 
+.contenedor_btn_pasos_final{
+	width: 50%;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content: flex-start;
+	-webkit-justify-content: start;
+	-moz-justify-content: start;
+	-ms-justify-content: start;
+	-o-justify-content: start;
+	align-items: start;
+	-webkit-align-items: start;
+	-moz-align-items: start;
+	-ms-align-items: start;
+	-o-align-items: start;
+}
+
 .style_nro_paso {
 	display: inline-block;
 	min-width: 10px;
@@ -1830,7 +1861,12 @@
 	-ms-align-items: center;
 	-o-align-items: center;
 }
-
+.div_resumen_reserva_pasos.z-div {
+	width: 50%;
+}
+/*********************************************************************/
+/****************************FIN ESTILOS PRICING PASOS******************/
+/*********************************************************************/
 .div_upload {
 	width: 8%;
 	display: flex;

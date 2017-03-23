@@ -1,251 +1,367 @@
 <?page title="PRICING" contentType="text/html;charset=UTF-8"?>
 <?page viewport="width=device-width, initial-scale=1.0,  user-scalable=no"?>
-<div sclass="div_contenedor_pricing" 
-		 apply="org.zkoss.bind.BindComposer"
-		 viewModel="@id('vmPricing') @init('com.pricing.viewModel.pricingVM')">
-	  <div width="100%" zclass="contenedor_barra_progreso">
-	  		<div zclass="contenedor_3_pasos">
-	  			<div zclass="div_pasos_inicio" onClick="@command('RetornarPaso',nroPaso='1')" >
-<!-- 	  				<span sclass="style_nro_paso" label="1"></span> -->
-	  				<label value="1" zclass="style_nro_paso" style="color:black;" visible="@bind(!vmPricing.visibleNroPaso1)"></label>
-	  				<label value="✓" zclass="style_nro_paso" style="color:#77BD37; font-size:26px;background: rgba(76, 175, 80, 0.3);" visible="@bind(vmPricing.visibleNroPaso1)"></label>
-	  				<label value="PASAJEROS Y FECHA" zclass="titulo_pasos"></label>
-	  				<image src="img/Icono_calendario.png" zclass="imagenes_pasos"></image>
-	  			</div>
-	  			<space width="30px"></space>
-	  			<div zclass="div_pasos_progres_interno" onClick="@command('RetornarPaso',nroPaso='2')">
-	  				<label value="2" zclass="style_nro_paso" style="color:black;" visible="@bind(!vmPricing.visibleNroPaso2)"></label>
-	  				<label value="✓" zclass="style_nro_paso" style="color:#77BD37;font-size:26px;background: rgba(76, 175, 80, 0.3);" visible="@bind(vmPricing.visibleNroPaso2)"></label>
-	  				<label value="OPCIONES" zclass="titulo_pasos"></label>
-	  				<image src="img/backpack_icon.png" zclass="imagenes_pasos"></image>
-	  			</div>
-	  			<space width="30px"></space>
-	  			<div zclass="div_pasos_final" onClick="@command('RetornarPaso',nroPaso='3')">
-	  				<label value="3" zclass="style_nro_paso" style="color:black;" visible="@bind(!vmPricing.visibleNroPaso3)"></label>
-	  				<label value="✓" zclass="style_nro_paso" style="color:#77BD37;font-size:26px;background: rgba(76, 175, 80, 0.3);" visible="@bind(vmPricing.visibleNroPaso3)"></label>
-	  				<label value="RESUMEN Y PAGO" zclass="titulo_pasos"></label>
-	  				<image src="img/credit-cards-icon.png" zclass="imagenes_pasos"></image>
-	  			</div>
-	  		</div>
-<!-- 			 <div width="50%" style="display:flex; position:absolute; top:10px; margin-left:auto; margin-right:auto; left:0;right:0;" zindex="2"> -->
-<!-- 			 	<div  zclass="secuencia_paso1"> -->
-<!-- 			 		<label value="Informacion Pasajeros y fecha"></label> -->
-<!-- 			 	</div> -->
-<!-- 			 	<space spacing="30%"></space> -->
-<!-- 			 	<div zclass="secuencia_paso1"> -->
-<!-- 			 		<label value="Opciones de viaje"></label> -->
-<!-- 			 	</div> -->
-<!-- 			 	<space spacing="30%"></space> -->
-<!-- 			 	<div zclass="secuencia_paso1"> -->
-<!-- 			 		<label value="Informacion reserva y pago"></label> -->
-<!-- 			 	</div> -->
-<!-- 			 </div> -->
-			 <div zclass="contendor_3_barras">
-			 	<div height="14px"></div>
-				<div height="8px" width="30.8%" style="background:#77BD37;" visible="@bind(vmPricing.visibleBarraPaso1)"></div>
-				<div width="100%" style="display:flex;">
-				    <div width="32%"></div>
-					<div height="8px" width="33%" style="background:#77BD37;" visible="@bind(vmPricing.visibleBarraPaso2)"></div>
-				</div>
-				<div width="100%" style="display:flex;">
-					<div width="34%"></div>
-					<div width="33%"></div>
-					<div height="8px" width="33%" style="background:#77BD37;" visible="@bind(vmPricing.visibleBarraPaso3)"></div>
+<div sclass="div_contenedor_pricing" apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vmPricing') @init('com.pricing.viewModel.pricingVM')">
+	<div width="100%" zclass="contenedor_barra_progreso">
+		<div zclass="contenedor_3_pasos">
+			<div zclass="div_pasos_inicio"
+				onClick="@command('cambioBarraPaso',nroPaso='1')">
+				<!-- 	  				<span sclass="style_nro_paso" label="1"></span> -->
+				<label value="1" zclass="style_nro_paso"
+					style="color:black;" visible="@bind(!vmPricing.visibleNroPaso1)">
+				</label>
+				<label value="✓" zclass="style_nro_paso"
+					style="color:#77BD37; font-size:26px;background: rgba(76, 175, 80, 0.3);"
+					visible="@bind(vmPricing.visibleNroPaso1)">
+				</label>
+				<label value="PASAJEROS Y FECHA"
+					zclass="titulo_pasos">
+				</label>
+				<image src="img/Icono_calendario.png"
+					zclass="imagenes_pasos">
+				</image>
+			</div>
+			<space width="30px"></space>
+			<div zclass="div_pasos_progres_interno"
+				onClick="@command('cambioBarraPaso',nroPaso='2')">
+				<label value="2" zclass="style_nro_paso"
+					style="color:black;" visible="@bind(!vmPricing.visibleNroPaso2)">
+				</label>
+				<label value="✓" zclass="style_nro_paso"
+					style="color:#77BD37;font-size:26px;background: rgba(76, 175, 80, 0.3);"
+					visible="@bind(vmPricing.visibleNroPaso2)">
+				</label>
+				<label value="OPCIONES" zclass="titulo_pasos"></label>
+				<image src="img/backpack_icon.png"
+					zclass="imagenes_pasos">
+				</image>
+			</div>
+			<space width="30px"></space>
+			<div zclass="div_pasos_final"
+				onClick="@command('cambioBarraPaso',nroPaso='3')">
+				<label value="3" zclass="style_nro_paso"
+					style="color:black;" visible="@bind(!vmPricing.visibleNroPaso3)">
+				</label>
+				<label value="✓" zclass="style_nro_paso"
+					style="color:#77BD37;font-size:26px;background: rgba(76, 175, 80, 0.3);"
+					visible="@bind(vmPricing.visibleNroPaso3)">
+				</label>
+				<label value="RESUMEN Y PAGO" zclass="titulo_pasos"></label>
+				<image src="img/credit-cards-icon.png"
+					zclass="imagenes_pasos">
+				</image>
+			</div>
+		</div>
+		<!-- 			 <div width="50%" style="display:flex; position:absolute; top:10px; margin-left:auto; margin-right:auto; left:0;right:0;" zindex="2"> -->
+		<!-- 			 	<div  zclass="secuencia_paso1"> -->
+		<!-- 			 		<label value="Informacion Pasajeros y fecha"></label> -->
+		<!-- 			 	</div> -->
+		<!-- 			 	<space spacing="30%"></space> -->
+		<!-- 			 	<div zclass="secuencia_paso1"> -->
+		<!-- 			 		<label value="Opciones de viaje"></label> -->
+		<!-- 			 	</div> -->
+		<!-- 			 	<space spacing="30%"></space> -->
+		<!-- 			 	<div zclass="secuencia_paso1"> -->
+		<!-- 			 		<label value="Informacion reserva y pago"></label> -->
+		<!-- 			 	</div> -->
+		<!-- 			 </div> -->
+		<div zclass="contendor_3_barras">
+			<div height="14px"></div>
+			<div height="8px" width="30.8%" style="background:#77BD37;"
+				visible="@bind(vmPricing.visibleBarraPaso1)">
+			</div>
+			<div width="100%" style="display:flex;">
+				<div width="32%"></div>
+				<div height="8px" width="33%"
+					style="background:#77BD37;"
+					visible="@bind(vmPricing.visibleBarraPaso2)">
 				</div>
 			</div>
-			<separator spacing="20px"></separator>
-	  </div>
+			<div width="100%" style="display:flex;">
+				<div width="34%"></div>
+				<div width="33%"></div>
+				<div height="8px" width="33%"
+					style="background:#77BD37;"
+					visible="@bind(vmPricing.visibleBarraPaso3)">
+				</div>
+			</div>
+		</div>
+		<separator spacing="20px"></separator>
+	</div>
 	<separator spacing="30px"></separator>
-		<!-- ======PASO 1======== -->
-<!-- 		<space></space> -->
-	 <div sclass="contenedor_proceso_pricing_pasos">
+	<!-- ======PASO 1======== -->
+	<!-- 		<space></space> -->
+	<div sclass="contenedor_proceso_pricing_pasos">
 		<div sclass="div_requerimientos">
-		<div sclass="div_paso1" visible="@bind(vmPricing.visiblePaso1)">
-				<div sclass="div-logoPaises visible-small" width="100%" style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)">
+			<div sclass="div_paso1"
+				visible="@bind(vmPricing.visiblePaso1)">
+				<div sclass="div-logoPaises visible-small" width="100%"
+					style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)">
 					<hbox style="float:right;">
-						  <image src="img/Flag-of-Spain.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)"/>
-					  	  <image src="img/en.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=2) @global-command('cambiarIdiomaDispo',idioma=2)"/>
-<!-- 						  <image src="img/Flag_of_Brazil.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=3) @global-command('cambiarIdiomaDispo',idioma=3)"/> -->
-	<!-- 					  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
+						<image src="img/Flag-of-Spain.png"
+							sclass="style-flag"
+							onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)" />
+						<image src="img/en.png" sclass="style-flag"
+							onClick="@command('cambiarIdioma',idioma=2) @global-command('cambiarIdiomaDispo',idioma=2)" />
+						<!-- 						  <image src="img/Flag_of_Brazil.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=3) @global-command('cambiarIdiomaDispo',idioma=3)"/> -->
+						<!-- 					  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
 					</hbox>
 				</div>
 				<div width="100%">
-					<div width="100%" align="center" sclass="div_titulo_paquete" style="@bind(vmPricing.oInterfaz.style_div_TituloPaquete)">
-						<label value="@bind(vmPricing.oReservar.oPaquete.titulo)" sclass="style_lbl_tituloPaquete" style="@bind(vmPricing.oInterfaz.style_lbl_TituloPaquete)"/>
+					<div width="100%" align="center"
+						sclass="div_titulo_paquete"
+						style="@bind(vmPricing.oInterfaz.style_div_TituloPaquete)">
+						<label
+							value="@bind(vmPricing.oReservar.oPaquete.titulo)"
+							sclass="style_lbl_tituloPaquete"
+							style="@bind(vmPricing.oInterfaz.style_lbl_TituloPaquete)" />
 					</div>
 					<space></space>
 					<div sclass="div_fecha_pasajero" width="100%">
 						<div width="100%">
-							<groupbox visible="@bind(vmPricing.mostrarCalendarZK)" width="100%" mold="3d">
-<!-- 								desde aqui-->
-<!-- 								<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)"> -->
-<!-- 									<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/> -->
-<!-- 									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/> -->
-<!-- 								</caption> -->
-<!-- 								<div sclass="div_fechas"> -->
-<!-- 									<div zclass="div_comentarios"> -->
-<!-- 										<label value="@bind(vmPricing.etiqueta[46])"/> -->
-<!-- 									</div> -->
-<!-- 									<label value="@bind(vmPricing.etiqueta[1])" sclass="titulo-groupbox"/> -->
-<!-- 									<hbox id="hbCal2" onClick='calendarPop2.open(self, "after_start");'> -->
-<!-- 										<div zclass="div_content_icon_calendar_FP"> -->
-<!-- 											<a iconSclass="icon-calendar" sclass="titulo-groupbox" -->
-<!-- 												onClick='calendarPop2.open(hbCal2, "after_start");'/> -->
-<!-- 										</div> -->
-<!-- 										<textbox readonly="true" value="@bind(vmPricing.fecha)" -->
-<!-- 												 sclass="txtFechaPrincipal"/> -->
-<!-- 									</hbox> -->
-<!-- 									<popup id="calendarPop2" sclass="popup_calendar"> -->
-<!-- 										<space></space> -->
-<!-- 										<include src="disponibilidad.zul" /> -->
-<!-- 									</popup> -->
-<!-- 									<space></space> -->
-<!-- 									<label value="@bind(vmPricing.etiqueta[3])" sclass="titulo-groupbox"/> -->
-<!-- 									<hbox id="hbCalAlt2" onClick='calendarAltPop2.open(self, "after_start");'> -->
-<!-- 										<div zclass="div_content_icon_calendar_FP"> -->
-<!-- 											<a iconSclass="icon-calendar" sclass="titulo-groupbox" -->
-<!-- 												onClick='calendarAltPop2.open(hbCalAlt2, "after_start");'/> -->
-<!-- 										</div> -->
-<!-- 										<textbox readonly="true" value="@bind(vmPricing.fechaAlterna)" -->
-<!-- 												 sclass="txtFechaPrincipal"/> -->
-<!-- 									</hbox> -->
-<!-- 									<popup id="calendarAltPop2" sclass="popup_calendar"> -->
-<!-- 										<space></space> -->
-<!-- 										<include src="calendarFechaAlterna.zul" /> -->
-<!-- 									</popup> -->
-<!-- 								</div> -->
-<!-- 								<space></space> -->
-<!-- 								<div zclass="div_comentarios"> -->
-<!-- 									<label value="@bind(vmPricing.etiqueta[18])"/> -->
-<!-- 								</div> -->
-<!-- 								<div sclass="div_fechas"> -->
-<!-- 									<div> -->
-<!-- 										<label value="@bind(vmPricing.etiqueta[21])" sclass="titulo-groupbox"/> -->
-<!-- 									</div> -->
-<!-- 									<combobox readonly="true" width="60px" onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)"> -->
-<!-- 											<comboitem label="1" value="1" width="60px"/> -->
-<!-- 											<comboitem label="2" value="2" width="60px"/> -->
-<!-- 											<comboitem label="3" value="3" width="60px"/> -->
-<!-- 											<comboitem label="4" value="4" width="60px"/> -->
-<!-- 											<comboitem label="5" value="5" width="60px"/> -->
-<!-- 											<comboitem label="6" value="6" width="60px"/> -->
-<!-- 											<comboitem label="7" value="7" width="60px"/> -->
-<!-- 											<comboitem label="8" value="8" width="60px"/> -->
-<!-- 											<comboitem label="9" value="9" width="60px"/> -->
-<!-- 											<comboitem label="10" value="10" width="60px"/> -->
-<!-- 											<comboitem label="11" value="11" width="60px"/> -->
-<!-- 											<comboitem label="12" value="12" width="60px"/> -->
-<!-- 											<comboitem label="13" value="13" width="60px"/> -->
-<!-- 											<comboitem label="14" value="14" width="60px"/> -->
-<!-- 											<comboitem label="15" value="15" width="60px"/> -->
-<!-- 											<comboitem label="16" value="16" width="60px"/> -->
-<!-- 										</combobox> -->
-<!-- 								</div> -->
-<!-- 								hasta aqui -->
-								<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)">
-									<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/>
-									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/>
+							<groupbox
+								visible="@bind(vmPricing.mostrarCalendarZK)" width="100%"
+								mold="3d">
+								<!-- 								desde aqui-->
+								<!-- 								<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)"> -->
+								<!-- 									<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/> -->
+								<!-- 									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/> -->
+								<!-- 								</caption> -->
+								<!-- 								<div sclass="div_fechas"> -->
+								<!-- 									<div zclass="div_comentarios"> -->
+								<!-- 										<label value="@bind(vmPricing.etiqueta[46])"/> -->
+								<!-- 									</div> -->
+								<!-- 									<label value="@bind(vmPricing.etiqueta[1])" sclass="titulo-groupbox"/> -->
+								<!-- 									<hbox id="hbCal2" onClick='calendarPop2.open(self, "after_start");'> -->
+								<!-- 										<div zclass="div_content_icon_calendar_FP"> -->
+								<!-- 											<a iconSclass="icon-calendar" sclass="titulo-groupbox" -->
+								<!-- 												onClick='calendarPop2.open(hbCal2, "after_start");'/> -->
+								<!-- 										</div> -->
+								<!-- 										<textbox readonly="true" value="@bind(vmPricing.fecha)" -->
+								<!-- 												 sclass="txtFechaPrincipal"/> -->
+								<!-- 									</hbox> -->
+								<!-- 									<popup id="calendarPop2" sclass="popup_calendar"> -->
+								<!-- 										<space></space> -->
+								<!-- 										<include src="disponibilidad.zul" /> -->
+								<!-- 									</popup> -->
+								<!-- 									<space></space> -->
+								<!-- 									<label value="@bind(vmPricing.etiqueta[3])" sclass="titulo-groupbox"/> -->
+								<!-- 									<hbox id="hbCalAlt2" onClick='calendarAltPop2.open(self, "after_start");'> -->
+								<!-- 										<div zclass="div_content_icon_calendar_FP"> -->
+								<!-- 											<a iconSclass="icon-calendar" sclass="titulo-groupbox" -->
+								<!-- 												onClick='calendarAltPop2.open(hbCalAlt2, "after_start");'/> -->
+								<!-- 										</div> -->
+								<!-- 										<textbox readonly="true" value="@bind(vmPricing.fechaAlterna)" -->
+								<!-- 												 sclass="txtFechaPrincipal"/> -->
+								<!-- 									</hbox> -->
+								<!-- 									<popup id="calendarAltPop2" sclass="popup_calendar"> -->
+								<!-- 										<space></space> -->
+								<!-- 										<include src="calendarFechaAlterna.zul" /> -->
+								<!-- 									</popup> -->
+								<!-- 								</div> -->
+								<!-- 								<space></space> -->
+								<!-- 								<div zclass="div_comentarios"> -->
+								<!-- 									<label value="@bind(vmPricing.etiqueta[18])"/> -->
+								<!-- 								</div> -->
+								<!-- 								<div sclass="div_fechas"> -->
+								<!-- 									<div> -->
+								<!-- 										<label value="@bind(vmPricing.etiqueta[21])" sclass="titulo-groupbox"/> -->
+								<!-- 									</div> -->
+								<!-- 									<combobox readonly="true" width="60px" onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)"> -->
+								<!-- 											<comboitem label="1" value="1" width="60px"/> -->
+								<!-- 											<comboitem label="2" value="2" width="60px"/> -->
+								<!-- 											<comboitem label="3" value="3" width="60px"/> -->
+								<!-- 											<comboitem label="4" value="4" width="60px"/> -->
+								<!-- 											<comboitem label="5" value="5" width="60px"/> -->
+								<!-- 											<comboitem label="6" value="6" width="60px"/> -->
+								<!-- 											<comboitem label="7" value="7" width="60px"/> -->
+								<!-- 											<comboitem label="8" value="8" width="60px"/> -->
+								<!-- 											<comboitem label="9" value="9" width="60px"/> -->
+								<!-- 											<comboitem label="10" value="10" width="60px"/> -->
+								<!-- 											<comboitem label="11" value="11" width="60px"/> -->
+								<!-- 											<comboitem label="12" value="12" width="60px"/> -->
+								<!-- 											<comboitem label="13" value="13" width="60px"/> -->
+								<!-- 											<comboitem label="14" value="14" width="60px"/> -->
+								<!-- 											<comboitem label="15" value="15" width="60px"/> -->
+								<!-- 											<comboitem label="16" value="16" width="60px"/> -->
+								<!-- 										</combobox> -->
+								<!-- 								</div> -->
+								<!-- 								hasta aqui -->
+								<caption sclass="caption_pasos"
+									style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)">
+									<label
+										value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos"
+										style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)" />
+									<label sclass="style_Step" value="1"
+										style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)" />
 								</caption>
 								<div zclass="div_comentarios">
-									<label value="@bind(vmPricing.etiqueta[19])"/>
+									<label
+										value="@bind(vmPricing.etiqueta[19])" />
 								</div>
 								<div>
 									<div>
-										<label value="@bind(vmPricing.etiqueta[1])" sclass="titulo-groupbox"/>
+										<label
+											value="@bind(vmPricing.etiqueta[1])"
+											sclass="titulo-groupbox" />
 									</div>
-									<datebox format="dd-MM-yyyy" readonly="true" constraint="no past" onChange="@command('detFechaInicioSinCaminoInka',fecha=self.value)"/>
+									<datebox format="dd-MM-yyyy"
+										readonly="true" constraint="no past"
+										onChange="@command('detFechaInicioSinCaminoInka',fecha=self.value)" />
 								</div>
 								<space></space>
 								<div zclass="div_comentarios">
-									<label value="@bind(vmPricing.etiqueta[18])"/>
+									<label
+										value="@bind(vmPricing.etiqueta[18])" />
 								</div>
 								<div sclass="div_fechas">
 									<div>
-										<label value="@bind(vmPricing.etiqueta[21])" sclass="titulo-groupbox"/>
+										<label
+											value="@bind(vmPricing.etiqueta[21])"
+											sclass="titulo-groupbox" />
 									</div>
-									<combobox readonly="true" width="60px" onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)">
-											<comboitem label="1" value="1" width="60px"/>
-											<comboitem label="2" value="2" width="60px"/>
-											<comboitem label="3" value="3" width="60px"/>
-											<comboitem label="4" value="4" width="60px"/>
-											<comboitem label="5" value="5" width="60px"/>
-											<comboitem label="6" value="6" width="60px"/>
-											<comboitem label="7" value="7" width="60px"/>
-											<comboitem label="8" value="8" width="60px"/>
-											<comboitem label="9" value="9" width="60px"/>
-											<comboitem label="10" value="10" width="60px"/>
-											<comboitem label="11" value="11" width="60px"/>
-											<comboitem label="12" value="12" width="60px"/>
-											<comboitem label="13" value="13" width="60px"/>
-											<comboitem label="14" value="14" width="60px"/>
-											<comboitem label="15" value="15" width="60px"/>
-											<comboitem label="16" value="16" width="60px"/>
-										</combobox>
+									<combobox readonly="true"
+										width="60px"
+										onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)">
+										<comboitem label="1" value="1"
+											width="60px" />
+										<comboitem label="2" value="2"
+											width="60px" />
+										<comboitem label="3" value="3"
+											width="60px" />
+										<comboitem label="4" value="4"
+											width="60px" />
+										<comboitem label="5" value="5"
+											width="60px" />
+										<comboitem label="6" value="6"
+											width="60px" />
+										<comboitem label="7" value="7"
+											width="60px" />
+										<comboitem label="8" value="8"
+											width="60px" />
+										<comboitem label="9" value="9"
+											width="60px" />
+										<comboitem label="10" value="10"
+											width="60px" />
+										<comboitem label="11" value="11"
+											width="60px" />
+										<comboitem label="12" value="12"
+											width="60px" />
+										<comboitem label="13" value="13"
+											width="60px" />
+										<comboitem label="14" value="14"
+											width="60px" />
+										<comboitem label="15" value="15"
+											width="60px" />
+										<comboitem label="16" value="16"
+											width="60px" />
+									</combobox>
 								</div>
 							</groupbox>
-							<groupbox visible="@bind(vmPricing.mostrarDispIncaTrail)" width="100%" mold="3d">
-								<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)">
-									<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/>
-									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/>
+							<groupbox
+								visible="@bind(vmPricing.mostrarDispIncaTrail)" width="100%"
+								mold="3d">
+								<caption sclass="caption_pasos"
+									style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)">
+									<label
+										value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos"
+										style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)" />
+									<label sclass="style_Step" value="1"
+										style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)" />
 								</caption>
 								<div sclass="div_fechas">
 									<div zclass="div_comentarios">
-										<label value="@bind(vmPricing.etiqueta[46])"/>
+										<label
+											value="@bind(vmPricing.etiqueta[46])" />
 									</div>
-									<label value="@bind(vmPricing.etiqueta[1])" sclass="titulo-groupbox"/>
-									<hbox id="hbCal" onClick='calendarPop.open(self, "after_start");'>
-										<div zclass="div_content_icon_calendar_FP">
-											<a iconSclass="icon-calendar" sclass="titulo-groupbox"
-												onClick='calendarPop.open(hbCal, "after_start");'/>
+									<label
+										value="@bind(vmPricing.etiqueta[1])" sclass="titulo-groupbox" />
+									<hbox id="hbCal"
+										onClick='calendarPop.open(self, "after_start");'>
+										<div
+											zclass="div_content_icon_calendar_FP">
+											<a
+												iconSclass="icon-calendar" sclass="titulo-groupbox"
+												onClick='calendarPop.open(hbCal, "after_start");' />
 										</div>
-										<textbox readonly="true" value="@bind(vmPricing.fecha)"
-												 sclass="txtFechaPrincipal"/>
+										<textbox readonly="true"
+											value="@bind(vmPricing.fecha)" sclass="txtFechaPrincipal" />
 									</hbox>
-									<popup id="calendarPop" sclass="popup_calendar">
+									<popup id="calendarPop"
+										sclass="popup_calendar">
 										<space></space>
-										<include src="disponibilidad.zul" />
+										<include
+											src="disponibilidad.zul" />
 									</popup>
 									<space></space>
-									<label value="@bind(vmPricing.etiqueta[3])" sclass="titulo-groupbox"/>
-									<hbox id="hbCalAlt" onClick='calendarAltPop.open(self, "after_start");'>
-										<div zclass="div_content_icon_calendar_FP">
-											<a iconSclass="icon-calendar" sclass="titulo-groupbox"
-												onClick='calendarAltPop.open(hbCalAlt, "after_start");'/>
+									<label
+										value="@bind(vmPricing.etiqueta[3])" sclass="titulo-groupbox" />
+									<hbox id="hbCalAlt"
+										onClick='calendarAltPop.open(self, "after_start");'>
+										<div
+											zclass="div_content_icon_calendar_FP">
+											<a
+												iconSclass="icon-calendar" sclass="titulo-groupbox"
+												onClick='calendarAltPop.open(hbCalAlt, "after_start");' />
 										</div>
-										<textbox readonly="true" value="@bind(vmPricing.fechaAlterna)"
-												 sclass="txtFechaPrincipal"/>
+										<textbox readonly="true"
+											value="@bind(vmPricing.fechaAlterna)"
+											sclass="txtFechaPrincipal" />
 									</hbox>
-									<popup id="calendarAltPop" sclass="popup_calendar">
+									<popup id="calendarAltPop"
+										sclass="popup_calendar">
 										<space></space>
-										<include src="calendarFechaAlterna.zul" />
+										<include
+											src="calendarFechaAlterna.zul" />
 									</popup>
 								</div>
 								<space></space>
 								<div zclass="div_comentarios">
-									<label value="@bind(vmPricing.etiqueta[18])"/>
+									<label
+										value="@bind(vmPricing.etiqueta[18])" />
 								</div>
 								<div sclass="div_fechas">
 									<div>
-										<label value="@bind(vmPricing.etiqueta[21])" sclass="titulo-groupbox"/>
+										<label
+											value="@bind(vmPricing.etiqueta[21])"
+											sclass="titulo-groupbox" />
 									</div>
-									<combobox readonly="true" width="60px" onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)">
-											<comboitem label="1" value="1" width="60px"/>
-											<comboitem label="2" value="2" width="60px"/>
-											<comboitem label="3" value="3" width="60px"/>
-											<comboitem label="4" value="4" width="60px"/>
-											<comboitem label="5" value="5" width="60px"/>
-											<comboitem label="6" value="6" width="60px"/>
-											<comboitem label="7" value="7" width="60px"/>
-											<comboitem label="8" value="8" width="60px"/>
-											<comboitem label="9" value="9" width="60px"/>
-											<comboitem label="10" value="10" width="60px"/>
-											<comboitem label="11" value="11" width="60px"/>
-											<comboitem label="12" value="12" width="60px"/>
-											<comboitem label="13" value="13" width="60px"/>
-											<comboitem label="14" value="14" width="60px"/>
-											<comboitem label="15" value="15" width="60px"/>
-											<comboitem label="16" value="16" width="60px"/>
-										</combobox>
+									<combobox readonly="true"
+										width="60px"
+										onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)">
+										<comboitem label="1" value="1"
+											width="60px" />
+										<comboitem label="2" value="2"
+											width="60px" />
+										<comboitem label="3" value="3"
+											width="60px" />
+										<comboitem label="4" value="4"
+											width="60px" />
+										<comboitem label="5" value="5"
+											width="60px" />
+										<comboitem label="6" value="6"
+											width="60px" />
+										<comboitem label="7" value="7"
+											width="60px" />
+										<comboitem label="8" value="8"
+											width="60px" />
+										<comboitem label="9" value="9"
+											width="60px" />
+										<comboitem label="10" value="10"
+											width="60px" />
+										<comboitem label="11" value="11"
+											width="60px" />
+										<comboitem label="12" value="12"
+											width="60px" />
+										<comboitem label="13" value="13"
+											width="60px" />
+										<comboitem label="14" value="14"
+											width="60px" />
+										<comboitem label="15" value="15"
+											width="60px" />
+										<comboitem label="16" value="16"
+											width="60px" />
+									</combobox>
 								</div>
 							</groupbox>
 						</div>
@@ -254,277 +370,504 @@
 				</div>
 				<separator></separator>
 				<div sclass="contenedor_btn_pasos">
-					<button label="Back" zclass="btn_retorno" iconSclass="fa fa-arrow-left" onClick="@command('AnteriorPaso',nroPaso='1')"></button>
+					<button label="Back" zclass="btn_retorno"
+						visible="@bind(vmPricing.visibleBtnAtras)"
+						iconSclass="fa fa-arrow-left"
+						onClick="@command('AnteriorPaso',nroPaso='1',comp=self)">
+					</button>
 					<space width="50px"></space>
-					<button label="Next" zclass="btn_siguiente" iconSclass="fa fa-arrow-right" onClick="@command('SiguientePaso',nroPaso='1',comp=self)"></button>
+					<button label="Next" zclass="btn_siguiente"
+						visible="@bind(vmPricing.visibleBtnSiguiente)"
+						iconSclass="fa fa-arrow-right"
+						onClick="@command('SiguientePaso',nroPaso='1',comp=self)">
+					</button>
 				</div>
-		</div>
-		<!-- ========PASO 2========= -->
-		<div sclass="div_pasos" visible="@bind(vmPricing.paso2)">
+			</div>
+			<!-- ========PASO 2========= -->
+			<div sclass="div_pasos" visible="@bind(vmPricing.paso2)">
 				<!-- ===Modo normal==== -->
-			<groupbox mold="3d">
-				<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)">
-					<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/>
-					<label sclass="style_Step" value="2" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/>
-				</caption>
-				<!-- LLENAR DATOS DE LOS PASAJEROS O SUBIR DOCUMENTOS (NO AMBOS A LA VEZ)-->
-				<groupbox>
-					<caption>
-						<a iconSclass="icon-profile" sclass="titulo-groupbox"/>
-						<label value="@bind(vmPricing.etiqueta[88])" sclass="titulo-groupbox"/>
+				<groupbox mold="3d">
+					<caption sclass="caption_pasos"
+						style="@bind(vmPricing.oInterfaz.style_caption_FondoPasos)">
+						<label value="@bind(vmPricing.etiqueta[22])"
+							sclass="titulo-pasos"
+							style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)" />
+						<label sclass="style_Step" value="2"
+							style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)" />
 					</caption>
-<!-- 					<div zclass="titulos_pasajeros visible-grande" style="@bind(vmPricing.oInterfaz.style_div_ColDatosPax)" visible="@bind(!vmPricing.oInterfaz.bLlenarDatosUnPax)"> -->
-<!-- 						<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[68])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 						<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)"><label value="@bind(vmPricing.etiqueta[68])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 						<div sclass="div_tipoDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[69])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 						<div sclass="div_nroDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[70])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 						<div sclass="div_apellido" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[71])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 						<div sclass="div_nombre" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[72])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 						<div sclass="div_sexo" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[73])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 						<div sclass="div_edad" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[74])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 						<div sclass="div_pais" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[75])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
-<!-- 					</div> -->
-					<listbox width="100%"  sclass="list_pasajeros" model="@load(vmPricing.listaPasajeros)">
-						<listhead>
-							<listheader label=""/>
-						</listhead>
-						<template name="model">
-							<listitem style="background:white;" visible="@load(each.selectPasajero)">
-								<listcell style="background:white;">
-									<div zclass="pasajeros" width="100%">
-										<div zclass="div_nro_pax">
-											<label value="@bind(each.nNro)"/>
-										</div>
-										<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDocPax)">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[68])"/><label value=": "/>
-											</div>
-											<space sclass="visible-small-item-pasajero"/>
-											<vbox visible="@bind(each.esEdit)">
-												<button label="@bind(vmPricing.etiqueta[76])"  iconSclass="icon-upload" onClick="@command('uploadFile',pasajero=each,compUpload=self)"/>
-												<image src="@load(each.cUrlMostrarDocumento)" width="70px" height="50px" sclass="img_scan"/>
-											</vbox>
-										</div>
-										<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[68])"/><label value=": "/>
-											</div>
-											<radiogroup onCheck="@command('selectSubirDocScanneado',val=self.selectedItem.value,pasajero=each)">
-												<div zclass="visible-grande"><label value="@bind(vmPricing.etiqueta[68])"/></div>
-												<radio label="@bind(vmPricing.etiqueta[48])" value="yes" checked="@load(each.esEdit)"></radio>
-												<radio label="@bind(vmPricing.etiqueta[49])" value="no" checked="@load(!each.esEdit)"></radio>
-											</radiogroup>
-											<space sclass="visible-small-item-pasajero"/>
-											<vbox visible="@bind(each.esEdit)">
-												<button label="@bind(vmPricing.etiqueta[76])"  iconSclass="icon-upload" onClick="@command('uploadFile',pasajero=each,compUpload=self)"/>
-												<image src="@load(each.cUrlMostrarDocumento)" width="70px" height="50px" sclass="img_scan"/>
-											</vbox>
-										</div>
-										<div sclass="div_tipoDoc" visible="false">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[69])"/><label value=": "/>
-											</div>
-											<combobox value="@bind(each.tipoDocumento)" placeholder="@bind(vmPricing.etiqueta[84])" onChange="@command('selectTipoDoc',codTipoDoc=self.selectedItem.value,nameDoc=self.selectedItem.label,pasajero=each,idCbTipoDoc=self)" width="70px">
-												<comboitem label="@bind(vmPricing.etiqueta[77])" value="1"/>
-												<comboitem label="@bind(vmPricing.etiqueta[78])" value="2"/>
-												<comboitem label="@bind(vmPricing.etiqueta[79])" value="3"/>
-												<comboitem label="@bind(vmPricing.etiqueta[80])" value="4"/>
-												<comboitem label="@bind(vmPricing.etiqueta[81])" value="5"/>
-												<comboitem label="@bind(vmPricing.etiqueta[82])" value="6"/>
-												<comboitem label="@bind(vmPricing.etiqueta[83])" value="7"/>
-											</combobox>
-										</div>
-										<div sclass="div_nroDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[70])"/><label value=": "/>
-											</div>
-											<textbox placeholder="@bind(vmPricing.etiqueta[85])" value="@bind(each.cNroDoc)" width="100px" onChange="@command('changeNroDoc',nro=self.value,idTbNroDoc=self,pasajero=each)" style="text-transform: uppercase;"/></div>
-										<div sclass="div_apellido" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[71])"/><label value=": "/>
-											</div>
-											<textbox placeholder="@bind(vmPricing.etiqueta[71])" value="@bind(each.cApellidos)" width="150px" onChange="@command('changeApellido',valor=self.value,idTbNombre=self,pasajero=each)" style="text-transform: uppercase;"/></div>
-										<div sclass="div_nombre" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[72])"/><label value=": "/>
-											</div>
-											<textbox placeholder="@bind(vmPricing.etiqueta[72])" value="@bind(each.cNombres)" width="150px" onChange="@command('changeNombre',valor=self.value,idTbNombre=self,pasajero=each)" style="text-transform: uppercase;"/></div>
-										<div sclass="div_sexo" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[73])"/><label value=": "/>
-											</div>
-											<radiogroup width="65px" onCheck="@command('selectOpcionSexo',sexo=self.selectedItem.value,pasajero=each)">
-								  				<div zclass="visible-grande"><label value="@bind(vmPricing.etiqueta[73])"/></div>
-								  				<radio  checked="@bind(each.selectM)" label="@bind(vmPricing.etiqueta[86])" value="M"/>
-								                <radio  checked="@bind(each.selectF)" label="@bind(vmPricing.etiqueta[87])" value="F"/>
-								    	    </radiogroup>
-										</div>
-										<div sclass="div_edad" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[74])"/><label value=": "/>
-											</div>
-											<combobox value="@bind(each.textoEdad)" model="@load(vmPricing.listaEdades)" onChange="@command('changeEdad',edad=self.value,pasajero=each,idCbEdad=self)" width="50px">
-												<template name="model" var="edad">
-													<comboitem label="@load(edad)" value="@load(edad)"/>
-												</template>
-											</combobox>
-										</div>
-										<div sclass="div_pais" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
-											<div sclass="visible-small-item-pasajero" width="30%">
-												<label value="@bind(vmPricing.etiqueta[75])"/><label value=": "/>
-											</div>
-											<combobox model="@load(vmPricing.listaPaises)" value="@bind(each.nombrePais)" placeholder="@bind(vmPricing.etiqueta[75])" onChange="@command('selectCodPais',codPais=self.selectedItem.value,pasajero=each,idCbPais=self)" width="150px">
-												<template name="model" var="pais">
-													<comboitem label="@load(pais.cNombreEsp)" value="@load(pais.nPaisCod)"/>
-												</template>
-											</combobox>
-										</div>
-									</div>
-								</listcell>
-							</listitem>
-						</template>
-					</listbox>
-					<div zclass="div_contentAllInfoAdicional">	
-						<div sclass="div_infoAdicional">
-							<div sclass="div_sub_infoAdicional">
-								<label value="@bind(vmPricing.etiqueta[89])" sclass="pasajeros_datos_add_text"/>
-							</div>
-							<combobox width="240px" 
-									  value="@bind(vmPricing.oReservar.cContacto)" 
-									  placeholder="@bind(vmPricing.etiqueta[92])" 
-									  onChange="@command('changeContacto',contac=self.selectedItem.value,idTbContacto=self)" 
-									  style="text-transform: uppercase;"
-									  model="@bind(vmPricing.listaPasajeros)"
-									  readonly="true"
-									  visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
-								<template name="model" var="pasajero">
-									<comboitem label="@bind(pasajero.nombres_Apellidos)" value="@bind(pasajero.nombres_Apellidos)" visible="@bind(pasajero.selectPasajero)"/>
-								</template>
-							</combobox>
-							<combobox width="240px" 
-									  value="@bind(vmPricing.oReservar.cContacto)" 
-									  placeholder="@bind(vmPricing.etiqueta[92])" 
-									  onChange="@command('changeContacto',contac=self.selectedItem.value,idTbContacto=self)" 
-									  style="text-transform: uppercase;"
-									  model="@bind(vmPricing.listaPasajeros)"
-									  readonly="true"
-									  visible=" @bind(vmPricing.oInterfaz.bSubirDoc_O_llenarDatosPax)">
-								<template name="model" var="pasajero">
-									<comboitem label="@bind(pasajero.nombres_Apellidos)" value="@bind(pasajero.nombres_Apellidos)" visible="@bind(pasajero.selectPasajero)"/>
-								</template>
-							</combobox>
-							<textbox width="240px" visible=" @bind(vmPricing.oInterfaz.bLlenarDatosUnPax)" 
-									value="@bind(vmPricing.oReservar.cContacto)" 
-									placeholder="@bind(vmPricing.etiqueta[92])" 
-									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)" style="text-transform: uppercase;"/>
-							<textbox width="240px" visible="@bind(vmPricing.oInterfaz.bSubirDocPax)" 
-									value="@bind(vmPricing.oReservar.cContacto)" 
-									placeholder="@bind(vmPricing.etiqueta[92])" 
-									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)" style="text-transform: uppercase;"/>
-						</div>
-						<div sclass="div_infoAdicional" visible="@bind(vmPricing.oInterfaz.bLlenarDatosUnPax)">
-							<div sclass="div_sub_infoAdicional">
-								<label value="@bind(vmPricing.etiqueta[75])" sclass="pasajeros_datos_add_text"/>
-								<label value=":" sclass="pasajeros_datos_add_text"/>
-							</div>
-							<combobox model="@load(vmPricing.listaPaises)" value="@bind(vmPricing.oReservar.oPasajeroReservante.nombrePais)" placeholder="@bind(vmPricing.etiqueta[75])" onChange="@command('selectPaisReservante',codPais=self.selectedItem.value,idCbPais=self)" width="150px">
-								<template name="model" var="pais">
-									<comboitem label="@load(pais.cNombreEsp)" value="@load(pais.nPaisCod)"/>
-								</template>
-							</combobox>
-						</div>
-						<div sclass="div_infoAdicional">
-							<div sclass="div_sub_infoAdicional">
-								<label value="@bind(vmPricing.etiqueta[90])" sclass="pasajeros_datos_add_text"/>
-							</div>
-							<textbox id="tbMail" width="240px" value="@bind(vmPricing.oReservar.cEmail)" onChange="@command('changeMail',mail=self.value,idTbMail=tbMail)" placeholder="@bind(vmPricing.etiqueta[93])"/>
-						</div>
-						<div sclass="div_infoAdicional">
-							<div sclass="div_sub_infoAdicional">
-								<label value="@bind(vmPricing.etiqueta[91])" sclass="pasajeros_datos_add_text"/>
-							</div>
-							<textbox id="tbTelefono" width="240px" value="@bind(vmPricing.oReservar.cTelefono)" onChange="@command('changeTelefono',telefono=self.value,idTbTelf=tbTelefono)" placeholder="@bind(vmPricing.etiqueta[94])"/>
-						</div>
-						<div sclass="div_infoAdicional">
-							<div sclass="div_sub_infoAdicional">
-								<label value="@bind(vmPricing.etiqueta[95])" sclass="pasajeros_datos_add_text"/>
-							</div>
-							<textbox multiline="true" 
-									 width="250px" height="150px"
-		                             style="margin:0px" placeholder="@bind(vmPricing.etiqueta[96])"
-		                             value="@bind(vmPricing.oReservar.cInformacionAdicional)"/>
-						</div>
-					</div>
-				</groupbox>
-				<space></space>
-				<groupbox visible="@bind(vmPricing.btnHoteles)">
+					<!-- LLENAR DATOS DE LOS PASAJEROS O SUBIR DOCUMENTOS (NO AMBOS A LA VEZ)-->
+					<groupbox>
 						<caption>
-							<a iconSclass="icon-office" sclass="titulo-groupbox"/>
-							<label value="@bind(vmPricing.etiqueta[47])" sclass="titulo-groupbox"/>
+							<a iconSclass="icon-profile"
+								sclass="titulo-groupbox" />
+							<label value="@bind(vmPricing.etiqueta[88])"
+								sclass="titulo-groupbox" />
+						</caption>
+						<!-- 					<div zclass="titulos_pasajeros visible-grande" style="@bind(vmPricing.oInterfaz.style_div_ColDatosPax)" visible="@bind(!vmPricing.oInterfaz.bLlenarDatosUnPax)"> -->
+						<!-- 						<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[68])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)"><label value="@bind(vmPricing.etiqueta[68])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_tipoDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[69])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_nroDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[70])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_apellido" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[71])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_nombre" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[72])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_sexo" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[73])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_edad" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[74])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 						<div sclass="div_pais" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)"><label value="@bind(vmPricing.etiqueta[75])" style="@bind(vmPricing.oInterfaz.style_lbl_ColDatosPasajeros)"/></div> -->
+						<!-- 					</div> -->
+						<listbox width="100%" sclass="list_pasajeros"
+							model="@load(vmPricing.listaPasajeros)">
+							<listhead>
+								<listheader label="" />
+							</listhead>
+							<template name="model">
+								<listitem style="background:white;"
+									visible="@load(each.selectPasajero)">
+									<listcell
+										style="background:white;">
+										<div zclass="pasajeros"
+											width="100%">
+											<div zclass="div_nro_pax">
+												<label
+													value="@bind(each.nNro)" />
+											</div>
+											<div sclass="div_upload"
+												visible="@bind(vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[68])" />
+													<label value=": " />
+												</div>
+												<space
+													sclass="visible-small-item-pasajero" />
+												<vbox
+													visible="@bind(each.esEdit)">
+													<button
+														label="@bind(vmPricing.etiqueta[76])"
+														iconSclass="icon-upload"
+														onClick="@command('uploadFile',pasajero=each,compUpload=self)" />
+													<image
+														src="@load(each.cUrlMostrarDocumento)" width="70px"
+														height="50px" sclass="img_scan" />
+												</vbox>
+											</div>
+											<div sclass="div_upload"
+												visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[68])" />
+													<label value=": " />
+												</div>
+												<radiogroup
+													onCheck="@command('selectSubirDocScanneado',val=self.selectedItem.value,pasajero=each)">
+													<div
+														zclass="visible-grande">
+														<label
+															value="@bind(vmPricing.etiqueta[68])" />
+													</div>
+													<radio
+														label="@bind(vmPricing.etiqueta[48])" value="yes"
+														checked="@load(each.esEdit)">
+													</radio>
+													<radio
+														label="@bind(vmPricing.etiqueta[49])" value="no"
+														checked="@load(!each.esEdit)">
+													</radio>
+												</radiogroup>
+												<space
+													sclass="visible-small-item-pasajero" />
+												<vbox
+													visible="@bind(each.esEdit)">
+													<button
+														label="@bind(vmPricing.etiqueta[76])"
+														iconSclass="icon-upload"
+														onClick="@command('uploadFile',pasajero=each,compUpload=self)" />
+													<image
+														src="@load(each.cUrlMostrarDocumento)" width="70px"
+														height="50px" sclass="img_scan" />
+												</vbox>
+											</div>
+											<div sclass="div_tipoDoc"
+												visible="false">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[69])" />
+													<label value=": " />
+												</div>
+												<combobox
+													value="@bind(each.tipoDocumento)"
+													placeholder="@bind(vmPricing.etiqueta[84])"
+													onChange="@command('selectTipoDoc',codTipoDoc=self.selectedItem.value,nameDoc=self.selectedItem.label,pasajero=each,idCbTipoDoc=self)"
+													width="70px">
+													<comboitem
+														label="@bind(vmPricing.etiqueta[77])" value="1" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[78])" value="2" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[79])" value="3" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[80])" value="4" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[81])" value="5" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[82])" value="6" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[83])" value="7" />
+												</combobox>
+											</div>
+											<div sclass="div_nroDoc"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[70])" />
+													<label value=": " />
+												</div>
+												<textbox
+													placeholder="@bind(vmPricing.etiqueta[85])"
+													value="@bind(each.cNroDoc)" width="100px"
+													onChange="@command('changeNroDoc',nro=self.value,idTbNroDoc=self,pasajero=each)"
+													style="text-transform: uppercase;" />
+											</div>
+											<div sclass="div_apellido"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[71])" />
+													<label value=": " />
+												</div>
+												<textbox
+													placeholder="@bind(vmPricing.etiqueta[71])"
+													value="@bind(each.cApellidos)" width="150px"
+													onChange="@command('changeApellido',valor=self.value,idTbNombre=self,pasajero=each)"
+													style="text-transform: uppercase;" />
+											</div>
+											<div sclass="div_nombre"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[72])" />
+													<label value=": " />
+												</div>
+												<textbox
+													placeholder="@bind(vmPricing.etiqueta[72])"
+													value="@bind(each.cNombres)" width="150px"
+													onChange="@command('changeNombre',valor=self.value,idTbNombre=self,pasajero=each)"
+													style="text-transform: uppercase;" />
+											</div>
+											<div sclass="div_sexo"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[73])" />
+													<label value=": " />
+												</div>
+												<radiogroup width="65px"
+													onCheck="@command('selectOpcionSexo',sexo=self.selectedItem.value,pasajero=each)">
+													<div
+														zclass="visible-grande">
+														<label
+															value="@bind(vmPricing.etiqueta[73])" />
+													</div>
+													<radio
+														checked="@bind(each.selectM)"
+														label="@bind(vmPricing.etiqueta[86])" value="M" />
+													<radio
+														checked="@bind(each.selectF)"
+														label="@bind(vmPricing.etiqueta[87])" value="F" />
+												</radiogroup>
+											</div>
+											<div sclass="div_edad"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[74])" />
+													<label value=": " />
+												</div>
+												<combobox
+													value="@bind(each.textoEdad)"
+													model="@load(vmPricing.listaEdades)"
+													onChange="@command('changeEdad',edad=self.value,pasajero=each,idCbEdad=self)"
+													width="50px">
+													<template
+														name="model" var="edad">
+														<comboitem
+															label="@load(edad)" value="@load(edad)" />
+													</template>
+												</combobox>
+											</div>
+											<div sclass="div_pais"
+												visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+												<div
+													sclass="visible-small-item-pasajero" width="30%">
+													<label
+														value="@bind(vmPricing.etiqueta[75])" />
+													<label value=": " />
+												</div>
+												<combobox
+													model="@load(vmPricing.listaPaises)"
+													value="@bind(each.nombrePais)"
+													placeholder="@bind(vmPricing.etiqueta[75])"
+													onChange="@command('selectCodPais',codPais=self.selectedItem.value,pasajero=each,idCbPais=self)"
+													width="150px">
+													<template
+														name="model" var="pais">
+														<comboitem
+															label="@load(pais.cNombreEsp)"
+															value="@load(pais.nPaisCod)" />
+													</template>
+												</combobox>
+											</div>
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+						<div zclass="div_contentAllInfoAdicional">
+							<div sclass="div_infoAdicional">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[89])"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<combobox width="240px"
+									value="@bind(vmPricing.oReservar.cContacto)"
+									placeholder="@bind(vmPricing.etiqueta[92])"
+									onChange="@command('changeContacto',contac=self.selectedItem.value,idTbContacto=self)"
+									style="text-transform: uppercase;"
+									model="@bind(vmPricing.listaPasajeros)" readonly="true"
+									visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
+									<template name="model"
+										var="pasajero">
+										<comboitem
+											label="@bind(pasajero.nombres_Apellidos)"
+											value="@bind(pasajero.nombres_Apellidos)"
+											visible="@bind(pasajero.selectPasajero)" />
+									</template>
+								</combobox>
+								<combobox width="240px"
+									value="@bind(vmPricing.oReservar.cContacto)"
+									placeholder="@bind(vmPricing.etiqueta[92])"
+									onChange="@command('changeContacto',contac=self.selectedItem.value,idTbContacto=self)"
+									style="text-transform: uppercase;"
+									model="@bind(vmPricing.listaPasajeros)" readonly="true"
+									visible=" @bind(vmPricing.oInterfaz.bSubirDoc_O_llenarDatosPax)">
+									<template name="model"
+										var="pasajero">
+										<comboitem
+											label="@bind(pasajero.nombres_Apellidos)"
+											value="@bind(pasajero.nombres_Apellidos)"
+											visible="@bind(pasajero.selectPasajero)" />
+									</template>
+								</combobox>
+								<textbox width="240px"
+									visible=" @bind(vmPricing.oInterfaz.bLlenarDatosUnPax)"
+									value="@bind(vmPricing.oReservar.cContacto)"
+									placeholder="@bind(vmPricing.etiqueta[92])"
+									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)"
+									style="text-transform: uppercase;" />
+								<textbox width="240px"
+									visible="@bind(vmPricing.oInterfaz.bSubirDocPax)"
+									value="@bind(vmPricing.oReservar.cContacto)"
+									placeholder="@bind(vmPricing.etiqueta[92])"
+									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)"
+									style="text-transform: uppercase;" />
+							</div>
+							<div sclass="div_infoAdicional"
+								visible="@bind(vmPricing.oInterfaz.bLlenarDatosUnPax)">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[75])"
+										sclass="pasajeros_datos_add_text" />
+									<label value=":"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<combobox
+									model="@load(vmPricing.listaPaises)"
+									value="@bind(vmPricing.oReservar.oPasajeroReservante.nombrePais)"
+									placeholder="@bind(vmPricing.etiqueta[75])"
+									onChange="@command('selectPaisReservante',codPais=self.selectedItem.value,idCbPais=self)"
+									width="150px">
+									<template name="model" var="pais">
+										<comboitem
+											label="@load(pais.cNombreEsp)" value="@load(pais.nPaisCod)" />
+									</template>
+								</combobox>
+							</div>
+							<div sclass="div_infoAdicional">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[90])"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<textbox id="tbMail" width="240px"
+									value="@bind(vmPricing.oReservar.cEmail)"
+									onChange="@command('changeMail',mail=self.value,idTbMail=tbMail)"
+									placeholder="@bind(vmPricing.etiqueta[93])" />
+							</div>
+							<div sclass="div_infoAdicional">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[91])"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<textbox id="tbTelefono" width="240px"
+									value="@bind(vmPricing.oReservar.cTelefono)"
+									onChange="@command('changeTelefono',telefono=self.value,idTbTelf=tbTelefono)"
+									placeholder="@bind(vmPricing.etiqueta[94])" />
+							</div>
+							<div sclass="div_infoAdicional">
+								<div sclass="div_sub_infoAdicional">
+									<label
+										value="@bind(vmPricing.etiqueta[95])"
+										sclass="pasajeros_datos_add_text" />
+								</div>
+								<textbox multiline="true" width="250px"
+									height="150px" style="margin:0px"
+									placeholder="@bind(vmPricing.etiqueta[96])"
+									value="@bind(vmPricing.oReservar.cInformacionAdicional)" />
+							</div>
+						</div>
+					</groupbox>
+					<space></space>
+					<groupbox visible="@bind(vmPricing.btnHoteles)">
+						<caption>
+							<a iconSclass="icon-office"
+								sclass="titulo-groupbox" />
+							<label value="@bind(vmPricing.etiqueta[47])"
+								sclass="titulo-groupbox" />
 						</caption>
 						<div width="100%">
 							<div width="100%">
-								<radiogroup onCheck="@command('desglozarHoteles',opcion=self.selectedItem.value)">
-									<radio label="@bind(vmPricing.etiqueta[48])" value="si" checked="@load(vmPricing.mostrarHoteles)"/>
+								<radiogroup
+									onCheck="@command('desglozarHoteles',opcion=self.selectedItem.value)">
+									<radio
+										label="@bind(vmPricing.etiqueta[48])" value="si"
+										checked="@load(vmPricing.mostrarHoteles)" />
 									<space></space>
-									<radio label="@bind(vmPricing.etiqueta[49])" value="no" checked="@load(!vmPricing.mostrarHoteles)"/>
+									<radio
+										label="@bind(vmPricing.etiqueta[49])" value="no"
+										checked="@load(!vmPricing.mostrarHoteles)" />
 								</radiogroup>
 							</div>
 							<div zclass="div_comentarios">
-								<label value="@bind(vmPricing.etiqueta[50])"/>
+								<label
+									value="@bind(vmPricing.etiqueta[50])" />
 							</div>
 						</div>
-						<div visible="@bind(vmPricing.mostrarHoteles)" sclass="div_hoteles">
-							<listbox width="100%" onSelect="@command('clickOpcionCategoria',CConHoteles=self.selectedItem.value)" sclass="hotel_list" checkmark="true" model="@load(vmPricing.listaCategoriaConHoteles)">
-								<listhead >
-									<listheader  align="center" width="6%" style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
-										<a iconSclass="icon-checkmark" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
+						<div visible="@bind(vmPricing.mostrarHoteles)"
+							sclass="div_hoteles">
+							<listbox width="100%"
+								onSelect="@command('clickOpcionCategoria',CConHoteles=self.selectedItem.value)"
+								sclass="hotel_list" checkmark="true"
+								model="@load(vmPricing.listaCategoriaConHoteles)">
+								<listhead>
+									<listheader align="center"
+										width="6%"
+										style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
+										<a iconSclass="icon-checkmark"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
 									</listheader>
-									<listheader width="20%" style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
-										<label value="@bind(vmPricing.etiqueta[51])" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
+									<listheader width="20%"
+										style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
+										<label
+											value="@bind(vmPricing.etiqueta[51])" sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
 									</listheader>
-									<listheader align="center" width="19%" style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
-										<label value="SWB" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
-										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
+									<listheader align="center"
+										width="19%"
+										style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
+										<label value="SWB"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
+										<a iconSclass="icon-user"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
 									</listheader>
-									<listheader align="center" width="19%" style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
-										<label value="DWB" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
-										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
-										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
+									<listheader align="center"
+										width="19%"
+										style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
+										<label value="DWB"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
+										<a iconSclass="icon-user"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
+										<a iconSclass="icon-user"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
 									</listheader>
-									<listheader align="center" width="19%" style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
-										<label value="TWB" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
-										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
-										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
-										<a iconSclass="icon-user" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
+									<listheader align="center"
+										width="19%"
+										style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
+										<label value="TWB"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
+										<a iconSclass="icon-user"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
+										<a iconSclass="icon-user"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
+										<a iconSclass="icon-user"
+											sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
 									</listheader>
-									<listheader width="17%" style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
-										<label value="@bind(vmPricing.etiqueta[192])" sclass="stilo-a" style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)"/>
+									<listheader width="17%"
+										style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
+										<label
+											value="@bind(vmPricing.etiqueta[192])" sclass="stilo-a"
+											style="@bind(vmPricing.oInterfaz.style_lbl_DatosHotel)" />
 									</listheader>
 								</listhead>
 								<template name="model">
-									<listitem visible="@load(each.estadoCategoria)">
-										<listcell style="@bind(each.color)" onClick="@command('clickOpcionCategoria',CConHoteles=each)">
+									<listitem
+										visible="@load(each.estadoCategoria)">
+										<listcell
+											style="@bind(each.color)"
+											onClick="@command('clickOpcionCategoria',CConHoteles=each)">
 										</listcell>
-										<listcell style="@bind(each.color)" onClick="@command('clickOpcionCategoria',CConHoteles=each)">
+										<listcell
+											style="@bind(each.color)"
+											onClick="@command('clickOpcionCategoria',CConHoteles=each)">
 											<vbox>
-												<label value="@load(each.nameCategory)" sclass="lbl_category"/>
-												<label value="@load(each.estrellas)" sclass="stilo-a-start"/>
+												<label
+													value="@load(each.nameCategory)" sclass="lbl_category" />
+												<label
+													value="@load(each.estrellas)" sclass="stilo-a-start" />
 											</vbox>
 										</listcell>
-										<listcell style="@bind(each.color)" onClick="@command('clickOpcionCategoria',CConHoteles=each)">
-											<label hflex="1" value="@load(each.precioSimple)" sclass="precios_hoteles"/>
+										<listcell
+											style="@bind(each.color)"
+											onClick="@command('clickOpcionCategoria',CConHoteles=each)">
+											<label hflex="1"
+												value="@load(each.precioSimple)" sclass="precios_hoteles" />
 										</listcell>
-										<listcell style="@bind(each.color)" onClick="@command('clickOpcionCategoria',CConHoteles=each)">
-											<label hflex="1" value="@load(each.precioDoble)" sclass="precios_hoteles"/>
+										<listcell
+											style="@bind(each.color)"
+											onClick="@command('clickOpcionCategoria',CConHoteles=each)">
+											<label hflex="1"
+												value="@load(each.precioDoble)" sclass="precios_hoteles" />
 										</listcell>
-										<listcell style="@bind(each.color)" onClick="@command('clickOpcionCategoria',CConHoteles=each)">
-											<label hflex="1" value="@load(each.precioTriple)" sclass="precios_hoteles"/>
+										<listcell
+											style="@bind(each.color)"
+											onClick="@command('clickOpcionCategoria',CConHoteles=each)">
+											<label hflex="1"
+												value="@load(each.precioTriple)" sclass="precios_hoteles" />
 										</listcell>
-										<listcell style="@bind(each.color)">
-											<button zclass="btn_desglozar_hoteles" label="hoteles" 
-												onClick="@command('clickMostrarListaHoteles') @global-command('mostrarHotelesPorCategoria',listaDestinoHoteles=each.listaCategoriaDestinosHoteles)" 
-												width="100%"/>
+										<listcell
+											style="@bind(each.color)">
+											<button
+												zclass="btn_desglozar_hoteles" label="hoteles"
+												onClick="@command('clickMostrarListaHoteles') @global-command('mostrarHotelesPorCategoria',listaDestinoHoteles=each.listaCategoriaDestinosHoteles)"
+												width="100%" />
 										</listcell>
 									</listitem>
 								</template>
@@ -533,814 +876,1307 @@
 					</groupbox>
 
 					<!-- ====pantalla modal de precios de habitaciones=== -->
-					<window mode="modal" visible="@bind(vmPricing.mostrarPrecios)" sclass="win_habModal">
+					<window mode="modal"
+						visible="@bind(vmPricing.mostrarPrecios)" sclass="win_habModal">
 						<div>
 							<div>
-								<button label="X" onClick="@command('cancelarNroPersonasHab')" zclass="btn_cancelar_x"/>
-								<label value="@bind(vmPricing.etiqueta[60])" sclass="titleGeneral_hab"/>
+								<button label="X"
+									onClick="@command('cancelarNroPersonasHab')"
+									zclass="btn_cancelar_x" />
+								<label
+									value="@bind(vmPricing.etiqueta[60])"
+									sclass="titleGeneral_hab" />
 							</div>
-							<separator bar="true" style="color:#1A5276;"/>
+							<separator bar="true"
+								style="color:#1A5276;" />
 							<div sclass="content_preciosHab">
-								<vbox sclass="fondo_precioHotel" align="center">
+								<vbox sclass="fondo_precioHotel"
+									align="center">
 									<vbox align="center">
-										<label value="@bind(vmPricing.etiqueta[62])" sclass="hab_title"/>
-										<hbox><a iconSclass="icon-man" sclass="stilo-a-personas"/></hbox>
+										<label
+											value="@bind(vmPricing.etiqueta[62])" sclass="hab_title" />
 										<hbox>
-											<label value="$ " sclass="precioHab"/>
-											<label value="@bind(vmPricing.lblTotalPrecioSimple)" sclass="precioHab"/>
+											<a iconSclass="icon-man"
+												sclass="stilo-a-personas" />
+										</hbox>
+										<hbox>
+											<label value="$ "
+												sclass="precioHab" />
+											<label
+												value="@bind(vmPricing.lblTotalPrecioSimple)"
+												sclass="precioHab" />
 										</hbox>
 									</vbox>
-									<vbox style="@bind(vmPricing.oReservaPaqCatHotel.colorSimple)" align="center">
-										<label value="@bind(vmPricing.etiqueta[61])" sclass="selecthab_title"/>
-										<combobox readonly="true" width="60px" 
-												value="@bind(vmPricing.nroSimples)"
-												model="@bind(vmPricing.restSimple)"
-												onSelect="@command('changePersonHabitacion',hab=1,nroPer=self.selectedItem.value)"
-												disabled="@bind(vmPricing.oReservaPaqCatHotel.disableSimple)"
-												>
-											<template name="model" var="nroPersonas">
-												<comboitem label="@bind(nroPersonas)" value="@bind(nroPersonas)"/>
+									<vbox
+										style="@bind(vmPricing.oReservaPaqCatHotel.colorSimple)"
+										align="center">
+										<label
+											value="@bind(vmPricing.etiqueta[61])"
+											sclass="selecthab_title" />
+										<combobox readonly="true"
+											width="60px" value="@bind(vmPricing.nroSimples)"
+											model="@bind(vmPricing.restSimple)"
+											onSelect="@command('changePersonHabitacion',hab=1,nroPer=self.selectedItem.value)"
+											disabled="@bind(vmPricing.oReservaPaqCatHotel.disableSimple)">
+											<template name="model"
+												var="nroPersonas">
+												<comboitem
+													label="@bind(nroPersonas)" value="@bind(nroPersonas)" />
 											</template>
 										</combobox>
 									</vbox>
 								</vbox>
-								<space bar="true"/>
-								<vbox sclass="fondo_precioHotel" align="center">
+								<space bar="true" />
+								<vbox sclass="fondo_precioHotel"
+									align="center">
 									<vbox align="center">
-										<label value="@bind(vmPricing.etiqueta[63])" sclass="hab_title"/>
+										<label
+											value="@bind(vmPricing.etiqueta[63])" sclass="hab_title" />
 										<hbox>
-											<a iconSclass="icon-man" sclass="stilo-a-personas"/>
-											<a iconSclass="icon-man" sclass="stilo-a-personas"/>
+											<a iconSclass="icon-man"
+												sclass="stilo-a-personas" />
+											<a iconSclass="icon-man"
+												sclass="stilo-a-personas" />
 										</hbox>
 										<hbox>
-											<label value="$ " sclass="precioHab"/>
-											<label value="@bind(vmPricing.lblTotalPrecioDoble)" sclass="precioHab"/>
+											<label value="$ "
+												sclass="precioHab" />
+											<label
+												value="@bind(vmPricing.lblTotalPrecioDoble)"
+												sclass="precioHab" />
 										</hbox>
 									</vbox>
-									<vbox style="@bind(vmPricing.oReservaPaqCatHotel.colorDoble)" align="center">
-										<label value="@bind(vmPricing.etiqueta[61])" sclass="selecthab_title"/>
-										<combobox readonly="true" width="60px" 
-												value="@bind(vmPricing.nroDobles)"
-												model="@bind(vmPricing.restDoble)"
-												onSelect="@command('changePersonHabitacion',hab=2,nroPer=self.selectedItem.value)"
-												disabled="@bind(vmPricing.oReservaPaqCatHotel.disableDoble)"
-												>
-											<template name="model" var="nroPersonas">
-												<comboitem label="@bind(nroPersonas)" value="@bind(nroPersonas)"/>
+									<vbox
+										style="@bind(vmPricing.oReservaPaqCatHotel.colorDoble)"
+										align="center">
+										<label
+											value="@bind(vmPricing.etiqueta[61])"
+											sclass="selecthab_title" />
+										<combobox readonly="true"
+											width="60px" value="@bind(vmPricing.nroDobles)"
+											model="@bind(vmPricing.restDoble)"
+											onSelect="@command('changePersonHabitacion',hab=2,nroPer=self.selectedItem.value)"
+											disabled="@bind(vmPricing.oReservaPaqCatHotel.disableDoble)">
+											<template name="model"
+												var="nroPersonas">
+												<comboitem
+													label="@bind(nroPersonas)" value="@bind(nroPersonas)" />
 											</template>
 										</combobox>
 									</vbox>
-									<vbox style="@bind(vmPricing.oReservaPaqCatHotel.colorCamaAdicional)" align="center" visible="@bind(vmPricing.oInterfaz.bHotelesConCamaAdicional)">
-											<label value="@bind(vmPricing.etiqueta[232])" sclass="selecthab_title"/>
-											<radiogroup onCheck="@command('selectCamaAdicional',val=self.selectedItem.value)">
-												<radio label="@bind(vmPricing.etiqueta[48])" value="si" checked="@bind(vmPricing.oReservaPaqCatHotel.conCamaAdicional)" disabled="@bind(vmPricing.oReservaPaqCatHotel.disableCamaAdicional)"/>
-												<radio label="@bind(vmPricing.etiqueta[49])" value="no" checked="@bind(vmPricing.oReservaPaqCatHotel.sinCamaAdicional)" disabled="@bind(vmPricing.oReservaPaqCatHotel.disableCamaAdicional)"/>
-											</radiogroup>
-											<hbox>
-												<label value="$ " sclass="precioHab"/>
-												<label value="@bind(vmPricing.oReservaPaqCatHotel.precioCamaAdicional)" sclass="precioHab"/>
-											</hbox>
+									<vbox
+										style="@bind(vmPricing.oReservaPaqCatHotel.colorCamaAdicional)"
+										align="center"
+										visible="@bind(vmPricing.oInterfaz.bHotelesConCamaAdicional)">
+										<label
+											value="@bind(vmPricing.etiqueta[232])"
+											sclass="selecthab_title" />
+										<radiogroup
+											onCheck="@command('selectCamaAdicional',val=self.selectedItem.value)">
+											<radio
+												label="@bind(vmPricing.etiqueta[48])" value="si"
+												checked="@bind(vmPricing.oReservaPaqCatHotel.conCamaAdicional)"
+												disabled="@bind(vmPricing.oReservaPaqCatHotel.disableCamaAdicional)" />
+											<radio
+												label="@bind(vmPricing.etiqueta[49])" value="no"
+												checked="@bind(vmPricing.oReservaPaqCatHotel.sinCamaAdicional)"
+												disabled="@bind(vmPricing.oReservaPaqCatHotel.disableCamaAdicional)" />
+										</radiogroup>
+										<hbox>
+											<label value="$ "
+												sclass="precioHab" />
+											<label
+												value="@bind(vmPricing.oReservaPaqCatHotel.precioCamaAdicional)"
+												sclass="precioHab" />
+										</hbox>
 									</vbox>
 								</vbox>
-								<space bar="true"/>
-								<vbox sclass="fondo_precioHotel" align="center">
+								<space bar="true" />
+								<vbox sclass="fondo_precioHotel"
+									align="center">
 									<vbox align="center">
-										<label value="@bind(vmPricing.etiqueta[64])" sclass="hab_title"/>
+										<label
+											value="@bind(vmPricing.etiqueta[64])" sclass="hab_title" />
 										<hbox>
-											<a iconSclass="icon-man" sclass="stilo-a-personas"/>
-											<a iconSclass="icon-man" sclass="stilo-a-personas"/>
-											<a iconSclass="icon-man" sclass="stilo-a-personas"/>
+											<a iconSclass="icon-man"
+												sclass="stilo-a-personas" />
+											<a iconSclass="icon-man"
+												sclass="stilo-a-personas" />
+											<a iconSclass="icon-man"
+												sclass="stilo-a-personas" />
 										</hbox>
 										<hbox>
-											<label value="$ " sclass="precioHab"/>
-											<label value="@bind(vmPricing.lblTotalPrecioTriple)" sclass="precioHab"/>
+											<label value="$ "
+												sclass="precioHab" />
+											<label
+												value="@bind(vmPricing.lblTotalPrecioTriple)"
+												sclass="precioHab" />
 										</hbox>
 									</vbox>
-									<vbox style="@bind(vmPricing.oReservaPaqCatHotel.colorTriple)" align="center">
-										<label value="@bind(vmPricing.etiqueta[61])" sclass="selecthab_title"/>
-										<combobox readonly="true" width="60px" 
-												value="@bind(vmPricing.nroTriples)"
-												model="@bind(vmPricing.restTriple)"
-												onSelect="@command('changePersonHabitacion',hab=3,nroPer=self.selectedItem.value)"
-												disabled="@bind(vmPricing.oReservaPaqCatHotel.disableTriple)"
-												>
-											<template name="model" var="nroPersonas">
-												<comboitem label="@bind(nroPersonas)" value="@bind(nroPersonas)"/>
+									<vbox
+										style="@bind(vmPricing.oReservaPaqCatHotel.colorTriple)"
+										align="center">
+										<label
+											value="@bind(vmPricing.etiqueta[61])"
+											sclass="selecthab_title" />
+										<combobox readonly="true"
+											width="60px" value="@bind(vmPricing.nroTriples)"
+											model="@bind(vmPricing.restTriple)"
+											onSelect="@command('changePersonHabitacion',hab=3,nroPer=self.selectedItem.value)"
+											disabled="@bind(vmPricing.oReservaPaqCatHotel.disableTriple)">
+											<template name="model"
+												var="nroPersonas">
+												<comboitem
+													label="@bind(nroPersonas)" value="@bind(nroPersonas)" />
 											</template>
 										</combobox>
 									</vbox>
 								</vbox>
-								<space bar="true"/>
-								<vbox sclass="fondo_precioHotel" align="center">
+								<space bar="true" />
+								<vbox sclass="fondo_precioHotel"
+									align="center">
 									<vbox>
-										<label value="@bind(vmPricing.etiqueta[65])" sclass="hab_title"/>
-										
+										<label
+											value="@bind(vmPricing.etiqueta[65])" sclass="hab_title" />
+
 									</vbox>
 									<space></space>
 									<div sclass="content_total">
-										<label value="$ " sclass="precioHab_total"/>
-										<label value="@bind(vmPricing.lblTotalHabitaciones)" sclass="precioHab_total"/>
+										<label value="$ "
+											sclass="precioHab_total" />
+										<label
+											value="@bind(vmPricing.lblTotalHabitaciones)"
+											sclass="precioHab_total" />
 									</div>
 								</vbox>
 							</div>
 							<div width="100%">
 								<div style="float:right;">
-									<button label="@bind(vmPricing.etiqueta[69])" zclass="cancelar" onClick="@command('cancelarNroPersonasHab')"/>
-									<button label="@bind(vmPricing.etiqueta[70])" zclass="aceptar" onClick="@command('aceptarNroPersonasHab')"/>
+									<button
+										label="@bind(vmPricing.etiqueta[69])" zclass="cancelar"
+										onClick="@command('cancelarNroPersonasHab')" />
+									<button
+										label="@bind(vmPricing.etiqueta[70])" zclass="aceptar"
+										onClick="@command('aceptarNroPersonasHab')" />
 								</div>
 							</div>
 						</div>
 					</window>
-				<space></space>
-				<groupbox visible="@bind(vmPricing.mostrarServicios)">
-					<caption>
-						<a iconSclass="icon-list" sclass="titulo-groupbox"/>
-						<label value="@bind(vmPricing.etiqueta[6])" sclass="titulo-groupbox"/>
-					</caption>
-					<!-- ===================SERVICIOS NORMAL================== -->
-					<div width="100%" sclass="div_servicios visible-grande-service">
-						<listbox width="100%" model="@bind(vmPricing.oReservar.oPaquete.listaServicios)" sclass="listbox_servicioOper">
-<!-- 							<listhead><listheader label="@bind(vmPricing.etiqueta[6])" align="center" style="color:white;background:black;font-size:18px;"/></listhead> -->
-							<template name="model" >
-								<listitem style="background:white;" visible="@load(each.seleccionado)">
-									<listcell style="border-radius:5px;background:white;">
-										<div sclass="div_operServicio">
-											<div sclass="div_izqServicio">
-												<label value="@bind(each.servicio)" style="color:black;font-weight:bold;"/>
-												<space></space>
-												<combobox readonly="true" width="100px" 
-														  value="@bind(each.selectOpcion)"
-														  model="@bind(each.listaOpcionServicios)"
-														  onSelect="@command('SelectOpcionService',servicio=each,cod=each.nServicioCod,opcion=self.selectedItem.value,pos=self.selectedItem.index)"
-														  >
-													<template name="model" var="opcion">
-														<comboitem label="@bind(opcion[0])" value="@bind(opcion[1])"/>
-													</template>
+					<space></space>
+					<groupbox
+						visible="@bind(vmPricing.mostrarServicios)">
+						<caption>
+							<a iconSclass="icon-list"
+								sclass="titulo-groupbox" />
+							<label value="@bind(vmPricing.etiqueta[6])"
+								sclass="titulo-groupbox" />
+						</caption>
+						<!-- ===================SERVICIOS NORMAL================== -->
+						<div width="100%"
+							sclass="div_servicios visible-grande-service">
+							<listbox width="100%"
+								model="@bind(vmPricing.oReservar.oPaquete.listaServicios)"
+								sclass="listbox_servicioOper">
+								<!-- 							<listhead><listheader label="@bind(vmPricing.etiqueta[6])" align="center" style="color:white;background:black;font-size:18px;"/></listhead> -->
+								<template name="model">
+									<listitem style="background:white;"
+										visible="@load(each.seleccionado)">
+										<listcell
+											style="border-radius:5px;background:white;">
+											<div
+												sclass="div_operServicio">
+												<div
+													sclass="div_izqServicio">
+													<label
+														value="@bind(each.servicio)"
+														style="color:black;font-weight:bold;" />
+													<space></space>
+													<combobox
+														readonly="true" width="100px"
+														value="@bind(each.selectOpcion)"
+														model="@bind(each.listaOpcionServicios)"
+														onSelect="@command('SelectOpcionService',servicio=each,cod=each.nServicioCod,opcion=self.selectedItem.value,pos=self.selectedItem.index)">
+														<template
+															name="model" var="opcion">
+															<comboitem
+																label="@bind(opcion[0])" value="@bind(opcion[1])" />
+														</template>
+													</combobox>
+												</div>
+												<div
+													sclass="div_derServicio">
+													<div
+														visible="@bind(each.mostrarDescripcion)"
+														sclass="div_DesServicio">
+														<label
+															value="@bind(each.descripcionVisible)"
+															sclass="comentarios_service" />
+													</div>
+													<div width="70px"
+														height="70px" visible="@bind(each.mostrarDescripcion)"
+														sclass="div_content_img_service">
+														<image
+															src="@bind(each.urlImageVisible)" width="100%"
+															height="100%" />
+														<image
+															src="img/link.png" width="100%" height="100%"
+															onClick="@command('redirectUrl',servicio=forEachStatus.index)"
+															sclass="div_img_link" />
+													</div>
+												</div>
+											</div>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+						<!-- ===================SERVICIOS RESPONSIVE================== -->
+						<div width="100%"
+							sclass="div_servicios visible-small-service">
+							<listbox
+								model="@bind(vmPricing.oReservar.oPaquete.listaServicios)"
+								sclass="listbox_servicioOper">
+								<!-- 							<listhead><listheader label="@bind(vmPricing.etiqueta[6])" align="center" style="color:white;background:black;font-size:18px;"/></listhead> -->
+								<template name="model">
+									<listitem style="background:white;"
+										visible="@load(each.seleccionado)">
+										<listcell
+											style="border-radius:5px;background:white;">
+											<div
+												sclass="div_operServicio">
+												<div
+													sclass="div_izqServicio">
+													<label
+														value="@bind(each.servicio)"
+														style="color:black;font-weight:bold;" />
+													<space></space>
+													<combobox
+														readonly="true" width="100px"
+														value="@bind(each.selectOpcion)"
+														model="@bind(each.listaOpcionServicios)"
+														onSelect="@command('SelectOpcionService',servicio=each,cod=each.nServicioCod,opcion=self.selectedItem.value,pos=self.selectedItem.index)">
+														<template
+															name="model" var="opcion">
+															<comboitem
+																label="@bind(opcion[0])" value="@bind(opcion[1])" />
+														</template>
+													</combobox>
+												</div>
+												<div
+													sclass="div_derServicio">
+													<div
+														visible="@bind(each.mostrarDescripcion)"
+														sclass="div_DesServicio">
+														<label
+															value="@bind(each.descripcionVisible)"
+															sclass="comentarios_service" />
+													</div>
+													<div width="70px"
+														height="70px" visible="@bind(each.mostrarDescripcion)"
+														sclass="div_content_img_service">
+														<image
+															src="@bind(each.urlImageVisible)" width="100%"
+															height="100%" />
+														<image
+															src="img/link.png" width="100%" height="100%"
+															onClick="@command('redirectUrl',servicio=forEachStatus.index)"
+															sclass="div_img_link" />
+													</div>
+												</div>
+											</div>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+					</groupbox>
+					<space></space>
+					<groupbox
+						visible="@bind(vmPricing.oReservar.oPaquete.conActividad)">
+						<caption>
+							<a iconSclass="icon-list"
+								sclass="titulo-groupbox" />
+							<label
+								value="@bind(vmPricing.etiqueta[217])" sclass="titulo-groupbox" />
+						</caption>
+						<div>
+							<listbox
+								model="@load(vmPricing.oReservar.oPaquete.listaActividades)"
+								sclass="lista_Actividades">
+								<listhead>
+									<listheader></listheader>
+								</listhead>
+								<template name="model">
+									<listitem
+										visible="@load(each.seleccionado)">
+										<listcell>
+											<div
+												zclass="div_content_acti">
+												<label
+													value="@bind(each.nombreActividad)"
+													zclass="list_lbl_nombre_acti" />
+												<combobox
+													onSelect="@command('actividadSeleccionada',actividad=each,opcion=self.selectedItem.value,cod=each.nActividadCod)"
+													width="70px">
+													<comboitem
+														label="@bind(vmPricing.etiqueta[49])" value="no" />
+													<comboitem
+														label="@bind(vmPricing.etiqueta[48])" value="si" />
 												</combobox>
-											</div>
-											<div sclass="div_derServicio">
-												<div visible="@bind(each.mostrarDescripcion)" sclass="div_DesServicio">
-													<label value="@bind(each.descripcionVisible)" sclass="comentarios_service"/>
-												</div>
-												<div width="70px" height="70px" visible="@bind(each.mostrarDescripcion)" sclass="div_content_img_service">
-													<image src="@bind(each.urlImageVisible)" width="100%" height="100%"/>
-													<image src="img/link.png" width="100%" height="100%" onClick="@command('redirectUrl',servicio=forEachStatus.index)" sclass="div_img_link"/>
-												</div>
-											</div>
-										</div>
-									</listcell>
-								</listitem>
-							</template>
-						</listbox>
-					</div>
-					<!-- ===================SERVICIOS RESPONSIVE================== -->
-					<div width="100%" sclass="div_servicios visible-small-service">
-						<listbox model="@bind(vmPricing.oReservar.oPaquete.listaServicios)" sclass="listbox_servicioOper">
-<!-- 							<listhead><listheader label="@bind(vmPricing.etiqueta[6])" align="center" style="color:white;background:black;font-size:18px;"/></listhead> -->
-							<template name="model" >
-								<listitem style="background:white;" visible="@load(each.seleccionado)">
-									<listcell style="border-radius:5px;background:white;">
-										<div sclass="div_operServicio">
-											<div sclass="div_izqServicio">
-												<label value="@bind(each.servicio)" style="color:black;font-weight:bold;"/>
-												<space></space>
-												<combobox readonly="true" width="100px" 
-														  value="@bind(each.selectOpcion)"
-														  model="@bind(each.listaOpcionServicios)"
-														  onSelect="@command('SelectOpcionService',servicio=each,cod=each.nServicioCod,opcion=self.selectedItem.value,pos=self.selectedItem.index)"
-														  >
-													<template name="model" var="opcion">
-														<comboitem label="@bind(opcion[0])" value="@bind(opcion[1])"/>
-													</template>
-												</combobox>
-											</div>
-											<div sclass="div_derServicio">
-												<div visible="@bind(each.mostrarDescripcion)" sclass="div_DesServicio">
-													<label value="@bind(each.descripcionVisible)" sclass="comentarios_service"/>
-												</div>
-												<div width="70px" height="70px" visible="@bind(each.mostrarDescripcion)" sclass="div_content_img_service">
-													<image src="@bind(each.urlImageVisible)" width="100%" height="100%"/>
-													<image src="img/link.png" width="100%" height="100%" onClick="@command('redirectUrl',servicio=forEachStatus.index)" sclass="div_img_link"/>
-												</div>
-											</div>
-										</div>
-									</listcell>
-								</listitem>
-							</template>
-						</listbox>
-					</div>
-				</groupbox>
-				<space></space>
-				<groupbox visible="@bind(vmPricing.oReservar.oPaquete.conActividad)">
-					<caption>
-						<a iconSclass="icon-list" sclass="titulo-groupbox"/>
-						<label value="@bind(vmPricing.etiqueta[217])" sclass="titulo-groupbox"/>
-					</caption>
-					<div>
-						<listbox model="@load(vmPricing.oReservar.oPaquete.listaActividades)" sclass="lista_Actividades">
-							<listhead>
-								<listheader></listheader>
-							</listhead>
-							<template name="model">
-								<listitem visible="@load(each.seleccionado)">
-									<listcell>
-										<div zclass="div_content_acti">
-											<label value="@bind(each.nombreActividad)" zclass="list_lbl_nombre_acti"/>
-											<combobox onSelect="@command('actividadSeleccionada',actividad=each,opcion=self.selectedItem.value,cod=each.nActividadCod)" width="70px">
-												<comboitem label="@bind(vmPricing.etiqueta[49])" value="no"/>
-												<comboitem label="@bind(vmPricing.etiqueta[48])" value="si"/>
-											</combobox>
-											<window sclass="win_actividad" mode="modal" visible="@bind(each.mostrarInformacionActividad)">
-												<div zclass="div_content_win_actividad">
-													<button label="X" onClick="@command('cerrarVentanaActividad',actividad=each)" zclass="btn_cerrar_actividad"/>
-													<window sclass="win_actividad_content" contentStyle="overflow:auto;" width="100%" height="100%">
-														<div width="100%" height="auto">
-															<div zclass="div_titulo_acti">
-																<label value="@bind(each.nombreActividad)" zclass="lbl_nombre_acti"/>
+												<window
+													sclass="win_actividad" mode="modal"
+													visible="@bind(each.mostrarInformacionActividad)">
+													<div
+														zclass="div_content_win_actividad">
+														<button
+															label="X"
+															onClick="@command('cerrarVentanaActividad',actividad=each)"
+															zclass="btn_cerrar_actividad" />
+														<window
+															sclass="win_actividad_content"
+															contentStyle="overflow:auto;" width="100%"
+															height="100%">
+															<div
+																width="100%" height="auto">
+																<div
+																	zclass="div_titulo_acti">
+																	<label
+																		value="@bind(each.nombreActividad)"
+																		zclass="lbl_nombre_acti" />
+																</div>
+																<div>
+																	<html
+																		height="auto"
+																		content="@bind(each.descripcionActividad)" />
+																</div>
 															</div>
-															<div>
-																<html height="auto" content="@bind(each.descripcionActividad)"/>
-															</div>
-														</div>
-													</window>
-												</div>
-											</window>
-										</div>
-									</listcell>
-								</listitem>
-							</template>
-						</listbox>
-					</div>
+														</window>
+													</div>
+												</window>
+											</div>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+					</groupbox>
 				</groupbox>
-			</groupbox>
-			<separator></separator>
-			<div sclass="contenedor_btn_pasos">
-				<button label="Back" zclass="btn_retorno" iconSclass="fa fa-arrow-left" onClick="@command('AnteriorPaso',nroPaso='2')"></button>
-				<space width="50px"></space>
-				<button label="Next" zclass="btn_siguiente" iconSclass="fa fa-arrow-right" onClick="@command('SiguientePaso',nroPaso='2',comp=self)"></button>
+				<separator></separator>
+				<div sclass="contenedor_btn_pasos">
+					<button label="Back" zclass="btn_retorno"
+						visible="@bind(vmPricing.visibleBtnAtras)"
+						iconSclass="fa fa-arrow-left"
+						onClick="@command('AnteriorPaso',nroPaso='2',comp=self)">
+					</button>
+					<space width="50px"></space>
+					<button label="Next" zclass="btn_siguiente"
+						visible="@bind(vmPricing.visibleBtnSiguiente)"
+						iconSclass="fa fa-arrow-right"
+						onClick="@command('SiguientePaso',nroPaso='2',comp=self)">
+					</button>
+				</div>
 			</div>
-		</div>
 		</div>
 		<space></space>
 		<!-- ======RESUMEN Y CONFIRMACION====== -->
-		<div sclass="div_resumen_reserva" visible="@bind(vmPricing.visiblePaso3)">
-			<div sclass="div-logoPaises visible-grande" width="100%" style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)">
+		<div sclass="div_resumen_reserva_pasos"
+			visible="@bind(vmPricing.visiblePaso3)">
+			<div sclass="div-logoPaises visible-grande" width="100%"
+				style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)">
 				<div style="float:right;">
-					  <image src="img/Flag-of-Spain.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)"/>
-				  	  <image src="img/en.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=2) @global-command('cambiarIdiomaDispo',idioma=2)"/>
-<!-- 					  <image src="img/Flag_of_Brazil.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=3) @global-command('cambiarIdiomaDispo',idioma=3)"/> -->
-<!-- 					  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
-				  </div>
-				  <space></space>
+					<image src="img/Flag-of-Spain.png"
+						sclass="style-flag"
+						onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)" />
+					<image src="img/en.png" sclass="style-flag"
+						onClick="@command('cambiarIdioma',idioma=2) @global-command('cambiarIdiomaDispo',idioma=2)" />
+					<!-- 					  <image src="img/Flag_of_Brazil.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=3) @global-command('cambiarIdiomaDispo',idioma=3)"/> -->
+					<!-- 					  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
+				</div>
+				<space></space>
 			</div>
 			<div width="100%">
-				<groupbox mold="3d" visible="@bind(vmPricing.visiblePaso3)">
-					<caption sclass="caption_pasos" style="@bind(vmPricing.oInterfaz.style_caption_RyC)">
-						<label value="@bind(vmPricing.etiqueta[20])" sclass="style_info" style="@bind(vmPricing.oInterfaz.style_lbl_RyC)"/>
+				<groupbox mold="3d"
+					visible="@bind(vmPricing.visiblePaso3)">
+					<caption sclass="caption_pasos"
+						style="@bind(vmPricing.oInterfaz.style_caption_RyC)">
+						<label value="@bind(vmPricing.etiqueta[20])"
+							sclass="style_info"
+							style="@bind(vmPricing.oInterfaz.style_lbl_RyC)" />
 					</caption>
-						<div sclass="div_info" style="@bind(vmPricing.oInterfaz.style_div_BordeRyC)">
-						<div sclass="div_titleInfo" align="center" style="@bind(vmPricing.oInterfaz.style_div_FondoTituloRyC)">
-							<label value="@bind(vmPricing.oReservar.oPaquete.titulo)" sclass="style_tituloPaqueteRyC" style="@bind(vmPricing.oInterfaz.style_lbl_TextoTituloRyC)"/>
+					<div sclass="div_info"
+						style="@bind(vmPricing.oInterfaz.style_div_BordeRyC)">
+						<div sclass="div_titleInfo" align="center"
+							style="@bind(vmPricing.oInterfaz.style_div_FondoTituloRyC)">
+							<label
+								value="@bind(vmPricing.oReservar.oPaquete.titulo)"
+								sclass="style_tituloPaqueteRyC"
+								style="@bind(vmPricing.oInterfaz.style_lbl_TextoTituloRyC)" />
 						</div>
 						<space></space>
 						<div sclass="div_info_item">
 							<div sclass="div_info_item_izq">
-								<a iconSclass="icon-users" sclass="style_icon_info"/>
+								<a iconSclass="icon-users"
+									sclass="style_icon_info" />
 							</div>
 							<div sclass="div_info_item_der">
-								<div><label value="@bind(vmPricing.etiqueta[21])" sclass="div_info_item_label"/></div>
-								<separator bar="true"/>
-								<div><label value="@bind(vmPricing.oReservar.nNroPersonas)" style="font-weight:bold;font-size:18px;text-align:center;"/></div>
+								<div>
+									<label
+										value="@bind(vmPricing.etiqueta[21])"
+										sclass="div_info_item_label" />
+								</div>
+								<separator bar="true" />
+								<div>
+									<label
+										value="@bind(vmPricing.oReservar.nNroPersonas)"
+										style="font-weight:bold;font-size:18px;text-align:center;" />
+								</div>
 							</div>
 						</div>
-						<separator bar="true"/>
+						<separator bar="true" />
 						<div sclass="div_info_item">
 							<div sclass="div_info_item_izq">
-								<a iconSclass="icon-calendar" sclass="style_icon_info"/>
+								<a iconSclass="icon-calendar"
+									sclass="style_icon_info" />
 							</div>
 							<div sclass="div_info_item_der">
-								<div><label value="@bind(vmPricing.etiqueta[1])" sclass="div_info_item_label"/></div>
-								<separator bar="true"/>
+								<div>
+									<label
+										value="@bind(vmPricing.etiqueta[1])"
+										sclass="div_info_item_label" />
+								</div>
+								<separator bar="true" />
 								<div>
 									<vbox>
-										<label id="lblFechaInicioPaso3" style="font-size:18px;font-weight:bold;"/>
-										<label id="lblFechaFinPaso3" style="font-size:18px;font-weight:bold;"/>
+										<label id="lblFechaInicioPaso3"
+											style="font-size:18px;font-weight:bold;" />
+										<label id="lblFechaFinPaso3"
+											style="font-size:18px;font-weight:bold;" />
 									</vbox>
 								</div>
 							</div>
 						</div>
-						<separator bar="true"/>
-						<div sclass="div_info_item" visible="@bind(vmPricing.mostrarDispIncaTrail)">
+						<separator bar="true" />
+						<div sclass="div_info_item"
+							visible="@bind(vmPricing.mostrarDispIncaTrail)">
 							<div sclass="div_info_item_izq">
-								<a iconSclass="icon-calendar" sclass="style_icon_info"/>
+								<a iconSclass="icon-calendar"
+									sclass="style_icon_info" />
 							</div>
 							<div sclass="div_info_item_der">
-								<label value="@bind(vmPricing.etiqueta[3])" sclass="div_info_item_label"/>
-								<separator bar="true"/>
-								<listbox model="@load(vmPricing.listaFechasAlternas)" width="200px" style="border:1px solid black;border-radius:5px;">
+								<label
+									value="@bind(vmPricing.etiqueta[3])"
+									sclass="div_info_item_label" />
+								<separator bar="true" />
+								<listbox
+									model="@load(vmPricing.listaFechasAlternas)" width="200px"
+									style="border:1px solid black;border-radius:5px;">
 									<listhead>
-										<listheader label=""/>
+										<listheader label="" />
 									</listhead>
-									<template name="model" var="fecha">
-										<listitem style="background:rgba(0,0,0,0.1);">
-											<listcell style="background:transparent;">
-												<label hflex="1" value="@bind(fecha)" sclass="AltDate_info_label"/>
+									<template name="model"
+										var="fecha">
+										<listitem
+											style="background:rgba(0,0,0,0.1);">
+											<listcell
+												style="background:transparent;">
+												<label hflex="1"
+													value="@bind(fecha)" sclass="AltDate_info_label" />
 											</listcell>
 										</listitem>
 									</template>
 								</listbox>
 							</div>
 						</div>
-						<separator bar="true" visible="@bind(vmPricing.mostrarDispIncaTrail)"/>
+						<separator bar="true"
+							visible="@bind(vmPricing.mostrarDispIncaTrail)" />
 						<div visible="@bind(vmPricing.visiblePaso3)">
-						<div sclass="div_info_item">
-							<div sclass="div_info_item_izq">
-								<a iconSclass="icon-user" sclass="style_icon_info"/>
+							<div sclass="div_info_item">
+								<div sclass="div_info_item_izq">
+									<a iconSclass="icon-user"
+										sclass="style_icon_info" />
+								</div>
+								<div sclass="div_info_item_der">
+									<div>
+										<label
+											value="@bind(vmPricing.etiqueta[98])"
+											sclass="div_info_item_label" />
+									</div>
+									<separator bar="true" />
+									<div>
+										<label
+											value="@bind(vmPricing.oReservar.cContacto)"
+											sclass="info_label_datos" />
+									</div>
+								</div>
 							</div>
-							<div sclass="div_info_item_der">
-								<div><label value="@bind(vmPricing.etiqueta[98])" sclass="div_info_item_label"/></div>
-								<separator bar="true"/>
-								<div><label value="@bind(vmPricing.oReservar.cContacto)" sclass="info_label_datos"/></div>
+							<separator bar="true" />
+							<div sclass="div_info_item">
+								<div sclass="div_info_item_izq">
+									<a iconSclass="icon-mail2"
+										sclass="style_icon_info" />
+								</div>
+								<div sclass="div_info_item_der">
+									<div>
+										<label
+											value="@bind(vmPricing.etiqueta[90])"
+											sclass="div_info_item_label" />
+									</div>
+									<separator bar="true" />
+									<div>
+										<label
+											value="@bind(vmPricing.oReservar.cEmail)"
+											sclass="info_label_datos" />
+									</div>
+								</div>
 							</div>
-						</div>
-						<separator bar="true"/>
-						<div sclass="div_info_item">
-							<div sclass="div_info_item_izq">
-								<a iconSclass="icon-mail2" sclass="style_icon_info"/>
+							<separator bar="true" />
+							<div sclass="div_info_item">
+								<div sclass="div_info_item_izq">
+									<a iconSclass="icon-mobile"
+										sclass="style_icon_info" />
+								</div>
+								<div sclass="div_info_item_der">
+									<div>
+										<label
+											value="@bind(vmPricing.etiqueta[91])"
+											sclass="div_info_item_label" />
+									</div>
+									<separator bar="true" />
+									<div>
+										<label
+											value="@bind(vmPricing.oReservar.cTelefono)"
+											sclass="info_label_datos" />
+									</div>
+								</div>
 							</div>
-							<div sclass="div_info_item_der">
-								<div><label value="@bind(vmPricing.etiqueta[90])" sclass="div_info_item_label"/></div>
-								<separator bar="true"/>
-								<div><label value="@bind(vmPricing.oReservar.cEmail)" sclass="info_label_datos"/></div>
-							</div>
-						</div>
-						<separator bar="true"/>
-						<div sclass="div_info_item">
-							<div sclass="div_info_item_izq">
-								<a iconSclass="icon-mobile" sclass="style_icon_info"/>
-							</div>
-							<div sclass="div_info_item_der">
-								<div><label value="@bind(vmPricing.etiqueta[91])" sclass="div_info_item_label"/></div>
-								<separator bar="true"/>
-								<div><label value="@bind(vmPricing.oReservar.cTelefono)" sclass="info_label_datos"/></div>
-							</div>
-						</div>
-						<separator bar="true"/>
-	<!-- 						======COSTO PAQUETE====== -->
+							<separator bar="true" />
+							<!-- 						======COSTO PAQUETE====== -->
 							<space></space>
-							<div width="100%" sclass="div_mostrarPaquete" align="left">
+							<div width="100%"
+								sclass="div_mostrarPaquete" align="left">
 								<div sclass="div_costoPaquete">
-									<div sclass="div_costoPaqueteSubTitle">
-										<label value="@bind(vmPricing.etiqueta[4])" sclass="subDesc_costos"/>
+									<div
+										sclass="div_costoPaqueteSubTitle">
+										<label
+											value="@bind(vmPricing.etiqueta[4])" sclass="subDesc_costos" />
 										<space></space>
 									</div>
-									<div sclass="div_costoPaqueteMonto">
-										<label value=" USD " sclass="usd_monto"/>
-										<label value="@bind(vmPricing.lblMonto)" sclass="monto"></label>
+									<div
+										sclass="div_costoPaqueteMonto">
+										<label value=" USD "
+											sclass="usd_monto" />
+										<label
+											value="@bind(vmPricing.lblMonto)" sclass="monto">
+										</label>
 									</div>
 								</div>
 								<div sclass="div_costoPaquete">
-									<div sclass="div_costoPaqueteSubTitle">
-										<label value="@bind(vmPricing.etiqueta[5])" sclass="usd_MontoTotal"/>
+									<div
+										sclass="div_costoPaqueteSubTitle">
+										<label
+											value="@bind(vmPricing.etiqueta[5])" sclass="usd_MontoTotal" />
 										<space></space>
 									</div>
-									<div sclass="div_costoPaqueteMonto">
-										<separator bar="true"/>
-										<label value=" USD " sclass="usd_MontoTotal"/>
-										<label value="@bind(vmPricing.lblTotalPaquete)" sclass="montoTotal"/>
+									<div
+										sclass="div_costoPaqueteMonto">
+										<separator bar="true" />
+										<label value=" USD "
+											sclass="usd_MontoTotal" />
+										<label
+											value="@bind(vmPricing.lblTotalPaquete)" sclass="montoTotal" />
 									</div>
 								</div>
-								<space></space>	
+								<space></space>
 							</div>
-	<!-- 						======COSTO SERVICIOS====== -->
-						 	<separator bar="true"/>
-						 	<div visible="@bind(vmPricing.mostrarServicios)" width="100%" sclass="div_info_costo_servicios" align="left">
+							<!-- 						======COSTO SERVICIOS====== -->
+							<separator bar="true" />
+							<div
+								visible="@bind(vmPricing.mostrarServicios)" width="100%"
+								sclass="div_info_costo_servicios" align="left">
 								<div width="100%">
 									<space></space>
-									<a iconSclass="icon-plus" sclass="style_icon_info"/>
-									<label value="@bind(vmPricing.etiqueta[6])" sclass="titulo_costo_servicios"/>
+									<a iconSclass="icon-plus"
+										sclass="style_icon_info" />
+									<label
+										value="@bind(vmPricing.etiqueta[6])"
+										sclass="titulo_costo_servicios" />
 								</div>
 								<div width="100%">
-									<separator bar="true"/>
-									<listbox model="@bind(vmPricing.oReservar.oPaquete.listaServicios)" style="border:none;" visible="@bind(vmPricing.mostrarCostoServicio)">
-										<listhead><listheader label=""/></listhead>
+									<separator bar="true" />
+									<listbox
+										model="@bind(vmPricing.oReservar.oPaquete.listaServicios)"
+										style="border:none;"
+										visible="@bind(vmPricing.mostrarCostoServicio)">
+										<listhead>
+											<listheader label="" />
+										</listhead>
 										<template name="model">
 											<listitem>
-												<listcell zclass="list_costoServicios">
-													<div sclass="div_costoServicio">
-														<div sclass="div_costoServiceSubTitle">
-															<label value="@bind(each.servicio)" sclass="subDesc_costos_serv"/>
-															<label value="(" sclass="subDesc_costos_serv"/>
-															<label value="@bind(each.opcionValue)" style="color:red;font-weight:bold;font-size:13px;"/>
-															<label value="):" sclass="subDesc_costos_serv"/>
+												<listcell
+													zclass="list_costoServicios">
+													<div
+														sclass="div_costoServicio">
+														<div
+															sclass="div_costoServiceSubTitle">
+															<label
+																value="@bind(each.servicio)"
+																sclass="subDesc_costos_serv" />
+															<label
+																value="(" sclass="subDesc_costos_serv" />
+															<label
+																value="@bind(each.opcionValue)"
+																style="color:red;font-weight:bold;font-size:13px;" />
+															<label
+																value="):" sclass="subDesc_costos_serv" />
 															<space></space>
 														</div>
-														<div sclass="div_costoServiceMonto">
-															<label value=" USD " sclass="usd_monto"/>
-															<label value="@bind(each.precioTotalServicio)" sclass="monto"/>
+														<div
+															sclass="div_costoServiceMonto">
+															<label
+																value=" USD " sclass="usd_monto" />
+															<label
+																value="@bind(each.precioTotalServicio)" sclass="monto" />
 														</div>
 													</div>
 												</listcell>
 											</listitem>
 										</template>
 									</listbox>
-									<div sclass="div_costoServicioTotal">
-										<div sclass="div_costoServiceSubTitleTotal">
-											<label value="@bind(vmPricing.etiqueta[7])" sclass="usd_MontoTotal"/>
+									<div
+										sclass="div_costoServicioTotal">
+										<div
+											sclass="div_costoServiceSubTitleTotal">
+											<label
+												value="@bind(vmPricing.etiqueta[7])"
+												sclass="usd_MontoTotal" />
 											<space></space>
 										</div>
-										<div sclass="div_costoServiceMontoTotal">
-											<separator bar="true"/>
-											<label value=" USD " sclass="usd_MontoTotal"/>
-											<label value="@bind(vmPricing.lblTotalServicios)" sclass="montoTotal"/>
+										<div
+											sclass="div_costoServiceMontoTotal">
+											<separator bar="true" />
+											<label value=" USD "
+												sclass="usd_MontoTotal" />
+											<label
+												value="@bind(vmPricing.lblTotalServicios)"
+												sclass="montoTotal" />
 										</div>
 									</div>
 								</div>
 							</div>
 							<!-- ======COSTO ACTIVIDADES====== -->
-						 	<separator bar="true"/>
-						 	<div visible="@bind(vmPricing.oReservar.oPaquete.conActividad)" width="100%" sclass="div_info_costo_servicios" align="left">
+							<separator bar="true" />
+							<div
+								visible="@bind(vmPricing.oReservar.oPaquete.conActividad)"
+								width="100%" sclass="div_info_costo_servicios" align="left">
 								<div width="100%">
 									<space></space>
-									<a iconSclass="icon-plus" sclass="style_icon_info"/>
-									<label value="@bind(vmPricing.etiqueta[217])" sclass="titulo_costo_servicios"/>
+									<a iconSclass="icon-plus"
+										sclass="style_icon_info" />
+									<label
+										value="@bind(vmPricing.etiqueta[217])"
+										sclass="titulo_costo_servicios" />
 								</div>
 								<div width="100%">
-									<separator bar="true"/>
-									<listbox model="@bind(vmPricing.oReservar.oPaquete.listaActividades)" style="border:none;" visible="@bind(vmPricing.mostrarCostoActividades)">
-										<listhead><listheader label=""/></listhead>
+									<separator bar="true" />
+									<listbox
+										model="@bind(vmPricing.oReservar.oPaquete.listaActividades)"
+										style="border:none;"
+										visible="@bind(vmPricing.mostrarCostoActividades)">
+										<listhead>
+											<listheader label="" />
+										</listhead>
 										<template name="model">
 											<listitem>
-												<listcell zclass="list_costoServicios">
-													<div sclass="div_costoServicio">
-														<div sclass="div_costoServiceSubTitle">
-															<label value="@bind(each.nombreActividad)" sclass="subDesc_costos_serv"/>
-															<label value="(" sclass="subDesc_costos_serv"/>
-															<label value="@bind(each.nroPersonasActividad)" style="color:red;font-weight:bold;font-size:13px;"/>
-															<label value="):" sclass="subDesc_costos_serv"/>
+												<listcell
+													zclass="list_costoServicios">
+													<div
+														sclass="div_costoServicio">
+														<div
+															sclass="div_costoServiceSubTitle">
+															<label
+																value="@bind(each.nombreActividad)"
+																sclass="subDesc_costos_serv" />
+															<label
+																value="(" sclass="subDesc_costos_serv" />
+															<label
+																value="@bind(each.nroPersonasActividad)"
+																style="color:red;font-weight:bold;font-size:13px;" />
+															<label
+																value="):" sclass="subDesc_costos_serv" />
 															<space></space>
 														</div>
-														<div sclass="div_costoServiceMonto">
-															<label value=" USD " sclass="usd_monto"/>
-															<label value="@bind(each.precioTotalActividad)" sclass="monto"/>
+														<div
+															sclass="div_costoServiceMonto">
+															<label
+																value=" USD " sclass="usd_monto" />
+															<label
+																value="@bind(each.precioTotalActividad)" sclass="monto" />
 														</div>
 													</div>
 												</listcell>
 											</listitem>
 										</template>
 									</listbox>
-									<div sclass="div_costoServicioTotal">
-										<div sclass="div_costoServiceSubTitleTotal">
-											<label value="@bind(vmPricing.etiqueta[7])" sclass="usd_MontoTotal"/>
+									<div
+										sclass="div_costoServicioTotal">
+										<div
+											sclass="div_costoServiceSubTitleTotal">
+											<label
+												value="@bind(vmPricing.etiqueta[7])"
+												sclass="usd_MontoTotal" />
 											<space></space>
 										</div>
-										<div sclass="div_costoServiceMontoTotal">
-											<separator bar="true"/>
-											<label value=" USD " sclass="usd_MontoTotal"/>
-											<label value="@bind(vmPricing.lblTotalActividades)" sclass="montoTotal"/>
+										<div
+											sclass="div_costoServiceMontoTotal">
+											<separator bar="true" />
+											<label value=" USD "
+												sclass="usd_MontoTotal" />
+											<label
+												value="@bind(vmPricing.lblTotalActividades)"
+												sclass="montoTotal" />
 										</div>
 									</div>
 								</div>
 							</div>
-	<!-- 						======COSTO HOTEL======== -->
-							<separator bar="true"/>
-							<div visible="@bind(vmPricing.mostrarReservaHotel)" width="100%" sclass="div_info_costo_servicios" align="left">
+							<!-- 						======COSTO HOTEL======== -->
+							<separator bar="true" />
+							<div
+								visible="@bind(vmPricing.mostrarReservaHotel)" width="100%"
+								sclass="div_info_costo_servicios" align="left">
 								<div width="100%">
 									<space></space>
-									<a iconSclass="icon-office" sclass="style_icon_info"/>
-									<label value="@bind(vmPricing.etiqueta[8])" sclass="titulo_costo_servicios"/>
+									<a iconSclass="icon-office"
+										sclass="style_icon_info" />
+									<label
+										value="@bind(vmPricing.etiqueta[8])"
+										sclass="titulo_costo_servicios" />
 								</div>
 								<div width="100%">
-										<separator bar="true"/>
-										<vbox width="100%">
-											<hbox style="padding-left:20px;">
-												<label value="@bind(vmPricing.etiqueta[9])" sclass="subDesc_costos"/><label value="@bind(vmPricing.lblCategoriaSeleccionada)" sclass="style_lbl_categoriaSeleccionada"/>
-											</hbox>
-											<hbox style="padding-left:20px;">
-												<label value="@bind(vmPricing.etiqueta[10])" sclass="subDesc_costos"/><intbox width="30px" readonly="true" value="@bind(vmPricing.nroSimples)"/>
-											</hbox>
-											<div sclass="div_costoHotel">
-												<div sclass="div_costoHotelSubTitle">
-													<label value="@bind(vmPricing.etiqueta[11])" style="font-weight:bold;"/>
-													<space></space>
-												</div>
-												<div sclass="div_costoHotelMonto">
-													<label value=" USD " sclass="usd_monto"/>
-													<label value="@bind(vmPricing.lblTotalPrecioSimple)" sclass="monto"/>
-												</div>
-											</div>
-											<hbox style="padding-left:20px;">
-												<label value="@bind(vmPricing.etiqueta[12])" sclass="subDesc_costos"/><intbox  width="30px" readonly="true" value="@bind(vmPricing.nroDobles)"/>
-											</hbox>
-											<div sclass="div_costoHotel">
-												<div sclass="div_costoHotelSubTitle">
-													<label value="@bind(vmPricing.etiqueta[13])" style="font-weight:bold;"/>
-													<space></space>
-												</div>
-												<div sclass="div_costoHotelMonto">
-													<label value=" USD " sclass="usd_monto"/>
-													<label value="@bind(vmPricing.lblTotalPrecioDoble)" sclass="monto"/>
-												</div>
-											</div>
-											<hbox style="padding-left:20px;">
-												<label value="@bind(vmPricing.etiqueta[14])" sclass="subDesc_costos"/><intbox width="30px" readonly="true" value="@bind(vmPricing.nroTriples)"/>
-											</hbox>
-											<div sclass="div_costoHotel">
-												<div sclass="div_costoHotelSubTitle">
-													<label value="@bind(vmPricing.etiqueta[15])" style="font-weight:bold;"/>
-													<space></space>
-												</div>
-												<div sclass="div_costoHotelMonto">
-													<label value=" USD " sclass="usd_monto"/>
-													<label value="@bind(vmPricing.lblTotalPrecioTriple)" sclass="monto"/>
-												</div>
-											</div>
-										</vbox>
-										<div sclass="div_costoHotel" visible="@bind(vmPricing.oInterfaz.bHotelesConCamaAdicional)">
-											<div sclass="div_costoHotelSubTitle">
-												<label value="Con Cama Adicional: " sclass="subDesc_costos"/>
+									<separator bar="true" />
+									<vbox width="100%">
+										<hbox
+											style="padding-left:20px;">
+											<label
+												value="@bind(vmPricing.etiqueta[9])"
+												sclass="subDesc_costos" />
+											<label
+												value="@bind(vmPricing.lblCategoriaSeleccionada)"
+												sclass="style_lbl_categoriaSeleccionada" />
+										</hbox>
+										<hbox
+											style="padding-left:20px;">
+											<label
+												value="@bind(vmPricing.etiqueta[10])"
+												sclass="subDesc_costos" />
+											<intbox width="30px"
+												readonly="true" value="@bind(vmPricing.nroSimples)" />
+										</hbox>
+										<div sclass="div_costoHotel">
+											<div
+												sclass="div_costoHotelSubTitle">
+												<label
+													value="@bind(vmPricing.etiqueta[11])"
+													style="font-weight:bold;" />
 												<space></space>
 											</div>
-											<div sclass="div_costoHotelMonto">
-												<label value="@bind(vmPricing.etiqueta[48])" visible="@bind(vmPricing.oReservaPaqCatHotel.conCamaAdicional)" sclass="style_lbl_categoriaSeleccionada"/>
-												<label value="@bind(vmPricing.etiqueta[49])" visible="@bind(!vmPricing.oReservaPaqCatHotel.conCamaAdicional)" sclass="style_lbl_categoriaSeleccionada"/>
+											<div
+												sclass="div_costoHotelMonto">
+												<label value=" USD "
+													sclass="usd_monto" />
+												<label
+													value="@bind(vmPricing.lblTotalPrecioSimple)"
+													sclass="monto" />
 											</div>
 										</div>
+										<hbox
+											style="padding-left:20px;">
+											<label
+												value="@bind(vmPricing.etiqueta[12])"
+												sclass="subDesc_costos" />
+											<intbox width="30px"
+												readonly="true" value="@bind(vmPricing.nroDobles)" />
+										</hbox>
 										<div sclass="div_costoHotel">
-											<div sclass="div_costoHotelSubTitle">
-												<label value="@bind(vmPricing.etiqueta[16])" sclass="usd_MontoTotal"/>
+											<div
+												sclass="div_costoHotelSubTitle">
+												<label
+													value="@bind(vmPricing.etiqueta[13])"
+													style="font-weight:bold;" />
 												<space></space>
 											</div>
-											<div sclass="div_costoHotelMonto">
-												<separator bar="true"/>
-												<label value=" USD " sclass="usd_MontoTotal"/>
-												<label value="@bind(vmPricing.lblTotalHabitaciones)" sclass="montoTotal"/>
+											<div
+												sclass="div_costoHotelMonto">
+												<label value=" USD "
+													sclass="usd_monto" />
+												<label
+													value="@bind(vmPricing.lblTotalPrecioDoble)"
+													sclass="monto" />
 											</div>
+										</div>
+										<hbox
+											style="padding-left:20px;">
+											<label
+												value="@bind(vmPricing.etiqueta[14])"
+												sclass="subDesc_costos" />
+											<intbox width="30px"
+												readonly="true" value="@bind(vmPricing.nroTriples)" />
+										</hbox>
+										<div sclass="div_costoHotel">
+											<div
+												sclass="div_costoHotelSubTitle">
+												<label
+													value="@bind(vmPricing.etiqueta[15])"
+													style="font-weight:bold;" />
+												<space></space>
+											</div>
+											<div
+												sclass="div_costoHotelMonto">
+												<label value=" USD "
+													sclass="usd_monto" />
+												<label
+													value="@bind(vmPricing.lblTotalPrecioTriple)"
+													sclass="monto" />
+											</div>
+										</div>
+									</vbox>
+									<div sclass="div_costoHotel"
+										visible="@bind(vmPricing.oInterfaz.bHotelesConCamaAdicional)">
+										<div
+											sclass="div_costoHotelSubTitle">
+											<label
+												value="Con Cama Adicional: " sclass="subDesc_costos" />
+											<space></space>
+										</div>
+										<div
+											sclass="div_costoHotelMonto">
+											<label
+												value="@bind(vmPricing.etiqueta[48])"
+												visible="@bind(vmPricing.oReservaPaqCatHotel.conCamaAdicional)"
+												sclass="style_lbl_categoriaSeleccionada" />
+											<label
+												value="@bind(vmPricing.etiqueta[49])"
+												visible="@bind(!vmPricing.oReservaPaqCatHotel.conCamaAdicional)"
+												sclass="style_lbl_categoriaSeleccionada" />
+										</div>
+									</div>
+									<div sclass="div_costoHotel">
+										<div
+											sclass="div_costoHotelSubTitle">
+											<label
+												value="@bind(vmPricing.etiqueta[16])"
+												sclass="usd_MontoTotal" />
+											<space></space>
+										</div>
+										<div
+											sclass="div_costoHotelMonto">
+											<separator bar="true" />
+											<label value=" USD "
+												sclass="usd_MontoTotal" />
+											<label
+												value="@bind(vmPricing.lblTotalHabitaciones)"
+												sclass="montoTotal" />
 										</div>
 									</div>
 								</div>
 							</div>
-						<div sclass="div_info_item_Total" style="@bind(vmPricing.oInterfaz.style_div_FondoImporte)">
+						</div>
+						<div sclass="div_info_item_Total"
+							style="@bind(vmPricing.oInterfaz.style_div_FondoImporte)">
 							<div sclass="div_info_item_izq_Total">
-								<label value="@bind(vmPricing.etiqueta[107])" sclass="div_info_item_label_Total" style="@bind(vmPricing.oInterfaz.style_lbl_TextImporte)"/>
+								<label
+									value="@bind(vmPricing.etiqueta[107])"
+									sclass="div_info_item_label_Total"
+									style="@bind(vmPricing.oInterfaz.style_lbl_TextImporte)" />
 								<space></space>
 							</div>
 							<div sclass="div_info_item_der_Total">
-								<label value="@bind(vmPricing.lblMontoTotal)" sclass="div_info_item_label_Total" style="@bind(vmPricing.oInterfaz.style_lbl_TextImporte)"/>
+								<label
+									value="@bind(vmPricing.lblMontoTotal)"
+									sclass="div_info_item_label_Total"
+									style="@bind(vmPricing.oInterfaz.style_lbl_TextImporte)" />
 							</div>
 						</div>
 					</div>
-				
+
 				</groupbox>
-				
+
 				<groupbox>
 					<caption>
-						<a iconSclass="icon-file-text" sclass="titulo-groupbox"/>
-						<label value="@bind(vmPricing.etiqueta[106])" sclass="titulo-groupbox"/>
+						<a iconSclass="icon-file-text"
+							sclass="titulo-groupbox" />
+						<label value="@bind(vmPricing.etiqueta[106])"
+							sclass="titulo-groupbox" />
 					</caption>
 					<div>
-						<checkbox sclass="check_terminos" onClick="@command('checkTermsAndCond')" label="@bind(vmPricing.etiqueta[104])" style="color:#F7653A;font-size:15px;font-weight:bold;"/>
-						<a label="@bind(vmPricing.etiqueta[106])" onClick="@command('irATerminos_Condiciones')"/>
+						<checkbox sclass="check_terminos"
+							onClick="@command('checkTermsAndCond')"
+							label="@bind(vmPricing.etiqueta[104])"
+							style="color:#F7653A;font-size:15px;font-weight:bold;" />
+						<a label="@bind(vmPricing.etiqueta[106])"
+							onClick="@command('irATerminos_Condiciones')" />
 					</div>
 				</groupbox>
 				<groupbox>
 					<caption>
-						<a iconSclass="icon-coin-dollar" sclass="titulo-groupbox"/>
-						<label value="@bind(vmPricing.etiqueta[207])" sclass="titulo-groupbox"/>
+						<a iconSclass="icon-coin-dollar"
+							sclass="titulo-groupbox" />
+						<label value="@bind(vmPricing.etiqueta[207])"
+							sclass="titulo-groupbox" />
 					</caption>
 					<div width="100%">
-						<window mode="modal" border="normal" sclass="win_pay" visible="@bind(vmPricing.mostrarPaypal)">
-							<button style="color:black;font-size:20px;font-weight:bold;border:2px solid green;"
-									onClick="@command('cerrarVentanaPago')">X</button>
+						<window mode="modal" border="normal"
+							sclass="win_pay" visible="@bind(vmPricing.mostrarPaypal)">
+							<button
+								style="color:black;font-size:20px;font-weight:bold;border:2px solid green;"
+								onClick="@command('cerrarVentanaPago')">
+								X
+							</button>
 							<div width="100%" align="center">
 								<space></space>
 								<div sclass="div_porcentaje">
-									<label value="@bind(vmPricing.textoPorcentaje)" style="color:white;font-size:30px;font-weight:bold;"/>
+									<label
+										value="@bind(vmPricing.textoPorcentaje)"
+										style="color:white;font-size:30px;font-weight:bold;" />
 								</div>
 								<space></space>
 								<div sclass="win_div_pay">
 									<div sclass="win_div_pay_izq">
-										<label value="@bind(vmPricing.etiqueta[99])" sclass="lbl_desc"/>
+										<label
+											value="@bind(vmPricing.etiqueta[99])" sclass="lbl_desc" />
 									</div>
 									<div sclass="win_div_pay_der">
-										<label value="@bind(vmPricing.montoTotalPorcentual)" sclass="lbl_monto"/>
+										<label
+											value="@bind(vmPricing.montoTotalPorcentual)"
+											sclass="lbl_monto" />
 									</div>
 								</div>
 								<div sclass="win_div_pay">
 									<div sclass="win_div_pay_izq">
-										<label value="@bind(vmPricing.etiqueta[100])" sclass="lbl_desc"/>
+										<label
+											value="@bind(vmPricing.etiqueta[100])" sclass="lbl_desc" />
 									</div>
 									<div sclass="win_div_pay_der">
-										<label value="@bind(vmPricing.tax)" sclass="lbl_monto"/>
+										<label
+											value="@bind(vmPricing.tax)" sclass="lbl_monto" />
 									</div>
 								</div>
-								<separator bar="true"/>
+								<separator bar="true" />
 								<div sclass="win_div_pay">
 									<div sclass="win_div_pay_izq">
-										<label value="@bind(vmPricing.etiqueta[101])" sclass="lbl_desc_Total"/>
+										<label
+											value="@bind(vmPricing.etiqueta[101])"
+											sclass="lbl_desc_Total" />
 									</div>
 									<div sclass="win_div_pay_der">
-										<label value="@bind(vmPricing.totalConImpuestoPaypal)" sclass="lbl_monto_Total"/>
+										<label
+											value="@bind(vmPricing.totalConImpuestoPaypal)"
+											sclass="lbl_monto_Total" />
 									</div>
 								</div>
-								<div align="center" style="padding:10px;">
-									<button href="@bind(vmPricing.urlPaypal)" 
-											image="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" 
-											zclass="btn_paypal"/>
+								<div align="center"
+									style="padding:10px;">
+									<button
+										href="@bind(vmPricing.urlPaypal)"
+										image="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"
+										zclass="btn_paypal" />
 								</div>
 							</div>
 						</window>
-	<!-- 					<div width="40%" align="center" sclass="select_payment_content"> -->
-	<!-- 						<space></space> -->
-	<!-- 						<vbox visible="false"> -->
-	<!-- 							<label value="@bind(vmPricing.etiqueta[72])"/> -->
-	<!-- 							<textbox></textbox> -->
-	<!-- 							<label value="@bind(vmPricing.etiqueta[71])"></label> -->
-	<!-- 							<textbox></textbox> -->
-	<!-- 							<label value="@bind(vmPricing.etiqueta[108])"/> -->
-	<!-- 							<textbox></textbox> -->
-	<!-- 							<label value="@bind(vmPricing.etiqueta[109])"/> -->
-	<!-- 							<hbox> -->
-	<!-- 								<datebox readonly="true"></datebox> -->
-	<!-- 							</hbox> -->
-	<!-- 							<button label="@bind(vmPricing.etiqueta[110])"/> -->
-	<!-- 						</vbox> -->
-	<!-- 						<space></space> -->
-	<!-- 					</div> -->
+						<!-- 					<div width="40%" align="center" sclass="select_payment_content"> -->
+						<!-- 						<space></space> -->
+						<!-- 						<vbox visible="false"> -->
+						<!-- 							<label value="@bind(vmPricing.etiqueta[72])"/> -->
+						<!-- 							<textbox></textbox> -->
+						<!-- 							<label value="@bind(vmPricing.etiqueta[71])"></label> -->
+						<!-- 							<textbox></textbox> -->
+						<!-- 							<label value="@bind(vmPricing.etiqueta[108])"/> -->
+						<!-- 							<textbox></textbox> -->
+						<!-- 							<label value="@bind(vmPricing.etiqueta[109])"/> -->
+						<!-- 							<hbox> -->
+						<!-- 								<datebox readonly="true"></datebox> -->
+						<!-- 							</hbox> -->
+						<!-- 							<button label="@bind(vmPricing.etiqueta[110])"/> -->
+						<!-- 						</vbox> -->
+						<!-- 						<space></space> -->
+						<!-- 					</div> -->
 					</div>
-					<div zclass="div_comentarios" visible="@bind(!vmPricing.payment)">
-						<label value="@bind(vmPricing.etiqueta[105])"/>
+					<div zclass="div_comentarios"
+						visible="@bind(!vmPricing.payment)">
+						<label value="@bind(vmPricing.etiqueta[105])" />
 					</div>
-					<space visible="@bind(!vmPricing.payment)"/>
-					<button label="@bind(vmPricing.etiqueta[218])" 
-							zclass="button_payment" width="100%" height="80px"
-							onClick="@command('aceptar_Reservar_Pagar',componente=self,opcion=2)" 
-							visible="@bind(!vmPricing.payment)"/>
-					<div sclass="div_payment" visible="@bind(vmPricing.payment)">
-						<div  visible="@bind(vmPricing.oReservar.oPaquete.sinDescuento)" zclass="div_content_aplicar_cupon">
-								<div visible="@bind(vmPricing.oReservar.oCupon.inicioCupon)">
-									<label value="@bind(vmPricing.etiqueta[99])" zclass="cupon_lbl_subtotal"/>
-									<label value=":" zclass="cupon_lbl_subtotal"/>
-									<space></space>
-									<label value="$ " zclass="cupon_lbl_subtotal"/>
-									<label value="@bind(vmPricing.lblMontoTotal)" zclass="cupon_lbl_subtotal"/>
+					<space visible="@bind(!vmPricing.payment)" />
+					<button label="@bind(vmPricing.etiqueta[218])"
+						zclass="button_payment" width="100%" height="80px"
+						onClick="@command('aceptar_Reservar_Pagar',componente=self,opcion=2)"
+						visible="@bind(!vmPricing.payment)" />
+					<div sclass="div_payment"
+						visible="@bind(vmPricing.payment)">
+						<div
+							visible="@bind(vmPricing.oReservar.oPaquete.sinDescuento)"
+							zclass="div_content_aplicar_cupon">
+							<div
+								visible="@bind(vmPricing.oReservar.oCupon.inicioCupon)">
+								<label
+									value="@bind(vmPricing.etiqueta[99])"
+									zclass="cupon_lbl_subtotal" />
+								<label value=":"
+									zclass="cupon_lbl_subtotal" />
+								<space></space>
+								<label value="$ "
+									zclass="cupon_lbl_subtotal" />
+								<label
+									value="@bind(vmPricing.lblMontoTotal)"
+									zclass="cupon_lbl_subtotal" />
+							</div>
+							<div>
+								<div
+									visible="@bind(vmPricing.oReservar.oCupon.inicioCupon)">
+									<label
+										value="@bind(vmPricing.etiqueta[222])"
+										zclass="cupon_lbl_normal" />
+									<button
+										label="@bind(vmPricing.etiqueta[223])" iconSclass="fa fa-plus"
+										zclass="btn_cupon"
+										visible="@bind(vmPricing.oReservar.oCupon.agregarCupon)"
+										onClick="@command('agregarCupon')" />
+									<button
+										label="@bind(vmPricing.etiqueta[69])" iconSclass="fa fa-times"
+										zclass="btn_cupon"
+										visible="@bind(vmPricing.oReservar.oCupon.cancelarCupon)"
+										onClick="@command('cancelarCupon')" />
+									<button
+										label="@bind(vmPricing.etiqueta[224])"
+										iconSclass="fa fa-trash" zclass="btn_cupon"
+										visible="@bind(vmPricing.oReservar.oCupon.eliminarCupon)"
+										onClick="@command('eliminarCupon')" />
+								</div>
+								<div
+									visible="@bind(vmPricing.oReservar.oCupon.bCodCupon)">
+									<textbox
+										value="@bind(vmPricing.oReservar.oCupon.cCupon)"
+										placeholder="@bind(vmPricing.etiqueta[225])"
+										onOK="@command('aplicarCupon')" />
+								</div>
+								<button
+									label="@bind(vmPricing.etiqueta[226])" zclass="btn_cupon"
+									visible="@bind(vmPricing.oReservar.oCupon.aplicarCupon)"
+									onClick="@command('aplicarCupon')" />
+								<div
+									visible="@bind(vmPricing.oReservar.oCupon.errorCupon)">
+									<label
+										value="@bind(vmPricing.etiqueta[227])"
+										zclass="cupon_lbl_error" />
+								</div>
+							</div>
+							<div
+								visible="@bind(vmPricing.oReservar.oCupon.okCupon)">
+								<label value="✔" zclass="lbl_ok" />
+								<label
+									value="@bind(vmPricing.etiqueta[228])"
+									zclass="cupon_lbl_normal" />
+								<label value=":"
+									zclass="cupon_lbl_normal" />
+								<label value="$ "
+									zclass="cupon_lbl_monto_ahorro" />
+								<label
+									value="@bind(vmPricing.oReservar.oCupon.totalAhorro)"
+									zclass="cupon_lbl_monto_ahorro" />
+							</div>
+							<space></space>
+							<div zclass="div_cupon_montos"
+								visible="@bind(vmPricing.oReservar.oCupon.okCupon)">
+								<div>
+									<label
+										value="@bind(vmPricing.etiqueta[229])"
+										zclass="lbl_txt_anterior" />
+									<label value=":"
+										zclass="lbl_txt_anterior" />
+									<label value="$ "
+										zclass="lbl_monto_anterior" />
+									<label
+										value="@bind(vmPricing.oReservar.oCupon.totalAnterior)"
+										zclass="lbl_monto_anterior" />
 								</div>
 								<div>
-									<div visible="@bind(vmPricing.oReservar.oCupon.inicioCupon)">
-										<label value="@bind(vmPricing.etiqueta[222])" zclass="cupon_lbl_normal"/>
-										<button label="@bind(vmPricing.etiqueta[223])" iconSclass="fa fa-plus" zclass="btn_cupon" 
-												visible="@bind(vmPricing.oReservar.oCupon.agregarCupon)"
-												onClick="@command('agregarCupon')"/>
-										<button label="@bind(vmPricing.etiqueta[69])" iconSclass="fa fa-times" zclass="btn_cupon" 
-												visible="@bind(vmPricing.oReservar.oCupon.cancelarCupon)"
-												onClick="@command('cancelarCupon')"/>
-										<button label="@bind(vmPricing.etiqueta[224])" iconSclass="fa fa-trash" zclass="btn_cupon" 
-												visible="@bind(vmPricing.oReservar.oCupon.eliminarCupon)"
-												onClick="@command('eliminarCupon')"/>
-									</div>
-									<div visible="@bind(vmPricing.oReservar.oCupon.bCodCupon)">
-										<textbox value="@bind(vmPricing.oReservar.oCupon.cCupon)" 
-										placeholder="@bind(vmPricing.etiqueta[225])"
-										onOK="@command('aplicarCupon')"/>
-									</div>
-									<button label="@bind(vmPricing.etiqueta[226])" zclass="btn_cupon" 
-											visible="@bind(vmPricing.oReservar.oCupon.aplicarCupon)"
-											onClick="@command('aplicarCupon')"/>
-									<div visible="@bind(vmPricing.oReservar.oCupon.errorCupon)">
-										<label value="@bind(vmPricing.etiqueta[227])" zclass="cupon_lbl_error"/>
-									</div>
-								</div>
-								<div visible="@bind(vmPricing.oReservar.oCupon.okCupon)">
-									<label value="✔" zclass="lbl_ok"/>
-									<label value="@bind(vmPricing.etiqueta[228])" zclass="cupon_lbl_normal"/>
-									<label value=":" zclass="cupon_lbl_normal"/>
-									<label value="$ " zclass="cupon_lbl_monto_ahorro"/>
-									<label value="@bind(vmPricing.oReservar.oCupon.totalAhorro)" zclass="cupon_lbl_monto_ahorro"/>
-								</div>
-								<space></space>
-								<div zclass="div_cupon_montos" visible="@bind(vmPricing.oReservar.oCupon.okCupon)">
-									<div>
-										<label value="@bind(vmPricing.etiqueta[229])" zclass="lbl_txt_anterior"/>
-										<label value=":" zclass="lbl_txt_anterior"/>
-										<label value="$ " zclass="lbl_monto_anterior"/>
-										<label value="@bind(vmPricing.oReservar.oCupon.totalAnterior)" zclass="lbl_monto_anterior"/>
-									</div>
-									<div>
-										<label value="@bind(vmPricing.etiqueta[230])" zclass="lbl_txt_nuevo"/>
-										<label value=":" zclass="lbl_txt_nuevo"/>
-										<label value="$ " zclass="lbl_monto_nuevo"/>
-										<label value="@bind(vmPricing.oReservar.oCupon.totalNuevo)" zclass="lbl_monto_nuevo"/>
-									</div>
+									<label
+										value="@bind(vmPricing.etiqueta[230])" zclass="lbl_txt_nuevo" />
+									<label value=":"
+										zclass="lbl_txt_nuevo" />
+									<label value="$ "
+										zclass="lbl_monto_nuevo" />
+									<label
+										value="@bind(vmPricing.oReservar.oCupon.totalNuevo)"
+										zclass="lbl_monto_nuevo" />
 								</div>
 							</div>
-							<space></space>
-							<div>
-								<label value="@bind(vmPricing.etiqueta[231])" zclass="lbl_txt_pago_paypal"/>
-								<label value=":" zclass="lbl_txt_pago_paypal"/>
-							</div>
+						</div>
+						<space></space>
+						<div>
+							<label
+								value="@bind(vmPricing.etiqueta[231])"
+								zclass="lbl_txt_pago_paypal" />
+							<label value=":"
+								zclass="lbl_txt_pago_paypal" />
+						</div>
 						<div sclass="div_formas_pago" width="100%">
-								<div width="100%" align="center" sclass="select_payment" style="padding:8px;">
-									<image src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
-									<div width="100%">
-										<radiogroup onCheck="@command('selectPaypal',valor=self.selectedItem.value)">
-											<radio label="@bind(vmPricing.etiqueta[102])" value="1" sclass="radio_color" checked="@load(vmPricing.pagos.pagoParcialPaypal)"/>
-											<radio label="@bind(vmPricing.etiqueta[103])" value="2" sclass="radio_color" checked="@load(vmPricing.pagos.pagoTotalPaypal)"/>
-										</radiogroup>
-									</div>
+							<div width="100%" align="center"
+								sclass="select_payment" style="padding:8px;">
+								<image
+									src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif" />
+								<div width="100%">
+									<radiogroup
+										onCheck="@command('selectPaypal',valor=self.selectedItem.value)">
+										<radio
+											label="@bind(vmPricing.etiqueta[102])" value="1"
+											sclass="radio_color"
+											checked="@load(vmPricing.pagos.pagoParcialPaypal)" />
+										<radio
+											label="@bind(vmPricing.etiqueta[103])" value="2"
+											sclass="radio_color"
+											checked="@load(vmPricing.pagos.pagoTotalPaypal)" />
+									</radiogroup>
 								</div>
-<!-- 								<space></space> -->
-<!-- 								<div width="100%" align="center" sclass="select_payment" visible="true"> -->
-<!-- 									<image src="/img/payment/visa.png" width="80px" height="70px"/> -->
-<!-- 									<radiogroup> -->
-<!-- 										<radio/> -->
-<!-- 										<radio/> -->
-<!-- 									</radiogroup> -->
-<!-- 								</div> -->
-		<!-- 						<space></space> -->
-								
 							</div>
-							<space></space>
-	<!-- 						<div width="50%" align="center"> -->
-	<!-- 							<vbox> -->
-	<!-- 								<button label="@bind(vmPricing.etiqueta[111])" zclass="button_payment" onClick="@command('onPayment')"/> -->
-	<!-- 								<label value="@bind(vmPricing.etiqueta[112])"/> -->
-	<!-- 							</vbox> -->
-	<!-- 							<space></space> -->
-	<!-- 							<div align="left"><label value="@bind(vmPricing.etiqueta[113])"/></div> -->
-	<!-- 						</div> -->
+							<!-- 								<space></space> -->
+							<!-- 								<div width="100%" align="center" sclass="select_payment" visible="true"> -->
+							<!-- 									<image src="/img/payment/visa.png" width="80px" height="70px"/> -->
+							<!-- 									<radiogroup> -->
+							<!-- 										<radio/> -->
+							<!-- 										<radio/> -->
+							<!-- 									</radiogroup> -->
+							<!-- 								</div> -->
+							<!-- 						<space></space> -->
+
+						</div>
+						<space></space>
+						<!-- 						<div width="50%" align="center"> -->
+						<!-- 							<vbox> -->
+						<!-- 								<button label="@bind(vmPricing.etiqueta[111])" zclass="button_payment" onClick="@command('onPayment')"/> -->
+						<!-- 								<label value="@bind(vmPricing.etiqueta[112])"/> -->
+						<!-- 							</vbox> -->
+						<!-- 							<space></space> -->
+						<!-- 							<div align="left"><label value="@bind(vmPricing.etiqueta[113])"/></div> -->
+						<!-- 						</div> -->
 					</div>
-					<separator bar="true"/>
-					<button label="@bind(vmPricing.etiqueta[208])" 
-							zclass="button_payment" width="100%" height="80px"
-							onClick="@command('aceptar_Reservar_Pagar',componente=self,opcion=1)" 
-							visible="@bind(!vmPricing.reservar)"/>
-					<div sclass="div_payment" visible="@bind(vmPricing.reservar)">
-						<div align="center" sclass="div_formas_sin_pago" width="100%">
-<!-- 									<hbox> -->
-<!-- 										<span sclass="icon-point-right"/> -->
-										<vbox align="center" width="100%">
-											<button label="@bind(vmPricing.etiqueta[114])" zclass="button_payment" 
-													onClick="@command('Reservar')"/>
-											<label value="@bind(vmPricing.etiqueta[115])" multiline="true"/>
-											<space></space>
-											<label value="@bind(vmPricing.etiqueta[116])"/>
-										</vbox>
-<!-- 									</hbox> -->
-							</div>
+					<separator bar="true" />
+					<button label="@bind(vmPricing.etiqueta[208])"
+						zclass="button_payment" width="100%" height="80px"
+						onClick="@command('aceptar_Reservar_Pagar',componente=self,opcion=1)"
+						visible="@bind(!vmPricing.reservar)" />
+					<div sclass="div_payment"
+						visible="@bind(vmPricing.reservar)">
+						<div align="center" sclass="div_formas_sin_pago"
+							width="100%">
+							<!-- 									<hbox> -->
+							<!-- 										<span sclass="icon-point-right"/> -->
+							<vbox align="center" width="100%">
+								<button
+									label="@bind(vmPricing.etiqueta[114])" zclass="button_payment"
+									onClick="@command('Reservar')" />
+								<label
+									value="@bind(vmPricing.etiqueta[115])" multiline="true" />
+								<space></space>
+								<label
+									value="@bind(vmPricing.etiqueta[116])" />
+							</vbox>
+							<!-- 									</hbox> -->
+						</div>
 					</div>
 				</groupbox>
 			</div>
 		</div>
+		<space></space>
+		<div sclass="contenedor_btn_pasos_final"
+			visible="@bind(vmPricing.visiblePaso3)">
+			<button label="Back" zclass="btn_retorno"
+				visible="@bind(vmPricing.visibleBtnAtras)"
+				iconSclass="fa fa-arrow-left"
+				onClick="@command('AnteriorPaso',nroPaso='3',comp=self)">
+			</button>
+			<space width="50px"></space>
+			<button label="Next" zclass="btn_siguiente"
+				visible="@bind(vmPricing.visibleBtnSiguiente)"
+				iconSclass="fa fa-arrow-right"
+				onClick="@command('SiguientePaso',nroPaso='3',comp=self)">
+			</button>
+		</div>
 		<!-- ======PASO 4====== -->
-		<window width="320px" height="auto" sclass="win_content_reserva_exitosa" mode="modal" visible="@bind(vmPricing.paso4)">
+		<window width="320px" height="auto"
+			sclass="win_content_reserva_exitosa" mode="modal"
+			visible="@bind(vmPricing.paso4)">
 			<vbox align="center" width="100%" height="100%">
-				<image src="@load(vmPricing.configUrlDao.oConfigUrl.logoEmpresa)" top="0" height="70px" width="70px"/>
+				<image
+					src="@load(vmPricing.configUrlDao.oConfigUrl.logoEmpresa)" top="0"
+					height="70px" width="70px" />
 				<space></space>
 				<div zclass="div_content_mensajeSatisfactorio">
-		 			<div zclass="div_ok">
-		 				<label value="✔" zclass="lbl_ok"/>
-		 			</div>
-		 			<label value="@bind(vmPricing.etiqueta[117])" zclass="lbl_txt_reserva_efectuada"/>
-		 		</div>
-		 		<vbox align="start">
-		 			<div zclass="div_content_cod_reserva">
-		 				<hbox>
-							<label value="@bind(vmPricing.etiqueta[118])" zclass="lbl_txt_codReserva"/>
-							<label value="@bind(vmPricing.oReservar.cReservaCod)" zclass="lbl_codreserva"/>
+					<div zclass="div_ok">
+						<label value="✔" zclass="lbl_ok" />
+					</div>
+					<label value="@bind(vmPricing.etiqueta[117])"
+						zclass="lbl_txt_reserva_efectuada" />
+				</div>
+				<vbox align="start">
+					<div zclass="div_content_cod_reserva">
+						<hbox>
+							<label
+								value="@bind(vmPricing.etiqueta[118])"
+								zclass="lbl_txt_codReserva" />
+							<label
+								value="@bind(vmPricing.oReservar.cReservaCod)"
+								zclass="lbl_codreserva" />
 						</hbox>
-		 			</div>
-		 			<div zclass="div_content_cod_reserva">
-		 				<hbox>
-							<label value="@bind(vmPricing.etiqueta[119])" zclass="lbl_txt_codReserva"/>
-							<label value="@bind(vmPricing.oReservar.cEmail)" zclass="lbl_codreserva"/>
+					</div>
+					<div zclass="div_content_cod_reserva">
+						<hbox>
+							<label
+								value="@bind(vmPricing.etiqueta[119])"
+								zclass="lbl_txt_codReserva" />
+							<label
+								value="@bind(vmPricing.oReservar.cEmail)"
+								zclass="lbl_codreserva" />
 						</hbox>
-		 			</div>
-		 		</vbox>
+					</div>
+				</vbox>
 				<space></space>
-				<button zclass="btn_aceptar_reserva" onClick="@command('regresarPaginaPrincipal')" label="@bind(vmPricing.etiqueta[67])"/>
+				<button zclass="btn_aceptar_reserva"
+					onClick="@command('regresarPaginaPrincipal')"
+					label="@bind(vmPricing.etiqueta[67])" />
 				<space></space>
 			</vbox>
 		</window>
 	</div>
 	<space></space>
 	<html width="100%">
-	  		<!-- PayPal Logo -->
-	  		<div class="div_content_autority">
-		  	<a href="https://www.paypal.com/webapps/mpp/paypal-popup" 
-		  	   title="How PayPal Works" 
-		  	   onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;">
-		  	   <img src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg" border="0" alt="PayPal Logo"/>
-		  	</a>
-	  		<span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=D70S55dOUR6TffSfj01cDCmdXZUJygvTp01XnLZ41Xb4iNS4i6yXlnb4JqAk"></script></span>
-	  		</div>
-	  </html>
+		<!-- PayPal Logo -->
+		<div class="div_content_autority">
+			<a href="https://www.paypal.com/webapps/mpp/paypal-popup"
+				title="How PayPal Works"
+				onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;">
+				<img
+					src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg"
+					border="0" alt="PayPal Logo" />
+			</a>
+			<span id="siteseal">
+				<script type="text/javascript"
+					src="https://seal.godaddy.com/getSeal?sealID=D70S55dOUR6TffSfj01cDCmdXZUJygvTp01XnLZ41Xb4iNS4i6yXlnb4JqAk">
+				</script>
+			</span>
+		</div>
+	</html>
 	<div width="100%" sclass="footer">
 		<div width="100%" align="right">
-			<a label="Copyright © 2016 todos los derechos reservados - EddyOnSoft.com" onClick="@command('irAEddyOnSoft')" style="color:white;"/>
+			<a
+				label="Copyright © 2016 todos los derechos reservados - EddyOnSoft.com"
+				onClick="@command('irAEddyOnSoft')" style="color:white;" />
 		</div>
 		<div width="100%" align="right">
-			<div><label value="Exp: 2099 - 2016"/></div>
-			<div><label value="NP: 1204 - 2016"/></div>
+			<div>
+				<label value="Exp: 2099 - 2016" />
+			</div>
+			<div>
+				<label value="NP: 1204 - 2016" />
+			</div>
 		</div>
 	</div>
 </div>
