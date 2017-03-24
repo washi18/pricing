@@ -92,7 +92,6 @@ public class CReporteReservaDAO extends CConexion{
 	//===================contructores====================
 	public CReporteReservaDAO() {
 		super();
-		this.reporteReserva=new CReporteReserva();
 	}
 	public CReporteReservaDAO(ArrayList<CReporteReserva> listaReporteReservas) {
 		super();
@@ -176,7 +175,8 @@ public class CReporteReservaDAO extends CConexion{
 					(String)row.get("ctelefono"),(int)row.get("nnropersonas"),
 					(Number)row.get("npreciopaquetepersona"),(String) row.get("ctituloidioma1"),
 					(String)row.get("ccategoriaidioma1"),
-					(String)row.get("cestado"),(int)row.get("categoriahotelcod"),total));
+					(String)row.get("cestado"),(int)row.get("categoriahotelcod"),total,(String)row.get("porcentajecobro"),
+					(String)row.get("pagominimo"),(boolean)row.get("modoporcentual")));
 		}
 	}
 	public void asignarValoresImpuesto(List lista){

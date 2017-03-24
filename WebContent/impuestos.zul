@@ -64,7 +64,7 @@
 		 		</div>
 		 		<space></space>
 			 	<div zclass="div_content_btns_operaciones" align="center" width="100%">
-			 		<button label="ACTUALIZAR" width="100%" zclass="btn_actualizar" onClick="@command('insert_update_impuesto',componente=self)"/>
+			 		<button label="ACTUALIZAR" width="100%" zclass="btn_actualizar" onClick="@command('insert_update_impuesto',componente=self) @global-command('actualizar_valores_impuesto')"/>
 			 		<button label="CANCELAR" width="100%" zclass="btn_editar" onClick="@command('Cancelar')"/>
 			 	</div>
 		 	</div>

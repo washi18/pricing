@@ -451,19 +451,19 @@ CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
 )
 RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,categoriaHotelcod int,ccontacto varchar(12),
 cemail varchar(100),ctelefono varchar(50),nnropersonas int,npreciopaquetepersona numeric,ctituloidioma1 varchar(200),
-ccategoriaidioma1 varchar(200),cestado varchar(20)) AS
+ccategoriaidioma1 varchar(200),cestado varchar(20),porcentajecobro varchar(5),pagominimo varchar(5),modoporcentual boolean) AS
 $$
 	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( c.categoriahotelcod, 0 ),r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado,ti.porcentajecobro,ti.pagominimo,ti.modoporcentual
 			from treserva as r 
 			left join treservapaquete as rp on(r.creservacod=rp.creservacod)
 			left join treservapaquetecategoriahotel as rpch on(rp.nreservapaquetecod=rpch.nreservapaquetecod)
 			left join tpaquetecategoriahotel as pch on(rpch.codpaquetecategoriah=pch.codpaquetecategoriah)
 			left join tcategoriahotel as c on(pch.categoriahotelcod=c.categoriahotelcod)
-			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod)
+			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod),timpuesto as ti
 			where (to_date($1,'yyyy-MM-dd')<=r.dfecha and r.dfecha<=to_date($2,'yyyy-MM-dd')) and r.cestado='PENDIENTE DE PAGO'
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado,ti.porcentajecobro,ti.pagominimo,ti.modoporcentual
 			order by r.dfecha desc;
 $$
   LANGUAGE sql;
@@ -471,24 +471,24 @@ $$
 Nombre		:Pricing_sp_BuscarReservasInicial
 Detalle     : buscar reserva para muestra inicial
 +++++++++++++++++++++++++++++++++++++++++++++++++*/
-CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservasInicial(
+  CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservasInicial(
 		fechaActual varchar(12)
 )
 RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,categoriaHotelcod int,ccontacto varchar(12),
 cemail varchar(100),ctelefono varchar(50),nnropersonas int,npreciopaquetepersona numeric,ctituloidioma1 varchar(200),
-ccategoriaidioma1 varchar(200),cestado varchar(20)) AS
+ccategoriaidioma1 varchar(200),cestado varchar(20),porcentajecobro varchar(5),pagominimo varchar(5),modoporcentual boolean) AS
 $$
 	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( c.categoriahotelcod, 0 ),r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado,ti.porcentajecobro,ti.pagominimo,ti.modoporcentual
 			from treserva as r 
 			left join treservapaquete as rp on(r.creservacod=rp.creservacod)
 			left join treservapaquetecategoriahotel as rpch on(rp.nreservapaquetecod=rpch.nreservapaquetecod)
 			left join tpaquetecategoriahotel as pch on(rpch.codpaquetecategoriah=pch.codpaquetecategoriah)
 			left join tcategoriahotel as c on(pch.categoriahotelcod=c.categoriahotelcod)
-			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod)
+			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod),timpuesto as ti
 			where r.dfecha<=to_date($1,'yyyy-MM-dd') and r.cestado='PENDIENTE DE PAGO'
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado,ti.porcentajecobro,ti.pagominimo,ti.modoporcentual
 			order by r.dfecha desc
 			limit 10;
 $$

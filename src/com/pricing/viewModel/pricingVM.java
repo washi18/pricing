@@ -127,6 +127,8 @@ public class pricingVM
 	HttpSession seshttp;
 	@Wire
 	Html htmlPagoMasterdCard;
+	@Wire
+	Combobox nroPersonas;
 	//====================
 	private String urlPaypal;
 	//====================
@@ -1348,7 +1350,7 @@ public class pricingVM
 				estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
 				estiloPaso3="background:transparent;";
 		}else if(nroPaso.equals("2")){
-			if(validoPaso1(comp)){
+			if(validoPaso1_pricingPasos(comp)){
 				visibleBtnAtras=true;
 				visibleBtnSiguiente=true;
 				setVisiblePaso1(false);
@@ -1390,7 +1392,7 @@ public class pricingVM
 		"visibleBtnSiguiente","visibleBtnAtras"})
 	public void SiguientePaso(@BindingParam("nroPaso")String nroPaso,@BindingParam("comp")Component comp){
 		if(nroPaso.equals("1")){
-			if(validoPaso1(comp)){
+			if(validoPaso1_pricingPasos(comp)){
 				visibleBtnAtras=true;
 				setVisiblePaso1(false);
 				setVisiblePaso2(true);
@@ -1669,6 +1671,47 @@ public class pricingVM
 					Clients.showNotification(etiqueta[167],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
 				}
 			}
+		}
+		return valido;
+	}
+	public boolean validoPaso1_pricingPasos(Component comp)
+	{
+		boolean valido=true;
+		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA"))
+		{
+			if(lblFechaInicioPaso3.getValue().equals(""))
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[165],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+			else if(listacFechasAlternas.isEmpty())
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[166],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+		}
+		else
+		{
+			if(lblFechaInicioPaso3.getValue().equals(""))
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[183],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+			int nroPasajerosHab=oReservaPaqCatHotel.getnNroPersonasSimple()+
+					oReservaPaqCatHotel.getnNroPersonasDoble()+
+					oReservaPaqCatHotel.getnNroPersonasTriple();
+			if(oReservaPaqCatHotel.isConHotel())
+			{
+				if(nroPasajerosHab<nroPasajeros)
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[167],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
+			}
+		}
+		if(nroPersonas.getValue().isEmpty()){
+			valido=false;
+			Clients.showNotification("Falta ingresar el numero de pasajeros",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
 		}
 		return valido;
 	}

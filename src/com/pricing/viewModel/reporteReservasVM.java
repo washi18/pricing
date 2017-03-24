@@ -8,6 +8,7 @@ import java.util.Date;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -262,10 +263,16 @@ public class reporteReservasVM {
 		impuesto=new CImpuesto();
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
-		reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasInicialBD(fechaActual));
-		this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
+		actualizar_valores_impuesto();
+	}
+	
+	
+	@GlobalCommand
+	public void actualizar_valores_impuesto(){
 		reporteReservaDAO.asignarValoresImpuesto(reporteReservaDAO.recuperarModoPago());
 		setImpuesto(reporteReservaDAO.getImpuesto());
+		reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasInicialBD(fechaActual));
+		this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
 		if(impuesto.isModoPorcentual()){
 			valorParcial=impuesto.getPorcentajeCobro()+"%";
 			esPorcentual=true;
@@ -273,6 +280,10 @@ public class reporteReservasVM {
 			valorParcial=impuesto.getPagoMinimo()+" x persona";
 			esPorcentual=false;
 		}
+		BindUtils.postNotifyChange(null, null, this,"impuesto");
+		BindUtils.postNotifyChange(null, null, this,"listaReporteReserva");
+		BindUtils.postNotifyChange(null, null, this,"valorParcial");
+		BindUtils.postNotifyChange(null, null, this,"esPorcentual");
 	}
 	
 	@Command

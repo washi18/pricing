@@ -230,7 +230,7 @@
 											value="@bind(vmPricing.etiqueta[21])"
 											sclass="titulo-groupbox" />
 									</div>
-									<combobox readonly="true"
+									<combobox readonly="true" id="nroPersonas" value="@bind(self.selectedItem.value)"
 										width="60px"
 										onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)">
 										<comboitem label="1" value="1"
