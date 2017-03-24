@@ -303,11 +303,11 @@ public class disponibilidadVM
 		int n=0;
 		for(int i=0;i<12;i++)
 		{
-			System.out.println("pos:"+n);
+//			System.out.println("pos:"+n);
 			ArrayList<Integer> listDispoMesActual=new ArrayList<Integer>();
 			listDispoMesActual=recuperarDispoMesUrl(cal.get(Calendar.YEAR),i+1);
 			if(listDispoMesActual.isEmpty())
-				listDispoMesActual=recuperarDispoMes(cal.get(Calendar.YEAR),i+1,listaDisponibilidad);
+				listDispoMesActual=recuperarDispoMes(cal.get(Calendar.YEAR)+1, i+1, listaDisponibilidad);
 			//if(i==1)continue;//mes de febrero
 			String mes=mesAnio(i);
 		    //Una vez obtenida las disponibilidades se almacena en la listaAnioActual
@@ -335,9 +335,11 @@ public class disponibilidadVM
 		n=0;
 		for(int j=0;j<12;j++)
 		{
-			System.out.println("pos:"+n);
+//			System.out.println("pos:"+n);
 			ArrayList<Integer> listDispoMesSig=new ArrayList<Integer>();
-			listDispoMesSig=recuperarDispoMes(cal.get(Calendar.YEAR)+1,j+1,listaDisponibilidad);
+			listDispoMesSig=recuperarDispoMesUrl(cal.get(Calendar.YEAR)+1,j+1);
+			if(listDispoMesSig.isEmpty())
+				listDispoMesSig=recuperarDispoMes(cal.get(Calendar.YEAR)+1, j+1, listaDisponibilidad);
 			//if(j==1)continue;//mes de febrero
 		    //Una vez obtenida las disponibilidades se almacena en la listaAnioActual
 		    for(int t=0;t<listDispoMesSig.size();t++)

@@ -40,7 +40,7 @@ public class CReservaPaqueteCategoriaHotelDAO extends CConexion
 	public List insertarReservaPaqueteCatHotel(CReservaPaqueteCategoriaHotel r)
 	{
 		System.out.println("este es el codigo--> "+r.getCodPaqueteCategoriaH());
-		Object[] values={r.getnReservaPaqueteCod(),r.getCodPaqueteCategoriaH(),
+		Object[] values={(Number)r.getnReservaPaqueteCod(),r.getCodPaqueteCategoriaH(),
 				r.getnNroPersonasSimple(),r.getnPrecioTotalSimple(),
 				r.getnNroPersonasDoble(),r.getnPrecioTotalDoble(),
 				r.getnNroPersonasTriple(),r.getnPrecioTotalTriple()};

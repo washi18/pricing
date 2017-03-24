@@ -13,7 +13,7 @@ public class CReservaPaqueteActividadDAO extends CConexion{
 	/***********************/
 	public List insertarReservaPaqueteActividad(CReservaPaqueteActividad rpa)
 	{
-		Object[] values={rpa.getCodPaqueteActividad(),rpa.getnReservaPaqueteCod(),
+		Object[] values={rpa.getCodPaqueteActividad(),(Number)rpa.getnReservaPaqueteCod(),
 				rpa.getNroPrestacionesActividad(),rpa.getPrecioPrestacionActividad().doubleValue()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarReservaPaqueteActividad", values);
 	}
