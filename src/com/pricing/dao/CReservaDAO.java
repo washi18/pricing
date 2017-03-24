@@ -56,13 +56,11 @@ public class CReservaDAO extends CConexion
 		String[] r={row.get("resultado").toString(),row.get("creservacod").toString()};
 		return r;
 	}
-	
 	public List buscarReservasEntreFechasBD( String FechaInicio,String FechaFin,String EstadoPago)
 	{
 		Object[] values={FechaInicio,FechaFin,EstadoPago};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarReservas",values);
 	}
-	
 	public void asignarListaReservas(List lista)
 	{
 		listaReservas=new ArrayList<CReserva>();
@@ -74,8 +72,15 @@ public class CReservaDAO extends CConexion
 					(String)row.get("ccontacto"), (String)row.get("cemail"),
 					(String)row.get("ctelefono"), (Number)row.get("npreciopaquetepersona"),
 					(int)row.get("nnropersonas"),(String)row.get("cinformacionadicional"),
-					(String)row.get("cestado")));
+					(String)row.get("cestado"),
+					(String)row.get("cmetodopago"),
+					(String)row.get("ccodtransaccion")));
 		}
+	}
+	public List modificarMetodoPago(String codReserva,String estado,String metodoPago,String codTransac)
+	{
+		Object[] values={codReserva,estado,metodoPago,codTransac};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarEstadoPago", values);
 	}
 	public List modificarEstadoDePago(String codReserva,String estado)
 	{

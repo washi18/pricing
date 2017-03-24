@@ -30,7 +30,7 @@ public class CConexion
 //	        pds.setInitialPoolSize(5);
     		 PoolProperties p = new PoolProperties();
 //             p.setUrl("jdbc:postgresql://45.56.120.138:5432/DBPricing_FPP");
-             p.setUrl("jdbc:postgresql://localhost:5432/DBPricing_PAT");
+             p.setUrl("jdbc:postgresql://localhost:5432/DBPricing_FPP");
              p.setDriverClassName("org.postgresql.Driver");
              p.setUsername("postgres");
 //             p.setPassword("LAnube2016@db");
@@ -65,17 +65,8 @@ public class CConexion
 	public Boolean getEstaconectado() {
 		return estaconectado;
 	}
-   /* public int[] mantenimientoMasivo(String procedimiento,String[][] params){
-    	return  getEjecutorSQL().ejecutarMantenimientoMasivo(procedimiento, params);
-    }
-    public List ejecutarProcedimiento(String procedimiento){
-    	return getEjecutorSQL().ejecutarProcedimiento(procedimiento);
-    }*/
     public List ejecutarProcedimiento(String procedimiento,String[] values){
     	return getEjecutorSQL().ejecutarProcedimiento(procedimiento, values);
     }
-    /*public List ejecutarConsulta(String consulta){
-    	return getEjecutorSQL().ejecutarConsulta(consulta);
-    }*/
 	
 }

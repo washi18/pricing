@@ -691,7 +691,7 @@
 											<button label="Editar Descripcion" onClick="@command('abrirEditorDescripcion',cPaquete=each)" zclass="btn_guardar"/>
 									</div>
 				    				<div zclass="div_space_entre_botones">
-										<button label="Subir Imagenes del hotel" 
+										<button label="Subir Imagenes del paquete" 
 												onClick="@command('uploadImagenes',cPaquete=each,componente=self)"
 												zclass="btn_guardar"/>
 									</div>

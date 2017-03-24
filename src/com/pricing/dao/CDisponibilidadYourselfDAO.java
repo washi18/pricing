@@ -7,19 +7,19 @@ import java.util.Map;
 
 import org.zkoss.bind.BindUtils;
 
-import com.pricing.model.CDisponibilidadYourself;
+import com.pricing.model.CCalendarioDisponibilidad;
 
 public class CDisponibilidadYourselfDAO extends CConexion {
 	//======================atributos==============================
-	private ArrayList<CDisponibilidadYourself> listaDisponibilidad;
+	private ArrayList<CCalendarioDisponibilidad> listaDisponibilidad;
 	private ArrayList<Integer> listaDispoActual;
 	private ArrayList<Integer> listaDispoSiguiente;
 	private ArrayList<Integer> listaDispoMes;
 	//=======================getter an setter====================
-	public ArrayList<CDisponibilidadYourself> getListaDisponibilidad() {
+	public ArrayList<CCalendarioDisponibilidad> getListaDisponibilidad() {
 		return listaDisponibilidad;
 	}
-	public void setListaDisponibilidad(ArrayList<CDisponibilidadYourself> listaDisponibilidad) {
+	public void setListaDisponibilidad(ArrayList<CCalendarioDisponibilidad> listaDisponibilidad) {
 		this.listaDisponibilidad = listaDisponibilidad;
 	}
 	

@@ -27,6 +27,7 @@ public class ExpressCheckout {
 			datosConfigPaypal=configPaypalDAO.getDatosConfigPaypal();
 	}
 	public String[] setExpressCheckoutTest(String Monto,String Descripcion) throws IOException {
+		System.out.println("El monto para paypal es: "+Monto);
 		String[] result=new String[2];
 		System.out.println("Entre a setExpressCheckout :)");
 		setExpressCheckout=new SetExpressCheckout();
@@ -34,10 +35,10 @@ public class ExpressCheckout {
 				.setExpressCheckout(Monto,Descripcion,datosConfigPaypal.getCaccountId(),datosConfigPaypal.getCsellerUserName());
 		if(setExpressCheckoutResponse.getAck().getValue().equals("Success"))
 		{
-//			result[0]="https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
-//					+ setExpressCheckoutResponse.getToken();
-			result[0]="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
+			result[0]="https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
 					+ setExpressCheckoutResponse.getToken();
+//			result[0]="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
+//					+ setExpressCheckoutResponse.getToken();
 			result[1]=setExpressCheckoutResponse.getToken();
 		}
 		return result;

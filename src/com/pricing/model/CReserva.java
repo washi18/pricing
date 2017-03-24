@@ -18,6 +18,8 @@ public class CReserva
 	private int nNroPersonas;// int,				--numero de personas que integran el tour
 	private String cInformacionAdicional;// varchar(300),		--informacion adicional registrada por el cliente
 	private String cEstado;// varchar(20),				--estado de una reserva: PENDIENTE DE PAGO,PAGO PARCIAL, PAGO TOTAL
+	private String cMetodoPago;//varchar(20)
+	private String cCodTransaccion;//varchar(20)
 	/**Otros Atributos de reserva ajenos a TReserva**/
 	private CPaquete oPaquete;
 	private ArrayList<CPaquete> listaPaquetes;
@@ -114,6 +116,18 @@ public class CReserva
 	public void setoCupon(CCupon oCupon) {
 		this.oCupon = oCupon;
 	}
+	public String getcMetodoPago() {
+		return cMetodoPago;
+	}
+	public void setcMetodoPago(String cMetodoPago) {
+		this.cMetodoPago = cMetodoPago;
+	}
+	public String getcCodTransaccion() {
+		return cCodTransaccion;
+	}
+	public void setcCodTransaccion(String cCodTransaccion) {
+		this.cCodTransaccion = cCodTransaccion;
+	}
 	//=============================
 	public CReserva() {
 		// TODO Auto-generated constructor stub
@@ -122,11 +136,14 @@ public class CReserva
 		this.cInformacionAdicional ="";
 		this.cContacto="";
 		this.cEmail="";
+		this.cMetodoPago="";
+		this.cCodTransaccion="";
 	}
 	public CReserva(String cReservaCod, Date dFechaInicio, Date dFechaFin,
 			Date dFecha, String cContacto, String cEmail, String cTelefono,
 			Number nPrecioPaquetePersona, int nNroPersonas,
-			String cInformacionAdicional, String cEstado) {
+			String cInformacionAdicional, String cEstado,
+			String cMetodoPago,String cCodTransaccion) {
 		this.cReservaCod = cReservaCod;
 		this.dFechaInicio = dFechaInicio;
 		this.dFechaFin = dFechaFin;
@@ -138,6 +155,8 @@ public class CReserva
 		this.nNroPersonas = nNroPersonas;
 		this.cInformacionAdicional = cInformacionAdicional;
 		this.cEstado = cEstado;
+		this.cMetodoPago=cMetodoPago;
+		this.cCodTransaccion=cCodTransaccion;
 	}
 	public CReserva(String codPaquete)
 	{

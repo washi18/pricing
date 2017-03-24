@@ -1,3 +1,28 @@
+CREATE OR REPLACE FUNCTION Pricing_sp_ModificarImagenesPaquete
+(
+    codPaquete varchar(10),
+    foto1 varchar(100),
+    foto2 varchar(100),
+    foto3 varchar(100),
+    foto4 varchar(100),
+    foto5 varchar(100)
+)
+returns table(resultado varchar(20),mensaje varchar(200),paqueteCod varchar(10))as
+$$
+begin
+    paqueteCod=$1;
+    update tpaquete set cfoto1=$2,
+                    cfoto2=$3,
+                    cfoto3=$4,
+                    cfoto4=$5,
+                    cfoto5=$6
+                    where cpaquetecod=$1;
+    resultado='correcto';
+    mensaje='Datos Actualizados';
+    return Query select resultado,mensaje,paquetecod;
+end 
+$$
+language plpgsql;
 /**MODIFICAR ESTADO DE TRESERVA**/
 CREATE OR REPLACE FUNCTION Pricing_sp_ModificarEstadoPago
 (
@@ -18,7 +43,7 @@ begin
     return Query select resultado,mensaje,codReserva;
 end
 $$
-LANGUAGE plpgsql; 
+LANGUAGE plpgsql;
 /**MODIFICAR conf alto nivel**/
 CREATE OR REPLACE FUNCTION Pricing_sp_ModificarConfAltoNivel
 (

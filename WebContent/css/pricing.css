@@ -139,11 +139,9 @@
 .div_requerimientos.z-div {
 	width: 70%;
 }
-
 .div_resumen_reserva.z-div {
 	width: 28%;
 }
-
 @media ( min-width :768px) and (max-width:1310px) {
 	.div_requerimientos.z-div {
 		width: 60%;
@@ -155,7 +153,6 @@
 	width: 40%;
 }
 }
-
 @media ( min-width :641px) and (max-width:767px) {
 	.div_requerimientos.z-div {
 		width: 50%;
@@ -167,7 +164,6 @@
 		width: 50%;
 	}
 }
-
 @media ( max-width :640px) {
 	.div_requerimientos.z-div {
 		width: 100%;
@@ -199,7 +195,6 @@
 		font-size:10px; 
 	}
 }
-
 .div_titulo_paquete {
 	padding: 20px 0 20px 0;
 	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
@@ -207,18 +202,14 @@
 	-moz-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 	-ms-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 	-o-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
-	+
 }
-
 .style_lbl_tituloPaquete {
 	font-size: 20px;
 	font-weight: bold;
 }
-
 .style_tituloPaqueteRyC {
 	font-size: 15px;
 }
-
 .z-groupbox-header .caption_pasos.z-caption {
 	padding: 5px 0 5px 0;
 	border-radius: 8px;
@@ -250,7 +241,6 @@
 	-o-flex-direction: column;
 	position: fixed;
 }
-
 .div_fechas {
 	width: 100%;
 	display: -webkit-flex;
@@ -270,11 +260,9 @@
 	-ms-box-sizing: border-box;
 	-o-box-sizing: border-box;
 }
-
 .style_listcell {
 	background: #F7653A;
 }
-
 .div_fechaReserva {
 	/* 	padding:10px; */
 	height: auto;
@@ -302,7 +290,6 @@
 	-ms-flex-direction: column;
 	-o-flex-direction: column;
 }
-
 @media ( max-width :640px) {
 	.div_fechaReserva_res {
 		width: 100%;
@@ -331,7 +318,6 @@
 		-o-flex-direction: column;
 	}
 }
-
 .div_costoServiceSubTitle {
 	width: 70%;
 	display: flex;
@@ -345,11 +331,9 @@
 	-ms-justify-content: flex-end;
 	-o-justify-content: flex-end;
 }
-
 .div_costoServiceMonto {
 	width: 30%;
 }
-
 .div_costoServicioTotal {
 	display: flex;
 	display: -webkit-flex;
@@ -358,7 +342,6 @@
 	display: -o-flex;
 	width: 100%;
 }
-
 .div_costoServiceSubTitleTotal {
 	width: 70%;
 	display: flex;
@@ -372,11 +355,9 @@
 	-ms-justify-content: flex-end;
 	-o-justify-content: flex-end;
 }
-
 .div_costoServiceMontoTotal {
 	width: 30%;
 }
-
 .div_costoServicio {
 	display: flex;
 	display: -webkit-flex;
@@ -385,7 +366,6 @@
 	display: -o-flex;
 	width: 100%;
 }
-
 .div_costoPaqueteSubTitle {
 	width: 70%;
 	display: flex;
@@ -400,11 +380,9 @@
 	-o-justify-content: flex-end;
 	font-weight: bold;
 }
-
 .div_costoPaqueteMonto {
 	width: 30%;
 }
-
 .div_costoPaquete {
 	display: flex;
 	display: -webkit-flex;
@@ -413,7 +391,6 @@
 	display: -o-flex;
 	width: 100%;
 }
-
 .div_costoHotelSubTitle {
 	width: 70%;
 	display: flex;
@@ -428,11 +405,9 @@
 	-o-justify-content: flex-end;
 	font-weight: bold;
 }
-
 .div_costoHotelMonto {
 	width: 30%;
 }
-
 .div_costoHotel {
 	display: flex;
 	display: -webkit-flex;
@@ -441,7 +416,6 @@
 	display: -o-flex;
 	width: 100%;
 }
-
 .div_mostrarHotel {
 	padding: 0 10px 0 10px;
 	box-sizing: border-box;

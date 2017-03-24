@@ -230,7 +230,7 @@ public class pricingVM
 	private CEtiquetaDAO etiquetaDao;
 	private String[] etiqueta;
 	private CConfigUrlDAO configUrlDao;
-	/***************************/
+	/***********************/
 	private String nombreDoc;
 	private ArrayList<CPasajero> listaPasajeros;
 	private ArrayList<String> listaEdades;
@@ -240,10 +240,17 @@ public class pricingVM
 	private String codDisponibilidad;
 	private ConfAltoNivel confAltoNivel;
 	private ConfAltoNivelDAO confAltoNivelDAO;
+	private String integrantes;
+	private String paquetes;
 	//======METODOS===============
 	@Init
 	public void inicializarVM() throws IOException
 	{
+		//===Recuperando los datos del APP
+		integrantes=(String)Executions.getCurrent().getAttribute("integrantes");
+		paquetes=(String)Executions.getCurrent().getAttribute("paquetes");
+		System.out.println("hola--> :"+integrantes+" --> :"+paquetes);
+		//================================
 		confAltoNivel=new ConfAltoNivel();
 		confAltoNivelDAO=new ConfAltoNivelDAO();
 		visiblePaso1=true;
@@ -647,7 +654,7 @@ public class pricingVM
 		}
 	}
 	@Command
-	@NotifyChange({"oActividad","mostrarVentanaActividad","mostrarCostoActividades","lblTotalActividades"})
+	@NotifyChange({"oActividad","mostrarVentanaActividad","lblMontoTotal","mostrarCostoActividades","lblTotalActividades"})
 	public void actividadSeleccionada(@BindingParam("actividad")CActividad actividad,@BindingParam("opcion")String opcion,@BindingParam("cod")int cod)
 	{
 		ArrayList<CPaqueteActividad> listaPaqueteActividades=new ArrayList<CPaqueteActividad>();
@@ -855,6 +862,7 @@ public class pricingVM
 	@NotifyChange({"lblTotalServicios","lblMontoTotal","mostrarCostoServicio"})
 	public void SelectOpcionService(@BindingParam("servicio")CServicio servicio,@BindingParam("cod")int cod,@BindingParam("opcion")Object opcion,@BindingParam("pos")int pos)
 	{
+		System.out.println("Tamaño del servico del paquete 2: "+oReservar.getoPaquete().getListaServicios().size());
 		ArrayList<CPaqueteServicio> listaPaqueteServicios=new ArrayList<CPaqueteServicio>();
 		listaPaqueteServicios=oReservar.getoPaquete().obtenerListaPaqueteServicio(oReservar.getoPaquete().getcPaqueteCod());
 		mostrarCostoServicio=true;
@@ -944,6 +952,7 @@ public class pricingVM
 		lblTotalServicios=""+df.format(TotalServicios);
 		montoTotal=TotalActividades+TotalHabitaciones+TotalPaquete+TotalServicios;
 		lblMontoTotal=""+df.format(montoTotal);
+		System.out.println("Tamaño del servico del paquete: "+oReservar.getoPaquete().getListaServicios().size());
 	}
 	@Command
 	public void redirectUrl(@BindingParam("servicio")int servicio)
@@ -1524,6 +1533,7 @@ public class pricingVM
 		nroSimples=0;nroDobles=0;nroTriples=0;
 		reiniciarHoteles();
 		reiniciarServicios();
+		reiniciarActividades();
 		lblTotalPaquete=df.format(TotalPaquete);
 		//=======================
 		System.out.println("-->"+TotalPaquete+"-->"+TotalHabitaciones+"-->"+TotalServicios);
@@ -1596,6 +1606,23 @@ public class pricingVM
 			BindUtils.postNotifyChange(null, null, servicio,"opcionValue");
 		}
 		BindUtils.postNotifyChange(null, null, this, "lblTotalServicios");
+	}
+	public void reiniciarActividades()
+	{
+		/**El monto total de los servicios vuelve a ser 0.0**/
+		TotalActividades=0.0;
+		lblTotalActividades=""+df.format(TotalActividades);
+		/**Se reinicia la seleccion de las opciones**/
+		/**Se cierran las descripciones de los servicios seleccionados**/
+		
+		for(CActividad acti:oReservar.getoPaquete().getListaActividades())
+		{
+			acti.setNroPersonasActividad(0);
+			acti.setPrecioTotalActividad(df.format(0));
+			BindUtils.postNotifyChange(null, null, acti,"nroPersonasActividad");
+			BindUtils.postNotifyChange(null, null, acti,"precioTotalActividad");
+		}
+		BindUtils.postNotifyChange(null, null, this, "lblTotalActividades");
 	}
 	public void reiniciarReserva()
 	{
@@ -2656,7 +2683,7 @@ public class pricingVM
 		SECResult=new String[2];
 		/*************************/
 		ExpressCheckout paypal=new ExpressCheckout();
-		SECResult=paypal.setExpressCheckoutTest(totalConImpuestoPaypal,oReservar.getoPaquete().getcTituloIdioma1());
+		SECResult=paypal.setExpressCheckoutTest(pagos.getTotalConImpuestoPaypal(),oReservar.getoPaquete().getcTituloIdioma1());
 		/*************************/
 		pagos.setUrlPaypal(SECResult[0]);
 		System.out.println("La url de paypal-> "+urlPaypal);

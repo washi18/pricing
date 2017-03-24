@@ -1,14 +1,17 @@
 package com.pricing.viewModel;
 
-import java.util.Date;
-import java.util.Calendar;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpSession;
 
@@ -35,11 +38,16 @@ import org.zkoss.zul.Comboitem;
 import org.zkoss.zul.Grid;
 import org.zkoss.zul.Label;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.pricing.dao.CDisponibilidadYourselfDAO;
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.extras.lectorPDF;
 import com.pricing.model.CDia;
 import com.pricing.model.CDias7;
+import com.pricing.model.CCalendarioDisponibilidad;
 import com.pricing.util.Util;
 
 public class disponibilidadVM 
@@ -110,7 +118,7 @@ public class disponibilidadVM
 	}
 	//=======================================
 	@Init
-	public void inicializarVM() throws IOException
+	public void inicializarVM() throws Exception
 	{
 		etiquetaDao=new CEtiquetaDAO();
 		etiquetaDao.asignarEtiquetaIdiomas(etiquetaDao.recuperarEtiquetasBD());
@@ -149,12 +157,11 @@ public class disponibilidadVM
 		else
 			etiqueta=etiquetaDao.getIdioma().getIdioma2();
 	}
-	public void iniciarLosDiasAnio() throws IOException
+	public void iniciarLosDiasAnio() throws Exception
 	{
 		listaAnioActual=new ArrayList<CDia>();
 		listaAnioSig=new ArrayList<CDia>();
 		listaUpdate=new ArrayList<String>();
-		Calendar cal=Calendar.getInstance();
 		int nroDia=1;
 		for(int i=0;i<365;i++)
 		{
@@ -174,6 +181,19 @@ public class disponibilidadVM
 			listaAnioSig.add(dia1);
 			nroDia++;
 		}
+		if(cdisponibilidad==20)
+		{
+			ArrayList<CCalendarioDisponibilidad> listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
+			listaDisponibilidad.addAll(recuperarListaDispoJson());
+			ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
+		}else
+		{
+			ingresarDatosListaDispoOtros();
+		}
+	}
+	public void ingresarDatosListaDispoOtros()
+	{
+		Calendar cal=Calendar.getInstance();
 		int n=0;
 		for(int i=0;i<12;i++)
 		{
@@ -237,6 +257,294 @@ public class disponibilidadVM
 			    n++;
 		    }
 		}
+	}
+	public ArrayList<Integer> recuperarDispoMes(int anio,int mes,ArrayList<CCalendarioDisponibilidad> listaDisponibilidad)
+	{
+		ArrayList<Integer> lista=new ArrayList<Integer>();
+		for(CCalendarioDisponibilidad cal:listaDisponibilidad)
+		{
+			if(cal.getNanio()==anio && cal.getNmes()==mes)
+			{
+				lista.add(cal.getNdia1());lista.add(cal.getNdia2());lista.add(cal.getNdia3());
+				lista.add(cal.getNdia4());lista.add(cal.getNdia5());lista.add(cal.getNdia6());
+				lista.add(cal.getNdia7());lista.add(cal.getNdia8());lista.add(cal.getNdia9());
+				lista.add(cal.getNdia10());lista.add(cal.getNdia11());lista.add(cal.getNdia12());
+				lista.add(cal.getNdia13());lista.add(cal.getNdia14());lista.add(cal.getNdia15());
+				lista.add(cal.getNdia16());lista.add(cal.getNdia17());lista.add(cal.getNdia18());
+				lista.add(cal.getNdia19());lista.add(cal.getNdia20());lista.add(cal.getNdia21());
+				lista.add(cal.getNdia22());lista.add(cal.getNdia23());lista.add(cal.getNdia24());
+				lista.add(cal.getNdia25());lista.add(cal.getNdia26());lista.add(cal.getNdia27());
+				lista.add(cal.getNdia28());
+				if(cal.getNmes()==2)
+				{
+					if(cal.getNanio()%4==0 && (cal.getNanio()%400==0 || cal.getNanio()%100!=0))
+						lista.add(cal.getNdia29());
+				}
+				else
+				{
+					lista.add(cal.getNdia29());lista.add(cal.getNdia30());
+				}
+				if(cal.getNmes()==1 ||
+						cal.getNmes()==3||
+						cal.getNmes()==5||
+						cal.getNmes()==7||
+						cal.getNmes()==8||
+						cal.getNmes()==10||
+						cal.getNmes()==12)
+					lista.add(cal.getNdia31());
+				break;
+			}
+		}
+		return lista;
+	}
+	public void ingresarDatosListaDispoCaminoInka(ArrayList<CCalendarioDisponibilidad> listaDisponibilidad) throws Exception
+	{
+		Calendar cal=Calendar.getInstance();
+		int n=0;
+		for(int i=0;i<12;i++)
+		{
+			System.out.println("pos:"+n);
+			ArrayList<Integer> listDispoMesActual=new ArrayList<Integer>();
+			listDispoMesActual=recuperarDispoMesUrl(cal.get(Calendar.YEAR),i+1);
+			if(listDispoMesActual.isEmpty())
+				listDispoMesActual=recuperarDispoMes(cal.get(Calendar.YEAR),i+1,listaDisponibilidad);
+			//if(i==1)continue;//mes de febrero
+			String mes=mesAnio(i);
+		    //Una vez obtenida las disponibilidades se almacena en la listaAnioActual
+		    for(int r=0;r<listDispoMesActual.size();r++)
+		    {
+			    listaAnioActual.get(n).setCantDisp(String.valueOf(listDispoMesActual.get(r)));
+			    listaAnioActual.get(n).setVisible(true);
+			    if(listDispoMesActual.get(r)!=0)
+			    {
+			    	listaAnioActual.get(n).setDisponible("icon-checkmark");
+			    	listaAnioActual.get(n).setColorDisp("chek_style");
+			    	listaAnioActual.get(n).setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
+			    }
+//			    	listaAnioActual.get(n).setDisponible("/img/dispon/ok.png");
+			    else
+			    {
+			    	listaAnioActual.get(n).setDisponible("icon-cross");
+			    	listaAnioActual.get(n).setColorDisp("cross_style");
+			    	listaAnioActual.get(n).setImgPrioridad("background:rgba(247, 87, 65,0.3);border-radius:5px;");
+			    }
+//			    	listaAnioActual.get(n).setDisponible("/img/dispon/x5.png");
+			    n++;
+		    }
+		}
+		n=0;
+		for(int j=0;j<12;j++)
+		{
+			System.out.println("pos:"+n);
+			ArrayList<Integer> listDispoMesSig=new ArrayList<Integer>();
+			listDispoMesSig=recuperarDispoMes(cal.get(Calendar.YEAR)+1,j+1,listaDisponibilidad);
+			//if(j==1)continue;//mes de febrero
+		    //Una vez obtenida las disponibilidades se almacena en la listaAnioActual
+		    for(int t=0;t<listDispoMesSig.size();t++)
+		    {
+			    listaAnioSig.get(n).setCantDisp(String.valueOf(listDispoMesSig.get(t)));
+			    listaAnioSig.get(n).setVisible(true);
+			    if(listDispoMesSig.get(t)!=0)
+			    {
+			    	listaAnioSig.get(n).setDisponible("icon-checkmark");
+			    	listaAnioSig.get(n).setColorDisp("chek_style");
+			    	listaAnioSig.get(n).setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
+			    }
+//			    	listaAnioActual.get(n).setDisponible("/img/dispon/ok.png");
+			    else
+			    {
+			    	listaAnioSig.get(n).setDisponible("icon-cross");
+			    	listaAnioSig.get(n).setColorDisp("cross_style");
+			    	listaAnioSig.get(n).setImgPrioridad("background:rgba(247, 87, 65,0.3);border-radius:5px;");
+			    }
+//			    	listaAnioActual.get(n).setDisponible("/img/dispon/x5.png");
+			    n++;
+		    }
+		}
+	}
+	public ArrayList<Integer> recuperarDispoMesUrl(int anio,int mes) throws Exception
+	{
+		Map<Integer, String> map = new HashMap<Integer,String>();
+		ArrayList<Integer> listaDispoMes=new ArrayList<Integer>();
+		String mesAux=mesAnio(mes-1);
+		//=====Leemos el archivo del mes correspondiente=====
+		String nameFileMes=txtMesCorrespondiente(mesAux);
+		boolean correcto=leerPdfDesdeUrl(mes);
+		if(correcto)
+		{
+			System.out.println("Es correcto: "+nameFileMes);
+			FileReader f = new FileReader(Util.getPathDispActual()+nameFileMes);
+	        BufferedReader b = new BufferedReader(f);
+	        String contenidoTxt="";
+	        String cadena;
+	        while((cadena = b.readLine())!=null) 
+	        	contenidoTxt+=cadena+"\n";
+	        b.close();
+	        //Se procede a obtener los dias disponibles
+			String[] s=contenidoTxt.split("\n");
+		    for(int j=6;j<s.length-4;j++)
+		    {
+		    	String[] aux=s[j].split(" ");
+		    	map.put(Integer.parseInt(aux[0].trim()),aux[1].trim());
+		    }
+		    final TreeMap<Integer,String>treeSortedByValues1 = new TreeMap<Integer,String>(new Comparator<Integer>()
+		    {
+		        public int compare(Integer o1, Integer o2)
+		        {
+		            return o1.compareTo(o2);
+		        }
+		    });
+		    treeSortedByValues1.putAll(map);
+		    for ( Entry<Integer, String> e : treeSortedByValues1.entrySet() )
+		    {
+		        System.out.println(e.getKey() + ": " + e.getValue());
+		        listaDispoMes.add(Integer.parseInt(e.getValue()));
+		    }
+		}
+		return listaDispoMes;
+	}
+	public boolean leerPdfDesdeUrl(int mes) throws Exception{
+		String mesTxt="";
+		if(mes<10)
+			mesTxt="0"+mes;
+		else
+			mesTxt=""+mes;
+		System.out.println("Recupere el mes de: "+mesTxt);
+		System.out.println("================================");
+		Calendar cal=Calendar.getInstance();
+		lectorPDF.descargarPdf("http://operadores.machupicchu.gob.pe/BoletoExtranet/servletReporteBoleto?reporte=600&idRuta=1&fechaIngreso=01-"+mesTxt+"-"+cal.get(Calendar.YEAR)+"&tipoRegistro=001",
+				new lectorPDF().getPath()+"auxPdf.pdf");
+		String contenidoPdf=leerContenidoPdfDescargado();
+		String mesNombre=obtenerMes(contenidoPdf);
+		if(!mesNombre.equals(""))
+		{
+			String monthFileName=obtenerNombreArchivoDelMes(mesNombre);
+			//Ahora se procede a sobreescribir el archivo txt correspodiente al
+			//mes de Disponibilidad con el contenido obtenido del pdf
+			try {
+				sobreescribirFileTxt(contenidoPdf,monthFileName);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return true;
+		}else
+			return false;
+	}
+	public String obtenerNombreArchivoDelMes(String mes)
+	{
+		String nameFile="";
+			//Esta condicional se hizo debido a que el nombre recuperado
+			//de los meses de SEPTIEMBRE, NOVIEMBRE Y DICIEMBRE
+			//tienen un espacio (" ") al final ejem. "DICIEMBRE " y no "DICIEMBRE"
+			//imposibilitando la validacion en el switch
+//		int ultimo=mes.length()-1;
+//		if(mes.charAt(ultimo)<'A' || mes.charAt(ultimo)>'Z')
+//		{
+//			mes=mes.substring(0, ultimo);
+//			System.out.println("----> "+mes);
+//		}
+		switch(mes)
+		{
+			case "ENERO":nameFile="enero.txt";break;
+			case "FEBRERO":nameFile="febrero.txt";break;
+			case "MARZO":nameFile="marzo.txt";break;
+			case "ABRIL":nameFile="abril.txt";break;
+			case "MAYO":nameFile="mayo.txt";break;
+			case "JUNIO":nameFile="junio.txt";break;
+			case "JULIO":nameFile="julio.txt";break;
+			case "AGOSTO":nameFile="agosto.txt";break;
+			case "SEPTIEMBRE":nameFile="setiembre.txt";break;
+			case "OCTUBRE":nameFile="octubre.txt";break;
+			case "NOVIEMBRE":nameFile="noviembre.txt";break;
+			case "DICIEMBRE":nameFile="diciembre.txt";break;
+		}
+		return nameFile;
+	}
+	public void sobreescribirFileTxt(String contentFile,String monthFileName) throws IOException
+	{
+		System.out.println("Este es el contenido del pdf aqui en sobreescribir txt :) \n"+contentFile);
+        Calendar cal=Calendar.getInstance();
+        File archivo=null;
+        archivo = new File(Util.getPathDispActual()+ monthFileName);
+        BufferedWriter bw;
+        if(archivo.exists()) {
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(contentFile);
+        } else {
+            bw = new BufferedWriter(new FileWriter(archivo));
+            bw.write(contentFile);
+        }
+        bw.close();
+	}
+	public String obtenerMes(String contenidoPDF)
+	{
+		String nameMes="";
+			try
+			{
+
+				String[] datos=contenidoPDF.split("\n",5);
+				String[] auxDatos=datos[3].split(" ");
+				nameMes=auxDatos[0];
+			}
+			catch (Exception StringIndexOutOfBoundsException) {
+				// TODO: handle exception
+				return "";
+			}
+			return nameMes;
+	}
+	public String leerContenidoPdfDescargado()
+	{
+		String contenido="";
+		//Luego se procede a leer el pdf guardado para obtener el nombre del mes
+		lectorPDF lpdf=new lectorPDF();
+		lpdf.setFilePath("auxPdf.pdf");
+		try {
+			contenido=lpdf.ToText();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return contenido;
+	}
+	public ArrayList<CCalendarioDisponibilidad> recuperarListaDispoJson()
+	{
+		ArrayList<CCalendarioDisponibilidad> lista=new ArrayList<CCalendarioDisponibilidad>();
+		try {
+			Gson migs=new Gson();
+			String jsoncadena=readUrl("https://www.e-ranti.com/RestDiponibilidadCaminoInka/services/ServicioDisponibilidad/obtenerListaDisponibilidad");
+			//creamos una propiedad del gson jsonParser
+			JsonParser jsonParser = new JsonParser();
+			//Obtenemos el string json en un arreglo json
+			JsonArray userArray = jsonParser.parse(jsoncadena).getAsJsonArray();
+			      //
+			      for ( JsonElement aUser : userArray )
+			      {
+			    	  CCalendarioDisponibilidad aPe = migs.fromJson(aUser, CCalendarioDisponibilidad.class);
+			    	  lista.add(aPe);
+			      }
+			} catch (Exception e)
+			{
+			// TODO: handle exception
+			}
+		return lista;
+	}
+	private static String readUrl(String urlString) throws Exception {
+	    BufferedReader reader = null;
+	    try {
+	        URL url = new URL(urlString);
+	        reader = new BufferedReader(new InputStreamReader(url.openStream()));
+	        StringBuffer buffer = new StringBuffer();
+	        int read;
+	        char[] chars = new char[1024];
+	        while ((read = reader.read(chars)) != -1)
+	            buffer.append(chars, 0, read); 
+
+	        return buffer.toString();
+	    } finally {
+	        if (reader != null)
+	            reader.close();
+	    }
 	}
 	public void iniciarFechasSeleccionadas()
 	{
@@ -1059,6 +1367,7 @@ public class disponibilidadVM
 		switch(mes)
 		{
 			case "Enero":nameFile="enero.txt";break;
+			case "Febrero":nameFile="febrero.txt";break;
 			case "Marzo":nameFile="marzo.txt";break;
 			case "Abril":nameFile="abril.txt";break;
 			case "Mayo":nameFile="mayo.txt";break;

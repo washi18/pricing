@@ -261,7 +261,7 @@ public class DestinosVM extends SelectorComposer<Component> {
 				            //================================
 				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
 				            String urlImagen=ScannUtil.getPathImagenDestinos()+img.getName();
-				            asignarUrlImagenServicio(img.getName());
+				            asignarUrlImagenDestino(img.getName());
 				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
 						} else {
 							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
@@ -269,9 +269,9 @@ public class DestinosVM extends SelectorComposer<Component> {
 					}
 			     });
 	}
-	public void asignarUrlImagenServicio(String url)
+	public void asignarUrlImagenDestino(String url)
 	{
-		oDestinoNuevo.setUrlImagen("/img/destinos/"+url);
+		oDestinoNuevo.setUrlImagen("img/destinos/"+url);
 		BindUtils.postNotifyChange(null, null, oDestinoNuevo,"urlImagen");
 	}
 	@Command
@@ -282,10 +282,10 @@ public class DestinosVM extends SelectorComposer<Component> {
 						if (media instanceof org.zkoss.image.Image) {
 							org.zkoss.image.Image img = (org.zkoss.image.Image) media;
 							//Con este metodo(uploadFile) de clase guardo la imagen en la ruta del servidor
-				            boolean b=ScannUtil.uploadFileServicios(img);
+				            boolean b=ScannUtil.uploadFileDestinos(img);
 				            //================================
 				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
-				            String urlImagen=ScannUtil.getPathImagensSubServicios()+img.getName();
+				            String urlImagen=ScannUtil.getPathImagenDestinos()+img.getName();
 				            asignarUrlImagenUpdateDestino(img.getName(),destino);
 				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
 						} else {
@@ -296,7 +296,7 @@ public class DestinosVM extends SelectorComposer<Component> {
 	}
 	public void asignarUrlImagenUpdateDestino(String url,CDestino destino)
 	{
-		destino.setUrlImagen("/img/destinos/"+url);
+		destino.setUrlImagen("img/destinos/"+url);
 		BindUtils.postNotifyChange(null, null, destino,"urlImagen");
 	}
 	public void refrescaFilaTemplate(CDestino d)

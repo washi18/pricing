@@ -17,7 +17,7 @@
 				<div zclass="div_contenedor_nuevo_subServicio" width="100%">
 					<div zclass="div_content_datos">
 						<div zclass="div_content_img">
-							<div height="250px" width="100%" zclass="div_img">
+							<div height="250px" width="250px" zclass="div_img">
 								<image width="100%" height="100%" src="@bind(vmDestino.oDestinoNuevo.urlImagen)"/>
 							</div>
 							<button label="Subir Imagen" 

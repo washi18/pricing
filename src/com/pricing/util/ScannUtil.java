@@ -54,7 +54,7 @@ public class ScannUtil {
 		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"servicios"+separator;
 	}	
 	public static String getPathCertificados(){
-		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"WEB-INF"+separator+"classes"+separator+"com"+separator+"pricing_pat"+separator+"resources"+separator;
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"WEB-INF"+separator+"classes"+separator+"com"+separator+"pricing"+separator+"resources"+separator;
 	}
 	public static String getPathImagenUsuario(){
 		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"usuarios"+separator;
