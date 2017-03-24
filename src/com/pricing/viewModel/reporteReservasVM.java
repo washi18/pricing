@@ -18,6 +18,7 @@ import com.pricing.model.CActividad;
 import com.pricing.model.CDestino;
 import com.pricing.model.CDestinoConHoteles;
 import com.pricing.model.CHotel;
+import com.pricing.model.CImpuesto;
 import com.pricing.model.CPasajero;
 import com.pricing.model.CReportePagos;
 import com.pricing.model.CReporteReserva;
@@ -48,14 +49,58 @@ public class reporteReservasVM {
 	private boolean pagoParte;
 	private boolean pagoTotal;
 	private boolean visibleMarcarPagado;
+	private boolean visibleParcial;
+	private boolean visibleTotal;
+	private CImpuesto impuesto;
+	private String valorParcial;
+	private boolean esPorcentual;
 	Date fecha=new Date();
 	SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
 	String fechaActual = formato.format(fecha);
 	//=======getter and setter=====
 	
-	
 	public ArrayList<CReporteReserva> getListaReporteReserva() {
 		return listaReporteReserva;
+	}
+
+	public boolean isVisibleParcial() {
+		return visibleParcial;
+	}
+
+	public void setVisibleParcial(boolean visibleParcial) {
+		this.visibleParcial = visibleParcial;
+	}
+
+	public boolean isVisibleTotal() {
+		return visibleTotal;
+	}
+
+	public void setVisibleTotal(boolean visibleTotal) {
+		this.visibleTotal = visibleTotal;
+	}
+
+	public boolean isEsPorcentual() {
+		return esPorcentual;
+	}
+
+	public void setEsPorcentual(boolean esPorcentual) {
+		this.esPorcentual = esPorcentual;
+	}
+
+	public String getValorParcial() {
+		return valorParcial;
+	}
+
+	public void setValorParcial(String valorParcial) {
+		this.valorParcial = valorParcial;
+	}
+
+	public CImpuesto getImpuesto() {
+		return impuesto;
+	}
+
+	public void setImpuesto(CImpuesto impuesto) {
+		this.impuesto = impuesto;
 	}
 
 	public boolean isVisibleMarcarPagado() {
@@ -209,13 +254,25 @@ public class reporteReservasVM {
 		pagoParte=false;
 		pagoTotal=false;
 		visibleMarcarPagado=false;
+		visibleParcial=false;
+		visibleTotal=false;
 		reporteReservaDAO=new CReporteReservaDAO();
 		reporteReservaAnterior=new CReporteReserva();
 		oReporteReserva=new CReporteReserva();
+		impuesto=new CImpuesto();
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
 		reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasInicialBD(fechaActual));
 		this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
+		reporteReservaDAO.asignarValoresImpuesto(reporteReservaDAO.recuperarModoPago());
+		setImpuesto(reporteReservaDAO.getImpuesto());
+		if(impuesto.isModoPorcentual()){
+			valorParcial=impuesto.getPorcentajeCobro()+"%";
+			esPorcentual=true;
+		}else{
+			valorParcial=impuesto.getPagoMinimo()+" x persona";
+			esPorcentual=false;
+		}
 	}
 	
 	@Command
@@ -394,14 +451,8 @@ public class reporteReservasVM {
         		listaHotelesTemp.add(new CHotel(listaHoteles.get(contador).getcHotel(),listaHoteles.get(contador).getnPrecioSimple()));
         		valorincremento++;
         		contador++;
-        		System.out.println("el valor de contador es:"+contador);
         	}
-        	System.out.println("el valor de incremento es:"+valorincremento);
-        	System.out.println("el valor de contador fuera del bucle es:"+contador);
-        	System.out.println("el nombre de su destino es:"+listaHoteles.get(i).getNombreDestino());
-        	System.out.println("el tamanio de hoteles es:"+ listaHotelesTemp.size());
         	listaDestinosconHoteles.add(new CDestinoConHoteles(listaHoteles.get(i).getNombreDestino().toString(),listaHotelesTemp));
-        	System.out.println("termina esto?");
         }
 		reserva.setListaDestinosconHoteles(listaDestinosconHoteles);
 		
@@ -481,21 +532,27 @@ public class reporteReservasVM {
 	@Command
 	public void cambiarEstadoPago(@BindingParam("estado")String estado,@BindingParam("reporteReserva")CReporteReserva reporteReserva){
 		if(estado.equals("parcial")){
+			visibleParcial=true;
+			visibleTotal=false;
 			reporteReserva.setPagoParte(true);
 			reporteReserva.setPagoTotal(false);
 			reporteReserva.setEstado("PAGO PARCIAL");
 		}else{
+			visibleParcial=false;
+			visibleTotal=true;
 			reporteReserva.setPagoParte(false);
 			reporteReserva.setPagoTotal(true);
 			reporteReserva.setEstado("PAGO TOTAL");
 		}
+		
 		BindUtils.postNotifyChange(null, null, reporteReserva, "pagoParte");
 		BindUtils.postNotifyChange(null, null, reporteReserva, "pagoTotal");
-		BindUtils.postNotifyChange(null, null, reporteReserva, "estado");
+		BindUtils.postNotifyChange(null, null, this, "visibleParcial");
+		BindUtils.postNotifyChange(null, null, this, "visibleTotal");
 	}
 	
 	@Command
-	@NotifyChange({"listaReporteReserva"})
+	@NotifyChange({"listaReporteReserva","visibleParcial","visibleTotal"})
 	public void ModificarReporteReserva(@BindingParam("reporteReserva")CReporteReserva reporteReserva,@BindingParam("comp")Component comp){
 		if(!validoParaModificar(reporteReserva, comp))
 			return;
@@ -511,6 +568,8 @@ public class reporteReservasVM {
 			reporteReservaDAO.asignarListaReporteReservas(reporteReservaDAO.recuperarReporteReservasBD(FechaInicio,FechaFinal));
 			this.setListaReporteReserva(reporteReservaDAO.getListaReporteReservas());
 		}
+		visibleParcial=false;
+		visibleTotal=false;
 	}
 	
 	@Command
@@ -521,6 +580,8 @@ public class reporteReservasVM {
 	
 	@Command
 	public void habilitarPagos(@BindingParam("reporteReserva")CReporteReserva reporteReserva){
+		visibleParcial=false;
+		visibleTotal=false;
 		oReporteReserva.setVisibleMarcarPagado(false);
 		BindUtils.postNotifyChange(null, null, oReporteReserva,"visibleMarcarPagado");
 		oReporteReserva=reporteReserva;
@@ -530,6 +591,8 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, reporteReserva,"visibleMarcarPagado");
 		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoParte");
 		BindUtils.postNotifyChange(null, null, reporteReserva,"pagoTotal");
+		BindUtils.postNotifyChange(null, null, this,"visibleParcial");
+		BindUtils.postNotifyChange(null, null, this,"visibleTotal");
 	}
 	
 	public boolean validoParaModificar(CReporteReserva reserva,Component comp){
@@ -549,6 +612,7 @@ public class reporteReservasVM {
 		}
 		return valido;
 	}
+	
 	@Command
 	@NotifyChange({"listaReporteReserva","reporteReserva"})
 	public void Buscar_Reservas(@BindingParam("componente")Component componente)

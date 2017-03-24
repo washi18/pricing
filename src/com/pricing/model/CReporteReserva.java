@@ -44,10 +44,17 @@ public class CReporteReserva {
 	private boolean visibleMarcarPagado;
 	private String metodoPago;
 	private String codTransaccion;
+	private Number MontoTotal;
 	//=======getter and setter===========
 	
 	public String getCodReserva() {
 		return CodReserva;
+	}
+	public Number getMontoTotal() {
+		return MontoTotal;
+	}
+	public void setMontoTotal(Number montoTotal) {
+		MontoTotal = montoTotal;
 	}
 	public String getMetodoPago() {
 		return metodoPago;
@@ -339,6 +346,7 @@ public class CReporteReserva {
 		pagoParte=false;
 		pagoTotal=false;
 		visibleMarcarPagado=false;
+		MontoTotal=nroPersonas*precioPersona.doubleValue();
 		
 	}
 	//=================otros metodos======================

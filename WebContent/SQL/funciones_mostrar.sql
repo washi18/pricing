@@ -1,3 +1,10 @@
+ /****** mostrar timpuesto****/
+ create or replace function Pricing_sp_MostrarImpuesto()
+	returns setof TImpuesto as
+$$
+	select * from TImpuesto;
+$$
+language sql;
  /****** mostrar reservaspagados****/
  create or replace function Pricing_sp_BuscarReservasPagados
 (

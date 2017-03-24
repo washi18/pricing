@@ -9,6 +9,7 @@ import com.pricing.model.CActividad;
 import com.pricing.model.CDestino;
 import com.pricing.model.CEstadistica_Paquete;
 import com.pricing.model.CHotel;
+import com.pricing.model.CImpuesto;
 import com.pricing.model.CPasajero;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
@@ -25,12 +26,19 @@ public class CReporteReservaDAO extends CConexion{
 	private ArrayList<CEstadistica_Paquete> masVendidosxMeses;
 	private ArrayList<CPasajero> listaPasajerosReserva;
 	private ArrayList<CActividad> listaActividadesReserva;
+	private CImpuesto impuesto;
 	
 	//=======================getter and setter==============
 	
 	
 	public ArrayList<CReporteReserva> getListaReporteReservas() {
 		return listaReporteReservas;
+	}
+	public CImpuesto getImpuesto() {
+		return impuesto;
+	}
+	public void setImpuesto(CImpuesto impuesto) {
+		this.impuesto = impuesto;
 	}
 	public ArrayList<CActividad> getListaActividadesReserva() {
 		return listaActividadesReserva;
@@ -121,6 +129,10 @@ public class CReporteReservaDAO extends CConexion{
 		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarhotelesreserva",values);
 	}
 	
+	public List recuperarModoPago(){
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarImpuesto");
+	}
+	
 	public List recuperarServiciosReservaBD(String codReserva)
 	{
 		String[] values={codReserva};
@@ -166,6 +178,18 @@ public class CReporteReservaDAO extends CConexion{
 					(String)row.get("ccategoriaidioma1"),
 					(String)row.get("cestado"),(int)row.get("categoriahotelcod"),total));
 		}
+	}
+	public void asignarValoresImpuesto(List lista){
+		impuesto=new CImpuesto();
+		Map row=(Map)lista.get(0);
+		impuesto.setCodImpuesto((int)row.get("codimpuesto"));
+		impuesto.setImpuestoPaypal((String)row.get("impuestopaypal"));
+		impuesto.setImpuestoVisa((String)row.get("impuestovisa"));
+		impuesto.setImpuestoMasterCard((String)row.get("impuestomastercard"));
+		impuesto.setImpuestoDinnersClub((String)row.get("impuestodinnersclub"));
+		impuesto.setPorcentajeCobro((String)row.get("porcentajecobro"));
+		impuesto.setPagoMinimo((String)row.get("pagominimo"));
+		impuesto.setModoPorcentual((boolean)row.get("modoporcentual"));
 	}
 	public List modificarEstadoReserva(String codReserva,String estado,String metodoPago,String codTransaccion){
 		Object[]values={codReserva,estado,metodoPago,codTransaccion};

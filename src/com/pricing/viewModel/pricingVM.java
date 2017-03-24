@@ -1419,10 +1419,10 @@ public class pricingVM
 	}
 	@Command
 	@NotifyChange({"visiblePaso1","visiblePaso2","visiblePaso3","visibleBarraPaso1","visibleBarraPaso2","visibleBarraPaso3",
-		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2"})
+		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2",
+		"visibleBtnSiguiente","visibleBtnAtras"})
 	public void RetornarPaso(@BindingParam("nroPaso")String nroPaso,@BindingParam("comp")Component comp){
-		if(nroPaso.equals("1")){
-			if(validoPaso1(comp)){
+		 if(nroPaso.equals("2")){
 				this.setVisiblePaso1(true);
 				this.setVisiblePaso2(false);
 				this.paso2=false;
@@ -1431,28 +1431,23 @@ public class pricingVM
 				this.visibleBarraPaso2=false;
 				this.visibleBarraPaso3=false;
 				this.estiloPaso1="background:#72CB2E;";
-				this.estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				this.estiloPaso3="background:transparent;";
-				this.visibleNroPaso1=true;
-				this.visibleNroPaso2=false;
-				this.visibleNroPaso3=false;
-			}else{return;}
-		}else if(nroPaso.equals("2")){
-			if(validoPaso2(comp)){
-				this.setVisiblePaso1(false);
-				this.setVisiblePaso2(true);
-				this.paso2=true;
-				this.setVisiblePaso3(false);
-				this.visibleBarraPaso1=false;
-				this.visibleBarraPaso2=true;
-				this.visibleBarraPaso3=false;
-				this.estiloPaso1="background:#72CB2E;";
 				this.estiloPaso2="background:#72CB2E;";
 				this.estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				this.visibleNroPaso1=true;
-				this.visibleNroPaso2=true;
-				this.visibleNroPaso3=false;
-			}else {return;}
+				visibleBtnSiguiente=true;
+				visibleBtnAtras=false;
+		}else if(nroPaso.equals("3")){
+			this.setVisiblePaso1(false);
+			this.setVisiblePaso2(true);
+			this.paso2=true;
+			this.setVisiblePaso3(false);
+			this.visibleBarraPaso1=false;
+			this.visibleBarraPaso2=true;
+			this.visibleBarraPaso3=false;
+			this.estiloPaso1="background:#72CB2E;";
+			this.estiloPaso2="background:#72CB2E;";
+			this.estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
+			visibleBtnAtras=true;
+			visibleBtnSiguiente=true;
 		}
 	}
 	//================================
