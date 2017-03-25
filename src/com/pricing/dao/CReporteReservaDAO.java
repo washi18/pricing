@@ -9,6 +9,7 @@ import com.pricing.model.CActividad;
 import com.pricing.model.CDestino;
 import com.pricing.model.CEstadistica_Paquete;
 import com.pricing.model.CHotel;
+import com.pricing.model.CImpuesto;
 import com.pricing.model.CPasajero;
 import com.pricing.model.CReporteReserva;
 import com.pricing.model.CServicio;
@@ -25,12 +26,19 @@ public class CReporteReservaDAO extends CConexion{
 	private ArrayList<CEstadistica_Paquete> masVendidosxMeses;
 	private ArrayList<CPasajero> listaPasajerosReserva;
 	private ArrayList<CActividad> listaActividadesReserva;
+	private CImpuesto impuesto;
 	
 	//=======================getter and setter==============
 	
 	
 	public ArrayList<CReporteReserva> getListaReporteReservas() {
 		return listaReporteReservas;
+	}
+	public CImpuesto getImpuesto() {
+		return impuesto;
+	}
+	public void setImpuesto(CImpuesto impuesto) {
+		this.impuesto = impuesto;
 	}
 	public ArrayList<CActividad> getListaActividadesReserva() {
 		return listaActividadesReserva;
@@ -84,7 +92,6 @@ public class CReporteReservaDAO extends CConexion{
 	//===================contructores====================
 	public CReporteReservaDAO() {
 		super();
-		this.reporteReserva=new CReporteReserva();
 	}
 	public CReporteReservaDAO(ArrayList<CReporteReserva> listaReporteReservas) {
 		super();
@@ -119,6 +126,10 @@ public class CReporteReservaDAO extends CConexion{
 	{
 		Object[] values={codReserva,codCategoriaHotel};
 		return getEjecutorSQL().ejecutarProcedimiento("pricing_sp_buscarhotelesreserva",values);
+	}
+	
+	public List recuperarModoPago(){
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarImpuesto");
 	}
 	
 	public List recuperarServiciosReservaBD(String codReserva)
@@ -164,8 +175,21 @@ public class CReporteReservaDAO extends CConexion{
 					(String)row.get("ctelefono"),(int)row.get("nnropersonas"),
 					(Number)row.get("npreciopaquetepersona"),(String) row.get("ctituloidioma1"),
 					(String)row.get("ccategoriaidioma1"),
-					(String)row.get("cestado"),(int)row.get("categoriahotelcod"),total));
+					(String)row.get("cestado"),(int)row.get("categoriahotelcod"),total,(String)row.get("porcentajecobro"),
+					(String)row.get("pagominimo"),(boolean)row.get("modoporcentual")));
 		}
+	}
+	public void asignarValoresImpuesto(List lista){
+		impuesto=new CImpuesto();
+		Map row=(Map)lista.get(0);
+		impuesto.setCodImpuesto((int)row.get("codimpuesto"));
+		impuesto.setImpuestoPaypal((String)row.get("impuestopaypal"));
+		impuesto.setImpuestoVisa((String)row.get("impuestovisa"));
+		impuesto.setImpuestoMasterCard((String)row.get("impuestomastercard"));
+		impuesto.setImpuestoDinnersClub((String)row.get("impuestodinnersclub"));
+		impuesto.setPorcentajeCobro((String)row.get("porcentajecobro"));
+		impuesto.setPagoMinimo((String)row.get("pagominimo"));
+		impuesto.setModoPorcentual((boolean)row.get("modoporcentual"));
 	}
 	public List modificarEstadoReserva(String codReserva,String estado,String metodoPago,String codTransaccion){
 		Object[]values={codReserva,estado,metodoPago,codTransaccion};
@@ -219,7 +243,7 @@ public class CReporteReservaDAO extends CConexion{
 			System.out.println("titulo:"+row.get("ctituloidioma1"));
 			System.out.println("nrovendidos:"+row.get("nrovendidos"));
 			System.out.println("fecha:"+row.get("fecha"));
-			masVendidosxMeses.add(new CEstadistica_Paquete((String)row.get("ctituloidioma1"),(long)row.get("nrovendidos"),(Date)row.get("fecha")));
+			masVendidosxMeses.add(new CEstadistica_Paquete((String)row.get("ctituloidioma1"),(int)row.get("nrovendidos"),(Date)row.get("fecha")));
 		}
 		System.out.println("entra aqui 2");
 	}

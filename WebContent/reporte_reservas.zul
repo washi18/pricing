@@ -126,12 +126,8 @@
 					    						<div zclass="div_list_cell_pagos" width="100%">
 					    							<div sclass="estilo_contenidos_centrados" width="10%">
 					    								<label value="■"></label>
-					    								<space></space>
-					    								<label value="@load(pasajero.tipoDocumento)" sclass="estilo_texto_pop"></label>
-					    							</div>
-					    							<space orient="vertical"></space>
-					    							<div sclass="estilo_contenidos_centrados" width="15%">
-					    								<label value="@load(pasajero.cNroDoc)" sclass="estilo_texto_pop"></label>
+<!-- 					    								<space></space> -->
+<!-- 					    								<label value="@load(pasajero.tipoDocumento)" sclass="estilo_texto_pop"></label> -->
 					    							</div>
 					    							<space orient="vertical"></space>
 					    							<div width="50%" sclass="estilo_contenidos_centrados">
@@ -144,11 +140,15 @@
 						    							</div>
 					    							</div>
 					    							<space orient="vertical"></space>
-					    							<div sclass="estilo_contenidos_centrados" width="11%">
-					    							    <label value="@load(pasajero.nEdad)" sclass="estilo_texto_pop"></label>
-					    							    <space orient="vertical"></space>
-					    								<label value="@load(pasajero.cSexo)" sclass="estilo_texto_pop"></label>
+					    							<div sclass="estilo_contenidos_centrados" width="15%">
+					    								<label value="@load(pasajero.cNroDoc)" sclass="estilo_texto_pop"></label>
 					    							</div>
+<!-- 					    							<space orient="vertical"></space> -->
+<!-- 					    							<div sclass="estilo_contenidos_centrados" width="11%"> -->
+<!-- 					    							    <label value="@load(pasajero.nEdad)" sclass="estilo_texto_pop"></label> -->
+<!-- 					    							    <space orient="vertical"></space> -->
+<!-- 					    								<label value="@load(pasajero.cSexo)" sclass="estilo_texto_pop"></label> -->
+<!-- 					    							</div> -->
 					    							<space orient="vertical"></space>
 					    							<div sclass="estilo_contenidos_centrados" width="14%">
 					    								<label value="@load(pasajero.nombrePais)" sclass="estilo_texto_pop"></label>
@@ -322,11 +322,32 @@
 						    				<label value="@load(each.estado)" style="font-style: italic; font-weight: bold; font-size: 16px; color: black;"></label>
 						    			</div>
 						    			<div>
-						    				<button label="Marcar Pagado ?" zclass="btn_marcar_pagado" width="100px" height="30px" onClick="@command('habilitarPagos',reporteReserva=each)"></button>
-						    				<div visible="@bind(each.visibleMarcarPagado)">
+						    				<button label="Marcar Pagado ?" zclass="btn_abrir_pago" width="110px" height="30px" onClick="@command('habilitarPagos',reporteReserva=each)"></button>
+						    				<div visible="@bind(each.visibleMarcarPagado)" zclass="div_list_cell_marcar_pagado">
 							 		 			<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoPago',estado=self.selectedItem.value,reporteReserva=each)">
-							 		 				<radio label="PAGO PARCIAL" value="parcial" checked="@load(each.pagoParte)"/>
-							 		 				<radio label="PAGO TOTAL" value="total" checked="@load(each.pagoTotal)"/>
+							 		 				<div style="display: flex; display:-webkit-flex; display:-moz-flex; display:-ms-flex; display:-o-flex;">
+							 		 					<radio label="PAGO PARCIAL" value="parcial"/>
+							 		 					<space></space>
+							 		 					<div visible="@bind(vmReserva.visibleParcial)">
+								 		 					<label value="@bind(each.montoParcial)" style="font-size: 12px; color: black; font-weight: bold;"></label>
+								 		 					<label value="("></label>
+								 		 					<label value="@bind(vmReserva.valorParcial)"></label>
+								 		 					<label value=")"></label>
+							 		 					</div>
+							 		 				</div>
+							 		 				<div style="display: flex; display:-webkit-flex; display:-moz-flex; display:-ms-flex; display:-o-flex;">
+							 		 					<radio label="PAGO TOTAL" value="total"/>
+							 		 					<space></space>
+							 		 					<div visible="@bind(vmReserva.visibleTotal)">
+							 		 						<div visible="@bind(vmReserva.esPorcentual)">
+							 		 							<label value="@bind(each.precioTotal)" style="font-size: 12px; color: black; font-weight: bold;"></label>
+							 		 							<label value="("></label>
+							 		 							<label value="100%"></label>
+							 		 							<label value=")"></label>
+							 		 						</div>
+							 		 						<label value="@bind(each.precioTotal)" visible="@bind(!vmReserva.esPorcentual)" style="font-size: 12px; color: black; font-weight: bold;"></label>
+			 				 		 					</div>	
+			 				 		 				</div>
 							 		 			</radiogroup>
 							 		 			<label value="Metodo Pago:" sclass="lbl_llenar_datos"></label>
 							 		 			<textbox value="@bind(each.metodoPago)" onChange="@command('asignarNameMetodoPago',reporteReserva=each)"
@@ -334,19 +355,21 @@
 							 		 			<label value="Codigo Transaccion:" sclass="lbl_llenar_datos"></label>
 							 		 			<textbox value="@bind(each.codTransaccion)" 
 							 		 				placeholder="Ingrese Codigo transaccion" sclass="txt_llenar_datos"></textbox>
-							 		 			<button label="Aceptar" width="100px" height="50px" zclass="btn_guardar" onClick="@command('ModificarReporteReserva',reporteReserva=each,comp=self)"></button>
+							 		 			<div zclass="cont_marcar_pagado">
+							 		 				<button label="Guardar" width="100px" height="50px" zclass="btn_marcar_pagado" onClick="@command('ModificarReporteReserva',reporteReserva=each,comp=self) @global-command('actualizar_lista_pagos')"></button>
+							 		 			</div>
 							 		 		</div>
 							 		 	</div>
 						    			<div sclass="estilo_monto_persona">
 						    				<div sclass="estilo_columnas_precios_etiqueta">
-						    					<label value="Total Paquete($):"></label>
-						    					<label value="Nro Pasajeros:"></label>
+						    					<label value="Precio Paquete($):" style="font-size: 12px; color: black; font-weight: bold;"></label>
+<!-- 						    					<label value="Nro Pasajeros:" style="font-size: 12px; color: black; font-weight: bold;"></label> -->
 <!-- 						    					<space orient="horizontal"></space> -->
 <!-- 						    					<label value="Total ($):" style="color: black; font-weight:bold;"></label> -->
 						    				</div>
 						    				<div sclass="estilo_columnas_precios">
-							    				<label value="@load(each.precioPersona)"></label>
-							    				<label value="@load(each.nroPersonas)" style="text-align: right;"></label>
+							    				<label value="@load(each.precioTotal)" style="font-size: 12px; color: black; font-weight: bold;"></label>
+<!-- 							    				<label value="@load(each.nroPersonas)" style="text-align: right; font-size: 12px; color: black; font-weight: bold;"></label> -->
 <!-- 							    				<space bar="true" orient="horizontal"></space> -->
 <!-- 							    				<label value="@load(each.precioTotal)" style="color: black; font-weight:bold;"></label> -->
 						    				</div>

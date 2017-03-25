@@ -3,6 +3,8 @@ package com.pricing.model;
 import java.util.ArrayList;
 import java.util.Date;
 
+import com.pricing.dao.CReporteReservaDAO;
+
 public class CReporteReserva {
 	//==============atributos============
 	private String CodReserva;
@@ -24,6 +26,7 @@ public class CReporteReserva {
 	private boolean visibleSubServiciopop=false;
 	private boolean visiblePasajerospop=false;
 	private boolean visibleActividadespop=false;
+	private CImpuesto impuesto;
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CHotel> listaHoteles;
 	private ArrayList<CServicio> listaServicios;
@@ -44,10 +47,38 @@ public class CReporteReserva {
 	private boolean visibleMarcarPagado;
 	private String metodoPago;
 	private String codTransaccion;
+	private Number montoParcial;
+	private String porcentajeCobro;
+	private String pagoMinimo;
+	private boolean modoPorcentual;
 	//=======getter and setter===========
 	
 	public String getCodReserva() {
 		return CodReserva;
+	}
+	public String getPorcentajeCobro() {
+		return porcentajeCobro;
+	}
+	public void setPorcentajeCobro(String porcentajeCobro) {
+		this.porcentajeCobro = porcentajeCobro;
+	}
+	public String getPagoMinimo() {
+		return pagoMinimo;
+	}
+	public void setPagoMinimo(String pagoMinimo) {
+		this.pagoMinimo = pagoMinimo;
+	}
+	public boolean isModoPorcentual() {
+		return modoPorcentual;
+	}
+	public void setModoPorcentual(boolean modoPorcentual) {
+		this.modoPorcentual = modoPorcentual;
+	}
+	public Number getMontoParcial() {
+		return montoParcial;
+	}
+	public void setMontoParcial(Number montoParcial) {
+		this.montoParcial = montoParcial;
 	}
 	public String getMetodoPago() {
 		return metodoPago;
@@ -294,6 +325,12 @@ public class CReporteReserva {
 		this.visibleMarcarPagado = visibleMarcarPagado;
 	}
 	
+	public CImpuesto getImpuesto() {
+		return impuesto;
+	}
+	public void setImpuesto(CImpuesto impuesto) {
+		this.impuesto = impuesto;
+	}
 	//=============metodos constructores===============
 	public CReporteReserva()
 	{
@@ -316,11 +353,15 @@ public class CReporteReserva {
 		visibleMarcarPagado=false;
 		metodoPago="";
 		codTransaccion="";
+		porcentajeCobro="";
+		pagoMinimo="";
+		modoPorcentual=false;
 	}
 	public CReporteReserva(String codReserva, Date fechaInicio, Date fechaFin,
 			Date fecha,String nombreContacto, String Email,
 			String telefono, int nroPersonas,Number precioPersona,
-			String nombrePaquete, String categoria,String estado,int codCategoria,Double precioTotal) {
+			String nombrePaquete, String categoria,String estado,int codCategoria,Double precioTotal, 
+			String porcentajeCobro,String pagoMinimo,boolean modoPorcentual) {
 		super();
 		this.CodReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -336,10 +377,17 @@ public class CReporteReserva {
 		this.estado = estado;
 		this.codCategoria=codCategoria;
 		this.PrecioTotal=precioTotal;
+		this.porcentajeCobro=porcentajeCobro;
+		this.pagoMinimo=pagoMinimo;
+		this.modoPorcentual=modoPorcentual;
 		pagoParte=false;
 		pagoTotal=false;
 		visibleMarcarPagado=false;
-		
+		if(this.modoPorcentual){
+			montoParcial=(Integer.parseInt(this.porcentajeCobro)*this.PrecioTotal)/100;
+		}else{
+			montoParcial=Integer.parseInt(this.pagoMinimo)*this.nroPersonas;
+		}
 	}
 	//=================otros metodos======================
 	

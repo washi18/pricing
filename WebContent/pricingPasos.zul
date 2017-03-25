@@ -88,14 +88,14 @@
 			<div height="8px" width="31.5%" style="background:#77BD37;"
 				visible="@bind(vmPricing.visibleBarraPaso1)">
 			</div>
-			<div width="100%" style="display:flex;">
+			<div width="100%" style="display: flex; display:-webkit-flex; display:-moz-flex; display:-ms-flex; display:-o-flex;">
 				<div width="32.5%"></div>
 				<div height="8px" width="33.3%"
 					style="background:#77BD37;"
 					visible="@bind(vmPricing.visibleBarraPaso2)">
 				</div>
 			</div>
-			<div width="100%" style="display:flex;">
+			<div width="100%" style="display: flex; display:-webkit-flex; display:-moz-flex; display:-ms-flex; display:-o-flex;">
 				<div width="33.3%"></div>
 				<div width="33.3%"></div>
 				<div height="8px" width="33.3%"
@@ -230,7 +230,7 @@
 											value="@bind(vmPricing.etiqueta[21])"
 											sclass="titulo-groupbox" />
 									</div>
-									<combobox readonly="true"
+									<combobox readonly="true" id="nroPersonas" value="@bind(self.selectedItem.value)"
 										width="60px"
 										onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)">
 										<comboitem label="1" value="1"
@@ -383,7 +383,7 @@
 					<button label="Back" zclass="btn_retorno"
 						visible="@bind(vmPricing.visibleBtnAtras)"
 						iconSclass="fa fa-arrow-left"
-						onClick="@command('AnteriorPaso',nroPaso='1',comp=self)">
+						onClick="@command('RetornarPaso',nroPaso='1',comp=self)">
 					</button>
 					<space width="50px"></space>
 					<button label="Next" zclass="btn_siguiente"
@@ -1276,7 +1276,7 @@
 					<button label="Back" zclass="btn_retorno"
 						visible="@bind(vmPricing.visibleBtnAtras)"
 						iconSclass="fa fa-arrow-left"
-						onClick="@command('AnteriorPaso',nroPaso='2',comp=self)">
+						onClick="@command('RetornarPaso',nroPaso='2',comp=self)">
 					</button>
 					<space width="50px"></space>
 					<button label="Next" zclass="btn_siguiente"
@@ -2092,7 +2092,7 @@
 			<button label="Back" zclass="btn_retorno"
 				visible="@bind(vmPricing.visibleBtnAtras)"
 				iconSclass="fa fa-arrow-left"
-				onClick="@command('AnteriorPaso',nroPaso='3',comp=self)">
+				onClick="@command('RetornarPaso',nroPaso='3',comp=self)">
 			</button>
 			<space width="50px"></space>
 			<button label="Next" zclass="btn_siguiente"

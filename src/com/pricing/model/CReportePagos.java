@@ -45,12 +45,48 @@ public class CReportePagos {
 	private boolean visibleSubServiciopop=false;
 	private ArrayList<CDestinoConHoteles> listaDestinosconHoteles;
 	private ArrayList<CServicioConSubServicios> listaServicioConSubServicios;
+	private boolean isParcial;
+	private boolean isTotal;
+	private boolean visibleMarcarPagado;
+	private Number nPrecioPaquetePersona;
 	//===============getter and setter=======
 	
 	public String getCodPago() {
 		return codPago;
 	}
 	
+	public Number getnPrecioPaquetePersona() {
+		return nPrecioPaquetePersona;
+	}
+
+	public void setnPrecioPaquetePersona(Number nPrecioPaquetePersona) {
+		this.nPrecioPaquetePersona = nPrecioPaquetePersona;
+	}
+
+	public boolean isVisibleMarcarPagado() {
+		return visibleMarcarPagado;
+	}
+
+	public void setVisibleMarcarPagado(boolean visibleMarcarPagado) {
+		this.visibleMarcarPagado = visibleMarcarPagado;
+	}
+
+	public boolean isParcial() {
+		return isParcial;
+	}
+
+	public void setParcial(boolean isParcial) {
+		this.isParcial = isParcial;
+	}
+
+	public boolean isTotal() {
+		return isTotal;
+	}
+
+	public void setTotal(boolean isTotal) {
+		this.isTotal = isTotal;
+	}
+
 	public ArrayList<CServicioConSubServicios> getListaServicioConSubServicios() {
 		return listaServicioConSubServicios;
 	}
@@ -361,6 +397,9 @@ public class CReportePagos {
 		this.nombrePais = "";
 		this.nroDoc="";
 		this.estadoReserva="";
+		isParcial=false;
+		isTotal=false;
+		visibleMarcarPagado=false;
 	}
 
 	public CReportePagos(String codReserva, Date fechaInicio,
@@ -368,7 +407,7 @@ public class CReportePagos {
 			String formaPago,
 			String codTransaccion,
 			String apellidos, String nombres, String sexo,
-			String tipoDocumento,String nroDoc, String nombrePais,String estadoReserva) {
+			String tipoDocumento,String nroDoc, String nombrePais,String estadoReserva,Number nPrecioPaquetePersona) {
 		super();
 		this.codReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -386,6 +425,15 @@ public class CReportePagos {
 		this.nroDoc=nroDoc;
 		this.nombrePais = nombrePais;
 		this.estadoReserva=estadoReserva;
+		this.nPrecioPaquetePersona=nPrecioPaquetePersona;
+		this.montoTotal=nroPersonas*nPrecioPaquetePersona.doubleValue();
+		if(estadoReserva.equals("PAGO PARCIAL")){
+			isParcial=true;
+			isTotal=false;
+		}else {
+			isParcial=false;
+			isTotal=true;
+		}
 //		this.valorImpuesto=(Double.valueOf(impuesto)*importe.doubleValue())/100;
 //	    this.montoTotal=importe.doubleValue()+this.valorImpuesto;
 	}

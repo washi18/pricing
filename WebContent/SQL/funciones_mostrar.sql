@@ -1,3 +1,10 @@
+ /****** mostrar timpuesto****/
+ create or replace function Pricing_sp_MostrarImpuesto()
+	returns setof TImpuesto as
+$$
+	select * from TImpuesto;
+$$
+language sql;
  /****** mostrar reservaspagados****/
  create or replace function Pricing_sp_BuscarReservasPagados
 (
@@ -17,10 +24,60 @@ $$
 				left join treservapaquetecategoriahotel as rpch on(rpch.nreservapaquetecod=rp.nreservapaquetecod)
 				left join tpaquetecategoriahotel as pch on(pch.codpaquetecategoriah=rpch.codpaquetecategoriah)
 				left join tcategoriahotel as ch on(ch.categoriahotelcod=pch.categoriahotelcod)
-				where (to_date($1,'yyyy-MM-dd')<=r.dfecha and r.dfecha<=to_date($2,'yyyy-MM-dd')) and r.cestado=$3
+				where (to_date($1,'yyyy-MM-dd')<=r.dfecha and r.dfecha<=(to_date($2,'yyyy-MM-dd'))+'1 day'::interval) and r.cestado=$3
 				group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,ch.categoriahotelcod,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,r.cmetodopago,
 					 r.ccodtransaccion,r.cestado
 				order by r.dfecha desc;
+$$
+  LANGUAGE sql;
+  
+  /****** mostrar reservaspagados****/
+ create or replace function Pricing_sp_BuscarReservasPagadosAmbos
+(
+	fechaInicio varchar(12),
+	fechaFin varchar(12)
+)
+RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,categoriahotelcod int,npreciopaquetepersona numeric,nnropersonas int,ctituloidioma1 varchar(200),
+cmetodopago varchar(20),ccodtransaccion varchar(20),cestado varchar(20)) AS
+$$
+		
+		select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( ch.categoriahotelcod, 0 ),r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,
+		r.cmetodopago,r.ccodtransaccion,r.cestado
+				from treserva as r 
+				left join treservapaquete as rp on(r.creservacod=rp.creservacod)
+				left join tpaquete as paq on(rp.cpaquetecod=paq.cpaquetecod)
+				left join treservapaquetecategoriahotel as rpch on(rpch.nreservapaquetecod=rp.nreservapaquetecod)
+				left join tpaquetecategoriahotel as pch on(pch.codpaquetecategoriah=rpch.codpaquetecategoriah)
+				left join tcategoriahotel as ch on(ch.categoriahotelcod=pch.categoriahotelcod)
+				where (to_date($1,'yyyy-MM-dd')<=r.dfecha and r.dfecha<=(to_date($2,'yyyy-MM-dd'))+'1 day'::interval) and (r.cestado='PAGO PARCIAL' or r.cestado='PAGO TOTAL')
+				group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,ch.categoriahotelcod,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,r.cmetodopago,
+					 r.ccodtransaccion,r.cestado
+				order by r.dfecha desc;
+$$
+  LANGUAGE sql;
+
+   /****** mostrar reservaspagados iniciales****/
+  create or replace function Pricing_sp_BuscarReservasPagadosInicial
+(
+	fechaActual varchar(12)
+)
+RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,categoriahotelcod int,npreciopaquetepersona numeric,nnropersonas int,ctituloidioma1 varchar(200),
+cmetodopago varchar(20),ccodtransaccion varchar(20),cestado varchar(20)) AS
+$$
+		
+		select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( ch.categoriahotelcod, 0 ),r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,
+		r.cmetodopago,r.ccodtransaccion,r.cestado
+				from treserva as r 
+				left join treservapaquete as rp on(r.creservacod=rp.creservacod)
+				left join tpaquete as paq on(rp.cpaquetecod=paq.cpaquetecod)
+				left join treservapaquetecategoriahotel as rpch on(rpch.nreservapaquetecod=rp.nreservapaquetecod)
+				left join tpaquetecategoriahotel as pch on(pch.codpaquetecategoriah=rpch.codpaquetecategoriah)
+				left join tcategoriahotel as ch on(ch.categoriahotelcod=pch.categoriahotelcod)
+				where (r.dfecha<=(to_date($1,'yyyy-MM-dd'))+'1 day'::interval) and (r.cestado='PAGO PARCIAL' or r.cestado='PAGO TOTAL')
+				group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,ch.categoriahotelcod,r.npreciopaquetepersona,r.nnropersonas,paq.ctituloidioma1,r.cmetodopago,
+					 r.ccodtransaccion,r.cestado
+				order by r.dfecha desc
+				limit 10;
 $$
   LANGUAGE sql;
 /****** mostrar configuraciones de alto nivel****/
@@ -444,19 +501,19 @@ CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservas(
 )
 RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,categoriaHotelcod int,ccontacto varchar(12),
 cemail varchar(100),ctelefono varchar(50),nnropersonas int,npreciopaquetepersona numeric,ctituloidioma1 varchar(200),
-ccategoriaidioma1 varchar(200),cestado varchar(20)) AS
+ccategoriaidioma1 varchar(200),cestado varchar(20),porcentajecobro varchar(5),pagominimo varchar(5),modoporcentual boolean) AS
 $$
 	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( c.categoriahotelcod, 0 ),r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado,ti.porcentajecobro,ti.pagominimo,ti.modoporcentual
 			from treserva as r 
 			left join treservapaquete as rp on(r.creservacod=rp.creservacod)
 			left join treservapaquetecategoriahotel as rpch on(rp.nreservapaquetecod=rpch.nreservapaquetecod)
 			left join tpaquetecategoriahotel as pch on(rpch.codpaquetecategoriah=pch.codpaquetecategoriah)
 			left join tcategoriahotel as c on(pch.categoriahotelcod=c.categoriahotelcod)
-			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod)
-			where (to_date($1,'yyyy-MM-dd')<=r.dfecha and r.dfecha<=to_date($2,'yyyy-MM-dd')) and r.cestado='PENDIENTE DE PAGO'
+			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod),timpuesto as ti
+			where (to_date($1,'yyyy-MM-dd')<=r.dfecha and r.dfecha<=(to_date($2,'yyyy-MM-dd'))+'1 day'::interval) and r.cestado='PENDIENTE DE PAGO'
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado,ti.porcentajecobro,ti.pagominimo,ti.modoporcentual
 			order by r.dfecha desc;
 $$
   LANGUAGE sql;
@@ -464,24 +521,24 @@ $$
 Nombre		:Pricing_sp_BuscarReservasInicial
 Detalle     : buscar reserva para muestra inicial
 +++++++++++++++++++++++++++++++++++++++++++++++++*/
-CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservasInicial(
+  CREATE OR REPLACE FUNCTION Pricing_sp_BuscarReservasInicial(
 		fechaActual varchar(12)
 )
 RETURNS table (creservacod varchar(12),dfechainicio Date,dfechafin Date,dfecha timestamp,categoriaHotelcod int,ccontacto varchar(12),
 cemail varchar(100),ctelefono varchar(50),nnropersonas int,npreciopaquetepersona numeric,ctituloidioma1 varchar(200),
-ccategoriaidioma1 varchar(200),cestado varchar(20)) AS
+ccategoriaidioma1 varchar(200),cestado varchar(20),porcentajecobro varchar(5),pagominimo varchar(5),modoporcentual boolean) AS
 $$
 	select r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,COALESCE( c.categoriahotelcod, 0 ),r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+		p.ctituloidioma1,c.ccategoriaidioma1,r.cestado,ti.porcentajecobro,ti.pagominimo,ti.modoporcentual
 			from treserva as r 
 			left join treservapaquete as rp on(r.creservacod=rp.creservacod)
 			left join treservapaquetecategoriahotel as rpch on(rp.nreservapaquetecod=rpch.nreservapaquetecod)
 			left join tpaquetecategoriahotel as pch on(rpch.codpaquetecategoriah=pch.codpaquetecategoriah)
 			left join tcategoriahotel as c on(pch.categoriahotelcod=c.categoriahotelcod)
-			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod)
-			where r.dfecha<=to_date($1,'yyyy-MM-dd') and r.cestado='PENDIENTE DE PAGO'
+			left join tpaquete as p on(p.cpaquetecod=rp.cpaquetecod),timpuesto as ti
+			where (r.dfecha<=(to_date($1,'yyyy-MM-dd'))+'1 day'::interval) and r.cestado='PENDIENTE DE PAGO'
 			group by r.creservacod,r.dfechainicio,r.dfechafin,r.dfecha,c.categoriahotelcod,r.ccontacto,r.cemail,r.ctelefono,r.nnropersonas,r.npreciopaquetepersona,
-					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado
+					p.ctituloidioma1,c.ccategoriaidioma1,r.cestado,ti.porcentajecobro,ti.pagominimo,ti.modoporcentual
 			order by r.dfecha desc
 			limit 10;
 $$
@@ -744,28 +801,15 @@ create or replace function Pricing_sp_BuscarPaquetesMasVendidos
 (
 	fechaanio varchar(12)
 )
-RETURNS table (ctituloidioma1 varchar(200),nrovendidos bigint,fecha timestamp) AS
+RETURNS table (ctituloidioma1 varchar(200),nrovendidos int,fecha timestamp) AS
 $$
-	SELECT p.ctituloidioma1,
-                SUM(CASE WHEN to_date($1||''||'-01-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-01-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-02-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-02-29','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-03-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-03-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-04-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-04-30','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-05-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-05-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-06-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-06-30','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-07-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-07-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-08-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-08-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-09-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-09-30','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-10-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-10-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-11-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-11-30','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-12-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-12-31','yyy-MM-dd') THEN 1
-		END) as nrovendidos,r.dfecha
+	SELECT p.ctituloidioma1,1,r.dfecha
                from treserva as r 
 			inner join treservapaquete as rp on(r.creservacod=rp.creservacod) 
 			inner join tpaquete as p on(rp.cpaquetecod=p.cpaquetecod)
-			where r.cestado='PAGO TOTAL'
+			where (to_date($1||''||'-01-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-12-31','yyyy-MM-dd')) and r.cestado='PAGO TOTAL'
 			group by p.ctituloidioma1,p.cpaquetecod,r.dfecha
-			order by p.ctituloidioma1,nrovendidos asc
+			order by p.ctituloidioma1 asc
 $$
   LANGUAGE sql;
 
