@@ -801,28 +801,15 @@ create or replace function Pricing_sp_BuscarPaquetesMasVendidos
 (
 	fechaanio varchar(12)
 )
-RETURNS table (ctituloidioma1 varchar(200),nrovendidos bigint,fecha timestamp) AS
+RETURNS table (ctituloidioma1 varchar(200),nrovendidos int,fecha timestamp) AS
 $$
-	SELECT p.ctituloidioma1,
-                SUM(CASE WHEN to_date($1||''||'-01-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-01-31','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-02-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-02-29','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-03-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-03-31','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-04-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-04-30','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-05-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-05-31','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-06-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-06-30','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-07-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-07-31','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-08-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-08-31','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-09-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-09-30','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-10-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-10-31','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-11-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-11-30','yyyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-12-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-12-31','yyyy-MM-dd') THEN 1
-		END) as nrovendidos,r.dfecha
+	SELECT p.ctituloidioma1,1,r.dfecha
                from treserva as r 
 			inner join treservapaquete as rp on(r.creservacod=rp.creservacod) 
 			inner join tpaquete as p on(rp.cpaquetecod=p.cpaquetecod)
-			where r.cestado='PAGO TOTAL'
+			where (to_date($1||''||'-01-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-12-31','yyyy-MM-dd')) and r.cestado='PAGO TOTAL'
 			group by p.ctituloidioma1,p.cpaquetecod,r.dfecha
-			order by p.ctituloidioma1,nrovendidos asc
+			order by p.ctituloidioma1 asc
 $$
   LANGUAGE sql;
 
