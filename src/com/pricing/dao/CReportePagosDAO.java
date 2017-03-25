@@ -176,7 +176,7 @@ public class CReportePagosDAO  extends CConexion{
 					(String)row.get("csexo"),
 					(String)row.get("cabrevtipodoc"),(String)row.get("cnrodoc"),
 					(String)row.get("cnombreesp"),
-					(String)row.get("cestado")));
+					(String)row.get("cestado"),(Number)row.get("npreciopaquetepersona")));
 		}
 	}
 	

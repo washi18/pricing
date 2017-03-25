@@ -804,18 +804,18 @@ create or replace function Pricing_sp_BuscarPaquetesMasVendidos
 RETURNS table (ctituloidioma1 varchar(200),nrovendidos bigint,fecha timestamp) AS
 $$
 	SELECT p.ctituloidioma1,
-                SUM(CASE WHEN to_date($1||''||'-01-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-01-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-02-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-02-29','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-03-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-03-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-04-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-04-30','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-05-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-05-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-06-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-06-30','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-07-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-07-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-08-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-08-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-09-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-09-30','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-10-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-10-31','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-11-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-11-30','yyy-MM-dd') THEN 1
-			WHEN to_date($1||''||'-12-01','yyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-12-31','yyy-MM-dd') THEN 1
+                SUM(CASE WHEN to_date($1||''||'-01-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-01-31','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-02-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-02-29','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-03-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-03-31','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-04-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-04-30','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-05-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-05-31','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-06-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-06-30','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-07-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-07-31','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-08-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-08-31','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-09-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-09-30','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-10-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-10-31','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-11-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-11-30','yyyy-MM-dd') THEN 1
+			WHEN to_date($1||''||'-12-01','yyyy-MM-dd') <= r.dfecha AND r.dfecha <=  to_date($1||''||'-12-31','yyyy-MM-dd') THEN 1
 		END) as nrovendidos,r.dfecha
                from treserva as r 
 			inner join treservapaquete as rp on(r.creservacod=rp.creservacod) 

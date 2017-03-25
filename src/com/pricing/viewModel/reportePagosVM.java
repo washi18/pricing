@@ -50,6 +50,8 @@ public class reportePagosVM {
 	private ArrayList<CSubServicio> listasubServicios;
 	private ArrayList<CSubServicio> listaSubServiciosTemp;
 	private ArrayList<CServicioConSubServicios> listaServicioconSubServicios;
+	private boolean deshabilitarMetodoPago;
+	private boolean desabilitarCodTransaccion;
 	Date fecha=new Date();
 	SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
 	String fechaActual = formato.format(fecha);
@@ -57,6 +59,18 @@ public class reportePagosVM {
 	
 	public String getFechaInicio() {
 		return fechaInicio;
+	}
+	public boolean isDeshabilitarMetodoPago() {
+		return deshabilitarMetodoPago;
+	}
+	public void setDeshabilitarMetodoPago(boolean deshabilitarMetodoPago) {
+		this.deshabilitarMetodoPago = deshabilitarMetodoPago;
+	}
+	public boolean isDesabilitarCodTransaccion() {
+		return desabilitarCodTransaccion;
+	}
+	public void setDesabilitarCodTransaccion(boolean desabilitarCodTransaccion) {
+		this.desabilitarCodTransaccion = desabilitarCodTransaccion;
 	}
 	public CReportePagos getoReportePago() {
 		return oReportePago;
@@ -196,6 +210,8 @@ public class reportePagosVM {
 		estadoPagoTotal=false;
 		estadoAmbos=false;
 		visiblePagoParcial=true;
+		desabilitarCodTransaccion=false;
+		deshabilitarMetodoPago=false;
 		/**Inicializando los objetos**/
 		listaReportePagos=new ArrayList<CReportePagos>();
 		fechaInicio="";
@@ -524,7 +540,7 @@ public class reportePagosVM {
 	}
 	
 	@Command
-	@NotifyChange({"listaReporteReserva","visibleParcial","visibleTotal"})
+	@NotifyChange({"listaReportePagos","visibleParcial","visibleTotal"})
 	public void ModificarReportePago(@BindingParam("reportePagos")CReportePagos reportePagos,@BindingParam("comp")Component comp){
 		String NombrePago="";
 		if(estadoPagoParcial){
@@ -535,11 +551,16 @@ public class reportePagosVM {
 		}
 		if(!validoParaModificar(reportePagos, comp))
 			return;
+		if(reportePagos.getEstadoReserva().equals("PENDIENTE DE PAGO")){
+			reportePagos.setFormaPago("");
+			reportePagos.setCodTransaccion("");
+		}
 		boolean correcto=reportePagosDAO.isOperationCorrect(reportePagosDAO.modificarEstadoPago(reportePagos.getCodReserva(), reportePagos.getEstadoReserva(),reportePagos.getFormaPago(),reportePagos.getCodTransaccion()));
 		if(correcto)
 			Clients.showNotification("La reserva fue marcado pagado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, comp,"after_start",3700);
 		else
 			Clients.showNotification("La operacion fue fallida", Clients.NOTIFICATION_TYPE_ERROR, comp,"after_start",3700);
+		listaReportePagos.clear();
 		if(fechaInicio.isEmpty() && fechaFinal.isEmpty()){
 			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarReportePagosInicialBD(fechaActual));
 			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
@@ -551,7 +572,11 @@ public class reportePagosVM {
 			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
 		}
 		reportePagos.setVisibleMarcarPagado(false);
+		desabilitarCodTransaccion=false;
+		deshabilitarMetodoPago=false;
 		BindUtils.postNotifyChange(null, null,reportePagos,"visibleMarcarPagado");
+		BindUtils.postNotifyChange(null, null,this,"desabilitarCodTransaccion");
+		BindUtils.postNotifyChange(null, null,this,"deshabilitarMetodoPago");
 	}
 	
 	public boolean validoParaModificar(CReportePagos reserva,Component comp){
@@ -575,11 +600,25 @@ public class reportePagosVM {
 	public void cambiarEstadoPago(@BindingParam("estado")String estado,@BindingParam("reportePago")CReportePagos reportePago){
 		if(estado.equals("parcial")){
 			reportePago.setEstadoReserva("PAGO PARCIAL");
+			desabilitarCodTransaccion=false;
+			deshabilitarMetodoPago=false;
 		}else if(estado.equals("total")){
 			reportePago.setEstadoReserva("PAGO TOTAL");
+			desabilitarCodTransaccion=true;
+			deshabilitarMetodoPago=false;
+		}else if(estado.equals("pendiente")){
+			reportePago.setEstadoReserva("PENDIENTE DE PAGO");
+			reportePago.setFormaPago("");
+			reportePago.setCodTransaccion("");
+			desabilitarCodTransaccion=true;
+			deshabilitarMetodoPago=true;
 		}
 		
 		BindUtils.postNotifyChange(null, null, reportePago, "estadoReserva");
+		BindUtils.postNotifyChange(null, null, reportePago, "formaPago");
+		BindUtils.postNotifyChange(null, null, reportePago, "codTransaccion");
+		BindUtils.postNotifyChange(null, null, this, "desabilitarCodTransaccion");
+		BindUtils.postNotifyChange(null, null, this, "deshabilitarMetodoPago");
 	}
 	
 	@Command
@@ -588,7 +627,11 @@ public class reportePagosVM {
 		BindUtils.postNotifyChange(null, null, oReportePago,"visibleMarcarPagado");
 		oReportePago=reportePago;
 		reportePago.setVisibleMarcarPagado(!reportePago.isVisibleMarcarPagado());
+		desabilitarCodTransaccion=false;
+		deshabilitarMetodoPago=false;
 		BindUtils.postNotifyChange(null, null, reportePago,"visibleMarcarPagado");
+		BindUtils.postNotifyChange(null, null, this,"desabilitarCodTransaccion");
+		BindUtils.postNotifyChange(null, null, this,"deshabilitarMetodoPago");
 	}
 	
 	@Command

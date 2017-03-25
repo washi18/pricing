@@ -243,7 +243,7 @@ public class CReporteReservaDAO extends CConexion{
 			System.out.println("titulo:"+row.get("ctituloidioma1"));
 			System.out.println("nrovendidos:"+row.get("nrovendidos"));
 			System.out.println("fecha:"+row.get("fecha"));
-			masVendidosxMeses.add(new CEstadistica_Paquete((String)row.get("ctituloidioma1"),(long)row.get("nrovendidos"),(Date)row.get("fecha")));
+			masVendidosxMeses.add(new CEstadistica_Paquete((String)row.get("ctituloidioma1"),(int)row.get("nrovendidos"),(Date)row.get("fecha")));
 		}
 		System.out.println("entra aqui 2");
 	}

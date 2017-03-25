@@ -48,12 +48,21 @@ public class CReportePagos {
 	private boolean isParcial;
 	private boolean isTotal;
 	private boolean visibleMarcarPagado;
+	private Number nPrecioPaquetePersona;
 	//===============getter and setter=======
 	
 	public String getCodPago() {
 		return codPago;
 	}
 	
+	public Number getnPrecioPaquetePersona() {
+		return nPrecioPaquetePersona;
+	}
+
+	public void setnPrecioPaquetePersona(Number nPrecioPaquetePersona) {
+		this.nPrecioPaquetePersona = nPrecioPaquetePersona;
+	}
+
 	public boolean isVisibleMarcarPagado() {
 		return visibleMarcarPagado;
 	}
@@ -398,7 +407,7 @@ public class CReportePagos {
 			String formaPago,
 			String codTransaccion,
 			String apellidos, String nombres, String sexo,
-			String tipoDocumento,String nroDoc, String nombrePais,String estadoReserva) {
+			String tipoDocumento,String nroDoc, String nombrePais,String estadoReserva,Number nPrecioPaquetePersona) {
 		super();
 		this.codReserva = codReserva;
 		this.fechaInicio = fechaInicio;
@@ -416,6 +425,8 @@ public class CReportePagos {
 		this.nroDoc=nroDoc;
 		this.nombrePais = nombrePais;
 		this.estadoReserva=estadoReserva;
+		this.nPrecioPaquetePersona=nPrecioPaquetePersona;
+		this.montoTotal=nroPersonas*nPrecioPaquetePersona.doubleValue();
 		if(estadoReserva.equals("PAGO PARCIAL")){
 			isParcial=true;
 			isTotal=false;
