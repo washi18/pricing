@@ -114,6 +114,16 @@ public class CReportePagosDAO  extends CConexion{
 		String[] values={fechaInicio,fechaFinal,estado};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarReservasPagados",values);
 	}
+	public List recuperarPagosAmbosBD(String fechaInicio,String fechaFinal)
+	{
+		String[] values={fechaInicio,fechaFinal};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarReservasPagadosAmbos",values);
+	}
+	public List recuperarReportePagosInicialBD(String FechaActual)
+	{
+		String[] values={FechaActual};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_BuscarReservasPagadosInicial",values);
+	}
 	public List recuperarDestinosReservaBD(String codReserva)
 	{
 		String[] values={codReserva};
@@ -237,5 +247,16 @@ public class CReportePagosDAO  extends CConexion{
 				Map row=(Map)lista.get(i);
 				listaActividadesReserva.add(new CActividad((String)row.get("cactividadidioma1"),(Number)row.get("nprecioactividad")));
 		}
+	}
+	public List modificarEstadoPago(String codReserva,String estado,String metodoPago,String codTransaccion){
+		Object[]values={codReserva,estado,metodoPago,codTransaccion};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarEstadoPago",values);
+	}
+	public boolean isOperationCorrect(List lista)
+	{
+		Map row=(Map)lista.get(0);
+		boolean correcto=row.get("resultado").toString().equals("correcto");
+		if(correcto)return true;
+		else return false;
 	}
 }

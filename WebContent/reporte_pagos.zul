@@ -21,6 +21,7 @@
 				<radiogroup sclass="estado_pagos" orient="horizontal" width="100%">
 					<radio id="rdPagoParcial" label="Pagos Parciales" value="PagosParciales" checked="@bind(vmPagos.estadoPagoParcial)" onCheck="@command('seleccion_radio',radio=self.id)" width="50%"/>
 					<radio id="rdPagoTotal" label="Pagos totales" value="PagosTotales" checked="@bind(vmPagos.estadoPagoTotal)" onCheck="@command('seleccion_radio',radio=self.id)" width="50%"/>
+					<radio id="rdAmbos" label="Parciales y Totales" value="ambos" checked="@bind(vmPagos.estadoAmbos)" onCheck="@command('seleccion_radio',radio=self.id)" width="50%"/>
 				</radiogroup>
 			</div>
 			<space></space>
@@ -314,6 +315,43 @@
 										<div>
 						    				<label value="@load(each.estadoReserva)" style="font-style: italic; font-weight: bold; font-size: 16px; color: black;"></label>
 						    			</div>
+						    			<button label="Editar Pago ?" zclass="btn_abrir_pago" width="110px" height="30px" onClick="@command('habilitarPagos',reportePago=each)"></button>
+						    			<div visible="@bind(each.visibleMarcarPagado)" zclass="div_list_cell_marcar_pagado">
+							 		 			<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoPago',estado=self.selectedItem.value,reportePago=each)">
+							 		 				<div style="display: flex; display:-webkit-flex; display:-moz-flex; display:-ms-flex; display:-o-flex;">
+							 		 					<radio label="PAGO PARCIAL" value="parcial" checked="@bind(each.parcial)"/>
+							 		 					<space></space>
+<!-- 							 		 					<div visible="@bind(vmReserva.visibleParcial)"> -->
+<!-- 								 		 					<label value="@bind(each.montoParcial)" style="font-size: 12px; color: black; font-weight: bold;"></label> -->
+<!-- 								 		 					<label value="("></label> -->
+<!-- 								 		 					<label value="@bind(vmReserva.valorParcial)"></label> -->
+<!-- 								 		 					<label value=")"></label> -->
+<!-- 							 		 					</div> -->
+							 		 				</div>
+							 		 				<div style="display: flex; display:-webkit-flex; display:-moz-flex; display:-ms-flex; display:-o-flex;">
+							 		 					<radio label="PAGO TOTAL" value="total" checked="@bind(each.total)"/>
+							 		 					<space></space>
+<!-- 							 		 					<div visible="@bind(vmReserva.visibleTotal)"> -->
+<!-- 							 		 						<div visible="@bind(vmReserva.esPorcentual)"> -->
+<!-- 							 		 							<label value="@bind(each.precioTotal)" style="font-size: 12px; color: black; font-weight: bold;"></label> -->
+<!-- 							 		 							<label value="("></label> -->
+<!-- 							 		 							<label value="100%"></label> -->
+<!-- 							 		 							<label value=")"></label> -->
+<!-- 							 		 						</div> -->
+<!-- 							 		 						<label value="@bind(each.precioTotal)" visible="@bind(!vmReserva.esPorcentual)" style="font-size: 12px; color: black; font-weight: bold;"></label> -->
+<!-- 			 				 		 					</div>	 -->
+			 				 		 				</div>
+							 		 			</radiogroup>
+							 		 			<label value="Metodo Pago:" sclass="lbl_llenar_datos"></label>
+							 		 			<textbox value="@bind(each.formaPago)" onChange="@command('asignarNameMetodoPago',reporteReserva=each)"
+							 		 				placeholder="Ingrese Metodo Pago" sclass="txt_llenar_datos" style="text-transform: uppercase;"></textbox>
+							 		 			<label value="Codigo Transaccion:" sclass="lbl_llenar_datos"></label>
+							 		 			<textbox value="@bind(each.codTransaccion)" 
+							 		 				placeholder="Ingrese Codigo transaccion" sclass="txt_llenar_datos"></textbox>
+							 		 			<div zclass="cont_marcar_pagado">
+							 		 				<button label="Actualizar" width="100px" height="50px" zclass="btn_marcar_pagado" onClick="@command('ModificarReportePago',reportePagos=each,comp=self)"></button>
+							 		 			</div>
+							 		 		</div>
 										<div style="display:flex;" width="100%">
 						    				<label value="Id Transaccion:" style="font-size: 14px; color: black; font-weight: bold;"></label>
 						    				<space></space>

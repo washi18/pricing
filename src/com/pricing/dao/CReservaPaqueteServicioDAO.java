@@ -38,7 +38,7 @@ public class CReservaPaqueteServicioDAO extends CConexion
 	//====================
 	public List insertarReservaPaqueteServicio(CReservaPaqueteServicio r)
 	{
-		Object[] values={r.getCodPaqueteServicio(),r.getnReservaPaqueteCod(),(Double)r.getNroPrestacionServicio(),
+		Object[] values={r.getCodPaqueteServicio(),(Number)r.getnReservaPaqueteCod(),(Double)r.getNroPrestacionServicio(),
 				r.getPrecioPrestacionServicio(),r.getnSubServicioCod()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarReservaPS", values);
 	}

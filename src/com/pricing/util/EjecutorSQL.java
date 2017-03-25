@@ -55,9 +55,7 @@ public class EjecutorSQL {
 			e.printStackTrace();
 		}
 	}	
-	
 	public List ejecutarProcedimiento(String procedimiento,Object[] values){
-		
 		final Object[] val=values;
 		procedimiento="SELECT * FROM "+procedimiento+"(";
    	 	int n =values.length;
@@ -101,6 +99,10 @@ public class EjecutorSQL {
 					    else if (val[i].getClass().equals(Boolean.class)) {
 					    	ps.setBoolean(i+1,(boolean) val[i]);
 					    	System.out.println("boolean : "+ (boolean) val[i]);
+					    }
+					    else if (val[i].getClass().equals(Long.class)) {
+					    	ps.setLong(i+1,(long) val[i]);
+					    	System.out.println("long : "+ (long) val[i]);
 					    }
 					    else
 					    {

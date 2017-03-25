@@ -30,9 +30,11 @@ public class reportePagosVM {
 	//===============atributos======
 	private ArrayList<CReportePagos> listaReportePagos;
 	private CReportePagosDAO reportePagosDAO;
+	private CReportePagos oReportePago;
 	private boolean estadoPagoPendiente;
 	private boolean estadoPagoParcial;
 	private boolean estadoPagoTotal;
+	private boolean estadoAmbos;
 	private boolean visiblePagoParcial;
 	private String fechaInicio;
 	private String fechaFinal;
@@ -47,10 +49,25 @@ public class reportePagosVM {
 	private ArrayList<CSubServicio> listasubServicios;
 	private ArrayList<CSubServicio> listaSubServiciosTemp;
 	private ArrayList<CServicioConSubServicios> listaServicioconSubServicios;
+	Date fecha=new Date();
+	SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");
+	String fechaActual = formato.format(fecha);
 	//===============getter and setter=======
 	
 	public String getFechaInicio() {
 		return fechaInicio;
+	}
+	public CReportePagos getoReportePago() {
+		return oReportePago;
+	}
+	public void setoReportePago(CReportePagos oReportePago) {
+		this.oReportePago = oReportePago;
+	}
+	public boolean isEstadoAmbos() {
+		return estadoAmbos;
+	}
+	public void setEstadoAmbos(boolean estadoAmbos) {
+		this.estadoAmbos = estadoAmbos;
 	}
 	public ArrayList<CSubServicio> getListaSubServiciosTemp() {
 		return listaSubServiciosTemp;
@@ -176,6 +193,7 @@ public class reportePagosVM {
 		estadoPagoParcial=false;
 		estadoPagoPendiente=false;
 		estadoPagoTotal=false;
+		estadoAmbos=false;
 		visiblePagoParcial=true;
 		/**Inicializando los objetos**/
 		listaReportePagos=new ArrayList<CReportePagos>();
@@ -183,8 +201,20 @@ public class reportePagosVM {
 		fechaFinal="";
 		reportePagosDAO=new CReportePagosDAO();
 		reportePagosAnterior=new CReportePagos();
+		oReportePago=new CReportePagos();
 		/**Obtencion de las etiquetas de la base de datos**/
 		/**Asignacion de las etiquetas a la listaEtiquetas**/
+//		reportePagosDAO.asignarValoresImpuesto(reporteReservaDAO.recuperarModoPago());
+//		setImpuesto(reporteReservaDAO.getImpuesto());
+		reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarReportePagosInicialBD(fechaActual));
+		this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
+//		if(impuesto.isModoPorcentual()){
+//			valorParcial=impuesto.getPorcentajeCobro()+"%";
+//			esPorcentual=true;
+//		}else{
+//			valorParcial=impuesto.getPagoMinimo()+" x persona";
+//			esPorcentual=false;
+//		}
 	}
 	//====================metodos============
 	
@@ -222,6 +252,7 @@ public class reportePagosVM {
 		BindUtils.postNotifyChange(null, null, destino,"listaDestinos");
 		BindUtils.postNotifyChange(null, null, destino,"colornoExisteListaDestinos");
 	}
+	
 	@Command
 	@NotifyChange({"listaHoteles","listaHotelesTemp","listaDestinosconHoteles"})
 	public void habilitarHotelesPOP(@BindingParam("chotel") CReportePagos reserva)
@@ -443,18 +474,93 @@ public class reportePagosVM {
 	}
 	
 	@Command
-	@NotifyChange({"estadoPagoParcial","estadoPagoTotal"})
+	@NotifyChange({"estadoPagoParcial","estadoPagoTotal","estadoAmbos"})
 	public void seleccion_radio(@BindingParam("radio")String idRadio)
 	{
 		if(idRadio.equals("rdPagoParcial"))
 		{
 			estadoPagoParcial=true;
 			estadoPagoTotal=false;
+			estadoAmbos=false;
 		}else if(idRadio.equals("rdPagoTotal"))
 		{
 			estadoPagoTotal=true;
 			estadoPagoParcial=false;
+			estadoAmbos=false;
+		}else if(idRadio.equals("rdAmbos"))
+		{
+			estadoPagoTotal=false;
+			estadoPagoParcial=false;
+			estadoAmbos=true;
 		}
+	}
+	
+	@Command
+	@NotifyChange({"listaReporteReserva","visibleParcial","visibleTotal"})
+	public void ModificarReportePago(@BindingParam("reportePagos")CReportePagos reportePagos,@BindingParam("comp")Component comp){
+		String NombrePago="";
+		if(estadoPagoParcial){
+			NombrePago="PAGO PARCIAL";
+		}else if(estadoPagoTotal){
+			visiblePagoParcial=false;
+			NombrePago="PAGO TOTAL";
+		}
+		if(!validoParaModificar(reportePagos, comp))
+			return;
+		boolean correcto=reportePagosDAO.isOperationCorrect(reportePagosDAO.modificarEstadoPago(reportePagos.getCodReserva(), reportePagos.getEstadoReserva(),reportePagos.getFormaPago(),reportePagos.getCodTransaccion()));
+		if(correcto)
+			Clients.showNotification("La reserva fue marcado pagado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, comp,"after_start",3700);
+		else
+			Clients.showNotification("La operacion fue fallida", Clients.NOTIFICATION_TYPE_ERROR, comp,"after_start",3700);
+		if(fechaInicio.isEmpty() && fechaFinal.isEmpty()){
+			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarReportePagosInicialBD(fechaActual));
+			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
+		}else if(estadoAmbos){
+			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarPagosAmbosBD(fechaInicio,fechaFinal));
+			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
+		}else{
+			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarPagosBD(fechaInicio,fechaFinal,NombrePago));
+			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
+		}
+		reportePagos.setVisibleMarcarPagado(false);
+		BindUtils.postNotifyChange(null, null,reportePagos,"visibleMarcarPagado");
+	}
+	
+	public boolean validoParaModificar(CReportePagos reserva,Component comp){
+		boolean valido=true;
+		if(!reserva.isParcial() && !reserva.isTotal()){
+			valido=false;
+			Clients.showNotification("El Pago debe debe ser parcial o total", Clients.NOTIFICATION_TYPE_ERROR,
+					comp, "before_start", 2700);
+		}else if(reserva.getFormaPago()==null){
+			valido=false;
+			Clients.showNotification("El pago debe de tener un metodo de pago", Clients.NOTIFICATION_TYPE_ERROR,
+					comp, "before_start", 2700);
+		}else if(reserva.getCodTransaccion()==null){
+			valido=false;
+			Clients.showNotification("El pago debe de tener un codigo de transaccion", Clients.NOTIFICATION_TYPE_ERROR,
+					comp, "before_start", 2700);
+		}
+		return valido;
+	}
+	@Command
+	public void cambiarEstadoPago(@BindingParam("estado")String estado,@BindingParam("reportePago")CReportePagos reportePago){
+		if(estado.equals("parcial")){
+			reportePago.setEstadoReserva("PAGO PARCIAL");
+		}else if(estado.equals("total")){
+			reportePago.setEstadoReserva("PAGO TOTAL");
+		}
+		
+		BindUtils.postNotifyChange(null, null, reportePago, "estadoReserva");
+	}
+	
+	@Command
+	public void habilitarPagos(@BindingParam("reportePago")CReportePagos reportePago){
+		oReportePago.setVisibleMarcarPagado(false);
+		BindUtils.postNotifyChange(null, null, oReportePago,"visibleMarcarPagado");
+		oReportePago=reportePago;
+		reportePago.setVisibleMarcarPagado(!reportePago.isVisibleMarcarPagado());
+		BindUtils.postNotifyChange(null, null, reportePago,"visibleMarcarPagado");
 	}
 	
 	@Command
@@ -476,8 +582,11 @@ public class reportePagosVM {
 				NombrePago="PAGO TOTAL";
 			}
 			listaReportePagos.clear();
-			System.out.println("el valor de pago es:"+NombrePago);
-			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarPagosBD(fechaInicio, fechaFinal,NombrePago));
+				reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarPagosBD(fechaInicio, fechaFinal,NombrePago));
+				this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
+		}else if(estadoAmbos){
+			listaReportePagos.clear();
+			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarPagosAmbosBD(fechaInicio, fechaFinal));
 			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
 		}else{
 			Clients.showNotification("Eliga un ESTADO DE PAGO", Clients.NOTIFICATION_TYPE_INFO, componente,"after_start",3700);
