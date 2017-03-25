@@ -126,12 +126,8 @@
 					    						<div zclass="div_list_cell_pagos" width="100%">
 					    							<div sclass="estilo_contenidos_centrados" width="10%">
 					    								<label value="■"></label>
-					    								<space></space>
-					    								<label value="@load(pasajero.tipoDocumento)" sclass="estilo_texto_pop"></label>
-					    							</div>
-					    							<space orient="vertical"></space>
-					    							<div sclass="estilo_contenidos_centrados" width="15%">
-					    								<label value="@load(pasajero.cNroDoc)" sclass="estilo_texto_pop"></label>
+<!-- 					    								<space></space> -->
+<!-- 					    								<label value="@load(pasajero.tipoDocumento)" sclass="estilo_texto_pop"></label> -->
 					    							</div>
 					    							<space orient="vertical"></space>
 					    							<div width="50%" sclass="estilo_contenidos_centrados">
@@ -144,11 +140,15 @@
 						    							</div>
 					    							</div>
 					    							<space orient="vertical"></space>
-					    							<div sclass="estilo_contenidos_centrados" width="11%">
-					    							    <label value="@load(pasajero.nEdad)" sclass="estilo_texto_pop"></label>
-					    							    <space orient="vertical"></space>
-					    								<label value="@load(pasajero.cSexo)" sclass="estilo_texto_pop"></label>
+					    							<div sclass="estilo_contenidos_centrados" width="15%">
+					    								<label value="@load(pasajero.cNroDoc)" sclass="estilo_texto_pop"></label>
 					    							</div>
+<!-- 					    							<space orient="vertical"></space> -->
+<!-- 					    							<div sclass="estilo_contenidos_centrados" width="11%"> -->
+<!-- 					    							    <label value="@load(pasajero.nEdad)" sclass="estilo_texto_pop"></label> -->
+<!-- 					    							    <space orient="vertical"></space> -->
+<!-- 					    								<label value="@load(pasajero.cSexo)" sclass="estilo_texto_pop"></label> -->
+<!-- 					    							</div> -->
 					    							<space orient="vertical"></space>
 					    							<div sclass="estilo_contenidos_centrados" width="14%">
 					    								<label value="@load(pasajero.nombrePais)" sclass="estilo_texto_pop"></label>
@@ -356,7 +356,7 @@
 							 		 			<textbox value="@bind(each.codTransaccion)" 
 							 		 				placeholder="Ingrese Codigo transaccion" sclass="txt_llenar_datos"></textbox>
 							 		 			<div zclass="cont_marcar_pagado">
-							 		 				<button label="Aceptar" width="100px" height="50px" zclass="btn_marcar_pagado" onClick="@command('ModificarReporteReserva',reporteReserva=each,comp=self)"></button>
+							 		 				<button label="Guardar" width="100px" height="50px" zclass="btn_marcar_pagado" onClick="@command('ModificarReporteReserva',reporteReserva=each,comp=self) @global-command('actualizar_lista_pagos')"></button>
 							 		 			</div>
 							 		 		</div>
 							 		 	</div>

@@ -7,6 +7,7 @@ import java.util.Date;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -218,6 +219,28 @@ public class reportePagosVM {
 	}
 	//====================metodos============
 	
+	@GlobalCommand
+	public void actualizar_lista_pagos(){
+		listaReportePagos.clear();
+		String NombrePago="";
+		if(estadoPagoParcial){
+			NombrePago="PAGO PARCIAL";
+		}else if(estadoPagoTotal){
+			NombrePago="PAGO TOTAL";
+		}
+		if(fechaInicio.isEmpty() && fechaFinal.isEmpty()){
+			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarReportePagosInicialBD(fechaActual));
+			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
+		}else if(estadoAmbos){
+			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarPagosAmbosBD(fechaInicio,fechaFinal));
+			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
+		}else{
+			reportePagosDAO.asignarListaReportePagos(reportePagosDAO.recuperarPagosBD(fechaInicio,fechaFinal,NombrePago));
+			this.setListaReportePagos(reportePagosDAO.getListaReportePagos());
+		}
+		BindUtils.postNotifyChange(null, null, this, "listaReportePagos");
+	}
+	
 	@Command
 	@NotifyChange("listaDestinos")
 	public void habilitarDestinosPOP(@BindingParam("cdestino") CReportePagos destino)
@@ -253,6 +276,11 @@ public class reportePagosVM {
 		BindUtils.postNotifyChange(null, null, destino,"colornoExisteListaDestinos");
 	}
 	
+	@Command
+	public void asignarNameMetodoPago(@BindingParam("reporteReserva")CReportePagos reportePagos){
+		reportePagos.setFormaPago(reportePagos.getFormaPago().toUpperCase());
+		BindUtils.postNotifyChange(null, null, reportePagos, "metodoPago");
+	}
 	@Command
 	@NotifyChange({"listaHoteles","listaHotelesTemp","listaDestinosconHoteles"})
 	public void habilitarHotelesPOP(@BindingParam("chotel") CReportePagos reserva)
