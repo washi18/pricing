@@ -336,7 +336,7 @@
 											value="@bind(vmPricing.etiqueta[21])"
 											sclass="titulo-groupbox" />
 									</div>
-									<combobox readonly="true"
+									<combobox readonly="true" id="nroPersonas2" value="@bind(self.selectedItem.value)"
 										width="60px"
 										onSelect="@command('changeNroPersonas',nroPersonas=self.selectedItem.value)">
 										<comboitem label="1" value="1"
@@ -380,13 +380,13 @@
 				</div>
 				<separator></separator>
 				<div sclass="contenedor_btn_pasos">
-					<button label="Back" zclass="btn_retorno"
+					<button label="@bind(vmPricing.etiqueta[241])" zclass="btn_retorno"
 						visible="@bind(vmPricing.visibleBtnAtras)"
 						iconSclass="fa fa-arrow-left"
 						onClick="@command('RetornarPaso',nroPaso='1',comp=self)">
 					</button>
 					<space width="50px"></space>
-					<button label="Next" zclass="btn_siguiente"
+					<button label="@bind(vmPricing.etiqueta[242])" zclass="btn_siguiente"
 						visible="@bind(vmPricing.visibleBtnSiguiente)"
 						iconSclass="fa fa-arrow-right"
 						onClick="@command('SiguientePaso',nroPaso='1',comp=self)">
@@ -1274,13 +1274,13 @@
 				</groupbox>
 				<separator></separator>
 				<div sclass="contenedor_btn_pasos">
-					<button label="Back" zclass="btn_retorno"
+					<button label="@bind(vmPricing.etiqueta[241])" zclass="btn_retorno"
 						visible="@bind(vmPricing.visibleBtnAtras)"
 						iconSclass="fa fa-arrow-left"
 						onClick="@command('RetornarPaso',nroPaso='2',comp=self)">
 					</button>
 					<space width="50px"></space>
-					<button label="Next" zclass="btn_siguiente"
+					<button label="@bind(vmPricing.etiqueta[242])" zclass="btn_siguiente"
 						visible="@bind(vmPricing.visibleBtnSiguiente)"
 						iconSclass="fa fa-arrow-right"
 						onClick="@command('SiguientePaso',nroPaso='2',comp=self)">
@@ -2090,13 +2090,13 @@
 		<space></space>
 		<div sclass="contenedor_btn_pasos_final"
 			visible="@bind(vmPricing.visiblePaso3)">
-			<button label="Back" zclass="btn_retorno"
+			<button label="@bind(vmPricing.etiqueta[241])" zclass="btn_retorno"
 				visible="@bind(vmPricing.visibleBtnAtras)"
 				iconSclass="fa fa-arrow-left"
 				onClick="@command('RetornarPaso',nroPaso='3',comp=self)">
 			</button>
 			<space width="50px"></space>
-			<button label="Next" zclass="btn_siguiente"
+			<button label="@bind(vmPricing.etiqueta[242])" zclass="btn_siguiente"
 				visible="@bind(vmPricing.visibleBtnSiguiente)"
 				iconSclass="fa fa-arrow-right"
 				onClick="@command('SiguientePaso',nroPaso='3',comp=self)">

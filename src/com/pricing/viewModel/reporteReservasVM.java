@@ -266,7 +266,7 @@ public class reporteReservasVM {
 		actualizar_valores_impuesto();
 	}
 	
-	
+	/* recuperamos valores de timpuesto y treserva*/
 	@GlobalCommand
 	public void actualizar_valores_impuesto(){
 		reporteReservaDAO.asignarValoresImpuesto(reporteReservaDAO.recuperarModoPago());
@@ -286,6 +286,7 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, this,"esPorcentual");
 	}
 	
+	/* Recupera actividades para mostrar popup con la lista de actividades*/
 	@Command
 	@NotifyChange("listaActividades")
 	public void habilitarActividadesPOP(@BindingParam("creserva") CReporteReserva actividades)
@@ -319,6 +320,8 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, actividades,"colornoExisteListaActividades");
 		System.out.println("entro a pasajeroVM fin");
 	}
+	
+	/* Recupera pasajeros para mostrar popup con la lista de pasajeros*/
 	@Command
 	@NotifyChange("listaPasajeros")
 	public void habilitarPasajerosPOP(@BindingParam("creserva") CReporteReserva pasajero)
@@ -354,6 +357,8 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, pasajero,"colornoExisteListaPasajeros");
 		System.out.println("entro a pasajeroVM fin");
 	}
+	
+	/* Recupera destinos para mostrar popup con la lista de destinos*/
 	@Command
 	@NotifyChange("listaDestinos")
 	public void habilitarDestinosPOP(@BindingParam("creserva") CReporteReserva destinos)
@@ -388,6 +393,8 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, destinos,"listaDestinos");
 		BindUtils.postNotifyChange(null, null, destinos,"colornoExisteListaDestinos");
 	}
+	
+	/* Recupera subServicios para mostrar popup con la lista de subservicios*/
 	@Command
 	@NotifyChange({"listaSubServicios","listaSubServiciosTemp","listaServiciosconSubServicios"})
 	public void habilitarSubServiciosPOP(@BindingParam("creserva") CReporteReserva hoteles)
@@ -443,6 +450,8 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, hoteles,"listaServicioConSubServicios");
 	}
 	
+	
+	/* Recupera hoteles para mostrar popup con la lista de actividades*/
 	@Command
 	@NotifyChange({"listaHoteles","listaHotelesTemp","listaDestinosconHoteles"})
 	public void habilitarHotelesPOP(@BindingParam("creserva") CReporteReserva reserva)
@@ -495,6 +504,7 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, reserva,"listaDestinosconHoteles");
 	}
 	
+	/* Recupera servicios BD para mostrar popup con la lista de actividades*/
 	@Command
 	@NotifyChange("listaServicios")
 	public void habilitarServiciosPOP(@BindingParam("creserva") CReporteReserva servicio)
@@ -529,6 +539,7 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, servicio,"colornoExisteListaServicios");
 	}
 	
+	/* asignando fechas de busqueda desde-hasta*/
 	@Command
 	@NotifyChange({"FechaInicio","FechaFinal"})
 	public void recuperarFechaDatebox(@BindingParam("fecha")Date fecha,@BindingParam("id")String id)
@@ -540,6 +551,7 @@ public class reporteReservasVM {
 			FechaFinal=sdf.format(fecha);
 	}
 	
+	/* modoficar el estado de pago en reserva*/
 	@Command
 	public void cambiarEstadoPago(@BindingParam("estado")String estado,@BindingParam("reporteReserva")CReporteReserva reporteReserva){
 		if(estado.equals("parcial")){
@@ -589,6 +601,7 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, reporteReserva, "metodoPago");
 	}
 	
+	/* abrir contendor para marcar pagado una reserva*/
 	@Command
 	public void habilitarPagos(@BindingParam("reporteReserva")CReporteReserva reporteReserva){
 		visibleParcial=false;
@@ -624,6 +637,7 @@ public class reporteReservasVM {
 		return valido;
 	}
 	
+	/* Busca reserva entre dos fechas*/
 	@Command
 	@NotifyChange({"listaReporteReserva","reporteReserva"})
 	public void Buscar_Reservas(@BindingParam("componente")Component componente)

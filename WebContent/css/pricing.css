@@ -129,11 +129,13 @@
 .imagenes_pasos {
 	width: 50px;
 	height: 50px;
+	position: static;
 }
 .titulo_pasos{
 	font-size: 16px; 
 	font-weight:bold; 
 	color:black;
+	font-stretch: 
 }
 
 .div_requerimientos.z-div {
@@ -1459,6 +1461,10 @@
 	.fondo_precioHotel {
 		width: 100%;
 	}
+	
+	.div_resumen_reserva_pasos.z-div {
+		width: 85% !important;
+	}
 }
 /**********IR AL PAGO CON PAYPAL**************/
 .win_pay {
@@ -1471,6 +1477,9 @@
 @media ( max-width :768px) {
 	.win_pay {
 		width: 90%;
+	}
+	.div_resumen_reserva_pasos.z-div {
+		width: 100%;
 	}
 }
 
@@ -1666,8 +1675,20 @@
 	position: relative;
 	top: 15px;
 	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
 	justify-content: center;
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	-o-justify-content: center;
 	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
 	cursor: pointer;
 }
 
@@ -1682,8 +1703,20 @@
 	position: relative;
 	top: 15px;
 	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
 	justify-content: center;
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	-o-justify-content: center;
 	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
 	cursor: pointer;
 }
 
@@ -1698,8 +1731,20 @@
 	position: relative;
 	top: 15px;
 	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
 	justify-content: center;
+	-webkit-justify-content: center;
+	-moz-justify-content: center;
+	-ms-justify-content: center;
+	-o-justify-content: center;
 	align-items: center;
+	-webkit-align-items: center;
+	-moz-align-items: center;
+	-ms-align-items: center;
+	-o-align-items: center;
 	cursor: pointer;
 }
 
@@ -1709,7 +1754,6 @@
 	border-top: 21px solid #d1d1d1;
 	/* 	border-left:10px solid transparente; */
 	border-left: 20px solid transparent;
-	border-right: 20px solid transparent;
 	top: 0;
 	left: -19px;
 	position: absolute;
