@@ -251,7 +251,6 @@ public class pricingVM
 		//===Recuperando los datos del APP
 		integrantes=(String)Executions.getCurrent().getAttribute("integrantes");
 		paquetes=(String)Executions.getCurrent().getAttribute("paquetes");
-		System.out.println("hola--> :"+integrantes+" --> :"+paquetes);
 		//================================
 		confAltoNivel=new ConfAltoNivel();
 		confAltoNivelDAO=new ConfAltoNivelDAO();
@@ -325,7 +324,6 @@ public class pricingVM
 			lblMontoPaquete=df.format(0);
 			lblTotalPaquete=df.format(TotalPaquete);
 			tax="";
-			
 			if(!codDisponibilidad.equals("0"))
 			{
 				this.mostrarDispIncaTrail=true;
