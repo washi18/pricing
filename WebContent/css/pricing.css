@@ -690,6 +690,10 @@
 		-ms-align-items: center;
 		-o-align-items: center;
 	}
+	.div_resumen_reserva_pasos.z-div {
+		width: 100%;
+	}
+	
 }
 
 .div_StepFocus {
@@ -1386,6 +1390,8 @@
 	border-radius: 5px;
 	padding: 5px;
 	color: white;
+	width: 100px;
+	height: 50px;
 }
 
 .cancelar {
@@ -1393,6 +1399,8 @@
 	border-radius: 5px;
 	padding: 5px;
 	color: white;
+	width: 100px;
+	height: 50px;
 }
 
 .selecthab_title {
@@ -2038,6 +2046,21 @@
 		color:black;
 	}
 	.subcontendor_barra_progreso{
+		width: 100%;
+	}
+	.div_titulo_paquete{
+		display: flex;
+		display: -webkit-flex;
+		display: -moz-flex;
+		display: -ms-flex;
+		display: -o-flex;
+		flex-direction: column;
+		-webkit-flex-direction: column;
+		-moz-flex-direction: column;
+		-ms-flex-direction: column;
+		-o-flex-direction: column;
+	}
+	.div_resumen_reserva_pasos.z-div {
 		width: 100%;
 	}
 }

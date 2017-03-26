@@ -153,6 +153,7 @@ public class CEstadisticaReservaVM {
 	{
 		visibleGrafico=true;
 		this.anio=anio;
+		
 		procesarPaquetesMasVendidos();
 	}
 	
@@ -181,6 +182,7 @@ public class CEstadisticaReservaVM {
 			factorIncremento=0;
 			valorActual=0;
 			nombrePaqueteAnterior="";
+			System.out.println("valor fecha->"+df.format(listaPaquetesMasVendidos.get(i).getFechaPago()));
 			if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("01"))
 			{
 				System.out.println("Estamos en enero");
@@ -269,7 +271,7 @@ public class CEstadisticaReservaVM {
 					String auxNombreCambio="";
 					int contador=i;
 					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("01")))
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("04")))
 					{
 						valorActual+=listaPaquetesMasVendidos.get(i).getNroVentas();
 						contador++;
@@ -404,7 +406,7 @@ public class CEstadisticaReservaVM {
 					String auxNombreCambio="";
 					int contador=i;
 					nombrePaqueteAnterior=listaPaquetesMasVendidos.get(i).getNombrePaquete();
-					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("08")))
+					while(contador<listaPaquetesMasVendidos.size() && listaPaquetesMasVendidos.get(contador).getNombrePaquete().equals(nombrePaqueteAnterior) && (df.format(listaPaquetesMasVendidos.get(contador).getFechaPago()).equals("09")))
 					{
 						valorActual+=listaPaquetesMasVendidos.get(i).getNroVentas();
 						contador++;

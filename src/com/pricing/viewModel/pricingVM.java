@@ -1366,7 +1366,7 @@ public class pricingVM
 				visibleNroPaso1=true;
 			}else return;
 		}else if(nroPaso.equals("3")){
-			if(validoPaso2(comp)){
+			if(validoPaso2_pricing_pasos(comp)){
 				visibleBtnAtras=true;
 				visibleBtnSiguiente=false;
 				setVisiblePaso1(false);
@@ -1381,7 +1381,11 @@ public class pricingVM
 				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
 				visibleNroPaso1=true;
 				visibleNroPaso2=true;
-			}else return;
+			}else{
+				visibleNroPaso1=true;
+				visibleNroPaso2=false;
+				return;
+			}
 		}
 		
 	}
@@ -1409,7 +1413,7 @@ public class pricingVM
 				visibleNroPaso3=false;
 			}else{return;}
 		}else if(nroPaso.equals("2")){
-			if(validoPaso2(comp)){
+			if(validoPaso2_pricing_pasos(comp)){
 				setVisiblePaso1(false);
 				setVisiblePaso2(false);
 				paso2=false;
@@ -1424,7 +1428,12 @@ public class pricingVM
 				visibleNroPaso2=true;
 				visibleNroPaso3=false;
 				visibleBtnSiguiente=false;
-			}else{return;}
+			}else{
+				visibleNroPaso1=true;
+				visibleNroPaso2=false;
+				visibleNroPaso3=false;
+				return;
+				}
 		}
 		
 	}
@@ -1736,6 +1745,41 @@ public class pricingVM
 		{
 			valido=false;
 			Clients.showNotification(etiqueta[210],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+		}
+		return valido;
+	}
+	public boolean validoPaso2_pricing_pasos(Component comp)
+	{
+		boolean valido=true;
+		if(nroPasajeros>0)
+		{
+			if(oInterfaz.isbSubirDocPax())
+			{
+				valido=analizarSoloSubirDoc(comp);
+			}else if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+			{
+				valido=analizarLLenadoDatosYsubirDoc(comp);
+			}else if(oInterfaz.isbSubirDoc_O_llenarDatosPax()){
+				valido=analizarLLenadoDatos(comp);
+			}
+			if(valido)
+				valido=analizarInformacionAdicional(comp);
+		}
+		else
+		{
+			valido=false;
+			Clients.showNotification(etiqueta[210],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+		}
+		int nroPasajerosHab=oReservaPaqCatHotel.getnNroPersonasSimple()+
+				oReservaPaqCatHotel.getnNroPersonasDoble()+
+				oReservaPaqCatHotel.getnNroPersonasTriple();
+		if(oReservaPaqCatHotel.isConHotel())
+		{
+			if(nroPasajerosHab<nroPasajeros)
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[167],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
 		}
 		return valido;
 	}

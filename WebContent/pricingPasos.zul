@@ -114,18 +114,18 @@
 		<div sclass="div_requerimientos">
 			<div sclass="div_paso1"
 				visible="@bind(vmPricing.visiblePaso1)">
-				<div sclass="div-logoPaises visible-small" width="100%"
-					style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)">
-					<hbox style="float:right;">
-						<image src="img/Flag-of-Spain.png"
-							sclass="style-flag"
-							onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)" />
-						<image src="img/en.png" sclass="style-flag"
-							onClick="@command('cambiarIdioma',idioma=2) @global-command('cambiarIdiomaDispo',idioma=2)" />
-						<!-- 						  <image src="img/Flag_of_Brazil.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=3) @global-command('cambiarIdiomaDispo',idioma=3)"/> -->
-						<!-- 					  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
-					</hbox>
-				</div>
+<!-- 				<div sclass="div-logoPaises visible-small" width="100%" -->
+<!-- 					style="@bind(vmPricing.oInterfaz.style_div_FondoBanderas)"> -->
+<!-- 					<hbox style="float:right;"> -->
+<!-- 						<image src="img/Flag-of-Spain.png" -->
+<!-- 							sclass="style-flag" -->
+<!-- 							onClick="@command('cambiarIdioma',idioma=1) @global-command('cambiarIdiomaDispo',idioma=1)" /> -->
+<!-- 						<image src="img/en.png" sclass="style-flag" -->
+<!-- 							onClick="@command('cambiarIdioma',idioma=2) @global-command('cambiarIdiomaDispo',idioma=2)" /> -->
+<!-- 												  <image src="img/Flag_of_Brazil.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=3) @global-command('cambiarIdiomaDispo',idioma=3)"/> -->
+<!-- 											  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
+<!-- 					</hbox> -->
+<!-- 				</div> -->
 				<div width="100%">
 					<div sclass="div_fecha_pasajero" width="100%">
 						<div width="100%">
@@ -719,6 +719,7 @@
 									</div>
 								</vbox>
 							</div>
+							<space></space>
 							<div width="100%">
 								<div style="float:right;">
 									<button
