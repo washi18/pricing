@@ -460,7 +460,7 @@ public class panelAdminVM
 			}else if(cambios.equals("itemPaypal"))
 			{ 
 				System.out.println("entra a esta parte de update");
-				visibleConfPaypal=visibleConfAltoNivel=true;
+				visibleConfPaypal=true;
 				visibleRegistroUsuarios=false;
 				visibleActualizarUsuario=false;
 				visibleEstadisticaPaquetesmasVendidos=false;
