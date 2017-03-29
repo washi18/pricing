@@ -1,4 +1,22 @@
-﻿--Eliminar PAQUETE SERVICIO
+--Eliminar imagen galeria paquete---
+create or replace function Pricing_sp_EliminarImagenGaleria
+(
+	codGaleriaPaquete bigint
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		galeriaPaqueteCod bigint) as
+$$
+begin
+	galeriaPaqueteCod=$1;
+	DELETE FROM tgaleriapaquete WHERE ngaleriapaquetecod=$1;
+	resultado='correcto';
+	mensaje='Datos Eliminados Correctamente';
+	return Query select resultado,mensaje,galeriaPaqueteCod;
+end
+$$
+language plpgsql;
+--Eliminar PAQUETE SERVICIO
 create or replace function Pricing_sp_EliminarPaqueteServicio
 (
 	codps int

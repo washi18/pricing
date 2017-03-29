@@ -129,6 +129,7 @@
 	padding:3px;
 	background: gray;
 	cursor: pointer;
+	position: relative;
 }
 .div_content_update_cancel{
 	float: right;

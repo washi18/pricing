@@ -54,6 +54,12 @@ public class CGaleriaPaqueteDAO extends CConexion{
 		Object[] values={(int)galeria.getNgaleriapaquetecod(),galeria.isBestado()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarGaleriaPaquete", values);
 	}
+	
+	
+	public List eliminarImagenGaleriaPaquete(long codgaleriaImagenPaquete){
+		Object[] values={codgaleriaImagenPaquete};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_EliminarImagenGaleria",values);
+	}
 	public boolean isOperationCorrect(List lista)
 	{
 		Map row=(Map)lista.get(0);

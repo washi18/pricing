@@ -604,7 +604,7 @@ public class reportePagosVM {
 			deshabilitarMetodoPago=false;
 		}else if(estado.equals("total")){
 			reportePago.setEstadoReserva("PAGO TOTAL");
-			desabilitarCodTransaccion=true;
+			desabilitarCodTransaccion=false;
 			deshabilitarMetodoPago=false;
 		}else if(estado.equals("pendiente")){
 			reportePago.setEstadoReserva("PENDIENTE DE PAGO");
