@@ -62,8 +62,8 @@ CREATE OR REPLACE FUNCTION Pricing_sp_RegistrarPaquete
 	itinerarioidioma2 text,
 	itinerarioidioma3 text,
 	itinerarioidioma4 text,
-	itinerarioidioma5 text
-	
+	itinerarioidioma5 text,
+	urlReferenciaPaquete text
 )
 RETURNS TABLE (resultado varchar(20),
 		mensaje varchar(200),
@@ -72,7 +72,7 @@ $$
 begin
 	codPaquete=(select concat('P-',right(concat('00',count(p.cpaquetecod)+1),2)) from tpaquete p where left(p.cpaquetecod,2)='P-');
 	insert into tpaquete values(codPaquete,$1,$2,$3,$4,$5,$6,$7,$8,$9,$10,
-								$11,$12,$13,$14,$15,$16,$17,$18,true,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29);
+								$11,$12,$13,$14,$15,$16,$17,$18,true,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30);
 	resultado='correcto';
 	mensaje='Datos Registrados Correctamente';
 	return Query select resultado,mensaje,codPaquete;

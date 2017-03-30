@@ -378,7 +378,8 @@ CREATE OR REPLACE FUNCTION Pricing_sp_ModificarPaquetes
   itinerarioidioma2 text,
   itinerarioidioma3 text,
   itinerarioidioma4 text,
-  itinerarioidioma5 text
+  itinerarioidioma5 text,
+  urlReferenciaPaquete text
 )
 RETURNS TABLE (resultado varchar(20),mensaje varchar(200),codPaquete varchar(10)) as
 $$
@@ -413,7 +414,8 @@ begin
 			  citinerarioidioma2=$28,
 			  citinerarioidioma3=$29,
 			  citinerarioidioma4=$30,
-			  citinerarioidioma5=$31
+			  citinerarioidioma5=$31,
+			  curlreferenciapaquete=$32
 			  where cpaquetecod=$1;
 	resultado='correcto';
 	mensaje='Datos Actualizados Correctamente';
