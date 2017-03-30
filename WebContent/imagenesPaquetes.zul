@@ -16,7 +16,7 @@
 				</tabs>
 				<tabpanels sclass="tabpanels_contenido">
 					<tabpanel>
-						<grid model="@load(vm.listaImagenesPaquetes)">
+						<grid model="@bind(vm.listaImagenesPaquetes)">
 							<columns>
 								<column label=""/>
 							</columns>
@@ -27,24 +27,44 @@
 											<div visible="@bind(each.galeria1.visible)" 
 												zclass="@load(each.galeria1.style_Select)"
 												onClick="@command('cambiosEnImagenPaquete',galeria4=each,galeria=each.galeria1)">
-												<image src="@load(each.galeria1.cRutaImagen)" width="100%" height="150px"/>
+												<image src="@bind(each.galeria1.cRutaImagen)" width="100%" height="150px"/>
+												<div zclass="div_eliminar_imagen">
+													<button iconSclass="fa fa-trash"
+														onClick="@command('eliminarImagenGaleriaPaquete',galeria4=each,galeria=each.galeria1,comp=self)"
+														zclass="btn_eliminar_imagen" />
+												</div>
 											</div>
 											<div visible="@bind(each.galeria2.visible)" 
 												zclass="@load(each.galeria2.style_Select)"
 												onClick="@command('cambiosEnImagenPaquete',galeria4=each,galeria=each.galeria2)">
-												<image src="@load(each.galeria2.cRutaImagen)" width="100%" height="150px"/>
+												<image src="@bind(each.galeria2.cRutaImagen)" width="100%" height="150px"/>
+												<div zclass="div_eliminar_imagen">
+													<button iconSclass="fa fa-trash"
+														onClick="@command('eliminarImagenGaleriaPaquete',galeria4=each,galeria=each.galeria2,comp=self)"
+														zclass="btn_eliminar_imagen" />
+												</div>
 											</div>
 										</div>
 										<div zclass="div_content_col2">
 											<div visible="@bind(each.galeria3.visible)" 
 												zclass="@load(each.galeria3.style_Select)"
 												onClick="@command('cambiosEnImagenPaquete',galeria4=each,galeria=each.galeria3)">
-												<image src="@load(each.galeria3.cRutaImagen)" width="100%" height="150px"/>
+												<image src="@bind(each.galeria3.cRutaImagen)" width="100%" height="150px"/>
+												<div zclass="div_eliminar_imagen">
+													<button iconSclass="fa fa-trash"
+														onClick="@command('eliminarImagenGaleriaPaquete',galeria4=each,galeria=each.galeria3,comp=self)"
+														zclass="btn_eliminar_imagen" />
+												</div>
 											</div>
 											<div visible="@bind(each.galeria4.visible)" 
 												zclass="@load(each.galeria4.style_Select)"
 												onClick="@command('cambiosEnImagenPaquete',galeria4=each,galeria=each.galeria4)">
-												<image src="@load(each.galeria4.cRutaImagen)" width="100%" height="150px"/>
+												<image src="@bind(each.galeria4.cRutaImagen)" width="100%" height="150px"/>
+												<div zclass="div_eliminar_imagen">
+													<button iconSclass="fa fa-trash"
+														onClick="@command('eliminarImagenGaleriaPaquete',galeria4=each,galeria=each.galeria4,comp=self)"
+														zclass="btn_eliminar_imagen" />
+												</div>
 											</div>
 										</div>
 									</div>

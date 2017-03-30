@@ -589,6 +589,8 @@ public class paquetesVM {
 		ArrayList<CPaqueteActividad> listaPaqueteActividades = new ArrayList<CPaqueteActividad>();
 		listaPaqueteActividades = paquete.obtenerListaPaqueteActividad(paquete.getcPaqueteCod());
 		/*******************/
+		boolean hayNuevasImagenes=false;
+		
 		if (!validoParaActualizar(paquete, comp))
 			return;
 		if (paquete.isSinDescuento()) {
@@ -602,7 +604,6 @@ public class paquetesVM {
 			paquete.setnDiaCaminoInka(0);
 			/** Se procede a actualizar el paquete **/
 			boolean b = paqueteDao.isOperationCorrect(paqueteDao.modificarPaquete(paquete));
-			System.out.println("modifico paquete->"+b);
 			for (CServicio servicio : paquete.getListaServicios()) {
 				boolean estaRegistrado = false;
 				for (CPaqueteServicio ps : listaPaqueteServicios) {
@@ -647,13 +648,13 @@ public class paquetesVM {
 				for (CPaqueteDestino pd : listaPaqueteDestinos)
 					b = paqueteDao.isOperationCorrect(paqueteDao.eliminarPaqueteDestino(pd.getCodPaqueteDestino()));
 			}
-			System.out.println("tamanio lista imagenss caminoinka->"+paquete.getListaImagenes().size());
 			if(!paquete.getListaImagenes().isEmpty())
 			{
 				for(CGaleriaPaquete imagenes:paquete.getListaImagenes())
 				{
 					if(imagenes.getCpaquetecod()==null)
 					{
+						hayNuevasImagenes=true;
 						imagenes.setCpaquetecod(paquete.getcPaqueteCod());
 						CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
 						boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
@@ -765,6 +766,7 @@ public class paquetesVM {
 				{
 					if(imagenes.getCpaquetecod()==null)
 					{
+						hayNuevasImagenes=true;
 						imagenes.setCpaquetecod(paquete.getcPaqueteCod());
 						CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
 						boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
@@ -784,13 +786,7 @@ public class paquetesVM {
 			/** Se procede a actualizar el paquete **/
 			boolean b = paqueteDao.isOperationCorrect(paqueteDao.modificarPaquete(paquete));
 			if (paquete.isConDestino()) {
-				System.out.println("Nro de destinos: " + paquete.getListaDestinos().size());
 				for (CDestino destino : paquete.getListaDestinos()) {
-					System.out.println("============================");
-					System.out.println("Destino: " + destino.getcDestino());
-					System.out.println("noches: " + destino.getnNoches());
-					System.out.println("itinerario: " + destino.getnOrdenItinerario());
-					System.out.println("============================");
 					boolean estaRegistrado = false;
 					for (CPaqueteDestino pd : listaPaqueteDestinos) {
 						if (pd.getnDestinoCod() == destino.getnDestinoCod()) {
@@ -864,6 +860,7 @@ public class paquetesVM {
 				{
 					if(imagenes.getCpaquetecod()==null)
 					{
+						hayNuevasImagenes=true;
 						imagenes.setCpaquetecod(paquete.getcPaqueteCod());
 						CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
 						boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
@@ -935,12 +932,19 @@ public class paquetesVM {
 				{
 					if(imagenes.getCpaquetecod()==null)
 					{
+						hayNuevasImagenes=true;
 						CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
 						imagenes.setCpaquetecod(paquete.getcPaqueteCod());
 						boolean correcto=galeriaPaqueteDao.isOperationCorrect(galeriaPaqueteDao.insertarImagenPaquete(imagenes));
 					}
 				}
 			}
+		}
+		//===RECUPERANDO LAS LISTA DE GAELRIA PAQUETE
+		if(hayNuevasImagenes){
+			CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
+			galeriaPaqueteDao.asignarListaImagenesPaquete(galeriaPaqueteDao.recuperarImagenesPaqueteBD(paquete.getcPaqueteCod()));
+			paquete.setListaImagenes(galeriaPaqueteDao.getListaImagenesPaquete());
 		}
 		// RECUPERAR LISTA PAQUETE-DESTINOS
 		listaPaqueteDestinos = paquete.obtenerListaPaqueteDestino(paquete.getcPaqueteCod());
@@ -960,9 +964,6 @@ public class paquetesVM {
 				"before_start", 2700);
 		paquete.setEditable(false);
 		refrescaFilaTemplate(paquete);
-		/** Actualizar datos de la etiqueta en la BD **/
-		// initVM();
-		// System.out.println("-->"+etiqueta.getCodEtiqueta());
 
 	}
 
@@ -1396,7 +1397,6 @@ public class paquetesVM {
 			// Disminuyo el numero de destinos seleccionados
 			paquete.setNroDestinosSelect(paquete.getNroDestinosSelect() - 1);
 			// Actualizo los itinerarios
-			// System.out.println("<---------------------->");
 			while (paquete.getOrdenDesSelect() <= paquete.getNroDestinosSelect()) {
 				for (CDestino dest : paquete.getListaDestinos()) {
 					if ((paquete.getOrdenDesSelect() + 1) == dest.getnOrdenItinerario()) {
@@ -1892,7 +1892,6 @@ public class paquetesVM {
 		}else if(manejoYourself.equals("CAMINO_INKA_CORTO")){
 			oPaquete.setManejoSelectYourself(codDestino);
 		}
-		System.out.println("valor paquete->"+oPaquete.getcTituloIdioma1());
 		BindUtils.postNotifyChange(null, null, oPaquete, "cTituloIdioma1");
 		BindUtils.postNotifyChange(null, null, oPaquete, "manejoSelectYourself");
 	}
@@ -1914,7 +1913,6 @@ public class paquetesVM {
 		}else if(manejoYourself.equals("CAMINO_INKA_CORTO")){
 			paquete.setManejoSelectYourself(codDestino);
 		}
-		System.out.println("valor paquete->"+oPaquete.getcTituloIdioma1());
 		BindUtils.postNotifyChange(null, null, paquete, "cTituloIdioma1");
 		BindUtils.postNotifyChange(null, null, paquete, "manejoSelectYourself");
 	}
@@ -1944,9 +1942,7 @@ public class paquetesVM {
 			else if (paquete.getcFoto5().equals("img/tours/tourxdefecto.png"))
 				paquete.setcFoto5("img/tours/" + nombreImagen);
 		}
-		System.out.println("Estoy en estado: " + oGaleriaPaquete.isBestado());
 		paquete.getListaImagenes().add(oGaleriaPaquete);
-		System.out.println("aqui el tamanio es->" + paquete.getListaImagenes().size());
 	}
 	public boolean estaEnLaListaImagenes(String nameImagen,CPaquete paquete)
 	{

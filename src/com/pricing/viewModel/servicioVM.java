@@ -481,7 +481,6 @@ public class servicioVM {
 	}
 	public void asignarUrlImagenServicio(String url)
 	{
-		System.out.println("==>:::"+url);
 		oServicioNuevo.setcUrlImg("/img/servicios/"+url);
 		BindUtils.postNotifyChange(null, null, oServicioNuevo,"cUrlImg");
 	}
@@ -507,7 +506,6 @@ public class servicioVM {
 	}
 	public void asignarUrlImagenUpdateServicio(String url,CServicio servicio)
 	{
-		System.out.println("==>:::"+url);
 		servicio.setcUrlImg("/img/servicios/"+url);
 		BindUtils.postNotifyChange(null, null, servicio,"cUrlImg");
 	}

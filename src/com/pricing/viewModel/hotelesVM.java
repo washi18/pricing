@@ -343,17 +343,24 @@ public class hotelesVM
 		boolean correcto=hotelDao.isOperationCorrect(hotelDao.modificarHotel(hotel));
 		if(correcto)
 		{
+			boolean hayNuevosImagenes=false;
 			if(!hotel.getListaImagenes().isEmpty())
 			{
 				for(CGaleriaHotel galeria:hotel.getListaImagenes())
 				{
 					if(galeria.getnHotelCod()==0)
 					{
+						hayNuevosImagenes=true;
 						CGaleriaHotelDAO galeriaHotelDao=new CGaleriaHotelDAO();
 						galeria.setnHotelCod(hotel.getnHotelCod());
 						correcto=galeriaHotelDao.isOperationCorrect(galeriaHotelDao.insertarImagenHotel(galeria));
 					}
 				}
+			}
+			if(hayNuevosImagenes){
+				CGaleriaHotelDAO galeriaHotelDao=new CGaleriaHotelDAO();
+				galeriaHotelDao.asignarListaImagenesHotel(galeriaHotelDao.recuperarImagenesHotelBD(oHotel.getnHotelCod()));
+				oHotel.setListaImagenes(galeriaHotelDao.getListaImagenesHotel());
 			}
 			Clients.showNotification("El Hotel se actualizo correctamente", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",2700);
 		}

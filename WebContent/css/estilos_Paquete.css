@@ -12,6 +12,72 @@
 	padding: 10px;
 	width: 24.5%;
 }
+/*********** INICIO: estilos para imagenes paquetes*/
+.div_content_imagePaquete{
+	margin: 4px;
+	width: 45%;
+	padding:3px;
+	background: gray;
+	cursor: pointer;
+	position: relative;
+}
+.div_content_imagePaquete_selected{
+	margin: 4px;
+	width: 45%;
+	padding:3px;
+	background: #1A5276;
+	position: relative;
+	cursor: pointer;
+}
+.div_content_imagePaquete_selected:AFTER{
+	content:'✔';
+	position:absolute;
+	background: #1A5276;
+	color: white;
+	font-weight: bold;
+	padding: 0 5px 0 5px;
+	top:0;
+	right: 0;
+}
+.btn_eliminar_imagen{
+	border: none;
+	border-radius:2px;
+	padding:5px 10px;
+	background: #053351;
+	color: white;
+	font-weight: bold;
+	font-size: 16px;
+}
+.btn_eliminar_imagen:hover{
+	background: #DF1405;
+	font-size: 17px;
+}
+.div_eliminar_imagen{
+	width: 100%;
+	padding: 10px;
+	margin-bottom: 10px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	justify-content:flex-end;
+	-webkit-justify-content:flex-end;
+	-moz-justify-content:flex-end;
+	-ms-justify-content:flex-end;
+	-o-justify-content:flex-end;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+	z-index: 3;
+	position: absolute;
+	bottom: -16px;
+	right: -6px;
+}
+/*********** FIN: estilos para imagenes paquetes*/
+
 @media (max-width:768px){
 	.div_content_datos_paquete{
 		width: 100%;

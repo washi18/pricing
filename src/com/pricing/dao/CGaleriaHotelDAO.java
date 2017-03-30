@@ -53,6 +53,10 @@ public class CGaleriaHotelDAO extends CConexion{
 		Object[] values={galeria.getnGaleriaHotelCod(),galeria.isbEstado()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarGaleriaHotel", values);
 	}
+	public List eliminarImagenGaleriaHotel(int codgaleriaImagenHotel){
+		Object[] values={codgaleriaImagenHotel};
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_EliminarImagenGaleriaHotel",values);
+	}
 	public boolean isOperationCorrect(List lista)
 	{
 		Map row=(Map)lista.get(0);

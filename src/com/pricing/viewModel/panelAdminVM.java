@@ -430,7 +430,6 @@ public class panelAdminVM
 				visibleCupones=false;
 			}else if(cambios.equals("itemUpdateUsuario2") || cambios.equals("itemUpdateUsuario"))
 			{ 
-				System.out.println("entra a esta parte de update");
 				visibleActualizarUsuario=true;
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleConfPaypal=visibleConfAltoNivel=false;
@@ -444,7 +443,6 @@ public class panelAdminVM
 				visibleCupones=false;
 			}else if(cambios.equals("itemUsuario") || cambios.equals("itemUsuario2"))
 			{ 
-				System.out.println("entra a esta parte de update");
 				visibleRegistroUsuarios=true;
 				visibleActualizarUsuario=visibleConfAltoNivel=false;
 				visibleEstadisticaPaquetesmasVendidos=false;
@@ -459,8 +457,7 @@ public class panelAdminVM
 				visibleCupones=false;
 			}else if(cambios.equals("itemPaypal"))
 			{ 
-				System.out.println("entra a esta parte de update");
-				visibleConfPaypal=visibleConfAltoNivel=true;
+				visibleConfPaypal=true;
 				visibleRegistroUsuarios=false;
 				visibleActualizarUsuario=false;
 				visibleEstadisticaPaquetesmasVendidos=false;
@@ -475,7 +472,6 @@ public class panelAdminVM
 				visibleCupones=false;
 			}else if(cambios.equals("itemExtras"))
 			{ 
-				System.out.println("entra a esta parte de update");
 				visibleConfPaypal=visibleConfAltoNivel=false;
 				visibleRegistroUsuarios=false;
 				visibleActualizarUsuario=false;

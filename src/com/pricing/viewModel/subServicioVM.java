@@ -109,7 +109,6 @@ public class subServicioVM
 		listaSubServicios=new ArrayList<CSubServicio>();
 		/*****************************/
 		Encryptar encrip= new Encryptar();
-//		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
 		Execution exec = Executions.getCurrent();
 		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
 	    String user=(String)ses.getAttribute("usuario");
@@ -374,7 +373,6 @@ public class subServicioVM
 	}
 	public void asignarUrlImagenSubServicio(String url)
 	{
-		System.out.println("==>:::"+url);
 		oSubServicioNew.setcUrlImg("/img/servicios/"+url);
 		BindUtils.postNotifyChange(null, null, oSubServicioNew,"cUrlImg");
 	}
@@ -401,8 +399,6 @@ public class subServicioVM
 	}
 	public void asignarUrlImagenSubServicio_update(String url,CSubServicio subServ)
 	{
-		System.out.println("==>:::"+url);
-		subServ.setcUrlImg("/img/servicios/"+url);
 		BindUtils.postNotifyChange(null, null, subServ,"cUrlImg");
 	}
 	public void refrescaFilaTemplate(CSubServicio s)

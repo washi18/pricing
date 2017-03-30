@@ -301,7 +301,6 @@ public class reportePagosVM {
 	@NotifyChange({"listaHoteles","listaHotelesTemp","listaDestinosconHoteles"})
 	public void habilitarHotelesPOP(@BindingParam("chotel") CReportePagos reserva)
 	{
-		System.out.println("el valor de codCategoria es:"+reserva.getCodCategoria());
 		reportePagosDAO.asignarHotelesReserva(reportePagosDAO.recuperarHotelesReservaBD(reserva.getCodReserva(),reserva.getCodCategoria()));
 		this.setListaHoteles(reportePagosDAO.getListaHotelesReserva());
 		int valorincremento;
@@ -317,7 +316,6 @@ public class reportePagosVM {
         		listaHotelesTemp.add(new CHotel(listaHoteles.get(contador).getcHotel(),listaHoteles.get(contador).getnPrecioSimple()));
         		valorincremento++;
         		contador++;
-        		System.out.println("el valor de contador es:"+contador);
         	}
         	listaDestinosconHoteles.add(new CDestinoConHoteles(listaHoteles.get(i).getNombreDestino().toString(),listaHotelesTemp));
         }
@@ -402,10 +400,8 @@ public class reportePagosVM {
         		listaSubServiciosTemp.add(new CSubServicio(listasubServicios.get(contador).getcSubServicioIndioma1(),listasubServicios.get(contador).getnPrecioServicio()));
         		valorincremento++;
         		contador++;
-        		System.out.println("el valor de contador es:"+contador);
         	}
         	listaServicioconSubServicios.add(new CServicioConSubServicios(listasubServicios.get(i).getcNombreServicio().toString(),listaSubServiciosTemp));
-        	System.out.println("termina esto?");
         }
 		subServicio.setListaServicioConSubServicios(listaServicioconSubServicios);
 		
@@ -442,8 +438,6 @@ public class reportePagosVM {
 	@NotifyChange("listaActividades")
 	public void habilitarActividadesPOP(@BindingParam("creserva") CReportePagos actividades)
 	{
-		
-		System.out.println("entro a pasajeroVM");
 		reportePagosDAO.asignarActividadesReserva(reportePagosDAO.recuoperarActividadesReservaBD(actividades.getCodReserva()));
 		this.setListaActividades(reportePagosDAO.getListaActividadesReserva());
 		actividades.setListaActividades(this.getListaActividades());
@@ -469,14 +463,12 @@ public class reportePagosVM {
 		BindUtils.postNotifyChange(null, null, actividades,"visibleActividadespop");
 		BindUtils.postNotifyChange(null, null, actividades,"listaActividades");
 		BindUtils.postNotifyChange(null, null, actividades,"colornoExisteListaActividades");
-		System.out.println("entro a pasajeroVM fin");
 	}
 	
 	@Command
 	@NotifyChange("listaPasajeros")
 	public void habilitarPasajerosPOP(@BindingParam("cpasajero") CReportePagos pasajero)
 	{
-		System.out.println("entro a pasajeroVM");
 		reportePagosDAO.asignarPasajerosReserva(reportePagosDAO.recuperarPasajerosReservaBD(pasajero.getCodReserva()));
 		this.setListaPasajeros(reportePagosDAO.getListaPasajerosReserva());
 		pasajero.setListaPasajeros(this.getListaPasajeros());
@@ -505,7 +497,6 @@ public class reportePagosVM {
 		BindUtils.postNotifyChange(null, null, pasajero,"visiblepasajerospop");
 		BindUtils.postNotifyChange(null, null, pasajero,"listaPasajeros");
 		BindUtils.postNotifyChange(null, null, pasajero,"colornoExisteListaPasajeros");
-		System.out.println("entro a pasajeroVM fin");
 	}
 	@Command
 	public void recuperarFechaDatebox(@BindingParam("fecha")Date fecha,@BindingParam("id")String id)
@@ -604,7 +595,7 @@ public class reportePagosVM {
 			deshabilitarMetodoPago=false;
 		}else if(estado.equals("total")){
 			reportePago.setEstadoReserva("PAGO TOTAL");
-			desabilitarCodTransaccion=true;
+			desabilitarCodTransaccion=false;
 			deshabilitarMetodoPago=false;
 		}else if(estado.equals("pendiente")){
 			reportePago.setEstadoReserva("PENDIENTE DE PAGO");

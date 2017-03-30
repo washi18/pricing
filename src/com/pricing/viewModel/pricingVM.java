@@ -128,7 +128,7 @@ public class pricingVM
 	@Wire
 	Html htmlPagoMasterdCard;
 	@Wire
-	Combobox nroPersonas;
+	Combobox nroPersonas,nroPersonas2;
 	//====================
 	private String urlPaypal;
 	//====================
@@ -244,6 +244,7 @@ public class pricingVM
 	private ConfAltoNivelDAO confAltoNivelDAO;
 	private String integrantes;
 	private String paquetes;
+	private boolean edadSuperada;
 	//======METODOS===============
 	@Init
 	public void inicializarVM() throws IOException
@@ -265,6 +266,7 @@ public class pricingVM
 		visibleNroPaso3=false;
 		visibleBtnAtras=false;
 		visibleBtnSiguiente=true;
+		edadSuperada=false;
 		/**Inicializamos las sessiones**/
 		seshttp=(HttpSession)Sessions.getCurrent().getNativeSession();
 		/*******************************/
@@ -1329,6 +1331,7 @@ public class pricingVM
 		return rMes;
 	}
 	
+	/*************Al hacer click en pasos arriba**************/
 	@Command
 	@NotifyChange({"visiblePaso1","visiblePaso2","visiblePaso3","visibleBarraPaso1","visibleBarraPaso2","visibleBarraPaso3",
 		"estiloPaso1","estiloPaso2","estiloPaso3","visibleNroPaso1","visibleNroPaso2","visibleNroPaso3","paso2",
@@ -1337,16 +1340,13 @@ public class pricingVM
 		if(nroPaso.equals("1")){
 				visibleBtnAtras=false;
 				visibleBtnSiguiente=true;
-				setVisiblePaso1(true);
+				setVisiblePaso1(true);/***********visibilidad de contenido de paso****************/
 				setVisiblePaso2(false);
 				paso2=false;
 				setVisiblePaso3(false);
 				visibleBarraPaso1=true;
 				visibleBarraPaso2=false;
 				visibleBarraPaso3=false;
-				estiloPaso1="background:#72CB2E;";
-				estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				estiloPaso3="background:transparent;";
 		}else if(nroPaso.equals("2")){
 			if(validoPaso1_pricingPasos(comp)){
 				visibleBtnAtras=true;
@@ -1358,13 +1358,10 @@ public class pricingVM
 				visibleBarraPaso1=false;
 				visibleBarraPaso2=true;
 				visibleBarraPaso3=false;
-				estiloPaso1="background:#72CB2E;";
-				estiloPaso2="background:#72CB2E;";
-				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				visibleNroPaso1=true;
+				visibleNroPaso1=true;/***********Aparece el check de paso terminado correctamente****************/
 			}else return;
 		}else if(nroPaso.equals("3")){
-			if(validoPaso2(comp)){
+			if(validoPaso2_pricing_pasos(comp)){
 				visibleBtnAtras=true;
 				visibleBtnSiguiente=false;
 				setVisiblePaso1(false);
@@ -1374,12 +1371,13 @@ public class pricingVM
 				visibleBarraPaso1=false;
 				visibleBarraPaso2=false;
 				visibleBarraPaso3=true;
-				estiloPaso1="background:#72CB2E;";
-				estiloPaso2="background:#72CB2E;";
-				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				visibleNroPaso1=true;
+				visibleNroPaso1=true;/***********Aparece el check de paso terminado correctamente****************/
 				visibleNroPaso2=true;
-			}else return;
+			}else{
+				visibleNroPaso1=true;/***********Aparece el check de paso terminado correctamente****************/
+				visibleNroPaso2=false;
+				return;
+			}
 		}
 		
 	}
@@ -1399,15 +1397,12 @@ public class pricingVM
 				visibleBarraPaso1=false;
 				visibleBarraPaso2=true;
 				visibleBarraPaso3=false;
-				estiloPaso1="background:#72CB2E;";
-				estiloPaso2="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				estiloPaso3="background:transparent;";
-				visibleNroPaso1=true;
+				visibleNroPaso1=true;/***********Aparece el check de paso terminado correctamente****************/
 				visibleNroPaso2=false;
 				visibleNroPaso3=false;
 			}else{return;}
 		}else if(nroPaso.equals("2")){
-			if(validoPaso2(comp)){
+			if(validoPaso2_pricing_pasos(comp)){
 				setVisiblePaso1(false);
 				setVisiblePaso2(false);
 				paso2=false;
@@ -1415,14 +1410,16 @@ public class pricingVM
 				visibleBarraPaso1=false;
 				visibleBarraPaso2=false;
 				visibleBarraPaso3=true;
-				estiloPaso1="background:#72CB2E;";
-				estiloPaso2="background:#72CB2E;";
-				estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
-				visibleNroPaso1=true;
+				visibleNroPaso1=true;/***********Aparece el check de paso terminado correctamente****************/
 				visibleNroPaso2=true;
 				visibleNroPaso3=false;
 				visibleBtnSiguiente=false;
-			}else{return;}
+			}else{
+				visibleNroPaso1=true;/***********Aparece el check de paso terminado correctamente****************/
+				visibleNroPaso2=false;
+				visibleNroPaso3=false;
+				return;
+				}
 		}
 		
 	}
@@ -1439,9 +1436,6 @@ public class pricingVM
 				this.visibleBarraPaso1=true;
 				this.visibleBarraPaso2=false;
 				this.visibleBarraPaso3=false;
-				this.estiloPaso1="background:#72CB2E;";
-				this.estiloPaso2="background:#72CB2E;";
-				this.estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
 				visibleBtnSiguiente=true;
 				visibleBtnAtras=false;
 		}else if(nroPaso.equals("3")){
@@ -1452,9 +1446,6 @@ public class pricingVM
 			this.visibleBarraPaso1=false;
 			this.visibleBarraPaso2=true;
 			this.visibleBarraPaso3=false;
-			this.estiloPaso1="background:#72CB2E;";
-			this.estiloPaso2="background:#72CB2E;";
-			this.estiloPaso3="background:#F7653A;border:2px solid #F7653A;box-shadow: 5px 5px 8px #888;";
 			visibleBtnAtras=true;
 			visibleBtnSiguiente=true;
 		}
@@ -1638,7 +1629,7 @@ public class pricingVM
 	public boolean validoPaso1(Component comp)
 	{
 		boolean valido=true;
-		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA"))
+		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA_CLASICO"))
 		{
 			if(lblFechaInicioPaso3.getValue().equals(""))
 			{
@@ -1675,7 +1666,7 @@ public class pricingVM
 	public boolean validoPaso1_pricingPasos(Component comp)
 	{
 		boolean valido=true;
-		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA"))
+		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA_CLASICO"))
 		{
 			if(lblFechaInicioPaso3.getValue().equals(""))
 			{
@@ -1687,8 +1678,12 @@ public class pricingVM
 				valido=false;
 				Clients.showNotification(etiqueta[166],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
 			}
+			if(nroPersonas2.getValue().isEmpty()){
+				valido=false;
+				Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
 		}
-		else
+		else if(oReservar.getoPaquete().getcDisponibilidad().equals("MANEJO_NORMAL"))
 		{
 			if(lblFechaInicioPaso3.getValue().equals(""))
 			{
@@ -1706,10 +1701,25 @@ public class pricingVM
 					Clients.showNotification(etiqueta[167],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
 				}
 			}
-		}
-		if(nroPersonas.getValue().isEmpty()){
-			valido=false;
-			Clients.showNotification("Falta ingresar el numero de pasajeros",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			if(nroPersonas.getValue().isEmpty()){
+				valido=false;
+				Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+		}else{
+			if(lblFechaInicioPaso3.getValue().equals(""))
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[165],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+			else if(listacFechasAlternas.isEmpty())
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[166],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+			if(nroPersonas2.getValue().isEmpty()){
+				valido=false;
+				Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
 		}
 		return valido;
 	}
@@ -1735,6 +1745,47 @@ public class pricingVM
 			valido=false;
 			Clients.showNotification(etiqueta[210],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
 		}
+		return valido;
+	}
+	public boolean validoPaso2_pricing_pasos(Component comp)
+	{
+		boolean valido=true;
+		if(nroPasajeros>0)
+		{
+			if(oInterfaz.isbSubirDocPax())
+			{
+				valido=analizarSoloSubirDoc(comp);
+			}else if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+			{
+				valido=analizarLLenadoDatosYsubirDoc(comp);
+			}else if(oInterfaz.isbSubirDoc_O_llenarDatosPax()){
+				valido=analizarLLenadoDatos(comp);
+			}
+			if(valido)
+				valido=analizarInformacionAdicional(comp);
+		}
+		else
+		{
+			valido=false;
+			Clients.showNotification(etiqueta[210],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+		}
+		int nroPasajerosHab=oReservaPaqCatHotel.getnNroPersonasSimple()+
+				oReservaPaqCatHotel.getnNroPersonasDoble()+
+				oReservaPaqCatHotel.getnNroPersonasTriple();
+		if(oReservaPaqCatHotel.isConHotel())
+		{
+			if(nroPasajerosHab<nroPasajeros)
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[167],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+		}
+		
+		if(edadSuperada){
+			valido=false;
+			Clients.showNotification(etiqueta[243],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+		}
+		
 		return valido;
 	}
 	/***
@@ -2201,6 +2252,7 @@ public class pricingVM
 					&& edad.charAt(i)!='6' && edad.charAt(i)!='7' && edad.charAt(i)!='8'
 					&& edad.charAt(i)!='9')
 			{
+				edadSuperada=true;
 				Clients.showNotification(etiqueta[181],Clients.NOTIFICATION_TYPE_ERROR,comp,"end_before",2700);
 				correcto=false;	
 			}
@@ -2210,12 +2262,14 @@ public class pricingVM
 			int n=Integer.parseInt(edad);
 			if(n<11 || n>99)
 			{
-
+				edadSuperada=true;
 				Clients.showNotification(etiqueta[185],Clients.NOTIFICATION_TYPE_ERROR,comp,"end_before",2700);
 				correcto=false;
 			}
-			if(correcto)
-				p.setnEdad(Integer.parseInt(edad));
+			if(correcto){
+					edadSuperada=false;
+					p.setnEdad(Integer.parseInt(edad));
+				}
 		}
 	}
 	@Command
