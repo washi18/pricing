@@ -39,7 +39,7 @@ import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
 
-public class DestinosVM extends SelectorComposer<Component> {
+public class DestinosVM{
 	/*====atributos=====*/
 	private CDestinoDAO destinoDao;
 	private CDestino oDestinoNuevo;
@@ -102,15 +102,6 @@ public class DestinosVM extends SelectorComposer<Component> {
 		/**Iniciar codigos postales**/
 		setListaCodigosPostales((new CCodigoPostal()).listaCodigosPostales());
 	}
-	
-	@Listen("onMapClick = #gmaps")
-    public void onMapClick(MapMouseEvent event) {
-		System.out.println("entra a esta parte");
-        Gmarker gmarker = event.getGmarker();
-        if(gmarker != null) {
-            gmarker.setOpen(true);
-        }
-    }
 	
 	@Command
 	public void selectCodPostal(@BindingParam("codPostal")String cod)

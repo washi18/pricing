@@ -55,7 +55,6 @@ public class ImagenesPaqueteVM {
 	public void initVM()
 	{
 		listaImagenesPaquetes=new ArrayList<CGaleriaPaquete4>();
-		galeriaPaqueteDAO=new CGaleriaPaqueteDAO();
 		oPaquete=new CPaquete();
 		update=false;
 	}
@@ -73,8 +72,6 @@ public class ImagenesPaqueteVM {
 	public void mostrarImagenes(ArrayList<CGaleriaPaquete> listaImagenes)
 	{
 		listaImagenesPaquetes.clear();
-		System.out.println("Entra a mostrar imagenes");
-		System.out.println("RUTA DE LISTA IMAGENES->"+listaImagenes.size());
 		for(int i=0;i<listaImagenes.size();i+=4)
 		{
 			CGaleriaPaquete4 imagenes=new CGaleriaPaquete4();
@@ -86,7 +83,6 @@ public class ImagenesPaqueteVM {
 			if((i+3)<listaImagenes.size())
 				imagenes.setGaleria4(listaImagenes.get(i+3));
 			listaImagenesPaquetes.add(imagenes);
-			System.out.println("termino de hacer esta parte imagenes");
 		}
 		BindUtils.postNotifyChange(null, null, this,"listaImagenesPaquetes");
 	}
@@ -100,62 +96,50 @@ public class ImagenesPaqueteVM {
 		update=true;
 		if(galeria4.getGaleria1().equals(galeria))
 		{
-			System.out.println("entro a galeria 1");
 			if(galeria4.getGaleria1().isBestado())
 			{
-				System.out.println("entro a galeria 1 true");
 				galeria4.getGaleria1().setBestado(false);
-				galeria4.getGaleria1().setStyle_Select("div_content_imageHotel");
+				galeria4.getGaleria1().setStyle_Select("div_content_imagePaquete");
 				quitarImagen(galeria4.getGaleria1().getcRutaImagen());
 			}else{
-				System.out.println("entro a galeria 1 false");
 				galeria4.getGaleria1().setBestado(true);
-				galeria4.getGaleria1().setStyle_Select("div_content_imageHotel_selected");
+				galeria4.getGaleria1().setStyle_Select("div_content_imagePaquete_selected");
 				agregarImagen(galeria4.getGaleria1().getcRutaImagen());
 			}
 		}else if(galeria4.getGaleria2().equals(galeria))
 		{
-			System.out.println("entro a galeria 2");
 			if(galeria4.getGaleria2().isBestado())
 			{
-				System.out.println("entro a galeria 1 true");
 				galeria4.getGaleria2().setBestado(false);
-				galeria4.getGaleria2().setStyle_Select("div_content_imageHotel");
+				galeria4.getGaleria2().setStyle_Select("div_content_imagePaquete");
 				quitarImagen(galeria4.getGaleria2().getcRutaImagen());
 			}else{
-				System.out.println("entro a galeria 1 false");
 				galeria4.getGaleria2().setBestado(true);
-				galeria4.getGaleria2().setStyle_Select("div_content_imageHotel_selected");
+				galeria4.getGaleria2().setStyle_Select("div_content_imagePaquete_selected");
 				agregarImagen(galeria4.getGaleria2().getcRutaImagen());
 			}
 		}else if(galeria4.getGaleria3().equals(galeria))
 		{
-			System.out.println("entro a galeria 3");
 			if(galeria4.getGaleria3().isBestado())
 			{
-				System.out.println("entro a galeria 1 true");
 				galeria4.getGaleria3().setBestado(false);
-				galeria4.getGaleria3().setStyle_Select("div_content_imageHotel");
+				galeria4.getGaleria3().setStyle_Select("div_content_imagePaquete");
 				quitarImagen(galeria4.getGaleria3().getcRutaImagen());
 			}else{
-				System.out.println("entro a galeria 1 false");
 				galeria4.getGaleria3().setBestado(true);
-				galeria4.getGaleria3().setStyle_Select("div_content_imageHotel_selected");
+				galeria4.getGaleria3().setStyle_Select("div_content_imagePaquete_selected");
 				agregarImagen(galeria4.getGaleria3().getcRutaImagen());
 			}
 		}else if(galeria4.getGaleria4().equals(galeria))
 		{
-			System.out.println("entro a galeria 4");
 			if(galeria4.getGaleria4().isBestado())
 			{
-				System.out.println("entro a galeria 1 true");
 				galeria4.getGaleria4().setBestado(false);
-				galeria4.getGaleria4().setStyle_Select("div_content_imageHotel");
+				galeria4.getGaleria4().setStyle_Select("div_content_imagePaquete");
 				quitarImagen(galeria4.getGaleria4().getcRutaImagen());
 			}else{
-				System.out.println("entro a galeria 1 false");
 				galeria4.getGaleria4().setBestado(true);
-				galeria4.getGaleria4().setStyle_Select("div_content_imageHotel_selected");
+				galeria4.getGaleria4().setStyle_Select("div_content_imagePaquete_selected");
 				agregarImagen(galeria4.getGaleria4().getcRutaImagen());
 			}
 		}
@@ -164,7 +148,6 @@ public class ImagenesPaqueteVM {
 	public boolean validoParaCambiarImagen(boolean Marcado)
 	{
 		boolean valido=true;
-		System.out.println("tamanio lista imagens>"+oPaquete.getListaImagenes().size());
 		for(CGaleriaPaquete galeria:oPaquete.getListaImagenes())
 		{
 			if(galeria.getCpaquetecod()==null)
@@ -225,10 +208,12 @@ public class ImagenesPaqueteVM {
 				oPaquete.setcFoto5(rutaImagen);
 			}
 	}
+	
 	@Command
 	@NotifyChange()
 	public void eliminarImagenGaleriaPaquete(@BindingParam("galeria4")CGaleriaPaquete4 galeria4,@BindingParam("galeria")CGaleriaPaquete galeria,@BindingParam("comp")Component comp)
 	{
+		galeriaPaqueteDAO=new CGaleriaPaqueteDAO();
 		Messagebox.show("Esta seguro de eliminar esta imagen?", "Question", Messagebox.OK|Messagebox.CANCEL,
 				Messagebox.QUESTION, new EventListener<Event>(){
 					
@@ -257,19 +242,15 @@ public class ImagenesPaqueteVM {
 							boolean correcto=galeriaPaqueteDAO.isOperationCorrect(galeriaPaqueteDAO.eliminarImagenGaleriaPaquete(galeria.getNgaleriapaquetecod()));
 							CPaqueteDAO paqueteDao=new CPaqueteDAO();
 							boolean correcto2=paqueteDao.isOperationCorrect(paqueteDao.modificarImagenesPaquete(oPaquete));
-							CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
-							ArrayList<CGaleriaPaquete> listaImgs=new ArrayList<CGaleriaPaquete>();
-							galeriaPaqueteDao.asignarListaImagenesPaquete(galeriaPaqueteDao.recuperarImagenesPaqueteBD(oPaquete.getcPaqueteCod()));
-							for(CGaleriaPaquete galeria:galeriaPaqueteDao.getListaImagenesPaquete())
-							 {	
-									listaImgs.add(galeria);
-							 }
-							mostrarImagenes(listaImgs);
 							for(int i=0;i<oPaquete.getListaImagenes().size();i++){
 								if(oPaquete.getListaImagenes().get(i).equals(galeria)){
 									oPaquete.getListaImagenes().remove(galeria);
 								}
 							}
+							galeria.setVisible(false);
+							BindUtils.postNotifyChange(null, null, this,"listaImagenesPaquetes");
+							BindUtils.postNotifyChange(null, null, galeria,"visible");
+							refrescarCambios(galeria4);
 							if(correcto && correcto2){
 								Clients.showNotification("Imagen eliminado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, comp, "top_center", 2000);
 							}else{

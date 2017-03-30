@@ -9,12 +9,19 @@ import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.event.Event;
+import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Messagebox;
 import org.zkoss.zul.Window;
 
 import com.pricing.dao.CGaleriaHotelDAO;
+import com.pricing.dao.CGaleriaPaqueteDAO;
 import com.pricing.dao.CHotelDAO;
+import com.pricing.dao.CPaqueteDAO;
 import com.pricing.model.CGaleriaHotel;
+import com.pricing.model.CGaleriaPaquete;
+import com.pricing.model.CGaleriaPaquete4;
 import com.pricing.model.CGaleriasHotel4;
 import com.pricing.model.CHotel;
 
@@ -24,6 +31,7 @@ public class imagenesHotelVM {
 	private ArrayList<CGaleriasHotel4> listaUbicacionHotel;
 	private CHotel oHotel;
 	private boolean update;
+	CGaleriaHotelDAO galeriaHotelDAO;
 	/******************/
 	public ArrayList<CGaleriasHotel4> getListaImagenesHotel() {
 		return listaImagenesHotel;
@@ -242,6 +250,63 @@ public class imagenesHotelVM {
 		}else
 			if(oHotel.getcImagenUbicacion().equals(""))
 				oHotel.setcImagenUbicacion(rutaImagen);
+	}
+	
+	@Command
+	@NotifyChange()
+	public void eliminarImagenGaleriaHotel(@BindingParam("galeria4")CGaleriasHotel4 galeria4,@BindingParam("galeria")CGaleriaHotel galeria,@BindingParam("comp")Component comp)
+	{
+		galeriaHotelDAO=new CGaleriaHotelDAO();
+		Messagebox.show("Esta seguro de eliminar esta imagen?", "Question", Messagebox.OK|Messagebox.CANCEL,
+				Messagebox.QUESTION, new EventListener<Event>(){
+					
+					@Override
+					public void onEvent(Event event) throws Exception {
+						// TODO Auto-generated method stub
+						if(Messagebox.ON_OK.equals(event.getName()))
+						{
+							if(galeria4.getGaleria1().equals(galeria))
+							{
+								System.out.println("ENTRA A GALERIA UNO");
+									quitarImagen(galeria4.getGaleria1().getcRutaImagen(),galeria.getnTipoImagen());
+							}else if(galeria4.getGaleria2().equals(galeria))
+							{
+								System.out.println("ENTRA A GALERIA DOS");
+									quitarImagen(galeria4.getGaleria2().getcRutaImagen(),galeria.getnTipoImagen());
+							}else if(galeria4.getGaleria3().equals(galeria))
+							{
+								System.out.println("ENTRA A GALERIA TRES");
+									quitarImagen(galeria4.getGaleria3().getcRutaImagen(),galeria.getnTipoImagen());
+							}else if(galeria4.getGaleria4().equals(galeria))
+							{
+								System.out.println("ENTRA A GALERIA CUATRO");
+									quitarImagen(galeria4.getGaleria4().getcRutaImagen(),galeria.getnTipoImagen());
+							}
+							boolean correcto=galeriaHotelDAO.isOperationCorrect(galeriaHotelDAO.eliminarImagenGaleriaHotel(galeria.getnGaleriaHotelCod()));
+							CHotelDAO hotelDao=new CHotelDAO();
+							boolean correcto2=hotelDao.isOperationCorrect(hotelDao.modificarImagenesHotel(oHotel));
+							for(int i=0;i<oHotel.getListaImagenes().size();i++){
+								if(oHotel.getListaImagenes().get(i).equals(galeria)){
+									oHotel.getListaImagenes().remove(galeria);
+								}
+							}
+							galeria.setVisible(false);
+							BindUtils.postNotifyChange(null, null, this,"listaImagenesHotel");
+							BindUtils.postNotifyChange(null, null, galeria,"cRutaImagen");
+							BindUtils.postNotifyChange(null, null, galeria,"visible");
+							refrescarCambios(galeria4);
+							if(correcto && correcto2){
+								Clients.showNotification("Imagen eliminado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, comp, "top_center", 2000);
+							}else{
+								Clients.showNotification("Fallo al eliminar imagen", Clients.NOTIFICATION_TYPE_ERROR, comp, "top_center", 2000);
+							}
+						}
+						else if(Messagebox.ON_CANCEL.equals(event.getName()))
+						{
+							
+						}
+					}
+				});
 	}
 	@Command
 	@NotifyChange({"update"})

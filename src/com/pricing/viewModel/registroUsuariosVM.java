@@ -40,14 +40,12 @@ public class registroUsuariosVM {
 	public void InitVM(){
 		listaUsuarios=new ArrayList<CUsuario>();
 		usuarioDao=new CUsuarioLoginDAO();
-		System.out.println("entra aqui init");
 		Execution exec = Executions.getCurrent();
 		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
 	    String user=(String)ses.getAttribute("usuario");
 	    String pas=(String)ses.getAttribute("clave");
 		usuarioDao.asignarListaUsuarios(usuarioDao.recuperarUsuariosBD());
 		setListaUsuarios(usuarioDao.getListaUsuarios());
-		System.out.println("el tamanio antes de crearusuario es:"+listaUsuarios.size());
 	}
 	
 	public registroUsuariosVM(){
@@ -56,10 +54,8 @@ public class registroUsuariosVM {
 	
 	@GlobalCommand
 	public void actualizarDatos(){
-		System.out.println("entro a actualizar datos");
 		usuarioDao.asignarListaUsuarios(usuarioDao.recuperarUsuariosBD());
 		setListaUsuarios(usuarioDao.getListaUsuarios());
-		System.out.println("el tamanio despues de crearusuario es:"+listaUsuarios.size());
 		BindUtils.postNotifyChange(null, null, this,"listaUsuarios");
 	}
 	//======otros metodos=======

@@ -183,7 +183,6 @@ public class CReportePagosDAO  extends CConexion{
 	public void asignarListaPagos(List lista)
 	{
 		listaformasPagos=new ArrayList<CEstadistica_Pagos>();
-		System.out.println("entra aqui..?");
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
@@ -193,14 +192,12 @@ public class CReportePagosDAO  extends CConexion{
 	
 	public void asignarDestinosReserva(List lista)
 	{
-		System.out.println("entro aqui DAO 2");
 		listaDestinosReserva=new ArrayList<CDestino>();
 		for(int i=0;i<lista.size();i++)
 		{
 			Map row=(Map)lista.get(i);
 			listaDestinosReserva.add(new CDestino((String)row.get("cdestino"),(int)row.get("ndestinocod"),(int)row.get("ncodpostal")));
 		}
-		System.out.println("termino aqui DAO 2");
 	}
 	public void asignarServiciosReserva(List lista)
 	{
@@ -222,7 +219,6 @@ public class CReportePagosDAO  extends CConexion{
 	}
 	public void asignarPasajerosReserva(List lista)
 	{
-		System.out.println("entro a pasajero");
 		listaPasajerosReserva=new ArrayList<CPasajero>();
 		for(int i=0;i<lista.size();i++)
 		{
@@ -230,7 +226,6 @@ public class CReportePagosDAO  extends CConexion{
 			listaPasajerosReserva.add(new CPasajero((String)row.get("cabrevtipodoc"),(String)row.get("capellidos"),
 					(String)row.get("cnombres"),(String)row.get("cnombreesp"),(int)row.get("nedad"),(String)row.get("cnrodoc"),(String)row.get("csexo")));
 		}
-		System.out.println("entro a pasajero fin");
 	}
 	public void asignarSubServiciosReserva(List lista)
 	{

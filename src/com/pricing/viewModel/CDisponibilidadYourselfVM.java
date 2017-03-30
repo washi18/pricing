@@ -407,9 +407,6 @@ public class CDisponibilidadYourselfVM {
 	}
 	
 	public void recuperarDiasMes(String Anio,String Mes,String Destino){
-		System.out.println("entro a parte de anio"+Anio);
-		System.out.println("entro a parte de mes"+Mes);
-		System.out.println("entro a parte de destino"+Destino);
 		listaMesUpdate=new ArrayList<Integer>();
 		Calendar cad=Calendar.getInstance();
 		int anio=cad.get(Calendar.YEAR);
@@ -425,7 +422,6 @@ public class CDisponibilidadYourselfVM {
 		//int posFinMes=obtenerPosFinMes(m);
 	    int posFinMes=obtenerPosFinMesOtro(a, m);
 	    int k=posInicioMes;
-	    System.out.println("inicio:"+k+"fin:"+posFinMes);
 		if(Anio.equals(String.valueOf(anio))){
 			listaMesUpdate.add(Integer.valueOf(Destino));
 			listaMesUpdate.add(a);
@@ -499,7 +495,6 @@ public class CDisponibilidadYourselfVM {
 	@Command
 	@NotifyChange({"listaDispoActual","listaDispoSiguiente","listaAnioActual","listaAnioSig"})
 	public void seleccionardestino(@BindingParam("codDestino")String codDestino) throws IOException{
-		System.out.println("entro seleccion");
 		listaDispoActual=new ArrayList<Integer>();
 		listaDispoSiguiente=new ArrayList<Integer>();
 		cdisponibilidadDAO.asignarDisponibilidad(cdisponibilidadDAO.recuperarDisponibilidadesBD(Integer.valueOf(codDestino)));
@@ -517,10 +512,6 @@ public class CDisponibilidadYourselfVM {
 			this.estaVacio=false;
 		}
 		
-		System.out.println("tamanio lista actual->"+listaDispoActual.size());
-		System.out.println("tamanio de lista anio->"+listaAnioActual.size());
-		System.out.println("tamanio lista siguiente->"+listaDispoSiguiente.size());
-		System.out.println("tamanio de lista anio->"+listaAnioSig.size());
 		for(int cont=0;cont<listaDispoActual.size();cont++){
 			  System.out.println("contador original->"+cont);
 	    	  listaAnioActual.get(cont).setCantDisp(String.valueOf(listaDispoActual.get(cont)));
@@ -702,7 +693,6 @@ public class CDisponibilidadYourselfVM {
 				return;
 			}
 		}
-		System.out.println("No Somos iguales");
 		if(antDiaAlt!=null)
 		{
 			antDiaAlt.setDescDiaElegido("");
@@ -1408,7 +1398,6 @@ public class CDisponibilidadYourselfVM {
 		//Si el año del cbAnio es = al año actual obtenido se procede a mostrar los datos reales
 		if(Integer.toString(cal.get(Calendar.YEAR)).equals(valueAnio) && !estaVacio){
 			mostrarCalendarDispAnioActual(valueAnio,mes);
-			System.out.println("entro a esta parte");
 		}
 		else if(Integer.toString(cal.get(Calendar.YEAR)+1).equals(valueAnio) && !estaVacio)
 			mostrarCalendarDispAnioSiguiente(Integer.toString(cal.get(Calendar.YEAR)+1),mes);
@@ -1444,11 +1433,9 @@ public class CDisponibilidadYourselfVM {
 		String anioSig=String.valueOf(cal.get(Calendar.YEAR)+1);
 		if(!mesesModificadasActual.contains(mes) && anio.equals(anioActual)){
 				mesesModificadasActual.add(mes);
-				System.out.println("el mes de actual es->"+mes);
 			}
 		else if(!mesesModificadasSig.contains(mes) && anio.equals(anioSig)){
 			mesesModificadasSig.add(mes);
-			System.out.println("el mes de siguiente es->"+mes);
 		}
 		if(objetoDispo.getCantDisp().isEmpty() || !isInteger(objetoDispo.getCantDisp())){
 			objetoDispo.setCantDisp("0");

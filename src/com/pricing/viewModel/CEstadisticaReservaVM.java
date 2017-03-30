@@ -164,7 +164,6 @@ public class CEstadisticaReservaVM {
 		top2Paquetes=new long[12];
 		top3Paquetes=new long[12];
 		reporteReservaDao=new CReporteReservaDAO();
-	    System.out.println("el anio es:"+this.anio);
 		reporteReservaDao.asignarPaquetesmasVendidos(reporteReservaDao.recuperarPaquetesMasVendidos(this.anio));
 		this.setListaPaquetesMasVendidos(reporteReservaDao.getMasVendidosxMeses());
 		if(this.listaPaquetesMasVendidos.isEmpty())
@@ -172,7 +171,6 @@ public class CEstadisticaReservaVM {
 			Clients.showNotification("No hay venta de paquetes");
 			return;
 		}
-		System.out.println("el tamanio de la lista mas vendidos es:"+listaPaquetesMasVendidos.size());
 		//======meses del anio con inicio y fin=====
 		String nombrePaqueteAnterior;
 		int factorIncremento;
@@ -182,10 +180,8 @@ public class CEstadisticaReservaVM {
 			factorIncremento=0;
 			valorActual=0;
 			nombrePaqueteAnterior="";
-			System.out.println("valor fecha->"+df.format(listaPaquetesMasVendidos.get(i).getFechaPago()));
 			if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("01"))
 			{
-				System.out.println("Estamos en enero");
 				long auxCambio;
 				String auxNombreCambio="";
 				int contador=i;
@@ -196,8 +192,6 @@ public class CEstadisticaReservaVM {
 					contador++;
 					factorIncremento++;
 				}
-				System.out.println("valor de contador"+contador);
-				System.out.println("valor de factor incrmento"+factorIncremento);
 				if(valorActual>top1Paquetes[0]){
 					top1Paquetes[0]=valorActual;
 					nombrestop1Paquetes[0]=nombrePaqueteAnterior;
@@ -212,7 +206,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("02"))
 				{
-					System.out.println("Estamos en febrero");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -223,8 +216,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[1]){
 						top1Paquetes[1]=valorActual;
 						nombrestop1Paquetes[1]=nombrePaqueteAnterior;
@@ -239,7 +230,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("03"))
 				{
-					System.out.println("Estamos en marzo");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -250,8 +240,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[2]){
 						top1Paquetes[2]=valorActual;
 						nombrestop1Paquetes[2]=nombrePaqueteAnterior;
@@ -266,7 +254,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("04"))
 				{
-					System.out.println("Estamos en abril");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -277,8 +264,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[3]){
 						top1Paquetes[3]=valorActual;
 						nombrestop1Paquetes[3]=nombrePaqueteAnterior;
@@ -293,7 +278,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("05"))
 				{
-					System.out.println("Estamos en mayo");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -304,8 +288,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[4]){
 						top1Paquetes[4]=valorActual;
 						nombrestop1Paquetes[4]=nombrePaqueteAnterior;
@@ -320,7 +302,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("06"))
 				{
-					System.out.println("Estamos en junio");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -331,8 +312,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[5]){
 						top1Paquetes[5]=valorActual;
 						nombrestop1Paquetes[5]=nombrePaqueteAnterior;
@@ -347,7 +326,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("07"))
 				{
-					System.out.println("Estamos en julio");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -358,8 +336,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[6]){
 						top1Paquetes[6]=valorActual;
 						nombrestop1Paquetes[6]=nombrePaqueteAnterior;
@@ -374,7 +350,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("08"))
 				{
-					System.out.println("Estamos en agosto");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -385,8 +360,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[7]){
 						top1Paquetes[7]=valorActual;
 						nombrestop1Paquetes[7]=nombrePaqueteAnterior;
@@ -401,7 +374,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("09"))
 				{
-					System.out.println("Estamos en setiembre");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -412,8 +384,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[0]){
 						top1Paquetes[8]=valorActual;
 						nombrestop1Paquetes[8]=nombrePaqueteAnterior;
@@ -428,7 +398,6 @@ public class CEstadisticaReservaVM {
 			}else
 			if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("10"))
 				{
-				System.out.println("Estamos en octubre");
 				long auxCambio;
 				String auxNombreCambio="";
 				int contador=i;
@@ -439,8 +408,6 @@ public class CEstadisticaReservaVM {
 					contador++;
 					factorIncremento++;
 				}
-				System.out.println("valor de contador"+contador);
-				System.out.println("valor de factor incrmento"+factorIncremento);
 				if(valorActual>top1Paquetes[9]){
 					top1Paquetes[9]=valorActual;
 					nombrestop1Paquetes[9]=nombrePaqueteAnterior;
@@ -455,7 +422,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("11"))
 				{
-					System.out.println("Estamos en noviembre");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -466,8 +432,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					if(valorActual>top1Paquetes[10]){
 						top1Paquetes[10]=valorActual;
 						nombrestop1Paquetes[10]=nombrePaqueteAnterior;
@@ -482,7 +446,6 @@ public class CEstadisticaReservaVM {
 			}else
 				if(df.format(listaPaquetesMasVendidos.get(i).getFechaPago()).equals("12"))
 				{
-					System.out.println("Estamos en diciembre");
 					long auxCambio;
 					String auxNombreCambio="";
 					int contador=i;
@@ -493,8 +456,6 @@ public class CEstadisticaReservaVM {
 						contador++;
 						factorIncremento++;
 					}
-					System.out.println("valor de contador"+contador);
-					System.out.println("valor de factor incrmento"+factorIncremento);
 					String valor=yaexistePaquete(nombrestop1Paquetes.toString(),nombrestop2Paquetes.toString(),nombrestop3Paquetes.toString(), nombrePaqueteAnterior);
 					if(valorActual>top1Paquetes[11]){
 						top1Paquetes[11]=valorActual;
@@ -590,7 +551,6 @@ public class CEstadisticaReservaVM {
                     demoModel.setValue(this.nombrestop3Paquetes[j], meses[j], this.top3Paquetes[j]);
                     demoModel.setValue(this.nombrestop2Paquetes[j], meses[j], this.top2Paquetes[j]);
                 }
-                System.out.println("termina grafica..?");
             }
         return demoModel;
     }

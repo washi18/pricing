@@ -291,8 +291,6 @@ public class reporteReservasVM {
 	@NotifyChange("listaActividades")
 	public void habilitarActividadesPOP(@BindingParam("creserva") CReporteReserva actividades)
 	{
-		
-		System.out.println("entro a pasajeroVM");
 		reporteReservaDAO.asignarActividadesReserva(reporteReservaDAO.recuoperarActividadesReservaBD(actividades.getCodReserva()));
 		this.setListaActividades(reporteReservaDAO.getListaActividadesReserva());
 		actividades.setListaActividades(this.getListaActividades());
@@ -318,7 +316,6 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, actividades,"visibleActividadespop");
 		BindUtils.postNotifyChange(null, null, actividades,"listaActividades");
 		BindUtils.postNotifyChange(null, null, actividades,"colornoExisteListaActividades");
-		System.out.println("entro a pasajeroVM fin");
 	}
 	
 	/* Recupera pasajeros para mostrar popup con la lista de pasajeros*/
@@ -326,7 +323,6 @@ public class reporteReservasVM {
 	@NotifyChange("listaPasajeros")
 	public void habilitarPasajerosPOP(@BindingParam("creserva") CReporteReserva pasajero)
 	{
-		System.out.println("entro a pasajeroVM");
 		reporteReservaDAO.asignarPasajerosReserva(reporteReservaDAO.recuperarPasajerosReservaBD(pasajero.getCodReserva()));
 		this.setListaPasajeros(reporteReservaDAO.getListaPasajerosReserva());
 		pasajero.setListaPasajeros(this.getListaPasajeros());
@@ -355,7 +351,6 @@ public class reporteReservasVM {
 		BindUtils.postNotifyChange(null, null, pasajero,"visiblePasajerospop");
 		BindUtils.postNotifyChange(null, null, pasajero,"listaPasajeros");
 		BindUtils.postNotifyChange(null, null, pasajero,"colornoExisteListaPasajeros");
-		System.out.println("entro a pasajeroVM fin");
 	}
 	
 	/* Recupera destinos para mostrar popup con la lista de destinos*/
@@ -409,15 +404,14 @@ public class reporteReservasVM {
         	int contador=i;
         	valorincremento=0;
         	listaSubServiciosTemp=new ArrayList<CSubServicio>();
+        	//==================determinamos los subservicios de cada servicio=========
         	while(contador<listasubServicios.size() && listasubServicios.get(contador).getcNombreServicio().equals(ServicioAnterior))
         	{
         		listaSubServiciosTemp.add(new CSubServicio(listasubServicios.get(contador).getcSubServicioIndioma1(),listasubServicios.get(contador).getnPrecioServicio()));
         		valorincremento++;
         		contador++;
-        		System.out.println("el valor de contador es:"+contador);
         	}
         	listaServicioconSubServicios.add(new CServicioConSubServicios(listasubServicios.get(i).getcNombreServicio().toString(),listaSubServiciosTemp));
-        	System.out.println("termina esto?");
         }
 		hoteles.setListaServicioConSubServicios(listaServicioconSubServicios);
 		

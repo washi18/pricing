@@ -12,6 +12,33 @@
 	padding: 10px;
 	width: 24.5%;
 }
+/*********** INICIO: estilos para imagenes paquetes*/
+.div_content_imagePaquete{
+	margin: 4px;
+	width: 45%;
+	padding:3px;
+	background: gray;
+	cursor: pointer;
+	position: relative;
+}
+.div_content_imagePaquete_selected{
+	margin: 4px;
+	width: 45%;
+	padding:3px;
+	background: #1A5276;
+	position: relative;
+	cursor: pointer;
+}
+.div_content_imagePaquete_selected:AFTER{
+	content:'✔';
+	position:absolute;
+	background: #1A5276;
+	color: white;
+	font-weight: bold;
+	padding: 0 5px 0 5px;
+	top:0;
+	right: 0;
+}
 .btn_eliminar_imagen{
 	border: none;
 	border-radius:2px;
@@ -19,6 +46,11 @@
 	background: #053351;
 	color: white;
 	font-weight: bold;
+	font-size: 16px;
+}
+.btn_eliminar_imagen:hover{
+	background: #DF1405;
+	font-size: 17px;
 }
 .div_eliminar_imagen{
 	width: 100%;
@@ -44,9 +76,8 @@
 	bottom: -16px;
 	right: -6px;
 }
-.btn_eliminar_imagen:hover{
-	background: #DF1405;
-}
+/*********** FIN: estilos para imagenes paquetes*/
+
 @media (max-width:768px){
 	.div_content_datos_paquete{
 		width: 100%;

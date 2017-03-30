@@ -1,5 +1,23 @@
+--Eliminar imagen galeria hotel---
+create or replace function Pricing_sp_EliminarImagenGaleriaHotel
+(
+	codGaleriaHotel bigint
+)
+RETURNS TABLE (resultado varchar(20),
+		mensaje varchar(200),
+		galeriaHotelCod bigint) as
+$$
+begin
+	galeriaHotelCod=$1;
+	DELETE FROM tgaleriahotel WHERE ngaleriahotelcod=$1;
+	resultado='correcto';
+	mensaje='Datos Eliminados Correctamente';
+	return Query select resultado,mensaje,galeriaHotelCod;
+end
+$$
+language plpgsql;
 --Eliminar imagen galeria paquete---
-create or replace function Pricing_sp_EliminarImagenGaleria
+create or replace function Pricing_sp_EliminarImagenGaleriaPaquete
 (
 	codGaleriaPaquete bigint
 )

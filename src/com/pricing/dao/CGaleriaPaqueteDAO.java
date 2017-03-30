@@ -58,7 +58,7 @@ public class CGaleriaPaqueteDAO extends CConexion{
 	
 	public List eliminarImagenGaleriaPaquete(long codgaleriaImagenPaquete){
 		Object[] values={codgaleriaImagenPaquete};
-		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_EliminarImagenGaleria",values);
+		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_EliminarImagenGaleriaPaquete",values);
 	}
 	public boolean isOperationCorrect(List lista)
 	{
