@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -76,19 +77,22 @@ public class actividadVM
 			/*****************************/
 			Encryptar encrip= new Encryptar();
 //			System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
-			Execution exec = Executions.getCurrent();
+			
+		}
+		@GlobalCommand
+		public void recuperarActividades()
+		{
 			HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
 		    String user=(String)ses.getAttribute("usuario");
 		    String pas=(String)ses.getAttribute("clave");
 		    if(user!=null && pas!=null)
-		    	recuperarActividades();
-		}
-		public void recuperarActividades()
-		{
-			/**Obtencion de las etiquetas de la base de datos**/
-			actividadDao.asignarListaActividades(actividadDao.recuperarTodasActividadesBD());
-			/**Asignacion de las etiquetas a la listaEtiquetas**/
-			setListaActividades(actividadDao.getListaActividades());
+		    {
+		    	/**Obtencion de las etiquetas de la base de datos**/
+				actividadDao.asignarListaActividades(actividadDao.recuperarTodasActividadesBD());
+				/**Asignacion de las etiquetas a la listaEtiquetas**/
+				setListaActividades(actividadDao.getListaActividades());
+		    }
+		    BindUtils.postNotifyChange(null, null, this, "listaActividades");
 		}
 		@Command
 		public void buscarActividades(@BindingParam("nombre")String nombre){

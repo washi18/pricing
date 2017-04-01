@@ -20,6 +20,7 @@ public class CReserva
 	private String cEstado;// varchar(20),				--estado de una reserva: PENDIENTE DE PAGO,PAGO PARCIAL, PAGO TOTAL
 	private String cMetodoPago;//varchar(20)
 	private String cCodTransaccion;//varchar(20)
+	private Date dFechaArribo;//Date
 	/**Otros Atributos de reserva ajenos a TReserva**/
 	private CPaquete oPaquete;
 	private ArrayList<CPaquete> listaPaquetes;
@@ -92,6 +93,12 @@ public class CReserva
 	public void setdFechaFin(Date dFechaFin) {
 		this.dFechaFin = dFechaFin;
 	}
+	public Date getdFechaArribo() {
+		return dFechaArribo;
+	}
+	public void setdFechaArribo(Date dFechaArribo) {
+		this.dFechaArribo = dFechaArribo;
+	}
 	public ArrayList<CPaquete> getListaPaquetes() {
 		return listaPaquetes;
 	}
@@ -143,11 +150,12 @@ public class CReserva
 			Date dFecha, String cContacto, String cEmail, String cTelefono,
 			Number nPrecioPaquetePersona, int nNroPersonas,
 			String cInformacionAdicional, String cEstado,
-			String cMetodoPago,String cCodTransaccion) {
+			String cMetodoPago,String cCodTransaccion,Date dFechaArribo) {
 		this.cReservaCod = cReservaCod;
 		this.dFechaInicio = dFechaInicio;
 		this.dFechaFin = dFechaFin;
 		this.dFecha = dFecha;
+		this.dFechaArribo=dFechaArribo;
 		this.cContacto = cContacto;
 		this.cEmail = cEmail;
 		this.cTelefono = cTelefono;

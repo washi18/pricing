@@ -41,17 +41,18 @@ public class registroUsuariosVM {
 		listaUsuarios=new ArrayList<CUsuario>();
 		usuarioDao=new CUsuarioLoginDAO();
 		Execution exec = Executions.getCurrent();
+	}
+	@GlobalCommand
+	public void cargarDatosUsuarios()
+	{
 		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
 	    String user=(String)ses.getAttribute("usuario");
 	    String pas=(String)ses.getAttribute("clave");
 		usuarioDao.asignarListaUsuarios(usuarioDao.recuperarUsuariosBD());
 		setListaUsuarios(usuarioDao.getListaUsuarios());
+		
+		BindUtils.postNotifyChange(null, null, this, "listaUsuarios");
 	}
-	
-	public registroUsuariosVM(){
-		super();
-	}
-	
 	@GlobalCommand
 	public void actualizarDatos(){
 		usuarioDao.asignarListaUsuarios(usuarioDao.recuperarUsuariosBD());

@@ -6,6 +6,7 @@
 	<style src="fonts/font-awesome.css"/>
 	<style src="css/style_zk.css"/>
 	<style src="css/hotelesPorCategoria.css"/>
+	<style src="css/disponibilidad.css"/>
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vmIndex') @init('com.pricing.viewModel.indexVM')">
 <!-- 		<div visible="@bind(vmIndex.mostrarAdmin)"><include src="panelAdmin.zul"/></div> -->
 	</div>

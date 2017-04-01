@@ -56,7 +56,7 @@
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoEtiqueta)">
-										<div id="itemEtiqueta" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemEtiqueta" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('recuperarEtiquetas')">
 											<span sclass="icon-bookmark estilos-iconos"/>
 											<label value="Etiquetas" sclass="lbls_mantenimientos"/>
 										</div>
@@ -68,7 +68,7 @@
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaypal)">
-										<div id="itemPaypal" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemPaypal" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarConfiguracionPaypal')">
 											<span sclass="fa fa-paypal estilos-iconos"/>
 											<label value="Paypal" sclass="lbls_mantenimientos"/>
 										</div>
@@ -107,7 +107,7 @@
 								</div>
 								<div id="d_usuarios" visible="false">
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoRegUsuarios)">
-										<div id="itemUsuario" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemUsuario" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosUsuarios')">
 											<span sclass="fa fa-address-book-o estilos-iconos"/>
 											<label value="Registro de Usuarios" sclass="lbls_mantenimientos"/>
 										</div>
@@ -122,43 +122,43 @@
 								</div>
 								<div id="d_paquete" visible="false">
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)">
-										<div id="itemPaquete" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemPaquete" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosPaquetes')">
 											<span sclass="icon-package estilos-iconos"/>
 											<label value="Tours" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoServicios)">
-										<div id="itemServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('recuperarServicios')">
 											<span sclass="icon-cogs estilos-iconos"/>
 											<label value="Servicios" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoSubServicios)">
-										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemSubServicio" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('recuperarSubServicios')">
 											<span sclass="icon-tree estilos-iconos"/>
 											<label value="Sub Servicios" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoActividades)">
-										<div id="itemActividad" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemActividad" width="100%" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('recuperarActividades')">
 											<span sclass="icon-profile estilos-iconos"/>
 											<label value="Actividades" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoHoteles)">
-										<div id="itemHoteles" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemHoteles" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('recuperarHoteles')">
 											<span sclass="icon-office estilos-iconos"/>
 											<label value="Hoteles" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoDestinos)">
-										<div id="itemDestinos" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemDestinos" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('recuperarDestinos')">
 											<span sclass="icon-airplane estilos-iconos"/>
 											<label value="Destinos" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaquetes)">
-										<div id="itemCupones" onClick="@command('Cambio',cambioInterfaz=self.id)">
+										<div id="itemCupones" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosCupones')">
 											<span sclass="fa fa-percent estilos-iconos"/>
 											<label value="Cupones" sclass="lbls_mantenimientos"/>
 										</div>

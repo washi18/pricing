@@ -59,9 +59,7 @@ public class CPaqueteDAO extends CConexion
 				(Number)row.get("npreciouno"),(Number)row.get("npreciodos"),
 				(Number)row.get("npreciotres"),(Number)row.get("npreciocuatro"), 
 				(Number)row.get("npreciocinco"),(String)row.get("cdisponibilidad"), 
-				(boolean)row.get("bestado"),(String)row.get("cfoto1"),(String)row.get("cfoto2"),(String)row.get("cfoto3"),
-				(String)row.get("cfoto4"),(String)row.get("cfoto5"),(String)row.get("citinerarioidioma1"),(String)row.get("citinerarioidioma2")
-				,(String)row.get("citinerarioidioma3"),(String)row.get("citinerarioidioma4"),(String)row.get("citinerarioidioma5"));
+				(boolean)row.get("bestado"));
 	}
 	public void asignarListaPaquetes(List lista)
 	{

@@ -29,12 +29,12 @@ public class CConexion
     		//Pripiedades del pool. 
 //	        pds.setInitialPoolSize(5);
     		 PoolProperties p = new PoolProperties();
-             p.setUrl("jdbc:postgresql://45.56.120.138:5432/DBPricing_FPP");
-//             p.setUrl("jdbc:postgresql://localhost:5432/DBPricing_PAT");
+//             p.setUrl("jdbc:postgresql://45.56.120.138:5432/DBPricing_FPP");
+             p.setUrl("jdbc:postgresql://localhost:5432/DBPricing_FPP");
              p.setDriverClassName("org.postgresql.Driver");
              p.setUsername("postgres");
-             p.setPassword("LAnube2016@db");
-//             p.setPassword("12345");
+//             p.setPassword("LAnube2016@db");
+             p.setPassword("12345");
              p.setJmxEnabled(true);
              p.setTestWhileIdle(false);
              p.setTestOnBorrow(true);
@@ -43,7 +43,7 @@ public class CConexion
              p.setValidationInterval(30000);
              p.setTimeBetweenEvictionRunsMillis(30000);
              p.setMaxActive(100);
-             p.setInitialSize(10);
+             p.setInitialSize(20);
              p.setMaxWait(10000);
              p.setRemoveAbandonedTimeout(60);
              p.setMinEvictableIdleTimeMillis(30000);

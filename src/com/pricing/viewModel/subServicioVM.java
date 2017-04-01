@@ -110,20 +110,24 @@ public class subServicioVM
 		/*****************************/
 		Encryptar encrip= new Encryptar();
 		Execution exec = Executions.getCurrent();
+	}
+	@GlobalCommand
+	public void recuperarSubServicios()
+	{
 		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
 	    String user=(String)ses.getAttribute("usuario");
 	    String pas=(String)ses.getAttribute("clave");
 	    if(user!=null && pas!=null)
-	    	recuperarSubServicios();
-	}
-	public void recuperarSubServicios()
-	{
-		/**Obtencion de las etiquetas de la base de datos**/
-		servicioDao.asignarListaSubServicios(servicioDao.recuperarTodosSubServiciosBD());
-		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosconSubServiciosBD());
-		/**Asignacion de las etiquetas a la listaEtiquetas**/
-		setListaSubServicios(servicioDao.getListaSubServicios());
-		setListaServiciosNew(servicioDao.getListaServicios());
+	    {
+	    	/**Obtencion de las etiquetas de la base de datos**/
+			servicioDao.asignarListaSubServicios(servicioDao.recuperarTodosSubServiciosBD());
+			servicioDao.asignarListaServicios(servicioDao.recuperarServiciosconSubServiciosBD());
+			/**Asignacion de las etiquetas a la listaEtiquetas**/
+			setListaSubServicios(servicioDao.getListaSubServicios());
+			setListaServiciosNew(servicioDao.getListaServicios());
+	    }
+	    BindUtils.postNotifyChange(null, null, this, "listaSubServicios");
+	    BindUtils.postNotifyChange(null, null, this, "listaServiciosNew");
 	}
 	@Command
 	public void buscarSubServicios(@BindingParam("nombre")String nombre){

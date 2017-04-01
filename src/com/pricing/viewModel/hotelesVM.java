@@ -168,29 +168,36 @@ public class hotelesVM
 		Encryptar encrip= new Encryptar();
 //		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
 		Execution exec = Executions.getCurrent();
+	}
+	@GlobalCommand
+	public void recuperarHoteles()
+	{
 		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
 	    String user=(String)ses.getAttribute("usuario");
 	    String pas=(String)ses.getAttribute("clave");
 	    if(user!=null && pas!=null)
-	    	recuperarHoteles();
-	}
-	public void recuperarHoteles()
-	{
-		/*Asignacion de hoteles*/
-		hotelDao.asignarListaHoteles(hotelDao.recuperarHotelesBD());
-		setListaHoteles(hotelDao.getListaHoteles());
-		/*Asignacion de destinos*/
-		destinoDao.asignarListaDestinos(destinoDao.recuperarListaTodosDestinosBD());
-		setListaDestinos(destinoDao.getListaDestinos());
-		/*Asignacion de categorioashoteles*/
-		hotelDao.asignarListaCategoriashotel(hotelDao.recuperarCategoriasHotelBD());
-		setListaCategoriasHotel(hotelDao.getListaCategorias());
-		
-		destinoDao.asignarListaDestinosBusqueda(destinoDao.recuperarListaTodosDestinosBD());
-		setListaDestinosBusqueda(destinoDao.getListaDestinosBusqueda());
-		
-		hotelDao.asignarListaCategoriashotelBusqueda(hotelDao.recuperarCategoriasHotelBD());
-		setListaCategoriasBusqueda(hotelDao.getListaCategoriasBusqueda());
+	    {
+	    	/*Asignacion de hoteles*/
+			hotelDao.asignarListaHoteles(hotelDao.recuperarHotelesBD());
+			setListaHoteles(hotelDao.getListaHoteles());
+			/*Asignacion de destinos*/
+			destinoDao.asignarListaDestinos(destinoDao.recuperarListaTodosDestinosBD());
+			setListaDestinos(destinoDao.getListaDestinos());
+			/*Asignacion de categorioashoteles*/
+			hotelDao.asignarListaCategoriashotel(hotelDao.recuperarCategoriasHotelBD());
+			setListaCategoriasHotel(hotelDao.getListaCategorias());
+			
+			destinoDao.asignarListaDestinosBusqueda(destinoDao.recuperarListaTodosDestinosBD());
+			setListaDestinosBusqueda(destinoDao.getListaDestinosBusqueda());
+			
+			hotelDao.asignarListaCategoriashotelBusqueda(hotelDao.recuperarCategoriasHotelBD());
+			setListaCategoriasBusqueda(hotelDao.getListaCategoriasBusqueda());
+	    }
+	    BindUtils.postNotifyChange(null, null, this, "listaHoteles");
+	    BindUtils.postNotifyChange(null, null, this, "listaDestinos");
+	    BindUtils.postNotifyChange(null, null, this, "listaCategoriasHotel");
+	    BindUtils.postNotifyChange(null, null, this, "listaDestinosBusqueda");
+	    BindUtils.postNotifyChange(null, null, this, "listaCategoriasHotelBusqueda");
 	}
 	@Command
 	@NotifyChange("destinoBuscar")

@@ -28,6 +28,12 @@
 									<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/>
 									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/>
 								</caption>
+								<div>
+									<div>
+										<label value="@bind(vmPricing.etiqueta[243])" sclass="titulo-groupbox"/>
+									</div>
+									<datebox format="dd-MM-yyyy" readonly="true" constraint="no past" onChange="@command('detFechaArribo',fecha=self.value)"/>
+								</div>
 								<div zclass="div_comentarios">
 									<label value="@bind(vmPricing.etiqueta[19])"/>
 								</div>
@@ -71,35 +77,39 @@
 									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/>
 								</caption>
 								<div sclass="div_fechas">
+									<div>
+										<div>
+											<label value="@bind(vmPricing.etiqueta[243])" sclass="titulo-groupbox"/>
+										</div>
+										<datebox format="dd-MM-yyyy" readonly="true" constraint="no past" onChange="@command('detFechaArribo',fecha=self.value)"/>
+									</div>
 									<div zclass="div_comentarios">
 										<label value="@bind(vmPricing.etiqueta[46])"/>
 									</div>
 									<label value="@bind(vmPricing.etiqueta[1])" sclass="titulo-groupbox"/>
-									<hbox id="hbCal" onClick='calendarPop.open(self, "after_start");'>
+									<hbox id="hbCal" onClick="@command('cargarCalendarioPrincipal')">
 										<div zclass="div_content_icon_calendar_FP">
 											<a iconSclass="icon-calendar" sclass="titulo-groupbox"
-												onClick='calendarPop.open(hbCal, "after_start");'/>
+												onClick="@command('cargarCalendarioPrincipal')"/>
 										</div>
 										<textbox readonly="true" value="@bind(vmPricing.fecha)"
 												 sclass="txtFechaPrincipal"/>
 									</hbox>
 									<popup id="calendarPop" sclass="popup_calendar">
 										<space></space>
-										<include src="disponibilidad.zul" />
 									</popup>
 									<space></space>
 									<label value="@bind(vmPricing.etiqueta[3])" sclass="titulo-groupbox"/>
-									<hbox id="hbCalAlt" onClick='calendarAltPop.open(self, "after_start");'>
+									<hbox id="hbCalAlt" onClick="@command('cargarCalendarioAlterno')">
 										<div zclass="div_content_icon_calendar_FP">
 											<a iconSclass="icon-calendar" sclass="titulo-groupbox"
-												onClick='calendarAltPop.open(hbCalAlt, "after_start");'/>
+												onClick="@command('cargarCalendarioAlterno')"/>
 										</div>
 										<textbox readonly="true" value="@bind(vmPricing.fechaAlterna)"
 												 sclass="txtFechaPrincipal"/>
 									</hbox>
 									<popup id="calendarAltPop" sclass="popup_calendar">
 										<space></space>
-										<include src="calendarFechaAlterna.zul" />
 									</popup>
 								</div>
 								<space></space>
@@ -333,7 +343,7 @@
 					</div>
 				</groupbox>
 				<space></space>
-				<groupbox visible="@bind(vmPricing.btnHoteles)">
+				<groupbox visible="@bind(vmPricing.oReservar.oPaquete.conDestino)">
 						<caption>
 							<a iconSclass="icon-office" sclass="titulo-groupbox"/>
 							<label value="@bind(vmPricing.etiqueta[47])" sclass="titulo-groupbox"/>
@@ -350,7 +360,7 @@
 								<label value="@bind(vmPricing.etiqueta[50])"/>
 							</div>
 						</div>
-						<div visible="@bind(vmPricing.mostrarHoteles)" sclass="div_hoteles">
+						<div visible="@bind(vmPricing.oReservar.oPaquete.conDestino)" sclass="div_hoteles">
 							<listbox width="100%" onSelect="@command('clickOpcionCategoria',CConHoteles=self.selectedItem.value)" sclass="hotel_list" checkmark="true" model="@load(vmPricing.listaCategoriaConHoteles)">
 								<listhead >
 									<listheader  align="center" width="6%" style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">
@@ -528,7 +538,7 @@
 						</div>
 					</window>
 				<space></space>
-				<groupbox visible="@bind(vmPricing.mostrarServicios)">
+				<groupbox visible="@bind(vmPricing.oReservar.oPaquete.conServicio)">
 					<caption>
 						<a iconSclass="icon-list" sclass="titulo-groupbox"/>
 						<label value="@bind(vmPricing.etiqueta[6])" sclass="titulo-groupbox"/>
@@ -700,6 +710,21 @@
 							</div>
 						</div>
 						<separator bar="true"/>
+						<div sclass="div_info_item">
+							<div sclass="div_info_item_izq">
+								<a iconSclass="icon-calendar" sclass="style_icon_info"/>
+							</div>
+							<div sclass="div_info_item_der">
+								<div><label value="@bind(vmPricing.etiqueta[243])" sclass="div_info_item_label"/></div>
+								<separator bar="true"/>
+								<div>
+									<vbox>										
+										<label id="lblFechaArribo" style="font-size:18px;font-weight:bold;"/>
+									</vbox>
+								</div>
+							</div>
+						</div>
+						<separator bar="true"/>
 						<div sclass="div_info_item" visible="@bind(vmPricing.mostrarDispIncaTrail)">
 							<div sclass="div_info_item_izq">
 								<a iconSclass="icon-calendar" sclass="style_icon_info"/>
@@ -784,7 +809,7 @@
 							</div>
 	<!-- 						======COSTO SERVICIOS====== -->
 						 	<separator bar="true"/>
-						 	<div visible="@bind(vmPricing.mostrarServicios)" width="100%" sclass="div_info_costo_servicios" align="left">
+						 	<div visible="@bind(vmPricing.oReservar.oPaquete.conServicio)" width="100%" sclass="div_info_costo_servicios" align="left">
 								<div width="100%">
 									<space></space>
 									<a iconSclass="icon-plus" sclass="style_icon_info"/>
@@ -874,7 +899,7 @@
 							</div>
 	<!-- 						======COSTO HOTEL======== -->
 							<separator bar="true"/>
-							<div visible="@bind(vmPricing.mostrarReservaHotel)" width="100%" sclass="div_info_costo_servicios" align="left">
+							<div visible="@bind(vmPricing.oReservar.oPaquete.conDestino)" width="100%" sclass="div_info_costo_servicios" align="left">
 								<div width="100%">
 									<space></space>
 									<a iconSclass="icon-office" sclass="style_icon_info"/>

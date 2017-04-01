@@ -92,19 +92,21 @@ public class servicioVM {
 		/*****************************/
 		Encryptar encrip= new Encryptar();
 //		System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
-		Execution exec = Executions.getCurrent();
+	}
+	@GlobalCommand
+	public void recuperarServicios()
+	{
 		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
 	    String user=(String)ses.getAttribute("usuario");
 	    String pas=(String)ses.getAttribute("clave");
 	    if(user!=null && pas!=null)
-	    	recuperarServicios();
-	}
-	public void recuperarServicios()
-	{
-		/**Obtencion de las etiquetas de la base de datos**/
-		servicioDao.asignarListaServicios(servicioDao.recuperarTodosServiciosBD());
-		/**Asignacion de las etiquetas a la listaEtiquetas**/
-		setListaServicios(servicioDao.getListaServicios());
+	    {
+	    	/**Obtencion de las etiquetas de la base de datos**/
+			servicioDao.asignarListaServicios(servicioDao.recuperarTodosServiciosBD());
+			/**Asignacion de las etiquetas a la listaEtiquetas**/
+			setListaServicios(servicioDao.getListaServicios());
+	    }
+	    BindUtils.postNotifyChange(null, null, this,"listaServicios");
 	}
 	@Command
 	public void buscarServicios(@BindingParam("nombre")String nombre){

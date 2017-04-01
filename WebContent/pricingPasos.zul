@@ -205,6 +205,12 @@
 									<label sclass="style_Step" value="1"
 										style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)" />
 								</caption>
+								<div>
+									<div>
+										<label value="@bind(vmPricing.etiqueta[243])" sclass="titulo-groupbox"/>
+									</div>
+									<datebox format="dd-MM-yyyy" readonly="true" constraint="no past" onChange="@command('detFechaArribo',fecha=self.value)"/>
+								</div>
 								<div zclass="div_comentarios">
 									<label
 										value="@bind(vmPricing.etiqueta[19])" />
@@ -280,6 +286,12 @@
 										style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)" />
 								</caption>
 								<div sclass="div_fechas">
+									<div>
+										<div>
+											<label value="@bind(vmPricing.etiqueta[243])" sclass="titulo-groupbox"/>
+										</div>
+										<datebox format="dd-MM-yyyy" readonly="true" constraint="no past" onChange="@command('detFechaArribo',fecha=self.value)"/>
+									</div>
 									<div zclass="div_comentarios">
 										<label
 											value="@bind(vmPricing.etiqueta[46])" />
@@ -405,7 +417,7 @@
 						<label sclass="style_Step" value="2"
 							style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)" />
 					</caption>
-					<groupbox visible="@bind(vmPricing.btnHoteles)">
+					<groupbox visible="@bind(vmPricing.oReservar.oPaquete.conDestino)">
 						<caption>
 							<a iconSclass="icon-office"
 								sclass="titulo-groupbox" />
@@ -734,7 +746,7 @@
 					</window>
 					<space></space>
 					<groupbox
-						visible="@bind(vmPricing.mostrarServicios)">
+						visible="@bind(vmPricing.oReservar.oPaquete.conServicio)">
 						<caption>
 							<a iconSclass="icon-list"
 								sclass="titulo-groupbox" />
@@ -1357,6 +1369,21 @@
 								</div>
 							</div>
 						</div>
+						<separator bar="true"/>
+						<div sclass="div_info_item">
+							<div sclass="div_info_item_izq">
+								<a iconSclass="icon-calendar" sclass="style_icon_info"/>
+							</div>
+							<div sclass="div_info_item_der">
+								<div><label value="@bind(vmPricing.etiqueta[243])" sclass="div_info_item_label"/></div>
+								<separator bar="true"/>
+								<div>
+									<vbox>										
+										<label id="lblFechaArribo" style="font-size:18px;font-weight:bold;"/>
+									</vbox>
+								</div>
+							</div>
+						</div>
 						<separator bar="true" />
 						<div sclass="div_info_item"
 							visible="@bind(vmPricing.mostrarDispIncaTrail)">
@@ -1493,7 +1520,7 @@
 							<!-- 						======COSTO SERVICIOS====== -->
 							<separator bar="true" />
 							<div
-								visible="@bind(vmPricing.mostrarServicios)" width="100%"
+								visible="@bind(vmPricing.oReservar.oPaquete.conServicio)" width="100%"
 								sclass="div_info_costo_servicios" align="left">
 								<div width="100%">
 									<space></space>
@@ -1643,7 +1670,7 @@
 							<!-- 						======COSTO HOTEL======== -->
 							<separator bar="true" />
 							<div
-								visible="@bind(vmPricing.mostrarReservaHotel)" width="100%"
+								visible="@bind(vmPricing.oReservar.oPaquete.conDestino)" width="100%"
 								sclass="div_info_costo_servicios" align="left">
 								<div width="100%">
 									<space></space>

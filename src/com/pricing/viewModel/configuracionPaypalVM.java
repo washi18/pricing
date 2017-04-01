@@ -3,6 +3,7 @@ package com.pricing.viewModel;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -32,11 +33,15 @@ public class configuracionPaypalVM {
 	{
 		configuracionPaypal=new CConfiguracionPaypal();
 		/****/
+	}
+	@GlobalCommand
+	public void cargarConfiguracionPaypal()
+	{
 		CConfiguracionPaypalDAO configPaypalDao=new CConfiguracionPaypalDAO();
 		configPaypalDao.asignarConfigPaypal(configPaypalDao.recuperarConfigPaypalBD());
 		setConfiguracionPaypal(configPaypalDao.getDatosConfigPaypal());
+		BindUtils.postNotifyChange(null, null, this,"configuracionPaypal");
 	}
-	
 	@Command
 	@NotifyChange({"configuracionPaypal"})
 	public void selectConfigPaypal(@BindingParam("configPaypal")String configPaypal){

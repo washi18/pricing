@@ -181,6 +181,10 @@ public class paquetesVM {
 		// System.out.println("Aqui esta la contraseña
 		// desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
 		Execution exec = Executions.getCurrent();
+	}
+	@GlobalCommand
+	public void cargarDatosPaquetes()
+	{
 		HttpSession ses = (HttpSession) Sessions.getCurrent().getNativeSession();
 		String user = (String) ses.getAttribute("usuario");
 		String pas = (String) ses.getAttribute("clave");
@@ -189,7 +193,6 @@ public class paquetesVM {
 			recuperarEstadoYourself();
 		}
 	}
-	
 	@GlobalCommand
 	public void recuperarEstadoYourself(){
 		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("yourself"));
@@ -220,8 +223,12 @@ public class paquetesVM {
 		CActividadDAO actividadDao = new CActividadDAO();
 		actividadDao.asignarListaActividades(actividadDao.recuperarActividadesBD());
 		setListaActividades(actividadDao.getListaActividades());
+		
+		BindUtils.postNotifyChange(null, null, this,"listaPaquetes");
+		BindUtils.postNotifyChange(null, null, this,"listaServicios");
+		BindUtils.postNotifyChange(null, null, this,"listaDestinos");
+		BindUtils.postNotifyChange(null, null, this,"listaActividades");
 	}
-
 	@Command
 	public void buscarPaquetes(@BindingParam("nombre") String nombre) {
 		CPaqueteDAO paqueteDao = new CPaqueteDAO();

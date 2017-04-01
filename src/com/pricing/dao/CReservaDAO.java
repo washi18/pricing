@@ -46,12 +46,12 @@ public class CReservaDAO extends CConexion
 	{
 		Object[] values={(Date)reserva.getdFechaInicio(),(Date)reserva.getdFechaFin(),reserva.getcContacto(),
 				reserva.getcEmail(),reserva.getcTelefono(),reserva.getnPrecioPaquetePersona(),
-				reserva.getnNroPersonas(),reserva.getcInformacionAdicional()};
+				reserva.getnNroPersonas(),reserva.getcInformacionAdicional(),
+				(Date)reserva.getdFechaArribo()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistroReserva", values);
 	}
 	public String[] recuperarResultados(List lista)
 	{
-		System.out.println("tamaño de la lista--->"+lista.size());
 		Map row=(Map)lista.get(0);
 		String[] r={row.get("resultado").toString(),row.get("creservacod").toString()};
 		return r;
@@ -74,7 +74,8 @@ public class CReservaDAO extends CConexion
 					(int)row.get("nnropersonas"),(String)row.get("cinformacionadicional"),
 					(String)row.get("cestado"),
 					(String)row.get("cmetodopago"),
-					(String)row.get("ccodtransaccion")));
+					(String)row.get("ccodtransaccion"),
+					(Date)row.get("dfechaarribo")));
 		}
 	}
 	public List modificarMetodoPago(String codReserva,String estado,String metodoPago,String codTransac)

@@ -592,6 +592,46 @@ public class CPaquete
 			String cDescripcionIdioma5, int nDias, int nNoches,
 			Number nPrecioUno, Number nPrecioDos, Number nPrecioTres,
 			Number nPrecioCuatro, Number nPrecioCinco, String cDisponibilidad,
+			boolean bEstado)
+	{
+		this.cPaqueteCod=cPaqueteCod;
+		this.cTituloIdioma1=cTituloIdioma1;
+		this.cTituloIdioma2=cTituloIdioma2;
+		this.cTituloIdioma3=cTituloIdioma3;
+		this.cTituloIdioma4=cTituloIdioma4;
+		this.cTituloIdioma5=cTituloIdioma5;
+		this.cDescripcionIdioma1=cDescripcionIdioma1;
+		this.cDescripcionIdioma2=cDescripcionIdioma2;
+		this.cDescripcionIdioma3=cDescripcionIdioma3;
+		this.cDescripcionIdioma4=cDescripcionIdioma4;
+		this.cDescripcionIdioma5=cDescripcionIdioma5;
+		this.nDias=nDias;
+		this.nNoches=nNoches;
+		this.nPrecioUno=nPrecioUno;
+		this.nPrecioDos=nPrecioDos;
+		this.nPrecioTres=nPrecioTres;
+		this.nPrecioCuatro=nPrecioCuatro;
+		this.nPrecioCinco=nPrecioCinco;
+		this.cDisponibilidad=cDisponibilidad;
+		this.bEstado=bEstado;
+		//===================
+		listaDestinos=new ArrayList<CDestino>();
+		listaServicios=new ArrayList<CServicio>();
+		listaSubServicios=new ArrayList<CSubServicio>();
+		listaActividades=new ArrayList<CActividad>();
+		listaAniosCalendarioPropio=new ArrayList<CCalendarioPropio>();
+		listaDiasCalendarioPropio=new ArrayList<CDiaPropio>();
+		listaImagenes=new ArrayList<CGaleriaPaquete>();
+		determinarSiHayDescuento();
+	}
+	public CPaquete(String cPaqueteCod, String cTituloIdioma1,
+			String cTituloIdioma2, String cTituloIdioma3,
+			String cTituloIdioma4, String cTituloIdioma5,
+			String cDescripcionIdioma1, String cDescripcionIdioma2,
+			String cDescripcionIdioma3, String cDescripcionIdioma4,
+			String cDescripcionIdioma5, int nDias, int nNoches,
+			Number nPrecioUno, Number nPrecioDos, Number nPrecioTres,
+			Number nPrecioCuatro, Number nPrecioCinco, String cDisponibilidad,
 			boolean bEstado,String cFoto1,
 			String cFoto2,String cFoto3,String cFoto4,String cFoto5,String cItinerarioIdioma1,String cItinerarioIdioma2,
 			String cItinerarioIdioma3,String cItinerarioIdioma4,String cItinerarioIdioma5) {
@@ -654,7 +694,7 @@ public class CPaquete
 		listaActividades=new ArrayList<CActividad>();
 		listaAniosCalendarioPropio=new ArrayList<CCalendarioPropio>();
 		listaDiasCalendarioPropio=new ArrayList<CDiaPropio>();
-		this.listaImagenes=new ArrayList<CGaleriaPaquete>();
+		listaImagenes=new ArrayList<CGaleriaPaquete>();
 		//RECUPERAR LISTA DESTINOS
 		CDestinoDAO destinoDao=new CDestinoDAO();
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
@@ -698,6 +738,29 @@ public class CPaquete
 		determinarTipoDeManejoPaquete(cDisponibilidad);
 		determinarSiHayDescuento();
 		darColor_estado_paquete();
+	}
+	public void cargarDatosRelacionadosAlPaquete()
+	{
+		//RECUPERAR LISTA DESTINOS
+				CDestinoDAO destinoDao=new CDestinoDAO();
+				destinoDao.asignarListaDestinos(destinoDao.recuperarListaDestinosBD());
+				setListaDestinos(destinoDao.getListaDestinos());
+				//RECUPERAR LISTA SERVICIOS
+				CServicioDAO servicioDao=new CServicioDAO();
+				servicioDao.asignarListaServicios(servicioDao.recuperarServiciosBD());
+				setListaServicios(servicioDao.getListaServicios());
+				//RECUPERAR LISTA ACTIVIDADES
+				CActividadDAO actividadDao=new CActividadDAO();
+				actividadDao.asignarListaActividades(actividadDao.recuperarActividadesBD());
+				setListaActividades(actividadDao.getListaActividades());
+				//RECUPERAR LA LISTA DE SUBSERVICIOS
+				recuperarListaSubServicios();
+				//recuperacion de imagenes
+				CGaleriaPaqueteDAO galeriaPaqueteDao=new CGaleriaPaqueteDAO();
+				galeriaPaqueteDao.asignarListaImagenesPaquete(galeriaPaqueteDao.recuperarImagenesPaqueteBD(cPaqueteCod));
+				setListaImagenes(galeriaPaqueteDao.getListaImagenesPaquete());
+				System.out.println("cual es el tamanio ....es->"+this.listaImagenes.size());
+				inicializarEstadosDeDestinosYServicios();
 	}
 	public void darColor_estado_paquete()
 	{

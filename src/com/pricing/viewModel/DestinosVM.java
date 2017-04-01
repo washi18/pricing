@@ -84,23 +84,26 @@ public class DestinosVM{
 	{
 			Encryptar encrip= new Encryptar();
 //			System.out.println("Aqui esta la contraseña desencriptada-->"+encrip.decrypt("cyS249O3OHZTsG0ww1rYrw=="));
-			Execution exec = Executions.getCurrent();
-			HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
-		    String user=(String)ses.getAttribute("usuario");
-		    String pas=(String)ses.getAttribute("clave");
-		    
+			
 			destinoDao=new CDestinoDAO();
 			oDestinoNuevo=new CDestino();
 			oDestinoUpdate=new CDestino();
-			if(user!=null && pas!=null)
-				recuperarDestinos();
 	}
+	@GlobalCommand
 	public void recuperarDestinos()
 	{
-		destinoDao.asignarListaDestinos(destinoDao.recuperarListaTodosDestinosBD());
-		setListaDestinos(destinoDao.getListaDestinos());
-		/**Iniciar codigos postales**/
-		setListaCodigosPostales((new CCodigoPostal()).listaCodigosPostales());
+		HttpSession ses = (HttpSession)Sessions.getCurrent().getNativeSession();
+		String user=(String)ses.getAttribute("usuario");
+	    String pas=(String)ses.getAttribute("clave");
+		if(user!=null && pas!=null)
+		{
+			destinoDao.asignarListaDestinos(destinoDao.recuperarListaTodosDestinosBD());
+			setListaDestinos(destinoDao.getListaDestinos());
+			/**Iniciar codigos postales**/
+			setListaCodigosPostales((new CCodigoPostal()).listaCodigosPostales());
+		}
+		BindUtils.postNotifyChange(null, null, this,"listaDestinos");
+		BindUtils.postNotifyChange(null, null, this,"listaCodigosPostales");
 	}
 	
 	@Command

@@ -10,6 +10,7 @@ import java.util.List;
 import org.zkoss.bind.BindUtils;
 import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
+import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.zk.ui.Component;
@@ -44,9 +45,14 @@ public class cuponesVM {
 		oCuponUpdate=new CCupon();
 		/**Inicializamos la lista de cupones**/
 		listaCupones=new ArrayList<CCupon>();
+	}
+	@GlobalCommand
+	public void cargarDatosCupones()
+	{
 		CCuponDAO cuponDao=new CCuponDAO();
 		cuponDao.asignarListaCupones(cuponDao.recuperarCuponesBD());
 		setListaCupones(cuponDao.getListaCupones());
+		BindUtils.postNotifyChange(null, null, this,"listaCupones");
 	}
 	@Command
 	@NotifyChange({"oCupon","listaCupones"})

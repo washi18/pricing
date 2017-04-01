@@ -75,6 +75,7 @@ public class disponibilidadVM
 	private CEtiquetaDAO etiquetaDao;
 	private String[] etiqueta;
 	private String language;
+	private boolean primeraVez;
 	/***************************/
 	Session ses;
 	HttpSession httpses;
@@ -139,9 +140,8 @@ public class disponibilidadVM
 		httpses.setAttribute("anioAlt","");
 		cdisponibilidad=Integer.valueOf(httpses.getAttribute("codDisponibilidad").toString());
 		System.out.println("valor de dispo final->"+cdisponibilidad);
-		//Inicializamos los dias y el numero de disponibilidades
 		iniDiasYNumDisp();
-		//===========================
+		//========================
 		iniciarLosDiasAnio();
 		//========================
 		iniciarFechasSeleccionadas();
@@ -695,118 +695,6 @@ public class disponibilidadVM
 		refrescarDia(dias7,dia);
 		adicionarFechaSeleccionada(dia,2);
 	}
-
-//	@Command
-//	public void onDia(@BindingParam("dias")CDias7 dias7,@BindingParam("dia")CDia dia,@BindingParam("valueMes")Object mes)
-//	{
-//		if(!selectMesValido(mes.toString(),dia,cbAnio.getValue()))
-//			return;
-//		int n=(int)ses.getAttribute("cantidadFechas");
-//		//n<5 -> 1 fecha principal y 4 alternativas
-//		if(Integer.parseInt(dia.getCantDisp())!=0 && n<5)
-//		{
-//			int p=(int)ses.getAttribute("fechaPrioridad");
-//			String imagen="";
-//			String Descripcion="";
-//			if(p==1)
-//			{
-////				imagen="/img/dispon/blue.jpg";
-//				imagen="background:#6E96E2;border-radius:5px;border:1px solid black;";
-//				Descripcion=etiqueta[44];
-//			}
-////			else
-////			{
-////				Descripcion=etiqueta[45];
-//////				imagen="/img/dispon/green.png";
-////				imagen="background:#C7D542;border-radius:5px;border:1px solid black;";
-////			}
-//					if(!dia.isElegido())
-//					{
-////						if(p==1)
-////							ses.setAttribute("fechaPrioridad",2);
-//						ses.setAttribute("fechaPrioridad",1);
-//						dia.setElegido(true);
-//						dia.setDescDiaElegido(Descripcion);
-//						dia.setImgPrioridad(imagen);
-//						dia.setPrioridad(p);
-//						
-//						refrescarDia(dias7,dia);
-//						//Se adiciona la fecha
-//						adicionarFechaSeleccionada(dia,p);
-////						n++;
-//					}
-//					else
-//					{
-//						if(dia.getPrioridad()==1)
-//						{
-//							ses.setAttribute("fechaPrioridad",1);
-//							dia.setElegido(false);
-//							dia.setDescDiaElegido("");
-//							dia.setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
-//							dia.setPrioridad(0);
-//							
-//							refrescarDia(dias7,dia);
-//							//Se quita la fecha principal
-//							eliminarFechaSeleccionada(dia,1);
-//							n--;
-//						}
-////						else
-////						{
-////							dia.setElegido(false);
-////							dia.setDescDiaElegido("");
-////							dia.setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
-////							dia.setPrioridad(0);
-////							
-////							refrescarDia(dias7,dia);
-////							//Se quita la fecha alterna
-////							eliminarFechaSeleccionada(dia,2);
-////							n--;
-////						}
-//					}
-//			ses.setAttribute("cantidadFechas",n);
-//		}
-//		else
-//		{
-//			if(n>=5 && Integer.parseInt(dia.getCantDisp())!=0)
-//			{
-//				for(int i=0;i<7;i++)
-//				{
-//					if(dia.isElegido())
-//					{
-//						if(dia.getPrioridad()==1)
-//						{
-//							ses.setAttribute("fechaPrioridad",1);
-//							dia.setElegido(false);
-//							dia.setDescDiaElegido("");
-//							dia.setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
-//							dia.setPrioridad(0);
-//							
-//							refrescarDia(dias7,dia);
-//							//Se quita la fecha principal
-//							eliminarFechaSeleccionada(dia,1);
-//							n--;
-//						}
-//						else
-//						{
-//							dia.setElegido(false);
-//							dia.setDescDiaElegido("");
-//							dia.setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
-//							dia.setPrioridad(0);
-//							
-//							refrescarDia(dias7,dia);
-//							//Se quita la fecha alterna
-//							eliminarFechaSeleccionada(dia,2);
-//							n--;
-//						}
-//					}
-//				}
-//				ses.setAttribute("cantidadFechas",n);
-//			}
-//		}
-////		for(int i=0;i<listaFechasSeleccionadas.size();i++)
-////			System.out.println("Fechas:"+listaFechasSeleccionadas.get(i)[0]+","+listaFechasSeleccionadas.get(i)[1]+","+listaFechasSeleccionadas.get(i)[2]);
-////		System.out.println("soy la fila ->"+fila);
-//	}
 	public void refrescarDia(CDias7 dias7,CDia dia)
 	{
 		if(dia.getNro()==1)

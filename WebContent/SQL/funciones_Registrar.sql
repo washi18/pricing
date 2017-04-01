@@ -322,7 +322,8 @@ CREATE OR REPLACE function Pricing_sp_RegistroReserva
 	cTelefono varchar(50),
 	cPrecioPaquetePersona decimal(10,2),
 	nNroPersonas int,
-	cInformacionAdicional varchar(300)
+	cInformacionAdicional varchar(300),
+	dFechaArribo Date
 )
 RETURNS TABLE (resultado varchar(20),
 		mensaje varchar(200),
@@ -332,7 +333,7 @@ begin
 	--generar el codigo de la reserva
 	cReservaCod = (select concat('R',right(concat('000000000',count(r.cReservaCod)+1),9)) from treserva r where left(r.cReservaCod,1)='R');
 	--registrar los datos de la reserva
-	insert into TReserva values (cReservaCod,now(),$1,$2,$3,$4,$5,$6,$7,$8,'PENDIENTE DE PAGO','','');
+	insert into TReserva values (cReservaCod,now(),$1,$2,$3,$4,$5,$6,$7,$8,'PENDIENTE DE PAGO','','',$9);
 	resultado='correcto';
 	mensaje='Datos Registrados Correctamente';
 	return Query select resultado,mensaje,cReservaCod;

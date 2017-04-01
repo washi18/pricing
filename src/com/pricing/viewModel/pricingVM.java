@@ -30,7 +30,6 @@ import org.zkoss.bind.annotation.ContextType;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zhtml.Div;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
@@ -46,9 +45,11 @@ import org.zkoss.zul.A;
 import org.zkoss.zul.Button;
 import org.zkoss.zul.Checkbox;
 import org.zkoss.zul.Combobox;
+import org.zkoss.zul.Div;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Hbox;
 import org.zkoss.zul.Html;
+import org.zkoss.zul.Include;
 import org.zkoss.zul.Label;
 import org.zkoss.zul.Listcell;
 import org.zkoss.zul.Messagebox;
@@ -123,12 +124,14 @@ public class pricingVM
 	@Wire
 	Button btn_reservar;
 	@Wire
-	Label lblFechaInicioPaso3,lblFechaFinPaso3;
+	Label lblFechaInicioPaso3,lblFechaFinPaso3,lblFechaArribo;
 	HttpSession seshttp;
 	@Wire
 	Html htmlPagoMasterdCard;
 	@Wire
 	Combobox nroPersonas,nroPersonas2;
+	@Wire
+	Hbox hbCalAlt,hbCal;
 	//====================
 	private String urlPaypal;
 	//====================
@@ -200,6 +203,9 @@ public class pricingVM
 	private boolean visiblecontentBotonesPasos;
 	private boolean visibleBtnAtras;
 	private boolean visibleBtnSiguiente;
+	private boolean primeraVez;
+	private boolean primeraVezCalendarALt;
+	private boolean primeraVezCalendarPri;
 	//=======================
 	private CReservaPaqueteCategoriaHotel oReservaPaqCatHotel;
 	private CReservaPaqueteCategoriaHotelDAO reservaPaqCatHotelDao;
@@ -340,12 +346,12 @@ public class pricingVM
 			{
 				oReservar.getoCupon().inicioAplicarCupon();
 			}
-			//Luego sse procede a inicializar los hoteles si es que hubiese
-			iniciarHoteles();
-			//Luego se procede a iniciar los servicios del paquete
-			iniciarServicios();
-			iniciarActividades();
-			//==================
+//			//Luego sse procede a inicializar los hoteles si es que hubiese
+//			iniciarHoteles();
+//			//Luego se procede a iniciar los servicios del paquete
+//			iniciarServicios();
+//			iniciarActividades();
+//			//==================
 			iniciarEdades();
 			iniciarReserva();
 			if(!oInterfaz.isbLlenarDatosUnPax())
@@ -357,6 +363,9 @@ public class pricingVM
 			this.paso4=false;
 			this.mostrarPaypal=false;
 			this.fecha="";
+			this.primeraVez=true;
+			this.primeraVezCalendarALt=true;
+			this.primeraVezCalendarPri=true;
 			//Inicializamos paypal express checkout
 			urlPaypal="";
 			textoPorcentaje="";
@@ -365,6 +374,7 @@ public class pricingVM
 			reservar=false;
 			seshttp=(HttpSession)Sessions.getCurrent().getNativeSession();
 		    seshttp.setAttribute("codDisponibilidad",this.codDisponibilidad);
+		    System.out.println("Codigo Disponibilidad: "+codDisponibilidad);
 		}
 	}
 	public String obtenerCodDisponibilidad(CPaquete paquete)
@@ -420,6 +430,35 @@ public class pricingVM
 			}
 		}
 	}
+	@Command
+	public void cargarCalendarioAlterno()
+	{
+		if(primeraVezCalendarALt)
+		{
+			primeraVezCalendarALt=false;
+			calendarAltPop.open(hbCalAlt, "after_start");
+			Include dispon =new Include();
+			dispon.setSrc("calendarFechaAlterna.zul");
+			dispon.setParent(calendarAltPop);
+		}else
+		{
+			calendarAltPop.open(hbCalAlt, "after_start");
+		}
+	}
+	@Command
+	public void cargarCalendarioPrincipal()
+	{
+		if(primeraVezCalendarPri)
+		{
+			primeraVezCalendarPri=false;
+			calendarPop.open(hbCal, "after_start");
+			Include dispon =new Include();
+			dispon.setSrc("disponibilidad.zul");
+			dispon.setParent(calendarPop);
+		}else{
+			calendarPop.open(hbCal, "after_start");
+		}
+	}
 	public void iniciarReserva()
 	{
 		oReservar.setnNroPersonas(nroPasajeros);
@@ -465,6 +504,7 @@ public class pricingVM
 	{
 		if(idioma.toString().equals("1"))
 		{
+			if(language.equals("es-ES"))return;
 			language="es-ES";
 			etiqueta=etiquetaDao.getIdioma().getIdioma1();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma1());
@@ -517,6 +557,7 @@ public class pricingVM
 		}
 		else if(idioma.toString().equals("3"))
 		{
+			if(language.equals("pt-BR"))return;
 			language="pt-BR";
 			etiqueta=etiquetaDao.getIdioma().getIdioma3();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma3());
@@ -569,6 +610,7 @@ public class pricingVM
 		}
 		else
 		{
+			if(language.equals("en-US"))return;
 			language="en-US";
 			etiqueta=etiquetaDao.getIdioma().getIdioma2();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma2());
@@ -1169,6 +1211,24 @@ public class pricingVM
 //		}
 	}
 	@Command
+	public void detFechaArribo(@BindingParam("fecha")Date fecha)
+	{
+		SimpleDateFormat sdf=new SimpleDateFormat("dd-MM-yyyy");
+		String Fecha=sdf.format(fecha);
+		System.out.println("fecha es:"+Fecha);
+		String dia=Fecha.substring(0,2);
+		String mes=Fecha.substring(3,5);
+		String anio=Fecha.substring(6,10);
+		/*************Fecha Inicio*******************/
+		Calendar calArribo=Calendar.getInstance();
+		calArribo.set(Integer.parseInt(anio),Integer.parseInt(mes)-1,Integer.parseInt(dia));
+		/*************Fecha Arribo***********************/
+		oReservar.setdFechaArribo(calArribo.getTime());
+		//===============================
+		lblFechaArribo.setValue(etiqueta[163]+" "+dia+" "+etiqueta[158]+" "+obtenerMesText(Integer.parseInt(mes)-1)+", "+ anio);
+		//==================
+	}
+	@Command
 	@NotifyChange({"visibleDateReserva"})
 	public void detFechaInicioSinCaminoInka(@BindingParam("fecha")Date fecha)
 	{
@@ -1479,6 +1539,17 @@ public class pricingVM
 		"lblTotalPaquete","paso2"})
 	public void changeNroPersonas(@BindingParam("nroPersonas")Object nroPer)
 	{
+		if(primeraVez)
+		{
+			primeraVez=false;
+			oReservar.getoPaquete().cargarDatosRelacionadosAlPaquete();
+			//Luego sse procede a inicializar los hoteles si es que hubiese
+			iniciarHoteles();
+			//Luego se procede a iniciar los servicios del paquete
+			iniciarServicios();
+			iniciarActividades();
+			BindUtils.postNotifyChange(null, null, oReservar, "oPaquete");
+		}
 		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("pricing"));
 		setConfAltoNivel(confAltoNivelDAO.getoConfAltoNivel());
 		if(confAltoNivel.isbEstado())
@@ -1631,7 +1702,12 @@ public class pricingVM
 		boolean valido=true;
 		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA_CLASICO"))
 		{
-			if(lblFechaInicioPaso3.getValue().equals(""))
+			if(lblFechaArribo.getValue().equals(""))
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+			else if(lblFechaInicioPaso3.getValue().equals(""))
 			{
 				valido=false;
 				Clients.showNotification(etiqueta[165],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
@@ -1644,7 +1720,12 @@ public class pricingVM
 		}
 		else
 		{
-			if(lblFechaInicioPaso3.getValue().equals(""))
+			if(lblFechaArribo.getValue().equals(""))
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+			else if(lblFechaInicioPaso3.getValue().equals(""))
 			{
 				valido=false;
 				Clients.showNotification(etiqueta[183],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
@@ -1668,7 +1749,12 @@ public class pricingVM
 		boolean valido=true;
 		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA_CLASICO"))
 		{
-			if(lblFechaInicioPaso3.getValue().equals(""))
+			if(lblFechaArribo.getValue().equals(""))
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+			else if(lblFechaInicioPaso3.getValue().equals(""))
 			{
 				valido=false;
 				Clients.showNotification(etiqueta[165],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
@@ -1685,7 +1771,12 @@ public class pricingVM
 		}
 		else if(oReservar.getoPaquete().getcDisponibilidad().equals("MANEJO_NORMAL"))
 		{
-			if(lblFechaInicioPaso3.getValue().equals(""))
+			if(lblFechaArribo.getValue().equals(""))
+			{
+				valido=false;
+				Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+			}
+			else if(lblFechaInicioPaso3.getValue().equals(""))
 			{
 				valido=false;
 				Clients.showNotification(etiqueta[183],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
@@ -3294,6 +3385,4 @@ public class pricingVM
 		public void setVisibleBtnSiguiente(boolean visibleBtnSiguiente) {
 			this.visibleBtnSiguiente = visibleBtnSiguiente;
 		}
-		
-		
 }
