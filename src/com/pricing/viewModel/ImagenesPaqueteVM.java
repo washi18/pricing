@@ -213,6 +213,8 @@ public class ImagenesPaqueteVM {
 	@NotifyChange()
 	public void eliminarImagenGaleriaPaquete(@BindingParam("galeria4")CGaleriaPaquete4 galeria4,@BindingParam("galeria")CGaleriaPaquete galeria,@BindingParam("comp")Component comp)
 	{
+		if(!validoParaCambiarImagen(galeria.isBestado()))
+			return;
 		galeriaPaqueteDAO=new CGaleriaPaqueteDAO();
 		Messagebox.show("Esta seguro de eliminar esta imagen?", "Question", Messagebox.OK|Messagebox.CANCEL,
 				Messagebox.QUESTION, new EventListener<Event>(){

@@ -28,7 +28,7 @@
 									<label value="@bind(vmPricing.etiqueta[22])" sclass="titulo-pasos" style="@bind(vmPricing.oInterfaz.style_lbl_TextoFondoPasos)"/>
 									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/>
 								</caption>
-								<div>
+								<div visible="@bind(vmPricing.oReservar.oPaquete.conFechaArribo)">
 									<div>
 										<label value="@bind(vmPricing.etiqueta[243])" sclass="titulo-groupbox"/>
 									</div>
@@ -77,7 +77,7 @@
 									<label sclass="style_Step" value="1" style="@bind(vmPricing.oInterfaz.style_lbl_CirclePasos)"/>
 								</caption>
 								<div sclass="div_fechas">
-									<div>
+									<div visible="@bind(vmPricing.oReservar.oPaquete.conFechaArribo)">
 										<div>
 											<label value="@bind(vmPricing.etiqueta[243])" sclass="titulo-groupbox"/>
 										</div>
@@ -709,8 +709,8 @@
 								</div>
 							</div>
 						</div>
-						<separator bar="true"/>
-						<div sclass="div_info_item">
+						<separator bar="true" visible="@bind(vmPricing.oReservar.oPaquete.conFechaArribo)"/>
+						<div sclass="div_info_item" visible="@bind(vmPricing.oReservar.oPaquete.conFechaArribo)">
 							<div sclass="div_info_item_izq">
 								<a iconSclass="icon-calendar" sclass="style_icon_info"/>
 							</div>

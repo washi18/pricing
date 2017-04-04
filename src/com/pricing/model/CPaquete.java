@@ -13,6 +13,7 @@ import com.pricing.dao.CPaqueteActividadDAO;
 import com.pricing.dao.CPaqueteDestinoDAO;
 import com.pricing.dao.CPaqueteServicioDAO;
 import com.pricing.dao.CServicioDAO;
+import com.pricing.dao.ConfAltoNivelDAO;
 import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 public class CPaquete 
@@ -69,6 +70,7 @@ public class CPaquete
 	private boolean conActividad;
 	private boolean conDescuento;
 	private boolean sinDescuento;
+	private boolean conFechaArribo;
 	private int nroDestinosSelect;
 	private int ordenDesSelect;
 	private String color_btn_activo;
@@ -527,6 +529,12 @@ public class CPaquete
 	public void setUrl_pricingPaquete(String url_pricingPaquete) {
 		this.url_pricingPaquete = url_pricingPaquete;
 	}
+	public boolean isConFechaArribo() {
+		return conFechaArribo;
+	}
+	public void setConFechaArribo(boolean conFechaArribo) {
+		this.conFechaArribo = conFechaArribo;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -623,6 +631,7 @@ public class CPaquete
 		listaDiasCalendarioPropio=new ArrayList<CDiaPropio>();
 		listaImagenes=new ArrayList<CGaleriaPaquete>();
 		determinarSiHayDescuento();
+		determinarSiEsConFechaArribo();
 	}
 	public CPaquete(String cPaqueteCod, String cTituloIdioma1,
 			String cTituloIdioma2, String cTituloIdioma3,
@@ -787,6 +796,16 @@ public class CPaquete
 		{
 			sinDescuento=true;
 			conDescuento=false;
+		}
+	}
+	public void determinarSiEsConFechaArribo()
+	{
+		ConfAltoNivelDAO confAltoNivelDAO=new ConfAltoNivelDAO();
+		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("arribo"));
+		if(confAltoNivelDAO.getoConfAltoNivel().isbEstado()){
+			conFechaArribo=true;
+		}else {
+			conFechaArribo=false;
 		}
 	}
 	public void determinarTipoDeManejoPaquete(String manejo)

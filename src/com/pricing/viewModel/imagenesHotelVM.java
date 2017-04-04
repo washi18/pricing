@@ -251,11 +251,12 @@ public class imagenesHotelVM {
 			if(oHotel.getcImagenUbicacion().equals(""))
 				oHotel.setcImagenUbicacion(rutaImagen);
 	}
-	
 	@Command
 	@NotifyChange()
 	public void eliminarImagenGaleriaHotel(@BindingParam("galeria4")CGaleriasHotel4 galeria4,@BindingParam("galeria")CGaleriaHotel galeria,@BindingParam("comp")Component comp)
 	{
+		if(!validoParaCambiarImagen(galeria.isbEstado(),galeria.getnTipoImagen()))
+			return;
 		galeriaHotelDAO=new CGaleriaHotelDAO();
 		Messagebox.show("Esta seguro de eliminar esta imagen?", "Question", Messagebox.OK|Messagebox.CANCEL,
 				Messagebox.QUESTION, new EventListener<Event>(){

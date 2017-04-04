@@ -1250,6 +1250,8 @@ public class pricingVM
 		calFin.setTime(calIni.getTime());
 		calFin.add(Calendar.DAY_OF_YEAR,oReservar.getoPaquete().getnNoches());
 		/*********************************************/
+		if(!oReservar.getoPaquete().isConFechaArribo())
+			oReservar.setdFechaArribo(calIni.getTime());
 		oReservar.setdFechaInicio(calIni.getTime());
 		oReservar.setdFechaFin(calFin.getTime());
 		//===============================
@@ -1275,6 +1277,8 @@ public class pricingVM
 				calFin.setTime(calIni.getTime());
 				calFin.add(Calendar.DAY_OF_YEAR,oReservar.getoPaquete().getnNoches());
 				/*****************************************/
+				if(!oReservar.getoPaquete().isConFechaArribo())
+					oReservar.setdFechaArribo(calIni.getTime());
 				oReservar.setdFechaInicio(calIni.getTime());
 				oReservar.setdFechaFin(calFin.getTime());
 				//======================
@@ -1702,10 +1706,13 @@ public class pricingVM
 		boolean valido=true;
 		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA_CLASICO"))
 		{
-			if(lblFechaArribo.getValue().equals(""))
+			if(oReservar.getoPaquete().isConFechaArribo())
 			{
-				valido=false;
-				Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				if(lblFechaArribo.getValue().equals(""))
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
 			}
 			else if(lblFechaInicioPaso3.getValue().equals(""))
 			{
@@ -1720,10 +1727,13 @@ public class pricingVM
 		}
 		else
 		{
-			if(lblFechaArribo.getValue().equals(""))
+			if(oReservar.getoPaquete().isConFechaArribo())
 			{
-				valido=false;
-				Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				if(lblFechaArribo.getValue().equals(""))
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
 			}
 			else if(lblFechaInicioPaso3.getValue().equals(""))
 			{
@@ -1749,10 +1759,13 @@ public class pricingVM
 		boolean valido=true;
 		if(oReservar.getoPaquete().getcDisponibilidad().equals("CAMINO_INKA_CLASICO"))
 		{
-			if(lblFechaArribo.getValue().equals(""))
+			if(oReservar.getoPaquete().isConFechaArribo())
 			{
-				valido=false;
-				Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				if(lblFechaArribo.getValue().equals(""))
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
 			}
 			else if(lblFechaInicioPaso3.getValue().equals(""))
 			{
@@ -1771,10 +1784,13 @@ public class pricingVM
 		}
 		else if(oReservar.getoPaquete().getcDisponibilidad().equals("MANEJO_NORMAL"))
 		{
-			if(lblFechaArribo.getValue().equals(""))
+			if(oReservar.getoPaquete().isConFechaArribo())
 			{
-				valido=false;
-				Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				if(lblFechaArribo.getValue().equals(""))
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
 			}
 			else if(lblFechaInicioPaso3.getValue().equals(""))
 			{
@@ -2227,7 +2243,7 @@ public class pricingVM
 		}
 		/**ENVIAR CORREO**/
 		CEmail mail=new CEmail();
-		boolean b=mail.enviarCorreoSinPago(etiqueta[184],language,oImpuesto,etiqueta,oReservaPaqCatHotel,lblFechaInicioPaso3.getValue(),lblFechaFinPaso3.getValue(),oReservar,listacFechasAlternas,lblMontoTotal,pagoParcial,urlPdf,listaUrlImages,listaPasajeros);
+		boolean b=mail.enviarCorreoSinPago(etiqueta[184],language,oImpuesto,etiqueta,oReservaPaqCatHotel,lblFechaInicioPaso3.getValue(),lblFechaFinPaso3.getValue(),lblFechaArribo.getValue(),oReservar,listacFechasAlternas,lblMontoTotal,pagoParcial,urlPdf,listaUrlImages,listaPasajeros);
 		/********Insertamos la ReservaPaquete*********/
 		CReservaPaquete oReservaPaquete=new CReservaPaquete();
 		oReservaPaquete.setcReservaCod(oReservar.getcReservaCod());
@@ -2826,6 +2842,7 @@ public class pricingVM
 		seshttp.setAttribute("paquete",oReservar.getoPaquete());
 		seshttp.setAttribute("fechaInicio",lblFechaInicioPaso3.getValue());
 		seshttp.setAttribute("fechaFin",lblFechaFinPaso3.getValue());
+		seshttp.setAttribute("fechaArribo",lblFechaArribo.getValue());
 		seshttp.setAttribute("reserva", oReservar);
 		seshttp.setAttribute("listaFechasAlternas",listacFechasAlternas);
 		seshttp.setAttribute("listaReservaPaqServ",listaReservaPaqServ);
@@ -2874,8 +2891,8 @@ public class pricingVM
 		pagos.setUrlPaypal(SECResult[0]);
 		System.out.println("La url de paypal-> "+urlPaypal);
 		seshttp.setAttribute("token",SECResult[1]);
-		Window win_imagenes=(Window)Executions.createComponents("/montoPaymentPaypal.zul", null, null);
-		win_imagenes.doModal();
+		Window win_paypal=(Window)Executions.createComponents("/montoPaymentPaypal.zul", null, null);
+		win_paypal.doModal();
 	}
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws WrongValueException, IOException

@@ -32,6 +32,18 @@
 			 		 	</div>
 			 		</div>
 		 		</div>
+		 		<space></space>
+		 		<div>
+			 		<div>
+			 		 	<label value="VISTA FECHA DE ARRIBO: " sclass="lbl_select_title"/>
+			 		 	<div>
+			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoFechaArribo',estado=self.selectedItem.value) @global-command('recuperarEstadoPricing')">
+			 		 			<radio label="CON FECHA DE ARRIBO" value="CON" checked="@load(vmConfYourself.oConfAltoNivelFechaArribo.estadoConEntidad)"/>
+			 		 			<radio label="SIN FECHA DE ARRIBO" value="SIN" checked="@load(vmConfYourself.oConfAltoNivelFechaArribo.estadoSinEntidad)"/>
+			 		 		</radiogroup>
+			 		 	</div>
+			 		</div>
+		 		</div>
 		 	</div>
 	</div>
 </zk>

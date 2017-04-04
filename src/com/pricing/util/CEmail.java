@@ -414,7 +414,7 @@ public class CEmail
 		return sendMailSimple("webmaster@peruandestop.com",asunto, mensajeHTML);
 	}
 	public boolean enviarCorreoSinPago(String titulo,String language,CImpuesto oImpuesto,String[] etiqueta,CReservaPaqueteCategoriaHotel oReservaPCH,
-			String fechaInicio,String fechaFin,CReserva reserva,
+			String fechaInicio,String fechaFin,String fechaArribo,CReserva reserva,
 			ArrayList<String> fechasAlternas,String totalPago,String pagoParcial,
 			String urlPdf,ArrayList<String> urlImage,ArrayList<CPasajero> listaPasajeros) throws IOException, DocumentException
 	{
@@ -450,6 +450,10 @@ public class CEmail
 		/**RECUPERAMOS LA CONFIGURACION DE URLs**/
 		CConfigUrlDAO configUrlDao=new CConfigUrlDAO();
 		configUrlDao.asignarConfigUrl(configUrlDao.recuperarConfigUrlDB());
+		/**OBTENEMOS LA FECHA DE ARRIBO**/
+		String arribo="";
+		if(reserva.getoPaquete().isConFechaArribo())
+			arribo="<P>"+etiqueta[243]+": "+fechaArribo+"</P>";
 		/****************************************/
 		String mensajeHTML=
 				"<html>"+
@@ -517,6 +521,7 @@ public class CEmail
 								"<table width='40%'>"+
 									fechas+
 							    "</table>"+
+							    arribo+
 							    "<br/>"+
 							    "<p> "+etiqueta[138]+" </p>"+
 							    "<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
@@ -569,13 +574,13 @@ public class CEmail
 							    "<p>"+etiqueta[146]+"</p>"+
 							    "<p>"+etiqueta[147]+"</p>"+
 							    "<table width='80%'>"+
-							    	"<tr align='center'>"+
-							    		"<td><img width='60' height='60' src='http://www.panesolution.com/images/widget/1438789785062.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-							    		"<td><img width='60' height='60' src='http://img.webme.com/pic/s/simutrans-hispano/youtubeglass.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    "<tr align='center'>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
 							    	"</tr>"+
 							    	"<tr align='center'>"+
-							    		"<td><img width='60' height='60' src='http://www.asm.wisc.edu/wp-content/uploads/2009/08/twitter-icon2-150x150.jpg'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-							    		"<td><img width='60' height='60' src='http://androidspain.es/wp-content/uploads/2013/03/Icono-Whatsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
 							    	"</tr>"+
 							    "</table>"+
 							"</div>"+
@@ -592,17 +597,21 @@ public class CEmail
 						  "</div>"+
 					"</body>"+
 			"</html>";
-		boolean b=enviarCorreoSinPagoAEmpresa("Datos de Nueva Reserva", hotel[1], oImpuesto, reserva.getoPaquete(), pasajeros[1], servicios[1], fechaInicio, fechaFin, reserva, precioUniPaquete, fechaActual[1], fechas, totalPago, urlImage,actividades[1]);
+		boolean b=enviarCorreoSinPagoAEmpresa("Datos de Nueva Reserva", hotel[1], oImpuesto, reserva.getoPaquete(), pasajeros[1], servicios[1], fechaInicio, fechaFin,fechaArribo, reserva, precioUniPaquete, fechaActual[1], fechas, totalPago, urlImage,actividades[1]);
 		return sendMail(reserva.getcEmail(),titulo,mensajeHTML,urlPdf,0);
 	}
 	public boolean enviarCorreoSinPagoAEmpresa(String titulo,String htmlHotel,CImpuesto oImpuesto,CPaquete paquete,String htmlPasajeros,
-			String htmlServicios,String fechaInicio,String fechaFin,CReserva reserva,String precioUniPaquete,String fechaActual,
+			String htmlServicios,String fechaInicio,String fechaFin,String fechaArribo,CReserva reserva,String precioUniPaquete,String fechaActual,
 			String htmlFechasAlternas,String totalPago,ArrayList<String> urlImage,String htmlActividades) throws IOException, DocumentException
 	{
 		Calendar cal=Calendar.getInstance();
 		/**Se obtiene el impuesto e importe total del totalPago**/
 		String impuesto=df.format(Double.parseDouble(totalPago)*(Double.parseDouble(oImpuesto.getImpuestoPaypal())/100));
 		String importeTotal=df.format(Double.parseDouble(totalPago)+Double.parseDouble(impuesto));
+		/**OBTENEMOS LA FECHA DE ARRIBO**/
+		String arribo="";
+		if(reserva.getoPaquete().isConFechaArribo())
+			arribo="<P>"+etiqueta[243]+": "+fechaArribo+"</P>";
 		/*********************************************************/
 		String mensajeHTML=
 				"<html>"+
@@ -639,6 +648,7 @@ public class CEmail
 									"<table width='40%'>"+
 									htmlFechasAlternas+
 								    "</table>"+
+								    arribo+
 								    "<br/>"+
 								    "<p>Las siguientes tablas muestran datos de su reserva:</p>"+
 								    "<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
@@ -704,7 +714,7 @@ public class CEmail
 		return sendMailToEmpresa(reserva.getcEmail(),titulo,mensajeHTML,urlImage);
 	}
 	public boolean enviarCorreoConPago(String titulo,String[] etiqueta,CImpuesto oImpuesto,CReservaPaqueteCategoriaHotel oReservaPCH,
-			String fechaInicio,String fechaFin,CReserva reserva,
+			String fechaInicio,String fechaFin,String fechaArribo,CReserva reserva,
 			ArrayList<String> fechasAlternas,String totalPago,String montoPagar,String urlPdf,String codTransaccion,
 			String porcentajePago,ArrayList<CPasajero> listaPasajeros,
 			CPagos pagos) throws IOException, DocumentException
@@ -883,6 +893,10 @@ public class CEmail
 				}
 			}
 		String[] actividades=obtenerHtmlActividades(reserva.getoPaquete().getListaActividades(), reserva);
+		/**OBTENEMOS LA FECHA DE ARRIBO**/
+		String arribo="";
+		if(reserva.getoPaquete().isConFechaArribo())
+			arribo="<P>"+etiqueta[243]+": "+fechaArribo+"</P>";
 		/******************************************/
 		
 		String mensajeHTML=
@@ -915,6 +929,7 @@ public class CEmail
 									"<table width='40%'>"+
 										fechas+
 								    "</table>"+
+								    arribo+
 								    "<br/>"+
 								    "<div style='background:#1A5276;border-radius:5px;width:25%;padding:1px 0 1px 0;' align='center'>"+
 										"<p style='font-weight:bold;'>"+etiqueta[123]+" <strong style='color:white;'>"+codTransaccion+"</strong></p>"+
@@ -970,13 +985,13 @@ public class CEmail
 								    "<p>"+etiqueta[146]+"</p>"+
 								    "<p>"+etiqueta[147]+"</p>"+
 								    "<table width='80%'>"+
-								    	"<tr align='center'>"+
-								    		"<td><img width='60' height='60' src='http://www.panesolution.com/images/widget/1438789785062.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-								    		"<td><img width='60' height='60' src='http://img.webme.com/pic/s/simutrans-hispano/youtubeglass.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+									    "<tr align='center'>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
 								    	"</tr>"+
 								    	"<tr align='center'>"+
-								    		"<td><img width='60' height='60' src='http://www.asm.wisc.edu/wp-content/uploads/2009/08/twitter-icon2-150x150.jpg'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-								    		"<td><img width='60' height='60' src='http://androidspain.es/wp-content/uploads/2013/03/Icono-Whatsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
 								    	"</tr>"+
 								    "</table>"+
 								"</div>"+
@@ -997,7 +1012,7 @@ public class CEmail
 		return sendMail(reserva.getcEmail(),titulo,mensajeHTML,urlPdf,1);
 	}
 	public boolean enviarCorreoConPagoAEmpresa(String titulo,CImpuesto oImpuesto,CReservaPaqueteCategoriaHotel oReservaPCH,
-			String fechaInicio,String fechaFin,CReserva reserva,
+			String fechaInicio,String fechaFin,String fechaArribo,CReserva reserva,
 			ArrayList<String> fechasAlternas,String totalPago,String montoPagar,ArrayList<String> imagenes,String codTransaccion,
 			String porcentajePago,ArrayList<CPasajero> listaPasajeros,
 			CPagos pagos) throws IOException, DocumentException
@@ -1175,6 +1190,10 @@ public class CEmail
 		String cuponHtml="";
 		if(reserva.getoCupon().isOkCupon())
 			cuponHtml=obtenerHtmlCupon(reserva.getoCupon());
+		/**OBTENEMOS LA FECHA DE ARRIBO**/
+		String arribo="";
+		if(reserva.getoPaquete().isConFechaArribo())
+			arribo="<P>"+etiqueta[243]+": "+fechaArribo+"</P>";
 		/*****************************************/
 		String mensajeHTML=
 				"<html>"+
@@ -1205,6 +1224,7 @@ public class CEmail
 									"<table width='40%'>"+
 										fechas+
 								    "</table>"+
+								    arribo+
 								    "<br/>"+
 								    "<div style='background:#1A5276;border-radius:5px;width:25%;padding:1px 0 1px 0;' align='center'>"+
 										"<p style='font-weight:bold;'>Id Transaccion: <strong style='color:white;'>"+codTransaccion+"</strong></p>"+
@@ -1326,13 +1346,13 @@ public class CEmail
 								    "<p>"+etiqueta[146]+"</p>"+
 								    "<p>"+etiqueta[147]+"</p>"+
 								    "<table width='80%'>"+
-								    	"<tr align='center'>"+
-								    		"<td><img width='60' height='60' src='http://www.panesolution.com/images/widget/1438789785062.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-								    		"<td><img width='60' height='60' src='http://img.webme.com/pic/s/simutrans-hispano/youtubeglass.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+									    "<tr align='center'>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
 								    	"</tr>"+
 								    	"<tr align='center'>"+
-								    		"<td><img width='60' height='60' src='http://www.asm.wisc.edu/wp-content/uploads/2009/08/twitter-icon2-150x150.jpg'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-								    		"<td><img width='60' height='60' src='http://androidspain.es/wp-content/uploads/2013/03/Icono-Whatsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
 								    	"</tr>"+
 								    "</table>"+
 								"</div>"+

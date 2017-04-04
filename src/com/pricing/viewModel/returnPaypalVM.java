@@ -67,6 +67,7 @@ public class returnPaypalVM
 	private CReservaPaqueteServicioDAO reservaPaqServDao;
 	private String fechaInicio;
 	private String fechaFin;
+	private String fechaArribo;
 	private String porcentajePago;
 	private String montoPagarSinImpuesto;
 	private String montoTotalSinImpuesto;
@@ -174,6 +175,7 @@ public class returnPaypalVM
 			listaSeparadaFechasAlternas=(ArrayList<String[]>) seshttp.getAttribute("listaSeparadaFechasAlternas");
 			fechaInicio=(String) seshttp.getAttribute("fechaInicio");
 			fechaFin=(String) seshttp.getAttribute("fechaFin");
+			fechaArribo=(String) seshttp.getAttribute("fechaArribo");
 			montoPagarSinImpuesto=(String) seshttp.getAttribute("montoPagarSinImpuesto");
 			montoTotalSinImpuesto=(String)seshttp.getAttribute("montoTotalSinImpuesto");
 			porcentajePago=(String) seshttp.getAttribute("porcentajePago");
@@ -225,7 +227,7 @@ public class returnPaypalVM
 		oReserva.setcReservaCod(resultado[1]);
 		String pdf=Util.getPathReservas()+"reservas.pdf";
 		CEmail mail=new CEmail();
-		boolean b=mail.enviarCorreoConPago(etiqueta[200],etiqueta,oImpuesto,oReservaPaqueteCategoriaHotel,fechaInicio,fechaFin,oReserva,listacFechasAlternas,montoTotalSinImpuesto,montoPagarSinImpuesto,pdf,codTransac,porcentajePago,listaPasajeros,pagos);
+		boolean b=mail.enviarCorreoConPago(etiqueta[200],etiqueta,oImpuesto,oReservaPaqueteCategoriaHotel,fechaInicio,fechaFin,fechaArribo,oReserva,listacFechasAlternas,montoTotalSinImpuesto,montoPagarSinImpuesto,pdf,codTransac,porcentajePago,listaPasajeros,pagos);
 		/**REGISTRAR CUPON**/
 		if(oReserva.getoCupon().isOkCupon())
 		{
@@ -245,7 +247,7 @@ public class returnPaypalVM
 				listaUrlImages.add(ScannUtil.getPath()+pax.getcUrlDocumento());
 			}
 		}
-		boolean flag=mail.enviarCorreoConPagoAEmpresa("Datos de Nueva Reserva y Pago",oImpuesto,oReservaPaqueteCategoriaHotel,fechaInicio,fechaFin,oReserva,listacFechasAlternas,montoTotalSinImpuesto,montoPagarSinImpuesto,listaUrlImages,codTransac,porcentajePago,listaPasajeros,pagos);
+		boolean flag=mail.enviarCorreoConPagoAEmpresa("Datos de Nueva Reserva y Pago",oImpuesto,oReservaPaqueteCategoriaHotel,fechaInicio,fechaFin,fechaArribo,oReserva,listacFechasAlternas,montoTotalSinImpuesto,montoPagarSinImpuesto,listaUrlImages,codTransac,porcentajePago,listaPasajeros,pagos);
 		/********Insertamos la ReservaPaquete*********/
 		CReservaPaquete oReservaPaquete=new CReservaPaquete();
 		oReservaPaquete.setcReservaCod(oReserva.getcReservaCod());
