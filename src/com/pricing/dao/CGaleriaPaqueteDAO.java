@@ -1,5 +1,9 @@
 package com.pricing.dao;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +30,7 @@ public class CGaleriaPaqueteDAO extends CConexion{
 		Object[] values={codPaquete};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_MostrarImagenesPaquete", values);
 	}
-	public void asignarListaImagenesPaquete(List lista)
+	public void asignarListaImagenesPaquete(List lista) throws UnsupportedEncodingException
 	{
 		if(lista!=null)
 		{

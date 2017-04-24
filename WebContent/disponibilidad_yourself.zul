@@ -13,8 +13,8 @@
 				<comboitem value="3" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>
 				<comboitem value="4" label="Machupicchu + Montaña 7:00 a.m.-8:00 a.m."></comboitem>
 				<comboitem value="5" label="Machupicchu + Montaña 9:00 a.m.-10:00 a.m."></comboitem>
-				<comboitem value="20" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem>
-				<comboitem value="21" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem>
+				<comboitem value="20" label="Camino Inka 4 dias 3 noche" ></comboitem>
+				<comboitem value="21" label="Camino Inka 2 dias 1 noche" ></comboitem>
 			</combobox>
 		</div>
 <!-- 		<separator orient="horizontal"></separator> -->

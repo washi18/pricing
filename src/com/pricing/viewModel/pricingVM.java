@@ -2,6 +2,7 @@ package com.pricing.viewModel;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.SignatureException;
 import java.sql.Timestamp;
 import java.text.DecimalFormatSymbols;
@@ -420,7 +421,9 @@ public class pricingVM
 				if(pax.getnNro()<=nroPasajeros && !pax.isSelectPasajero())
 				{
 					pax.setSelectPasajero(true);
+					if(pax.isEsEdit())pax.setEsEdit(false);
 					BindUtils.postNotifyChange(null, null, pax,"selectPasajero");
+					BindUtils.postNotifyChange(null, null, pax,"esEdit");
 				}else if(pax.getnNro()>nroPasajeros && pax.isSelectPasajero())
 				{
 					pax.setSelectPasajero(false);
@@ -429,6 +432,18 @@ public class pricingVM
 					break;
 			}
 		}
+	}
+	@Command
+	public void cargarDescripcionPaquete()
+	{
+		Window win_descripcion_paquete=(Window) Executions.createComponents("/descripcionPaquete.zul", null, null);
+		win_descripcion_paquete.doModal();
+	}
+	@Command
+	public void cargarItinerarioPaquete()
+	{
+		Window win_iti_paquete=(Window) Executions.createComponents("/itinerarioPaquete.zul", null, null);
+		win_iti_paquete.doModal();
 	}
 	@Command
 	public void cargarCalendarioAlterno()
@@ -484,16 +499,22 @@ public class pricingVM
 		{
 			etiqueta=etiquetaDao.getIdioma().getIdioma1();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma1());
+			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma1());
+			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma1());
 		}
 		else if(language.equals("pt-BR") || language.equals("pt-PT"))
 		{
 			etiqueta=etiquetaDao.getIdioma().getIdioma3();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma3());
+			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma3());
+			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma3());
 		}
 		else
 		{
 			etiqueta=etiquetaDao.getIdioma().getIdioma2();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma2());
+			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma2());
+			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma2());
 		}
 		Sessions.getCurrent().setAttribute("etiqueta", etiqueta);
 		Sessions.getCurrent().setAttribute("language", language);
@@ -508,6 +529,8 @@ public class pricingVM
 			language="es-ES";
 			etiqueta=etiquetaDao.getIdioma().getIdioma1();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma1());
+			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma1());
+			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma1());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
@@ -561,6 +584,8 @@ public class pricingVM
 			language="pt-BR";
 			etiqueta=etiquetaDao.getIdioma().getIdioma3();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma3());
+			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma3());
+			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma3());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
@@ -614,6 +639,8 @@ public class pricingVM
 			language="en-US";
 			etiqueta=etiquetaDao.getIdioma().getIdioma2();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma2());
+			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma2());
+			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma2());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
@@ -661,6 +688,7 @@ public class pricingVM
 				}
 			}
 		}
+		if(listaCategoriaConHoteles!=null)
 			if(!listaCategoriaConHoteles.isEmpty())
 			{
 				int i=53;
@@ -1147,6 +1175,7 @@ public class pricingVM
 			//Se quiere saber si todos los destinos tienen la categoria
 			//En caso de que un destino no presente hoteles con la categoria
 			//no se muestra en la interfaz
+			System.out.println("Este es el tamaño de lista categoria hoteles: "+catlistaDCH.size());
 			for(CDestinoConHoteles auxCDH:catlistaDCH)
 			{
 				if(auxCDH.getListaDestinosHoteles().isEmpty())
@@ -1202,13 +1231,8 @@ public class pricingVM
 				}
 			}
 			listaCategoriaConHoteles.add(newCatConHoteles);
+			BindUtils.postNotifyChange(null, null, this,"listaCategoriaConHoteles");
 		}
-//		for(CCategoriaConHoteles CCH:listaCategoriaConHoteles)
-//		{
-//			CCH.setPrecioSimple(df.format(Double.parseDouble(CCH.getPrecioSimple())));
-//			CCH.setPrecioDoble(df.format(Double.parseDouble(CCH.getPrecioDoble())/2));
-//			CCH.setPrecioTriple(df.format(Double.parseDouble(CCH.getPrecioTriple())/3));
-//		}
 	}
 	@Command
 	public void detFechaArribo(@BindingParam("fecha")Date fecha)
@@ -1225,7 +1249,7 @@ public class pricingVM
 		/*************Fecha Arribo***********************/
 		oReservar.setdFechaArribo(calArribo.getTime());
 		//===============================
-		lblFechaArribo.setValue(etiqueta[163]+" "+dia+" "+etiqueta[158]+" "+obtenerMesText(Integer.parseInt(mes)-1)+", "+ anio);
+		lblFechaArribo.setValue(dia+" "+etiqueta[158]+" "+obtenerMesText(Integer.parseInt(mes)-1)+", "+ anio);
 		//==================
 	}
 	@Command
@@ -1541,7 +1565,7 @@ public class pricingVM
 	@NotifyChange({"lblMonto","nroSimples",
 		"nroDobles","nroTriples","lblMontoTotal",
 		"lblTotalPaquete","paso2"})
-	public void changeNroPersonas(@BindingParam("nroPersonas")Object nroPer)
+	public void changeNroPersonas(@BindingParam("nroPersonas")Object nroPer) throws UnsupportedEncodingException
 	{
 		if(primeraVez)
 		{
@@ -1611,6 +1635,20 @@ public class pricingVM
 		validarNroHabPosibles();
 		if(!oInterfaz.isbLlenarDatosUnPax())
 			updateListaPasajeros();
+		if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+		{
+			for(CPasajero pax:listaPasajeros)
+			{
+				if(pax.isSelectPasajero())
+				{
+					if(pax.isEsEdit())
+					{
+						montoTotal-=30;
+					}
+				}
+			}
+			lblMontoTotal=df.format(montoTotal);
+		}
 		//====================
 	}
 	/**
@@ -1767,19 +1805,22 @@ public class pricingVM
 					Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
 				}
 			}
-			else if(lblFechaInicioPaso3.getValue().equals(""))
+			if(valido)
 			{
-				valido=false;
-				Clients.showNotification(etiqueta[165],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
-			}
-			else if(listacFechasAlternas.isEmpty())
-			{
-				valido=false;
-				Clients.showNotification(etiqueta[166],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
-			}
-			if(nroPersonas2.getValue().isEmpty()){
-				valido=false;
-				Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				if(lblFechaInicioPaso3.getValue().equals(""))
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[165],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
+				else if(listacFechasAlternas.isEmpty())
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[166],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
+				if(nroPersonas2.getValue().isEmpty()){
+					valido=false;
+					Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
 			}
 		}
 		else if(oReservar.getoPaquete().getcDisponibilidad().equals("MANEJO_NORMAL"))
@@ -1792,40 +1833,54 @@ public class pricingVM
 					Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
 				}
 			}
-			else if(lblFechaInicioPaso3.getValue().equals(""))
+			if(valido)
 			{
-				valido=false;
-				Clients.showNotification(etiqueta[183],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
-			}
-			int nroPasajerosHab=oReservaPaqCatHotel.getnNroPersonasSimple()+
-					oReservaPaqCatHotel.getnNroPersonasDoble()+
-					oReservaPaqCatHotel.getnNroPersonasTriple();
-			if(oReservaPaqCatHotel.isConHotel())
-			{
-				if(nroPasajerosHab<nroPasajeros)
+				if(lblFechaInicioPaso3.getValue().equals(""))
 				{
 					valido=false;
-					Clients.showNotification(etiqueta[167],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+					Clients.showNotification(etiqueta[183],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
+				int nroPasajerosHab=oReservaPaqCatHotel.getnNroPersonasSimple()+
+						oReservaPaqCatHotel.getnNroPersonasDoble()+
+						oReservaPaqCatHotel.getnNroPersonasTriple();
+				if(oReservaPaqCatHotel.isConHotel())
+				{
+					if(nroPasajerosHab<nroPasajeros)
+					{
+						valido=false;
+						Clients.showNotification(etiqueta[167],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+					}
+				}
+				if(nroPersonas.getValue().isEmpty()){
+					valido=false;
+					Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
 				}
 			}
-			if(nroPersonas.getValue().isEmpty()){
-				valido=false;
-				Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
-			}
 		}else{
-			if(lblFechaInicioPaso3.getValue().equals(""))
+			if(oReservar.getoPaquete().isConFechaArribo())
 			{
-				valido=false;
-				Clients.showNotification(etiqueta[165],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				if(lblFechaArribo.getValue().equals(""))
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[245],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
 			}
-			else if(listacFechasAlternas.isEmpty())
+			if(valido)
 			{
-				valido=false;
-				Clients.showNotification(etiqueta[166],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
-			}
-			if(nroPersonas2.getValue().isEmpty()){
-				valido=false;
-				Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				if(lblFechaInicioPaso3.getValue().equals(""))
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[165],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
+				else if(listacFechasAlternas.isEmpty())
+				{
+					valido=false;
+					Clients.showNotification(etiqueta[166],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
+				if(nroPersonas2.getValue().isEmpty()){
+					valido=false;
+					Clients.showNotification(etiqueta[240],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+				}
 			}
 		}
 		return valido;
@@ -2325,16 +2380,27 @@ public class pricingVM
 		}
 	}
 	@Command
+	@NotifyChange({"lblMontoTotal"})
 	public void selectSubirDocScanneado(@BindingParam("val")Object val,@BindingParam("pasajero")CPasajero pasajero)
 	{
 		String scan=val.toString();
 		if(scan.equals("yes"))
 		{
+			if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+			{
+				montoTotal-=30;
+				lblMontoTotal=df.format(montoTotal);
+			}
 			pasajero.setEsEdit(true);
 			BindUtils.postNotifyChange(null, null, pasajero, "esEdit");
 		}
 		else
 		{
+			if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+			{
+				montoTotal+=30;
+				lblMontoTotal=df.format(montoTotal);
+			}
 			pasajero.setEsEdit(false);
 			pasajero.setcUrlDocumento("");
 			BindUtils.postNotifyChange(null, null, pasajero, "cUrlDocumento");

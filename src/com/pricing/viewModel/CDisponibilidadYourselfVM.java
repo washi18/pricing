@@ -562,7 +562,8 @@ public class CDisponibilidadYourselfVM {
 			for(int j=31;j<nroDiasSig_febrero+1;j++){
 				listaAnioSig.get(j).setVisible(false);
 			}
-		}
+		}else
+			this.setDesabilitarFebrero(false);
 		BindUtils.postNotifyChange(null, null, listaAnioActual, "cantDisp");
 	    BindUtils.postNotifyChange(null, null,  listaAnioActual, "disponible");
 	    BindUtils.postNotifyChange(null, null,  listaAnioActual, "colorDisp");

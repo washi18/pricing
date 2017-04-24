@@ -21,6 +21,12 @@
 						<!-- 					  <image src="img/button-france.png" sclass="style-flag" onClick="@command('cambiarIdioma',idioma=4) @global-command('cambiarIdiomaDispo',idioma=4)"/> -->
 						</div>
 		</div>
+		<div zclass="div_content_btnDescripcion" visible="@bind(vmPricing.oReservar.oPaquete.conDes_Iti)">
+			<button label="@bind(vmPricing.etiqueta[247])" zclass="button_descripcion"
+					onClick="@command('cargarDescripcionPaquete') @global-command('mostrarDescripcionPaquete',descripcion=vmPricing.oReservar.oPaquete.descripcion)"/>
+			<button label="@bind(vmPricing.etiqueta[248])" zclass="button_descripcion"
+					onClick="@command('cargarItinerarioPaquete') @global-command('mostrarItinerarioPaquete',itinerario=vmPricing.oReservar.oPaquete.itinerario)"/>
+		</div>
 		<div zclass="contenedor_3_pasos">
 			<div zclass="div_pasos_inicio"
 				onClick="@command('cambioBarraPaso',nroPaso='1')">

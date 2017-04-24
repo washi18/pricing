@@ -1,0 +1,10 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<window border="normal"
+		title="HD"
+		closable="true"
+		position="center"
+		sclass="win_imagenesHotel"
+		apply="org.zkoss.bind.BindComposer"
+		viewModel="@id('vmDes') @init('com.pricing.viewModel.descripcionPaqueteVM')">
+		<html content="@bind(vmDes.descripcion)"/>
+</window>

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -70,7 +71,6 @@ public class EjecutorSQL {
    	 	final String proc=procedimiento.substring(0, procedimiento.length()-1)+")";
    	 	System.out.println(proc);
 				PreparedStatement ps;
-				
 				try {
 					
 					ps = conn.prepareStatement(proc);
@@ -172,5 +172,4 @@ public List ejecutarProcedimiento(String procedimiento){
 				}
 				// TODO Auto-generated method stub
 	}
-	
 }

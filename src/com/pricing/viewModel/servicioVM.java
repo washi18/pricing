@@ -170,10 +170,10 @@ public class servicioVM {
 				{
 					valido=false;
 					Clients.showNotification("Debe de existir una descripcion del servicio",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
-				}else if(oServicioNuevo.getnPrecioServicio().doubleValue()==0)
+				}else if(oServicioNuevo.getnPrecioServicio().doubleValue()<0)
 				{
 					valido=false;
-					Clients.showNotification("El precio del servicio no puede ser $ 0.00",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+					Clients.showNotification("El precio del servicio no puede ser negativo",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
 				}
 			}
 		}
@@ -230,10 +230,10 @@ public class servicioVM {
 				}else if(servicio.getcDescripcionIdioma1().equals("Tiene Sub Servicios")){
 					valido=false;
 					Clients.showNotification("La descripcion debe tener un contenido acorde al servicio ofrecido",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
-				}else if(servicio.getnPrecioServicio().doubleValue()==0)
+				}else if(servicio.getnPrecioServicio().doubleValue()<0)
 				{
 					valido=false;
-					Clients.showNotification("El precio del servicio no puede ser $ 0.00",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
+					Clients.showNotification("El precio del servicio no puede ser negativo",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
 				}
 			}
 		}

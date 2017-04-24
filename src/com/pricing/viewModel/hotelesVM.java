@@ -197,7 +197,7 @@ public class hotelesVM
 	    BindUtils.postNotifyChange(null, null, this, "listaDestinos");
 	    BindUtils.postNotifyChange(null, null, this, "listaCategoriasHotel");
 	    BindUtils.postNotifyChange(null, null, this, "listaDestinosBusqueda");
-	    BindUtils.postNotifyChange(null, null, this, "listaCategoriasHotelBusqueda");
+	    BindUtils.postNotifyChange(null, null, this, "listaCategoriasBusqueda");
 	}
 	@Command
 	@NotifyChange("destinoBuscar")

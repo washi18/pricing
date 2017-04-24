@@ -2639,3 +2639,50 @@
 	font-size: 25px;
 	font-weight: bold;
 }
+/************************/
+/**BOTON DE DESCRIPCION**/
+/************************/
+.div_content_btnDescripcion{
+	margin:8px 0 8px 0;
+}
+.button_descripcion{
+ padding: 10px 35px;
+ overflow:hidden;
+ position:relative;
+ background: #3a7999;
+ border-radius: 5px;
+ font-size:18px;
+ box-sizing:border-box;
+ color:#f2f2f2;
+}
+.button_descripcion:before {
+ font-family: FontAwesome;
+ content:"\f15b";
+ position: absolute;
+ top: 11px;
+ left: -30px;
+ transition: all 200ms ease;
+}
+.button_descripcion:hover{
+	opacity: 0.6;
+}
+.button_descripcion:hover:before {
+ left: 7px;
+}
+@media (max-width:700px){
+	.div_content_btnDescripcion{
+		display:flex;
+		display:-webkit-flex;
+		display:-moz-flex;
+		display:-ms-flex;
+		display:-o-flex;
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+	.button_descripcion{
+		width: 100%;
+	}
+}

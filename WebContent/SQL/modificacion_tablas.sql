@@ -19,6 +19,9 @@ ALTER TABLE tpaquete alter COLUMN citinerarioidioma4 drop DEFAULT;
 
 ALTER TABLE tpaquete ADD COLUMN citinerarioidioma5 text DEFAULT '';
 ALTER TABLE tpaquete alter COLUMN citinerarioidioma5 drop DEFAULT;
+
+ALTER TABLE tpaquete ADD COLUMN cUrlReferenciaPaquete text DEFAULT '';
+ALTER TABLE tpaquete alter COLUMN cUrlReferenciaPaquete drop DEFAULT;
 --TABLA TDESTINO--
 ALTER TABLE tdestino ADD COLUMN clatitud varchar(20) DEFAULT '';
 ALTER TABLE tdestino alter COLUMN clatitud drop DEFAULT;

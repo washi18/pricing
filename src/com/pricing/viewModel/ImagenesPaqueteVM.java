@@ -1,5 +1,6 @@
 package com.pricing.viewModel;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.zkoss.bind.BindUtils;
@@ -24,6 +25,7 @@ import com.pricing.model.CGaleriaPaquete4;
 import com.pricing.model.CGaleriasHotel4;
 import com.pricing.model.CHotel;
 import com.pricing.model.CPaquete;
+import com.pricing.util.ScannUtil;
 
 public class ImagenesPaqueteVM {
 	private ArrayList<CGaleriaPaquete4> listaImagenesPaquetes;
@@ -254,6 +256,7 @@ public class ImagenesPaqueteVM {
 							BindUtils.postNotifyChange(null, null, galeria,"visible");
 							refrescarCambios(galeria4);
 							if(correcto && correcto2){
+								borraFicheroServidor(galeria);
 								Clients.showNotification("Imagen eliminado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, comp, "top_center", 2000);
 							}else{
 								Clients.showNotification("Fallo al eliminar imagen", Clients.NOTIFICATION_TYPE_ERROR, comp, "top_center", 2000);
@@ -266,7 +269,15 @@ public class ImagenesPaqueteVM {
 					}
 				});
 	}
-	
+	public void borraFicheroServidor(CGaleriaPaquete galeria)
+	{
+		String url=ScannUtil.getPathImagenPaquetes();
+		File fichero = new File(url+galeria.getCimage());
+		if (fichero.delete())
+			System.out.println("El fichero ha sido borrado satisfactoriamente");
+		else
+			System.out.println("El fichero no puede ser borrado");
+	}
 	@Command
 	@NotifyChange({"update"})
 	public void guardarCambios(@BindingParam("componente")Component comp)

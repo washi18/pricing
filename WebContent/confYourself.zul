@@ -44,6 +44,18 @@
 			 		 	</div>
 			 		</div>
 		 		</div>
+		 		<space></space>
+		 		<div>
+			 		<div>
+			 		 	<label value="VISTA DESCRIPCION E ITINERARIO: " sclass="lbl_select_title"/>
+			 		 	<div>
+			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoDesIti',estado=self.selectedItem.value) @global-command('recuperarEstadoPricing')">
+			 		 			<radio label="CON DESCRIPCION E ITINERARIO" value="CON" checked="@load(vmConfYourself.oConfAltoNivelDesIti.estadoConEntidad)"/>
+			 		 			<radio label="SIN DESCRIPCION E ITINERARIO" value="SIN" checked="@load(vmConfYourself.oConfAltoNivelDesIti.estadoSinEntidad)"/>
+			 		 		</radiogroup>
+			 		 	</div>
+			 		</div>
+		 		</div>
 		 	</div>
 	</div>
 </zk>

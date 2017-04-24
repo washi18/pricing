@@ -1,5 +1,6 @@
 package com.pricing.model;
 
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class CPaquete
 	private String cDisponibilidad;// varchar(100),                   --disponibilidad del que se requiere (CAMINO_INKA,MACHUPICCHU,NINGUNO)
 	private boolean bEstado;// boolean,				--estado del paquete
 	private int nDiaCaminoInka;//int,
+	private String cUrlReferenciaPaquete;//text
 	private String url_pricingPaquete;
 	private String nPrecio1_text;
 	private String nPrecio2_text;
@@ -55,6 +57,8 @@ public class CPaquete
 	private String nPrecio4_text;
 	private String nPrecio5_text;
 	private String Titulo;
+	private String descripcion;
+	private String itinerario;
 	private String dias_noches;
 	private boolean visibleEspanol;
 	private boolean visibleIngles;
@@ -71,6 +75,7 @@ public class CPaquete
 	private boolean conDescuento;
 	private boolean sinDescuento;
 	private boolean conFechaArribo;
+	private boolean conDes_Iti;
 	private int nroDestinosSelect;
 	private int ordenDesSelect;
 	private String color_btn_activo;
@@ -535,6 +540,30 @@ public class CPaquete
 	public void setConFechaArribo(boolean conFechaArribo) {
 		this.conFechaArribo = conFechaArribo;
 	}
+	public String getDescripcion() {
+		return descripcion;
+	}
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+	public String getItinerario() {
+		return itinerario;
+	}
+	public void setItinerario(String itinerario) {
+		this.itinerario = itinerario;
+	}
+	public String getcUrlReferenciaPaquete() {
+		return cUrlReferenciaPaquete;
+	}
+	public void setcUrlReferenciaPaquete(String cUrlReferenciaPaquete) {
+		this.cUrlReferenciaPaquete = cUrlReferenciaPaquete;
+	}
+	public boolean isConDes_Iti() {
+		return conDes_Iti;
+	}
+	public void setConDes_Iti(boolean conDes_Iti) {
+		this.conDes_Iti = conDes_Iti;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -565,6 +594,7 @@ public class CPaquete
 		cItinerarioIdioma3="";
 		cItinerarioIdioma4="";
 		cItinerarioIdioma5="";
+		cUrlReferenciaPaquete="";
 		nPrecio1_text=df.format(0);
 		nPrecio2_text=df.format(0);
 		nPrecio3_text=df.format(0);
@@ -600,7 +630,9 @@ public class CPaquete
 			String cDescripcionIdioma5, int nDias, int nNoches,
 			Number nPrecioUno, Number nPrecioDos, Number nPrecioTres,
 			Number nPrecioCuatro, Number nPrecioCinco, String cDisponibilidad,
-			boolean bEstado)
+			boolean bEstado,String cItinerarioIdioma1,String cItinerarioIdioma2,
+			String cItinerarioIdioma3,String cItinerarioIdioma4,
+			String cItinerarioIdioma5,String cUrlReferenciaPaquete)
 	{
 		this.cPaqueteCod=cPaqueteCod;
 		this.cTituloIdioma1=cTituloIdioma1;
@@ -622,6 +654,14 @@ public class CPaquete
 		this.nPrecioCinco=nPrecioCinco;
 		this.cDisponibilidad=cDisponibilidad;
 		this.bEstado=bEstado;
+		this.cItinerarioIdioma1=cItinerarioIdioma1;
+		this.cItinerarioIdioma2=cItinerarioIdioma2;
+		this.cItinerarioIdioma3=cItinerarioIdioma3;
+		this.cItinerarioIdioma4=cItinerarioIdioma4;
+		this.cItinerarioIdioma5=cItinerarioIdioma5;
+		this.descripcion="";
+		this.itinerario="";
+		this.cUrlReferenciaPaquete=cUrlReferenciaPaquete;
 		//===================
 		listaDestinos=new ArrayList<CDestino>();
 		listaServicios=new ArrayList<CServicio>();
@@ -632,6 +672,7 @@ public class CPaquete
 		listaImagenes=new ArrayList<CGaleriaPaquete>();
 		determinarSiHayDescuento();
 		determinarSiEsConFechaArribo();
+		determinarSiHayDes_Iti();
 	}
 	public CPaquete(String cPaqueteCod, String cTituloIdioma1,
 			String cTituloIdioma2, String cTituloIdioma3,
@@ -643,7 +684,8 @@ public class CPaquete
 			Number nPrecioCuatro, Number nPrecioCinco, String cDisponibilidad,
 			boolean bEstado,String cFoto1,
 			String cFoto2,String cFoto3,String cFoto4,String cFoto5,String cItinerarioIdioma1,String cItinerarioIdioma2,
-			String cItinerarioIdioma3,String cItinerarioIdioma4,String cItinerarioIdioma5) {
+			String cItinerarioIdioma3,String cItinerarioIdioma4,String cItinerarioIdioma5,
+			String cUrlReferenciaPaquete) throws UnsupportedEncodingException {
 		/*******************************/
 		simbolos= new DecimalFormatSymbols();
 		simbolos.setDecimalSeparator('.');
@@ -666,6 +708,7 @@ public class CPaquete
 		this.cItinerarioIdioma3=cItinerarioIdioma3;
 		this.cItinerarioIdioma4=cItinerarioIdioma4;
 		this.cItinerarioIdioma5=cItinerarioIdioma5;
+		this.cUrlReferenciaPaquete=cUrlReferenciaPaquete;
 		this.nDias = nDias;
 		this.nNoches = nNoches;
 		this.dias_noches=nDias+" DIAS Y "+nNoches+" NOCHES";
@@ -695,7 +738,7 @@ public class CPaquete
 		this.conCalendarioPropio=false;
 		this.abrirEditorItinerario=false;
 		this.abrirEditorDescripcion=false;
-		this.url_pricingPaquete="https://www.e-ranti.com/pricing_pat/?var1="+cPaqueteCod;
+		this.url_pricingPaquete="https://www.e-ranti.com/pricing_info/?var1="+cPaqueteCod;
 		/***Recuperando lo que contiene el paquete***/
 		listaDestinos=new ArrayList<CDestino>();
 		listaServicios=new ArrayList<CServicio>();
@@ -748,7 +791,7 @@ public class CPaquete
 		determinarSiHayDescuento();
 		darColor_estado_paquete();
 	}
-	public void cargarDatosRelacionadosAlPaquete()
+	public void cargarDatosRelacionadosAlPaquete() throws UnsupportedEncodingException
 	{
 		//RECUPERAR LISTA DESTINOS
 				CDestinoDAO destinoDao=new CDestinoDAO();
@@ -806,6 +849,16 @@ public class CPaquete
 			conFechaArribo=true;
 		}else {
 			conFechaArribo=false;
+		}
+	}
+	public void determinarSiHayDes_Iti()
+	{
+		ConfAltoNivelDAO confAltoNivelDAO=new ConfAltoNivelDAO();
+		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("desc_iti"));
+		if(confAltoNivelDAO.getoConfAltoNivel().isbEstado()){
+			conDes_Iti=true;
+		}else {
+			conDes_Iti=false;
 		}
 	}
 	public void determinarTipoDeManejoPaquete(String manejo)

@@ -82,13 +82,13 @@
 							<separator bar="true" zclass="lbl_llenar_datos"/>
 							<div>
 								<radiogroup sclass="style_restricciones" onCheck="@command('selectCategoria',categoria=self.selectedItem.value)">
-									<radio label="ECONOMICO" value="economico"/>
-									<radio label="TURISTICO" value="turistico"/>
-									<radio label="TURISTICO SUPERIOR" value="turistico_superior"/>
-									<radio label="PRIMERA" value="primera"/>
-									<radio label="PRIMERA SUPERIOR" value="primera_superior"/>
-									<radio label="LUJO" value="lujo"/>
-									<radio label="LUJO SUPERIOR" value="lujo_superior"/>
+									<radio label="ECONOMICO (★ ★)" value="economico"/>
+									<radio label="TURISTICO (★ ★ ★)" value="turistico"/>
+									<radio label="TURISTICO SUPERIOR (★ ★ ★)" value="turistico_superior"/>
+									<radio label="PRIMERA (★ ★ ★ ★)" value="primera"/>
+									<radio label="PRIMERA SUPERIOR (★ ★ ★ ★)" value="primera_superior"/>
+									<radio label="LUJO (★ ★ ★ ★ ★)" value="lujo"/>
+									<radio label="LUJO SUPERIOR (★ ★ ★ ★ ★)" value="lujo_superior"/>
 								</radiogroup>
 							</div>
 						</div>
@@ -310,13 +310,13 @@
 										<separator bar="true" zclass="lbl_llenar_datos"/>
 										<div>
 											<radiogroup sclass="style_restricciones" onCheck="@command('cambiarCategoriaHotel',categoria=self.selectedItem.value,hotel=each)">
-												<radio label="ECONOMICO" value="economico" checked="@bind(each.select_eco)"/>
-												<radio label="TURISTICO" value="turistico" checked="@bind(each.select_tur)"/>
-												<radio label="TURISTICO SUPERIOR" value="turistico_superior" checked="@bind(each.select_turSup)"/>
-												<radio label="PRIMERA" value="primera" checked="@bind(each.select_pri)"/>
-												<radio label="PRIMERA SUPERIOR" value="primera_superior" checked="@bind(each.select_priSup)"/>
-												<radio label="LUJO" value="lujo" checked="@bind(each.select_lujo)"/>
-												<radio label="LUJO SUPERIOR" value="lujo_superior" checked="@bind(each.select_lujoSup)"/>
+												<radio label="ECONOMICO (★ ★)" value="economico" checked="@bind(each.select_eco)"/>
+												<radio label="TURISTICO (★ ★ ★)" value="turistico" checked="@bind(each.select_tur)"/>
+												<radio label="TURISTICO SUPERIOR (★ ★ ★)" value="turistico_superior" checked="@bind(each.select_turSup)"/>
+												<radio label="PRIMERA (★ ★ ★ ★)" value="primera" checked="@bind(each.select_pri)"/>
+												<radio label="PRIMERA SUPERIOR (★ ★ ★ ★)" value="primera_superior" checked="@bind(each.select_priSup)"/>
+												<radio label="LUJO (★ ★ ★ ★ ★)" value="lujo" checked="@bind(each.select_lujo)"/>
+												<radio label="LUJO SUPERIOR (★ ★ ★ ★ ★)" value="lujo_superior" checked="@bind(each.select_lujoSup)"/>
 											</radiogroup>
 										</div>
 									</div>

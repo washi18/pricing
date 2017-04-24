@@ -20,7 +20,12 @@
 					<div width="100%" align="center" sclass="div_titulo_paquete" style="@bind(vmPricing.oInterfaz.style_div_TituloPaquete)">
 						<label value="@bind(vmPricing.oReservar.oPaquete.titulo)" sclass="style_lbl_tituloPaquete" style="@bind(vmPricing.oInterfaz.style_lbl_TituloPaquete)"/>
 					</div>
-					<space></space>
+					<div zclass="div_content_btnDescripcion" visible="@bind(vmPricing.oReservar.oPaquete.conDes_Iti)">
+						<button label="@bind(vmPricing.etiqueta[247])" zclass="button_descripcion"
+								onClick="@command('cargarDescripcionPaquete') @global-command('mostrarDescripcionPaquete',descripcion=vmPricing.oReservar.oPaquete.descripcion)"/>
+						<button label="@bind(vmPricing.etiqueta[248])" zclass="button_descripcion"
+								onClick="@command('cargarItinerarioPaquete') @global-command('mostrarItinerarioPaquete',itinerario=vmPricing.oReservar.oPaquete.itinerario)"/>		
+					</div>
 					<div sclass="div_fecha_pasajero" width="100%">
 						<div width="100%">
 							<groupbox visible="@bind(vmPricing.mostrarCalendarZK)" width="100%" mold="3d">
@@ -360,7 +365,7 @@
 								<label value="@bind(vmPricing.etiqueta[50])"/>
 							</div>
 						</div>
-						<div visible="@bind(vmPricing.oReservar.oPaquete.conDestino)" sclass="div_hoteles">
+						<div visible="@bind(vmPricing.mostrarHoteles)" sclass="div_hoteles">
 							<listbox width="100%" onSelect="@command('clickOpcionCategoria',CConHoteles=self.selectedItem.value)" sclass="hotel_list" checkmark="true" model="@load(vmPricing.listaCategoriaConHoteles)">
 								<listhead >
 									<listheader  align="center" width="6%" style="@bind(vmPricing.oInterfaz.style_listHeader_DatosHotel)">

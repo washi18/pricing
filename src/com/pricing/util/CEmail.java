@@ -24,11 +24,13 @@ import javax.activation.FileDataSource;
 import com.lowagie.text.DocumentException;
 import com.pricing.dao.CConfigUrlDAO;
 import com.pricing.dao.CCorreoSmtpDAO;
+import com.pricing.dao.CInterfazDAO;
 import com.pricing.model.CActividad;
 import com.pricing.model.CCupon;
 import com.pricing.model.CDestinoConHoteles;
 import com.pricing.model.CHotel;
 import com.pricing.model.CImpuesto;
+import com.pricing.model.CInterfaz;
 import com.pricing.model.CPagos;
 import com.pricing.model.CPaquete;
 import com.pricing.model.CPasajero;
@@ -516,11 +518,8 @@ public class CEmail
 								"<p>"+etiqueta[130]+" <strong style='color:#F7653A;text-transform: lowercase;'>"+reserva.getoPaquete().getTitulo()+"</strong>"+ 
 								etiqueta[131]+" <strong style='color:#F7653A;'>"+fechaInicio+"</strong> "+etiqueta[132]+ 
 								"<strong style='color:#F7653A;'>"+fechaFin+"</strong> "+etiqueta[133]+" <strong> "+reserva.getnNroPersonas()+" </strong> "+etiqueta[134]+
-								"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+etiqueta[136]+" <br/> "+etiqueta[137]+" </p>"+
-								
-								"<table width='40%'>"+
-									fechas+
-							    "</table>"+
+								"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+etiqueta[136]+
+								fechas+
 							    arribo+
 							    "<br/>"+
 							    "<p> "+etiqueta[138]+" </p>"+
@@ -575,17 +574,18 @@ public class CEmail
 							    "<p>"+etiqueta[147]+"</p>"+
 							    "<table width='80%'>"+
 								    "<tr align='center'>"+
-							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
 							    	"</tr>"+
 							    	"<tr align='center'>"+
-							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
 							    	"</tr>"+
 							    "</table>"+
 							"</div>"+
 							  "<p style='font-size:11px;'>"+etiqueta[153]+" <strong>"+etiqueta[154]+"</strong>"+etiqueta[155]+"</p>"+
 							  "<p style='font-size:11px;'>"+etiqueta[196]+"</p>"+
+							  "<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"'>"+etiqueta[246]+"</a>"+
 							  "<br/>"+
 						        "<strong>"+etiqueta[213]+"</strong>"+
 							"</div>"+
@@ -643,11 +643,8 @@ public class CEmail
 								"<div>"+
 									"<p>Su fecha Principal de reserva de <strong style='color:#F7653A;'>"+paquete.getcTituloIdioma1()+"</strong>"+ 
 									" es: <strong style='color:#F7653A;'>"+fechaInicio+"</strong> y "+ 
-									"<strong style='color:#F7653A;'>"+fechaFin+"</strong> Con:<br/>Las Siguientes Fechas Alternas:</p>"+
-									
-									"<table width='40%'>"+
+									"<strong style='color:#F7653A;'>"+fechaFin+"</strong>"+
 									htmlFechasAlternas+
-								    "</table>"+
 								    arribo+
 								    "<br/>"+
 								    "<p>Las siguientes tablas muestran datos de su reserva:</p>"+
@@ -847,6 +844,7 @@ public class CEmail
 		/**Se obtienen las fechas alternas para el html**/
 		String fechas="";
 		if(fechasAlternas!=null)
+		{
 			for(int i=0;i<fechasAlternas.size();i++)
 			{
 				fechas+=
@@ -854,12 +852,21 @@ public class CEmail
 				           "<td style='color:#F7653A;font-weight:bold;'>"+fechasAlternas.get(i)+"</td>"+
 				        "</tr>";
 			}
+			
+			fechas="<br/>"+etiqueta[137]+"</p>"+
+					"<table width='40%'>"+
+						fechas+
+				    "</table>";
+		}
 		/**********************************************/
 		/**Se obtienen los datos de los pasajeros**/
+		CInterfazDAO interfazDao=new CInterfazDAO();
+		interfazDao.asignarConfigInterfaz(interfazDao.recuperarConfigInterfazDB());
 		String pasajeros="";
 		for(CPasajero pax:listaPasajeros)
 		{
-			if(!pax.isSelectPasajero() || pax.isEsEdit())break;
+			if(!interfazDao.getoInterfaz().isbSubirDoc_Y_llenarDatosPax())
+				if(!pax.isSelectPasajero() || pax.isEsEdit())break;
 			pasajeros+=
 						"<tr style='border:1px solid black;'>"+
 				    		"<td style='border:1px solid black;' align='center'>"+pax.getTipoDocumento()+"</td>"+
@@ -924,11 +931,8 @@ public class CEmail
 									"<p><strong>"+etiqueta[125]+" </strong>"+reserva.getcContacto()+"."+"<br/> "+etiqueta[130]+" <strong style='color:#F7653A;text-transform: lowercase;'>"+reserva.getoPaquete().getTitulo()+"</strong>"+ 
 									etiqueta[131]+" <strong style='color:#F7653A;'>"+fechaInicio+"</strong>"+etiqueta[132]+ 
 									"<strong style='color:#F7653A;'>"+fechaFin+"</strong> "+etiqueta[133]+" "+reserva.getnNroPersonas()+" "+etiqueta[134]+ 
-									"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+etiqueta[136]+"<br/>"+etiqueta[137]+" </p>"+
-									
-									"<table width='40%'>"+
-										fechas+
-								    "</table>"+
+									"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+etiqueta[136]+
+									fechas+
 								    arribo+
 								    "<br/>"+
 								    "<div style='background:#1A5276;border-radius:5px;width:25%;padding:1px 0 1px 0;' align='center'>"+
@@ -986,17 +990,18 @@ public class CEmail
 								    "<p>"+etiqueta[147]+"</p>"+
 								    "<table width='80%'>"+
 									    "<tr align='center'>"+
-								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
 								    	"</tr>"+
 								    	"<tr align='center'>"+
-								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
 								    	"</tr>"+
 								    "</table>"+
 								"</div>"+
 								  "<p style='font-size:11px;'>"+etiqueta[153]+" <strong>"+etiqueta[154]+"</strong>"+etiqueta[155]+"</p>"+
 								  "<p style='font-size:11px;'>"+etiqueta[196]+"</p>"+
+								  "<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"'>"+etiqueta[246]+"</a>"+
 								  "<br/>"+
 							        "<strong>"+etiqueta[213]+"</strong>"+
 								"</div>"+
@@ -1140,6 +1145,7 @@ public class CEmail
 		/**Se obtienen las fechas alternas para el html**/
 		String fechas="";
 		if(fechasAlternas!=null)
+		{
 			for(int i=0;i<fechasAlternas.size();i++)
 			{
 				fechas+=
@@ -1147,12 +1153,21 @@ public class CEmail
 				           "<td style='color:#F7653A;font-weight:bold;'>"+fechasAlternas.get(i)+"</td>"+
 				        "</tr>";
 			}
+			
+			fechas="<br/>Las siguientes fechas alternas:</p>"+
+					"<table width='40%'>"+
+						fechas+
+				    "</table>";
+		}
 		/**********************************************/
 		/**Se obtienen los datos de los pasajeros**/
+		CInterfazDAO interfazDao=new CInterfazDAO();
+		interfazDao.asignarConfigInterfaz(interfazDao.recuperarConfigInterfazDB());
 		String pasajeros="";
 		for(CPasajero pax:listaPasajeros)
 		{
-			if(!pax.isSelectPasajero() || pax.isEsEdit())break;
+			if(!interfazDao.getoInterfaz().isbSubirDoc_Y_llenarDatosPax())
+				if(!pax.isSelectPasajero() || pax.isEsEdit())break;
 			pasajeros+=
 						"<tr style='border:1px solid black;'>"+
 				    		"<td style='border:1px solid black;' align='center'>"+pax.getTipoDocumento()+"</td>"+
@@ -1218,12 +1233,9 @@ public class CEmail
 								"<br/>"+
 								"<div>"+
 									"<p><strong>"+reserva.getcContacto()+"."+"</strong> Efectuo un pago.<br/>"+"El pago fue efectuado por la reserva del paquete <strong style='color:#F7653A;text-transform: lowercase;'>"+reserva.getoPaquete().getcTituloIdioma1()+"</strong>"+ 
-									" con la siguiente fecha principal: <strong style='color:#F7653A;'>"+fechaInicio+"</strong>, y "+ 
-									"<strong style='color:#F7653A;'>"+fechaFin+"</strong>  Con:<br/>Las siguientes fechas alternas:</p>"+
-									
-									"<table width='40%'>"+
-										fechas+
-								    "</table>"+
+									" con la siguiente fecha: <strong style='color:#F7653A;'>"+fechaInicio+"</strong>, y "+ 
+									"<strong style='color:#F7653A;'>"+fechaFin+"</strong>"+
+									fechas+
 								    arribo+
 								    "<br/>"+
 								    "<div style='background:#1A5276;border-radius:5px;width:25%;padding:1px 0 1px 0;' align='center'>"+
@@ -1347,12 +1359,12 @@ public class CEmail
 								    "<p>"+etiqueta[147]+"</p>"+
 								    "<table width='80%'>"+
 									    "<tr align='center'>"+
-								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
 								    	"</tr>"+
 								    	"<tr align='center'>"+
-								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_fpp/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+								    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
 								    	"</tr>"+
 								    "</table>"+
 								"</div>"+
@@ -1479,24 +1491,32 @@ public class CEmail
 		String fechas="";
 		if(fechasAlternas!=null)
 		{
-			for(String fecha:fechasAlternas)
+			for(int i=0;i<fechasAlternas.size();i++)
 			{
 				fechas+=
 						"<tr align='center'>"+
-				           "<td style='color:#F7653A;font-weight:bold;'>"+fecha+"</td>"+
+				           "<td style='color:#F7653A;font-weight:bold;'>"+fechasAlternas.get(i)+"</td>"+
 				        "</tr>";
 			}
+			
+			fechas="<br/>"+etiqueta[137]+"</p>"+
+					"<table width='40%'>"+
+						fechas+
+				    "</table>";
 		}
 		return fechas;
 	}
 	public String[] obtenerHtmlPasajeros(ArrayList<CPasajero> listaPasajeros,String[] etiqueta)
 	{
+		CInterfazDAO interfazDao=new CInterfazDAO();
+		interfazDao.asignarConfigInterfaz(interfazDao.recuperarConfigInterfazDB());
 		String[] pasajeros=new String[2];
 		pasajeros[0]="";
 		pasajeros[1]="";
 		for(CPasajero p:listaPasajeros)
 		{
-			if(!p.isSelectPasajero() || p.isEsEdit())break;
+			if(!interfazDao.getoInterfaz().isbSubirDoc_Y_llenarDatosPax())
+				if(!p.isSelectPasajero() || p.isEsEdit())break;
 			pasajeros[0]+=
 						"<tr style='border:1px solid black;'>"+
 				    		"<td style='border:1px solid black;' align='center'>"+p.getTipoDocumento()+"</td>"+
@@ -1507,17 +1527,8 @@ public class CEmail
 				    		"<td style='border:1px solid black;' align='center'>"+p.getnEdad()+"</td>"+
 				    		"<td style='border:1px solid black;' align='center'>"+p.getNombrePais()+"</td>"+
 				    	"</tr>";
-			pasajeros[1]+=
-					"<tr style='border:1px solid black;'>"+
-			    		"<td style='border:1px solid black;' align='center'>"+p.getTipoDocumento()+"</td>"+
-			    		"<td style='border:1px solid black;' align='center'>"+p.getcNroDoc()+"</td>"+
-			    		"<td style='border:1px solid black;' align='center'>"+p.getcNombres()+"</td>"+
-			    		"<td style='border:1px solid black;' align='center'>"+p.getcApellidos()+"</td>"+
-			    		"<td style='border:1px solid black;' align='center'>"+p.getcSexo()+"</td>"+
-			    		"<td style='border:1px solid black;' align='center'>"+p.getnEdad()+"</td>"+
-			    		"<td style='border:1px solid black;' align='center'>"+p.getNombrePais()+"</td>"+
-			    	"</tr>";
 		}
+		pasajeros[1]=pasajeros[0];
 		return pasajeros;
 	}
 	public String[] obtenerHtmlServicios(ArrayList<CServicio> listaServicios,String[] etiqueta)

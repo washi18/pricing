@@ -23,6 +23,7 @@ public class ConfAltoNivelVM {
 	private ConfAltoNivel oConfAltoNievelYourSelf;
 	private ConfAltoNivel oConfAltoNievelPricing;
 	private ConfAltoNivel oConfAltoNivelFechaArribo;
+	private ConfAltoNivel oConfAltoNivelDesIti;
 	private ConfAltoNivelDAO confAltoNivelDAO;
 	private ArrayList<ConfAltoNivel> listaConfAltoNivel;
 	//======getter an setter=====
@@ -67,12 +68,21 @@ public class ConfAltoNivelVM {
 		this.confAltoNivelDAO = confAltoNivelDAO;
 	}
 
+	public ConfAltoNivel getoConfAltoNivelDesIti() {
+		return oConfAltoNivelDesIti;
+	}
+
+	public void setoConfAltoNivelDesIti(ConfAltoNivel oConfAltoNivelDesIti) {
+		this.oConfAltoNivelDesIti = oConfAltoNivelDesIti;
+	}
+
 	//===========constructores=====
 	@Init
 	public void Inicializa(){
 		oConfAltoNievelYourSelf=new ConfAltoNivel();
 		oConfAltoNievelPricing=new ConfAltoNivel();
 		oConfAltoNivelFechaArribo=new ConfAltoNivel();
+		oConfAltoNivelDesIti=new ConfAltoNivel();
 		confAltoNivelDAO=new ConfAltoNivelDAO();
 		listaConfAltoNivel=new ArrayList<ConfAltoNivel>();
 		Execution exec = Executions.getCurrent();
@@ -89,9 +99,12 @@ public class ConfAltoNivelVM {
 		setoConfAltoNievelPricing(confAltoNivelDAO.getoConfAltoNivel());
 		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("arribo"));
 		setoConfAltoNivelFechaArribo(confAltoNivelDAO.getoConfAltoNivel());
+		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("desc_iti"));
+		setoConfAltoNivelDesIti(confAltoNivelDAO.getoConfAltoNivel());
 		BindUtils.postNotifyChange(null, null, this,"oConfAltoNievelYourself");
 		BindUtils.postNotifyChange(null, null, this,"oConfAltoNievelPricing");
 		BindUtils.postNotifyChange(null, null, this,"oConfAltoNivelFechaArribo");
+		BindUtils.postNotifyChange(null, null, this,"oConfAltoNivelDesIti");
 	}
 	
 	@Command
@@ -154,6 +167,26 @@ public class ConfAltoNivelVM {
 			Clients.showNotification("Estado de la fecha de arribo fue modificado satisfactoriamente",Clients.NOTIFICATION_TYPE_INFO,null,"before_start",2700);
 		}else {
 			Clients.showNotification("Error al modificar estado de la fecha de arribo",Clients.NOTIFICATION_TYPE_ERROR,null,"before_start",2700);
+		}
+	}
+	@Command
+	@NotifyChange({"oConfAltoNivelDesIti"})
+	public void cambiarEstadoDesIti(@BindingParam("estado")String estado){
+		oConfAltoNivelDesIti.setCnombreEntidad("desc_iti");
+		if(estado.equals("CON")){
+			oConfAltoNivelDesIti.setbEstado(true);
+			oConfAltoNivelDesIti.setEstadoConEntidad(true);
+			oConfAltoNivelDesIti.setEstadoSinEntidad(false);
+		}else{
+			oConfAltoNivelDesIti.setbEstado(false);
+			oConfAltoNivelDesIti.setEstadoConEntidad(false);
+			oConfAltoNivelDesIti.setEstadoSinEntidad(true);
+		}
+		boolean correcto=confAltoNivelDAO.isOperationCorrect(confAltoNivelDAO.modificarConfAltoNivel(oConfAltoNivelDesIti));
+		if(correcto){
+			Clients.showNotification("Estado de vista descripcion e itinerario fue modificado satisfactoriamente",Clients.NOTIFICATION_TYPE_INFO,null,"before_start",2700);
+		}else {
+			Clients.showNotification("Error al modificar estado de la vista descripcion e itinerario",Clients.NOTIFICATION_TYPE_ERROR,null,"before_start",2700);
 		}
 	}
 }

@@ -184,9 +184,9 @@ public class subServicioVM
 		{
 			Clients.showNotification("Es necesario insertar una imagen del sub servicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
 			valido=false;
-		}else if(oSubServicioNew.getnPrecioServicio().doubleValue()==0)//los precios tbn puenden ser negativos ya que pueden ser un descuento
+		}else if(oSubServicioNew.getnPrecioServicio().doubleValue()<0)//los precios tbn puenden ser negativos ya que pueden ser un descuento
 		{
-			Clients.showNotification("El precio de un sub servicio no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			Clients.showNotification("El precio de un sub servicio no puede ser negativo", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
 			valido=false;
 		}
 		return valido;
@@ -224,9 +224,9 @@ public class subServicioVM
 		{
 			Clients.showNotification("Es necesario insertar una imagen del sub servicio", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
 			valido=false;
-		}else if(subServicio.getnPrecioServicio().doubleValue()==0)//los precios tbn puenden ser negativos ya que pueden ser un descuento
+		}else if(subServicio.getnPrecioServicio().doubleValue()<0)//los precios tbn puenden ser negativos ya que pueden ser un descuento
 		{
-			Clients.showNotification("El precio de un sub servicio no puede ser $ 0.00", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
+			Clients.showNotification("El precio de un sub servicio no puede ser negativo", Clients.NOTIFICATION_TYPE_ERROR, componente,"before_start",2700);
 			valido=false;
 		}
 		return valido;

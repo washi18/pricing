@@ -79,9 +79,9 @@
 							<div>
 								<label value="PAQUETE: " zclass="lbl_llenar_datos"/>
 								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="100%" visible="true"
-										 onChange="@command('asignarNamePaquete')" style="text-transform: uppercase;"/>
-								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="100%" visible="false" style="text-transform: uppercase;"/>
-								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="100%" visible="false" style="text-transform: uppercase;"/>
+										 onChange="@command('asignarNamePaquete')"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="100%" visible="false"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cTituloIdioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
 							</div>
 						</div>
 						<div id="div_lbl_solo_camino_inca" visible="false">
@@ -119,6 +119,12 @@
 							<textbox value="@bind(vmPaquete.oPaquete.nPrecio1_text)" width="80px" placeholder="PRECIO" zclass="txt_llenar_datos"
 											 onChange="@command('changePrecios_nuevo',precio=self.value,descuento='precio1',componente=self)"/>
 							<space></space>
+							<div>
+								<separator bar="true" orient="horizontal"></separator>
+								<label value="URL DE REFERENCIA:" zclass="lbl_llenar_datos"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cUrlReferenciaPaquete)"
+										placeholder="URL" zclass="txt_llenar_datos"/>
+							</div>
 						</div>
 						<div id ="div_caminoinka_manejopropio" visible="false">
 							<separator bar="true"/>
@@ -126,6 +132,12 @@
 								<radio label="CON DESCUENTO" checked="@bind(vmPaquete.oPaquete.conDescuento)" value="con_descuento" onCheck="div_conDescuento.setVisible(true);div_sinDescuento.setVisible(false)"/>
 								<radio label="SIN DESCUENTO" checked="@bind(vmPaquete.oPaquete.sinDescuento)" value="sin_descuento" onCheck="div_conDescuento.setVisible(false);div_sinDescuento.setVisible(true)"/>
 							</radiogroup>
+							<div>
+								<separator bar="true" orient="horizontal"></separator>
+								<label value="URL DE REFERENCIA:" zclass="lbl_llenar_datos"/>
+								<textbox value="@bind(vmPaquete.oPaquete.cUrlReferenciaPaquete)"
+										placeholder="URL" zclass="txt_llenar_datos"/>
+							</div>
 							<div id="div_sinDescuento" visible="true">
 								<div>
 									<separator bar="true"/>
@@ -637,6 +649,13 @@
 												<radio label="SIN DESCUENTO" checked="@bind(each.sinDescuento)" value="sin_descuento"/>
 											</radiogroup>
 										</div>
+										<div>
+											<separator bar="true" orient="horizontal"/>
+											<label value="URL DE REFERENCIA:" zclass="lbl_llenar_datos"/>
+											<textbox value="@bind(each.cUrlReferenciaPaquete)"
+													placeholder="URL" zclass="txt_llenar_datos"/>
+											<separator bar="true" orient="horizontal"/>
+										</div>
 										<div visible="@bind(each.sinDescuento)">
 											<div>
 												<separator bar="true"/>
@@ -800,6 +819,13 @@
 												<radio label="CON DESTINO" checked="@bind(each.conDestino)" value="con_destino"/>
 												<radio label="SIN DESTINO" checked="@bind(each.sinDestino)" value="sin_destino"/>
 											</radiogroup>
+											<div>
+												<separator bar="true" orient="horizontal"/>
+												<label value="URL DE REFERENCIA:" zclass="lbl_llenar_datos"/>
+												<textbox value="@bind(each.cUrlReferenciaPaquete)"
+														placeholder="URL" zclass="txt_llenar_datos"/>
+												<separator bar="true" orient="horizontal"/>
+											</div>
 											<div visible="@bind(each.sinDestino)">
 												<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
 												<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"

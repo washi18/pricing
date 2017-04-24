@@ -1,6 +1,7 @@
 package com.pricing.viewModel;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
@@ -183,7 +184,7 @@ public class paquetesVM {
 		Execution exec = Executions.getCurrent();
 	}
 	@GlobalCommand
-	public void cargarDatosPaquetes()
+	public void cargarDatosPaquetes() throws UnsupportedEncodingException
 	{
 		HttpSession ses = (HttpSession) Sessions.getCurrent().getNativeSession();
 		String user = (String) ses.getAttribute("usuario");
@@ -206,7 +207,7 @@ public class paquetesVM {
 		BindUtils.postNotifyChange(null, null, this, "visibilidadYourself");
 	}
 
-	public void recuperarPaquetes() {
+	public void recuperarPaquetes() throws UnsupportedEncodingException {
 		/** Obtencion de los paquetes existente desde la base de datos **/
 		CPaqueteDAO paqueteDao = new CPaqueteDAO();
 		paqueteDao.asignarListaPaquetes(paqueteDao.recuperarPaquetesBD());
@@ -230,7 +231,7 @@ public class paquetesVM {
 		BindUtils.postNotifyChange(null, null, this,"listaActividades");
 	}
 	@Command
-	public void buscarPaquetes(@BindingParam("nombre") String nombre) {
+	public void buscarPaquetes(@BindingParam("nombre") String nombre) throws UnsupportedEncodingException {
 		CPaqueteDAO paqueteDao = new CPaqueteDAO();
 		paqueteDao.asignarListaPaquetes(paqueteDao.buscarPaquetesBD(nombre));
 		setListaPaquetes(paqueteDao.getListaPaquetes());
@@ -544,7 +545,7 @@ public class paquetesVM {
 
 	@GlobalCommand
 	@NotifyChange({ "listaServicios" })
-	public void actualizarServicioInsertado() {
+	public void actualizarServicioInsertado() throws UnsupportedEncodingException {
 		listaServicios.clear();
 		CServicioDAO servicioDao = new CServicioDAO();
 		servicioDao.asignarListaServicios(servicioDao.recuperarServiciosBD());
@@ -554,7 +555,7 @@ public class paquetesVM {
 
 	@GlobalCommand
 	@NotifyChange({ "listaDestinos" })
-	public void actualizarDestinoInsertado() {
+	public void actualizarDestinoInsertado() throws UnsupportedEncodingException {
 		listaDestinos.clear();
 		/* Asignacion de destinos */
 		CDestinoDAO destinoDao = new CDestinoDAO();
@@ -565,7 +566,7 @@ public class paquetesVM {
 
 	@GlobalCommand
 	@NotifyChange({ "listaActividades" })
-	public void actualizarActividadInsertado() {
+	public void actualizarActividadInsertado() throws UnsupportedEncodingException {
 		listaActividades.clear();
 		/* Asignacion de destinos */
 		CActividadDAO actividadDao = new CActividadDAO();
@@ -574,7 +575,7 @@ public class paquetesVM {
 		refrescarListaPaquetes();
 	}
 
-	public void refrescarListaPaquetes() {
+	public void refrescarListaPaquetes() throws UnsupportedEncodingException {
 		listaPaquetes.clear();
 		CPaqueteDAO paqueteDao = new CPaqueteDAO();
 		paqueteDao.asignarListaPaquetes(paqueteDao.recuperarPaquetesBD());
@@ -584,7 +585,7 @@ public class paquetesVM {
 
 	@Command
 	public void actualizarPaquete(@BindingParam("componente") Component comp,
-			@BindingParam("paquete") CPaquete paquete) {
+			@BindingParam("paquete") CPaquete paquete) throws UnsupportedEncodingException {
 		CPaqueteDAO paqueteDao = new CPaqueteDAO();
 		// RECUPERAR LISTA PAQUETE-DESTINOS
 		ArrayList<CPaqueteDestino> listaPaqueteDestinos = new ArrayList<CPaqueteDestino>();
@@ -1801,13 +1802,11 @@ public class paquetesVM {
 	@Command
 	@NotifyChange({ "oPaquete" })
 	public void asignarNamePaquete() {
-		oPaquete.setcTituloIdioma1(oPaquete.getcTituloIdioma1().toUpperCase());
 		oPaquete.setTitulo(oPaquete.getcTituloIdioma1());
 	}
 
 	@Command
 	public void asignarNamePaquete_update(@BindingParam("paquete") CPaquete paquete) {
-		paquete.setcTituloIdioma1(paquete.getcTituloIdioma1().toUpperCase());
 		paquete.setTitulo(paquete.getcTituloIdioma1());
 		BindUtils.postNotifyChange(null, null, paquete, "titulo");
 	}

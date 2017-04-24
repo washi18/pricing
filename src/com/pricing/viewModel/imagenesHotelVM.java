@@ -1,5 +1,6 @@
 package com.pricing.viewModel;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import org.zkoss.bind.BindUtils;
@@ -24,6 +25,7 @@ import com.pricing.model.CGaleriaPaquete;
 import com.pricing.model.CGaleriaPaquete4;
 import com.pricing.model.CGaleriasHotel4;
 import com.pricing.model.CHotel;
+import com.pricing.util.ScannUtil;
 
 public class imagenesHotelVM {
 	
@@ -297,6 +299,7 @@ public class imagenesHotelVM {
 							BindUtils.postNotifyChange(null, null, galeria,"visible");
 							refrescarCambios(galeria4);
 							if(correcto && correcto2){
+								borraFicheroServidor(galeria);
 								Clients.showNotification("Imagen eliminado satisfactoriamente", Clients.NOTIFICATION_TYPE_INFO, comp, "top_center", 2000);
 							}else{
 								Clients.showNotification("Fallo al eliminar imagen", Clients.NOTIFICATION_TYPE_ERROR, comp, "top_center", 2000);
@@ -308,6 +311,15 @@ public class imagenesHotelVM {
 						}
 					}
 				});
+	}
+	public void borraFicheroServidor(CGaleriaHotel galeria)
+	{
+		String url=ScannUtil.getPathImagenHoteles();
+		File fichero = new File(url+galeria.getcRutaImagen());
+		if (fichero.delete())
+			System.out.println("El fichero ha sido borrado satisfactoriamente");
+		else
+			System.out.println("El fichero no puede ser borrado");
 	}
 	@Command
 	@NotifyChange({"update"})
