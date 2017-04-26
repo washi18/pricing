@@ -407,7 +407,10 @@ public class pricingVM
 				CPasajero pas=new CPasajero();
 				pas.setnNro(i);
 				if(oInterfaz.isbSubirDocPax())
+				{
+					System.out.println("Entre a activar subida de doc");
 					pas.setEsEdit(true);
+				}
 				listaPasajeros.add(pas);
 			}
 		}
@@ -421,7 +424,7 @@ public class pricingVM
 				if(pax.getnNro()<=nroPasajeros && !pax.isSelectPasajero())
 				{
 					pax.setSelectPasajero(true);
-					if(pax.isEsEdit())pax.setEsEdit(false);
+					if(pax.isEsEdit() && !oInterfaz.isbSubirDocPax())pax.setEsEdit(false);
 					BindUtils.postNotifyChange(null, null, pax,"selectPasajero");
 					BindUtils.postNotifyChange(null, null, pax,"esEdit");
 				}else if(pax.getnNro()>nroPasajeros && pax.isSelectPasajero())

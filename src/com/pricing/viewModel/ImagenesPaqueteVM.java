@@ -93,11 +93,13 @@ public class ImagenesPaqueteVM {
 	@NotifyChange({"update"})
 	public void cambiosEnImagenPaquete(@BindingParam("galeria4")CGaleriaPaquete4 galeria4,@BindingParam("galeria")CGaleriaPaquete galeria)
 	{
+		System.out.println("Nombre de la imagen: "+galeria.getCimage());
 		if(!validoParaCambiarImagen(galeria.isBestado()))
 			return;
 		update=true;
 		if(galeria4.getGaleria1().equals(galeria))
 		{
+			System.out.println("Entre a cambiar estado de imagen");
 			if(galeria4.getGaleria1().isBestado())
 			{
 				galeria4.getGaleria1().setBestado(false);
@@ -149,18 +151,26 @@ public class ImagenesPaqueteVM {
 	}
 	public boolean validoParaCambiarImagen(boolean Marcado)
 	{
+		System.out.println("Estado del marcado es: "+Marcado);
 		boolean valido=true;
 		for(CGaleriaPaquete galeria:oPaquete.getListaImagenes())
 		{
+			System.out.println("Codigo del paquete en la gaeria: "+galeria.getCpaquetecod());
 			if(galeria.getCpaquetecod()==null)
 			{
 				valido=false;
 				break;
 			}
 		}
+		System.out.println("Que paso con valido: "+valido);
 		if(valido && !Marcado)
 		{
-				if(!oPaquete.getcFoto1().equals("img/tours/tourxdefecto.png") && 
+			System.out.println("Fotos del paquete:\n "+oPaquete.getcFoto1()+"\n"+
+					oPaquete.getcFoto2()+"\n"+
+					oPaquete.getcFoto3()+"\n"+
+					oPaquete.getcFoto4()+"\n"+
+					oPaquete.getcFoto2()+"\n");
+				if(!oPaquete.getcFoto5().equals("img/tours/tourxdefecto.png") && 
 						!oPaquete.getcFoto2().equals("img/tours/tourxdefecto.png")&&
 						!oPaquete.getcFoto3().equals("img/tours/tourxdefecto.png")&&
 						!oPaquete.getcFoto4().equals("img/tours/tourxdefecto.png")&&
@@ -168,45 +178,58 @@ public class ImagenesPaqueteVM {
 					valido=false;
 				}
 		}
+		System.out.println("validez de imagen: "+valido);
 		return valido;
 	}
 	public void quitarImagen(String rutaImagen)
 	{
 			System.out.println("la ruta de la imagen es->"+rutaImagen);
+			System.out.print(oPaquete.getcFoto1()+" = "+rutaImagen);
 			if(oPaquete.getcFoto1().equals(rutaImagen))
 			{
+				System.out.print(oPaquete.getcFoto1()+" = "+rutaImagen);
 				oPaquete.setcFoto1("img/tours/tourxdefecto.png");
 			}else if(oPaquete.getcFoto2().equals(rutaImagen))
 			{
+				System.out.print(oPaquete.getcFoto2()+" = "+rutaImagen);
 				oPaquete.setcFoto2("img/tours/tourxdefecto.png");
 			}else if(oPaquete.getcFoto3().equals(rutaImagen))
 			{
+				System.out.print(oPaquete.getcFoto3()+" = "+rutaImagen);
 				oPaquete.setcFoto3("img/tours/tourxdefecto.png");
 			}else if(oPaquete.getcFoto4().equals(rutaImagen))
 			{
+				System.out.print(oPaquete.getcFoto4()+" = "+rutaImagen);
 				oPaquete.setcFoto4("img/tours/tourxdefecto.png");
 			}else if(oPaquete.getcFoto5().equals(rutaImagen))
 			{
+				System.out.print(oPaquete.getcFoto5()+" = "+rutaImagen);
 				oPaquete.setcFoto5("img/tours/tourxdefecto.png");
 			}
 	}
 	
 	public void agregarImagen(String rutaImagen)
 	{
+			System.out.print(oPaquete.getcFoto1()+" = "+rutaImagen);
 			if(oPaquete.getcFoto1().equals("img/tours/tourxdefecto.png"))
 			{
+				System.out.print(oPaquete.getcFoto1()+" = "+rutaImagen);
 				oPaquete.setcFoto1(rutaImagen);
 			}else if(oPaquete.getcFoto2().equals("img/tours/tourxdefecto.png"))
 			{
+				System.out.print(oPaquete.getcFoto2()+" = "+rutaImagen);
 				oPaquete.setcFoto2(rutaImagen);
 			}else if(oPaquete.getcFoto3().equals("img/tours/tourxdefecto.png"))
 			{
+				System.out.print(oPaquete.getcFoto3()+" = "+rutaImagen);
 				oPaquete.setcFoto3(rutaImagen);
 			}else if(oPaquete.getcFoto4().equals("img/tours/tourxdefecto.png"))
 			{
+				System.out.print(oPaquete.getcFoto4()+" = "+rutaImagen);
 				oPaquete.setcFoto4(rutaImagen);
 			}else if(oPaquete.getcFoto5().equals("img/tours/tourxdefecto.png"))
 			{
+				System.out.print(oPaquete.getcFoto5()+" = "+rutaImagen);
 				oPaquete.setcFoto5(rutaImagen);
 			}
 	}

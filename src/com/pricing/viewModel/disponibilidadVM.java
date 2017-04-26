@@ -159,11 +159,29 @@ public class disponibilidadVM
 	}
 	public void iniciarLosDiasAnio() throws Exception
 	{
+		Calendar cal=Calendar.getInstance();
+		int anio=cal.get(Calendar.YEAR);
 		listaAnioActual=new ArrayList<CDia>();
 		listaAnioSig=new ArrayList<CDia>();
 		listaUpdate=new ArrayList<String>();
+		if(isBisiesto(anio))
+			iniciarListaAniosBisiesto(366);
+		else
+			iniciarListaAniosNormal(365);
+		if(cdisponibilidad==20)
+		{
+			ArrayList<CCalendarioDisponibilidad> listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
+			listaDisponibilidad.addAll(recuperarListaDispoJson());
+			ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
+		}else
+		{
+			ingresarDatosListaDispoOtros();
+		}
+	}
+	public void iniciarListaAniosNormal(int nroDias)
+	{
 		int nroDia=1;
-		for(int i=0;i<365;i++)
+		for(int i=0;i<nroDias;i++)
 		{
 			CDia dia=new CDia();
 			if(i==31 || i==59 || i==90 || i==120 || 
@@ -181,14 +199,27 @@ public class disponibilidadVM
 			listaAnioSig.add(dia1);
 			nroDia++;
 		}
-		if(cdisponibilidad==20)
+	}
+	public void iniciarListaAniosBisiesto(int nroDias)
+	{
+		int nroDia=1;
+		for(int i=0;i<nroDias;i++)
 		{
-			ArrayList<CCalendarioDisponibilidad> listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
-			listaDisponibilidad.addAll(recuperarListaDispoJson());
-			ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
-		}else
-		{
-			ingresarDatosListaDispoOtros();
+			CDia dia=new CDia();
+			if(i==31 || i==60 || i==91 || i==121 || 
+					i==152 || i==182 || i==213 || i==244 || i==274 || i==305 || i==335)
+				nroDia=1;
+			dia.setcNroDia(""+nroDia);
+			listaAnioActual.add(dia);
+			CDia dia1=new CDia();
+			dia1.setcNroDia(""+nroDia);
+//			dia1.setCantDisp("500");
+//			dia1.setDisponible("/img/dispon/ok.png");
+//			dia1.setDisponible("icon-checkmark");
+			dia1.setColorDisp("chek_style");
+//			dia1.setVisible(true);
+			listaAnioSig.add(dia1);
+			nroDia++;
 		}
 	}
 	public void ingresarDatosListaDispoOtros()
@@ -1371,6 +1402,10 @@ public class disponibilidadVM
 		}
 		else
 			mostrarCalendarDispAnioSiguiente(anio,mesRecuperado);
+	}
+	public boolean isBisiesto(int anio)
+	{
+		return (anio % 4 == 0) && ((anio % 100 != 0) || (anio % 400 == 0));
 	}
 	@AfterCompose
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws WrongValueException, IOException
