@@ -181,6 +181,20 @@ public class ImagenesPaqueteVM {
 		System.out.println("validez de imagen: "+valido);
 		return valido;
 	}
+	public boolean validoParaEliminarImagen()
+	{
+		boolean valido=true;
+		for(CGaleriaPaquete galeria:oPaquete.getListaImagenes())
+		{
+			System.out.println("Codigo del paquete en la gaeria: "+galeria.getCpaquetecod());
+			if(galeria.getCpaquetecod()==null)
+			{
+				valido=false;
+				break;
+			}
+		}
+		return valido;
+	}
 	public void quitarImagen(String rutaImagen)
 	{
 			System.out.println("la ruta de la imagen es->"+rutaImagen);
@@ -233,12 +247,11 @@ public class ImagenesPaqueteVM {
 				oPaquete.setcFoto5(rutaImagen);
 			}
 	}
-	
 	@Command
 	@NotifyChange()
 	public void eliminarImagenGaleriaPaquete(@BindingParam("galeria4")CGaleriaPaquete4 galeria4,@BindingParam("galeria")CGaleriaPaquete galeria,@BindingParam("comp")Component comp)
 	{
-		if(!validoParaCambiarImagen(galeria.isBestado()))
+		if(!validoParaEliminarImagen())
 			return;
 		galeriaPaqueteDAO=new CGaleriaPaqueteDAO();
 		Messagebox.show("Esta seguro de eliminar esta imagen?", "Question", Messagebox.OK|Messagebox.CANCEL,

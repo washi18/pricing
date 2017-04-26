@@ -205,6 +205,19 @@ public class imagenesHotelVM {
 		}
 		return valido;
 	}
+	public boolean validoParaEliminarImagen()
+	{
+		boolean valido=true;
+		for(CGaleriaHotel galeria:oHotel.getListaImagenes())
+		{
+			if(galeria.getnHotelCod()==0)
+			{
+				valido=false;
+				break;
+			}
+		}
+		return valido;
+	}
 	public void quitarImagen(String rutaImagen,int tipoImagen)
 	{
 		if(tipoImagen==1)
@@ -257,7 +270,7 @@ public class imagenesHotelVM {
 	@NotifyChange()
 	public void eliminarImagenGaleriaHotel(@BindingParam("galeria4")CGaleriasHotel4 galeria4,@BindingParam("galeria")CGaleriaHotel galeria,@BindingParam("comp")Component comp)
 	{
-		if(!validoParaCambiarImagen(galeria.isbEstado(),galeria.getnTipoImagen()))
+		if(!validoParaEliminarImagen())
 			return;
 		galeriaHotelDAO=new CGaleriaHotelDAO();
 		Messagebox.show("Esta seguro de eliminar esta imagen?", "Question", Messagebox.OK|Messagebox.CANCEL,
