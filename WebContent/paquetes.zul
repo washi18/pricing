@@ -21,7 +21,7 @@
 							   sclass="radio_yourself"
 							   checked="@bind(vmPaquete.oPaquete.manejo_yourself)" 
 							   onCheck="div_manejo_yourself.setVisible(true);
-							   div_contenedor_idioma.setVisible(false);
+							   div_contenedor_idioma.setVisible(true);
 							   div_lbl_solo_camino_inca.setVisible(false);
 							   div_select_destinos.setVisible(false);
 							   div_conDestino.setVisible(false);
@@ -113,6 +113,13 @@
 <!-- 										<comboitem value="CAMINO_INKA_CLASICO" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
 <!-- 										<comboitem value="CAMINO_INKA_CORTO" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
 								</combobox>
+<!-- 								<div> -->
+<!-- 									<separator bar="true" orient="horizontal"></separator> -->
+<!-- 									<label value="NOMBRE DEL PAQUETE :" zclass="lbl_llenar_datos"/> -->
+<!-- 									<textbox value="@bind(vmPaquete.oPaquete.cUrlReferenciaPaquete)" -->
+<!-- 											placeholder="NOMBRE PAQUETE" zclass="txt_llenar_datos"/> -->
+<!-- 									<separator bar="true" orient="horizontal"></separator> -->
+<!-- 								</div> -->
 							</div>
 							<separator orient="horizontal"></separator>
 							<label value="COSTO ($): " zclass="lbl_llenar_datos"/>
@@ -541,23 +548,20 @@
 				    		<space></space>
 				    		<div zclass="div_content_datos_listaPaq">
 				    			<div sclass="estilo_editar_respons">
-				    			  <div visible="@load(!each.manejo_yourself)">
-				    				<div
-				    					sclass="div_contiene_banderas">
+				    			  <div>
+				    				<div sclass="div_contiene_banderas">
 				    					<image sclass="estilo_banderas"
 				    						src="img/Flag-of-Spain.png"
 				    						onClick="@command('cambioIdiomas',idioma='Espanol',paquete=each)">
 				    					</image>
-				    					<div visible="@bind(!each.manejo_yourself)">
-					    					<image sclass="estilo_banderas"
+					    				<image sclass="estilo_banderas"
 					    						src="img/en.png"
 					    						onClick="@command('cambioIdiomas',idioma='Ingles',paquete=each)">
-					    					</image>
-					    					<image sclass="estilo_banderas"
+					    				</image>
+					    				<image sclass="estilo_banderas"
 					    						src="img/Flag_of_Brazil.png"
 					    						onClick="@command('cambioIdiomas',idioma='Portugues',paquete=each)">
-					    					</image>
-				    					</div>
+					    				</image>
 				    				</div>
 				    				<separator spacing="2px"></separator>
 				    				<div

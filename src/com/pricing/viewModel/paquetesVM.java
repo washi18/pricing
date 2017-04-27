@@ -1882,7 +1882,7 @@ public class paquetesVM {
 
 	@Command
 	public void seleccionardestinoInsertar(@BindingParam("codDestino") String codDestino,@BindingParam("manejoYourself") String manejoYourself) {
-		oPaquete.setcTituloIdioma1(codDestino);
+//		oPaquete.setcTituloIdioma1(codDestino);
 		if(manejoYourself.equals("MACHUPICCHU")){
 			oPaquete.setManejoSelectYourself(codDestino);
 		}else if(manejoYourself.equals("MACHUPICCHU_HUAYNAPICCHU_1G")){

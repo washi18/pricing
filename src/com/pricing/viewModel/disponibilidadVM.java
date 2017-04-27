@@ -69,6 +69,7 @@ public class disponibilidadVM
 	private CDias7 antDias7Alt;
 	private ArrayList<String> listaUpdate;
 	private ArrayList<String[]> listaFechasSeleccionadas;
+	private ArrayList<CCalendarioDisponibilidad> listaDisponibilidad;
 	private String mesRecuperado;
 	private int cdisponibilidad;
 	/***************************/
@@ -170,9 +171,10 @@ public class disponibilidadVM
 			iniciarListaAniosNormal(365);
 		if(cdisponibilidad==20)
 		{
-			ArrayList<CCalendarioDisponibilidad> listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
+			//Recuperar datos del webservice
+		    listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
 			listaDisponibilidad.addAll(recuperarListaDispoJson());
-			ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
+//			ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
 		}else
 		{
 			ingresarDatosListaDispoOtros();
@@ -327,73 +329,6 @@ public class disponibilidadVM
 			}
 		}
 		return lista;
-	}
-	public void ingresarDatosListaDispoCaminoInka(ArrayList<CCalendarioDisponibilidad> listaDisponibilidad) throws Exception
-	{
-		Calendar cal=Calendar.getInstance();
-		int n=0;
-		for(int i=0;i<12;i++)
-		{
-//			System.out.println("pos:"+n);
-			ArrayList<Integer> listDispoMesActual=new ArrayList<Integer>();
-			listDispoMesActual=recuperarDispoMesUrl(cal.get(Calendar.YEAR),i+1);
-			if(listDispoMesActual.isEmpty())
-				listDispoMesActual=recuperarDispoMes(cal.get(Calendar.YEAR)+1, i+1, listaDisponibilidad);
-			//if(i==1)continue;//mes de febrero
-			String mes=mesAnio(i);
-		    //Una vez obtenida las disponibilidades se almacena en la listaAnioActual
-		    for(int r=0;r<listDispoMesActual.size();r++)
-		    {
-			    listaAnioActual.get(n).setCantDisp(String.valueOf(listDispoMesActual.get(r)));
-			    listaAnioActual.get(n).setVisible(true);
-			    if(listDispoMesActual.get(r)!=0)
-			    {
-			    	listaAnioActual.get(n).setDisponible("icon-checkmark");
-			    	listaAnioActual.get(n).setColorDisp("chek_style");
-			    	listaAnioActual.get(n).setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
-			    }
-//			    	listaAnioActual.get(n).setDisponible("/img/dispon/ok.png");
-			    else
-			    {
-			    	listaAnioActual.get(n).setDisponible("icon-cross");
-			    	listaAnioActual.get(n).setColorDisp("cross_style");
-			    	listaAnioActual.get(n).setImgPrioridad("background:rgba(247, 87, 65,0.3);border-radius:5px;");
-			    }
-//			    	listaAnioActual.get(n).setDisponible("/img/dispon/x5.png");
-			    n++;
-		    }
-		}
-		n=0;
-		for(int j=0;j<12;j++)
-		{
-//			System.out.println("pos:"+n);
-			ArrayList<Integer> listDispoMesSig=new ArrayList<Integer>();
-			listDispoMesSig=recuperarDispoMesUrl(cal.get(Calendar.YEAR)+1,j+1);
-			if(listDispoMesSig.isEmpty())
-				listDispoMesSig=recuperarDispoMes(cal.get(Calendar.YEAR)+1, j+1, listaDisponibilidad);
-			//if(j==1)continue;//mes de febrero
-		    //Una vez obtenida las disponibilidades se almacena en la listaAnioActual
-		    for(int t=0;t<listDispoMesSig.size();t++)
-		    {
-			    listaAnioSig.get(n).setCantDisp(String.valueOf(listDispoMesSig.get(t)));
-			    listaAnioSig.get(n).setVisible(true);
-			    if(listDispoMesSig.get(t)!=0)
-			    {
-			    	listaAnioSig.get(n).setDisponible("icon-checkmark");
-			    	listaAnioSig.get(n).setColorDisp("chek_style");
-			    	listaAnioSig.get(n).setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
-			    }
-//			    	listaAnioActual.get(n).setDisponible("/img/dispon/ok.png");
-			    else
-			    {
-			    	listaAnioSig.get(n).setDisponible("icon-cross");
-			    	listaAnioSig.get(n).setColorDisp("cross_style");
-			    	listaAnioSig.get(n).setImgPrioridad("background:rgba(247, 87, 65,0.3);border-radius:5px;");
-			    }
-//			    	listaAnioActual.get(n).setDisponible("/img/dispon/x5.png");
-			    n++;
-		    }
-		}
 	}
 	public ArrayList<Integer> recuperarDispoMesUrl(int anio,int mes) throws Exception
 	{
@@ -871,11 +806,10 @@ public class disponibilidadVM
 	}
 	/**
 	 * La primera forma de como se mostrara la disponibilidad
-	 * @throws WrongValueException
-	 * @throws IOException
+	 * @throws Exception 
 	 */
 	@NotifyChange({"dias","numDisp"})
-	public void iniDisponibilidades() throws WrongValueException, IOException
+	public void iniDisponibilidades() throws Exception
 	{
 		Calendar calIni=Calendar.getInstance();
 		cbAnio.setValue(Integer.toString(calIni.get(Calendar.YEAR)));
@@ -1018,22 +952,40 @@ public class disponibilidadVM
 	 * -Todos los datos obtenidos son del año actual
 	 * @param anio
 	 * @param mes
-	 * @throws IOException
+	 * @throws Exception 
 	 */
-	public void mostrarCalendarDispAnioActual(String anio,String mes) throws IOException
+	public void mostrarCalendarDispAnioActual(String anio,String mes) throws Exception
 	{
 		//Inicializamos los dias y nro disponibilidades en el grid todos en vacio
 		iniDiasYNumDisp();
 		//==================
 		int m=nMesAnio(mes);
 		int a=Integer.parseInt(anio);
-		//Obtenemos el primer dia del mes seleccionado
-		String primerDiaMes=obtenerPrimerDiaMes(a,m);
-		int nroDiaSemana=diaSemana(primerDiaMes);
-	    //Se escriben los datos en el grid a partir del primer dia obtenido anteriormente
+		//Se escriben los datos en el grid a partir del primer dia obtenido anteriormente
 	    int posInicioMes=obtenerPosInicioMesOtro(a,m);
 	    int posFinMes=obtenerPosFinMesOtro(a,m);
 	    int k=posInicioMes;
+	    if(cdisponibilidad==20)
+	    {
+	    	ArrayList<Integer> listDispoMesActual=new ArrayList<Integer>();
+			listDispoMesActual=recuperarDispoMesUrl(a,m);
+			if(listDispoMesActual.isEmpty())
+				listDispoMesActual=recuperarDispoMes(a,m, listaDisponibilidad);
+			actualizarDispoMesAnioActual(a,m,k,listDispoMesActual);
+			int nro=1;
+			for(Integer dispo:listDispoMesActual)
+			{
+				System.out.println("dia-> "+nro+" dispo-> "+dispo);
+				nro++;
+			}
+	    }
+		//Obtenemos el primer dia del mes seleccionado
+		String primerDiaMes=obtenerPrimerDiaMes(a,m);
+		int nroDiaSemana=diaSemana(primerDiaMes);
+//	    //Se escriben los datos en el grid a partir del primer dia obtenido anteriormente
+//	    int posInicioMes=obtenerPosInicioMesOtro(a,m);
+//	    int posFinMes=obtenerPosFinMesOtro(a,m);
+//	    int k=posInicioMes;
 	    for(int i=0;i<listaDias.size();i++)
 	    {
 	    	System.out.println("posAdvance->"+k);
@@ -1150,28 +1102,94 @@ public class disponibilidadVM
 		//-------------------------------------------------
 		BindUtils.postNotifyChange(null, null, this,"listaDias");
 	}
+	public void actualizarDispoMesAnioActual(int anio,int mes,int pos,ArrayList<Integer> listDispoMesActual)
+	{
+		//Una vez obtenida las disponibilidades se almacena en la listaAnioActual
+	    for(int r=0;r<listDispoMesActual.size();r++)
+	    {
+		    listaAnioActual.get(pos).setCantDisp(String.valueOf(listDispoMesActual.get(r)));
+		    listaAnioActual.get(pos).setVisible(true);
+		    if(listDispoMesActual.get(r)!=0)
+		    {
+		    	listaAnioActual.get(pos).setDisponible("icon-checkmark");
+		    	listaAnioActual.get(pos).setColorDisp("chek_style");
+		    	listaAnioActual.get(pos).setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
+		    }
+//		    	listaAnioActual.get(n).setDisponible("/img/dispon/ok.png");
+		    else
+		    {
+		    	listaAnioActual.get(pos).setDisponible("icon-cross");
+		    	listaAnioActual.get(pos).setColorDisp("cross_style");
+		    	listaAnioActual.get(pos).setImgPrioridad("background:rgba(247, 87, 65,0.3);border-radius:5px;");
+		    }
+//		    	listaAnioActual.get(n).setDisponible("/img/dispon/x5.png");
+		    pos++;
+	    }
+	}
+	public void actualizarDispoMesAnioSig(int anio,int mes,int pos,ArrayList<Integer> listDispoMesSig)
+	{
+		//Una vez obtenida las disponibilidades se almacena en la listaAnioActual
+	    for(int r=0;r<listDispoMesSig.size();r++)
+	    {
+		    listaAnioSig.get(pos).setCantDisp(String.valueOf(listDispoMesSig.get(r)));
+		    listaAnioSig.get(pos).setVisible(true);
+		    if(listDispoMesSig.get(r)!=0)
+		    {
+		    	listaAnioSig.get(pos).setDisponible("icon-checkmark");
+		    	listaAnioSig.get(pos).setColorDisp("chek_style");
+		    	listaAnioSig.get(pos).setImgPrioridad("background:rgba(25, 206, 61,0.3);border-radius:5px;");
+		    }
+//		    	listaAnioActual.get(n).setDisponible("/img/dispon/ok.png");
+		    else
+		    {
+		    	listaAnioSig.get(pos).setDisponible("icon-cross");
+		    	listaAnioSig.get(pos).setColorDisp("cross_style");
+		    	listaAnioSig.get(pos).setImgPrioridad("background:rgba(247, 87, 65,0.3);border-radius:5px;");
+		    }
+//		    	listaAnioActual.get(n).setDisponible("/img/dispon/x5.png");
+		    pos++;
+	    }
+	}
 	/**
 	 * -Se asignan datos por defecto en el grid correspondientes al año siguiente del actual
 	 * -A cada disponibilidad se le asigna un valor por defecto de 500
 	 * @param anio
 	 * @param mes
+	 * @throws Exception 
 	 */
-	public void mostrarCalendarDispAnioSiguiente(String anio,String mes)
+	public void mostrarCalendarDispAnioSiguiente(String anio,String mes) throws Exception
 	{
 		//Inicializamos los dias y nro disponibilidades en el grid todos en vacio
 		//==================
 		int m=nMesAnio(mes);
 		int a=Integer.parseInt(anio);
 		iniDiasYNumDisp();
+		int posInicioMes=obtenerPosInicioMesOtro(a,m);
+	    int posFinMes=obtenerPosFinMesOtro(a,m);
+	    int k=posInicioMes;
+	    if(cdisponibilidad==20)
+	    {
+	    	ArrayList<Integer> listDispoMesSig=new ArrayList<Integer>();
+			listDispoMesSig=recuperarDispoMesUrl(a,m);
+			if(listDispoMesSig.isEmpty())
+				listDispoMesSig=recuperarDispoMes(a,m, listaDisponibilidad);
+			actualizarDispoMesAnioSig(a,m,k,listDispoMesSig);
+			int nro=1;
+			for(Integer dispo:listDispoMesSig)
+			{
+				System.out.println("dia-> "+nro+" dispo-> "+dispo);
+				nro++;
+			}
+	    }
 		//Obtenemos el primer dia y el numero de dias del mes seleccionado
 		String primerDiaMes=obtenerPrimerDiaMes(a,m);
 		int nroDiaSemana=diaSemana(primerDiaMes);
 		//===================================
 //		lblUpdateDate.setValue("");
 		//Se asignan las disponibilidades por defecto
-		int posInicioMes=obtenerPosInicioMesOtro(a,m);
-	    int posFinMes=obtenerPosFinMesOtro(a,m);
-	    int k=posInicioMes;
+//		int posInicioMes=obtenerPosInicioMesOtro(a,m);
+//	    int posFinMes=obtenerPosFinMesOtro(a,m);
+//	    int k=posInicioMes;
 	    for(int i=0;i<listaDias.size();i++)
 	    {
 	    	if(k>posFinMes)break;
@@ -1379,7 +1397,7 @@ public class disponibilidadVM
 		return rMes;
 	}
 	@Command
-	public void changeMonth(@BindingParam ("valueMes") Object valueMes) throws WrongValueException, IOException
+	public void changeMonth(@BindingParam ("valueMes") Object valueMes) throws Exception
 	{
 		String mes=valueMes.toString();
 		mesRecuperado=mes;
@@ -1391,7 +1409,7 @@ public class disponibilidadVM
 			mostrarCalendarDispAnioSiguiente(Integer.toString(cal.get(Calendar.YEAR)+1),mes);
 	}
 	@Command
-	public void changeAnio(@BindingParam("valueAnio")String anio) throws WrongValueException, IOException
+	public void changeAnio(@BindingParam("valueAnio")String anio) throws Exception
 	{
 		Calendar cal=Calendar.getInstance();
 		System.out.println("El año se cambio a =>"+anio+"------->"+Integer.toString(cal.get(Calendar.YEAR)));
@@ -1408,7 +1426,7 @@ public class disponibilidadVM
 		return (anio % 4 == 0) && ((anio % 100 != 0) || (anio % 400 == 0));
 	}
 	@AfterCompose
-	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws WrongValueException, IOException
+	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws Exception
 	{
 		Selectors.wireComponents(view, this, false);
 		iniDisponibilidades();
