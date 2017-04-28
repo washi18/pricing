@@ -44,6 +44,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.pricing.dao.CDisponibilidadYourselfDAO;
 import com.pricing.dao.CEtiquetaDAO;
+import com.pricing.dao.ConfAltoNivelDAO;
 import com.pricing.extras.lectorPDF;
 import com.pricing.model.CDia;
 import com.pricing.model.CDias7;
@@ -169,16 +170,21 @@ public class disponibilidadVM
 			iniciarListaAniosBisiesto(366);
 		else
 			iniciarListaAniosNormal(365);
-		if(cdisponibilidad==20)
+		//Obteniendo la configuracion para la muestra de la disponibilidad del camino inka
+		ConfAltoNivelDAO confAltoNivelDAO=new ConfAltoNivelDAO();
+		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("muestra_camino_inka"));
+		if(confAltoNivelDAO.getoConfAltoNivel().isbEstado())
 		{
-			//Recuperar datos del webservice
-		    listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
-			listaDisponibilidad.addAll(recuperarListaDispoJson());
-//			ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
+			if(cdisponibilidad==20)
+			{
+				//Recuperar datos del webservice
+			    listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
+				listaDisponibilidad.addAll(recuperarListaDispoJson());
+//				ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
+			}else
+				ingresarDatosListaDispoOtros();
 		}else
-		{
 			ingresarDatosListaDispoOtros();
-		}
 	}
 	public void iniciarListaAniosNormal(int nroDias)
 	{
@@ -965,20 +971,25 @@ public class disponibilidadVM
 	    int posInicioMes=obtenerPosInicioMesOtro(a,m);
 	    int posFinMes=obtenerPosFinMesOtro(a,m);
 	    int k=posInicioMes;
-	    if(cdisponibilidad==20)
-	    {
-	    	ArrayList<Integer> listDispoMesActual=new ArrayList<Integer>();
-			listDispoMesActual=recuperarDispoMesUrl(a,m);
-			if(listDispoMesActual.isEmpty())
-				listDispoMesActual=recuperarDispoMes(a,m, listaDisponibilidad);
-			actualizarDispoMesAnioActual(a,m,k,listDispoMesActual);
-			int nro=1;
-			for(Integer dispo:listDispoMesActual)
-			{
-				System.out.println("dia-> "+nro+" dispo-> "+dispo);
-				nro++;
-			}
-	    }
+	    ConfAltoNivelDAO confAltoNivelDAO=new ConfAltoNivelDAO();
+		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("muestra_camino_inka"));
+		if(confAltoNivelDAO.getoConfAltoNivel().isbEstado())
+		{
+			if(cdisponibilidad==20)
+		    {
+		    	ArrayList<Integer> listDispoMesActual=new ArrayList<Integer>();
+				listDispoMesActual=recuperarDispoMesUrl(a,m);
+				if(listDispoMesActual.isEmpty())
+					listDispoMesActual=recuperarDispoMes(a,m, listaDisponibilidad);
+				actualizarDispoMesAnioActual(a,m,k,listDispoMesActual);
+				int nro=1;
+				for(Integer dispo:listDispoMesActual)
+				{
+					System.out.println("dia-> "+nro+" dispo-> "+dispo);
+					nro++;
+				}
+		    }
+		}
 		//Obtenemos el primer dia del mes seleccionado
 		String primerDiaMes=obtenerPrimerDiaMes(a,m);
 		int nroDiaSemana=diaSemana(primerDiaMes);
@@ -1167,20 +1178,25 @@ public class disponibilidadVM
 		int posInicioMes=obtenerPosInicioMesOtro(a,m);
 	    int posFinMes=obtenerPosFinMesOtro(a,m);
 	    int k=posInicioMes;
-	    if(cdisponibilidad==20)
-	    {
-	    	ArrayList<Integer> listDispoMesSig=new ArrayList<Integer>();
-			listDispoMesSig=recuperarDispoMesUrl(a,m);
-			if(listDispoMesSig.isEmpty())
-				listDispoMesSig=recuperarDispoMes(a,m, listaDisponibilidad);
-			actualizarDispoMesAnioSig(a,m,k,listDispoMesSig);
-			int nro=1;
-			for(Integer dispo:listDispoMesSig)
-			{
-				System.out.println("dia-> "+nro+" dispo-> "+dispo);
-				nro++;
-			}
-	    }
+	    ConfAltoNivelDAO confAltoNivelDAO=new ConfAltoNivelDAO();
+		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("muestra_camino_inka"));
+		if(confAltoNivelDAO.getoConfAltoNivel().isbEstado())
+		{
+		    if(cdisponibilidad==20)
+		    {
+		    	ArrayList<Integer> listDispoMesSig=new ArrayList<Integer>();
+				listDispoMesSig=recuperarDispoMesUrl(a,m);
+				if(listDispoMesSig.isEmpty())
+					listDispoMesSig=recuperarDispoMes(a,m, listaDisponibilidad);
+				actualizarDispoMesAnioSig(a,m,k,listDispoMesSig);
+				int nro=1;
+				for(Integer dispo:listDispoMesSig)
+				{
+					System.out.println("dia-> "+nro+" dispo-> "+dispo);
+					nro++;
+				}
+		    }
+		}
 		//Obtenemos el primer dia y el numero de dias del mes seleccionado
 		String primerDiaMes=obtenerPrimerDiaMes(a,m);
 		int nroDiaSemana=diaSemana(primerDiaMes);

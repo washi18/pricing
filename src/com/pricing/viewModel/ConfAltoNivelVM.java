@@ -24,6 +24,7 @@ public class ConfAltoNivelVM {
 	private ConfAltoNivel oConfAltoNievelPricing;
 	private ConfAltoNivel oConfAltoNivelFechaArribo;
 	private ConfAltoNivel oConfAltoNivelDesIti;
+	private ConfAltoNivel oConfAltoNivelMuestraCaminoInka;
 	private ConfAltoNivelDAO confAltoNivelDAO;
 	private ArrayList<ConfAltoNivel> listaConfAltoNivel;
 	//======getter an setter=====
@@ -76,6 +77,14 @@ public class ConfAltoNivelVM {
 		this.oConfAltoNivelDesIti = oConfAltoNivelDesIti;
 	}
 
+	public ConfAltoNivel getoConfAltoNivelMuestraCaminoInka() {
+		return oConfAltoNivelMuestraCaminoInka;
+	}
+
+	public void setoConfAltoNivelMuestraCaminoInka(ConfAltoNivel oConfAltoNivelMuestraCaminoInka) {
+		this.oConfAltoNivelMuestraCaminoInka = oConfAltoNivelMuestraCaminoInka;
+	}
+
 	//===========constructores=====
 	@Init
 	public void Inicializa(){
@@ -83,6 +92,7 @@ public class ConfAltoNivelVM {
 		oConfAltoNievelPricing=new ConfAltoNivel();
 		oConfAltoNivelFechaArribo=new ConfAltoNivel();
 		oConfAltoNivelDesIti=new ConfAltoNivel();
+		oConfAltoNivelMuestraCaminoInka=new ConfAltoNivel();
 		confAltoNivelDAO=new ConfAltoNivelDAO();
 		listaConfAltoNivel=new ArrayList<ConfAltoNivel>();
 		Execution exec = Executions.getCurrent();
@@ -101,12 +111,14 @@ public class ConfAltoNivelVM {
 		setoConfAltoNivelFechaArribo(confAltoNivelDAO.getoConfAltoNivel());
 		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("desc_iti"));
 		setoConfAltoNivelDesIti(confAltoNivelDAO.getoConfAltoNivel());
+		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("muestra_camino_inka"));
+		setoConfAltoNivelMuestraCaminoInka(confAltoNivelDAO.getoConfAltoNivel());
 		BindUtils.postNotifyChange(null, null, this,"oConfAltoNievelYourself");
 		BindUtils.postNotifyChange(null, null, this,"oConfAltoNievelPricing");
 		BindUtils.postNotifyChange(null, null, this,"oConfAltoNivelFechaArribo");
 		BindUtils.postNotifyChange(null, null, this,"oConfAltoNivelDesIti");
+		BindUtils.postNotifyChange(null, null, this,"oConfAltoNivelMuestraCaminoInka");
 	}
-	
 	@Command
 	@NotifyChange({"oConfAltoNievelYourself"})
 	public void cambiarEstadoYourself(@BindingParam("estado")String estado){
@@ -187,6 +199,26 @@ public class ConfAltoNivelVM {
 			Clients.showNotification("Estado de vista descripcion e itinerario fue modificado satisfactoriamente",Clients.NOTIFICATION_TYPE_INFO,null,"before_start",2700);
 		}else {
 			Clients.showNotification("Error al modificar estado de la vista descripcion e itinerario",Clients.NOTIFICATION_TYPE_ERROR,null,"before_start",2700);
+		}
+	}
+	@Command
+	@NotifyChange({"oConfAltoNivelMuestraCaminoInka"})
+	public void cambiarEstadoMuestraDispoCaminoInka(@BindingParam("estado")String estado){
+		oConfAltoNivelMuestraCaminoInka.setCnombreEntidad("muestra_camino_inka");
+		if(estado.equals("CON")){
+			oConfAltoNivelMuestraCaminoInka.setbEstado(true);
+			oConfAltoNivelMuestraCaminoInka.setEstadoConEntidad(true);
+			oConfAltoNivelMuestraCaminoInka.setEstadoSinEntidad(false);
+		}else{
+			oConfAltoNivelMuestraCaminoInka.setbEstado(false);
+			oConfAltoNivelMuestraCaminoInka.setEstadoConEntidad(false);
+			oConfAltoNivelMuestraCaminoInka.setEstadoSinEntidad(true);
+		}
+		boolean correcto=confAltoNivelDAO.isOperationCorrect(confAltoNivelDAO.modificarConfAltoNivel(oConfAltoNivelMuestraCaminoInka));
+		if(correcto){
+			Clients.showNotification("Estado de la muestra de la disponibilidad de camino inka fue modificado satisfactoriamente",Clients.NOTIFICATION_TYPE_INFO,null,"before_start",2700);
+		}else {
+			Clients.showNotification("Error al modificar el estado de la muestra de la disponibilidad de camino inka",Clients.NOTIFICATION_TYPE_ERROR,null,"before_start",2700);
 		}
 	}
 }

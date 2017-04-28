@@ -37,7 +37,7 @@
 			 		<div>
 			 		 	<label value="VISTA FECHA DE ARRIBO: " sclass="lbl_select_title"/>
 			 		 	<div>
-			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoFechaArribo',estado=self.selectedItem.value) @global-command('recuperarEstadoPricing')">
+			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoFechaArribo',estado=self.selectedItem.value)">
 			 		 			<radio label="CON FECHA DE ARRIBO" value="CON" checked="@load(vmConfYourself.oConfAltoNivelFechaArribo.estadoConEntidad)"/>
 			 		 			<radio label="SIN FECHA DE ARRIBO" value="SIN" checked="@load(vmConfYourself.oConfAltoNivelFechaArribo.estadoSinEntidad)"/>
 			 		 		</radiogroup>
@@ -49,9 +49,21 @@
 			 		<div>
 			 		 	<label value="VISTA DESCRIPCION E ITINERARIO: " sclass="lbl_select_title"/>
 			 		 	<div>
-			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoDesIti',estado=self.selectedItem.value) @global-command('recuperarEstadoPricing')">
+			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoDesIti',estado=self.selectedItem.value)">
 			 		 			<radio label="CON DESCRIPCION E ITINERARIO" value="CON" checked="@load(vmConfYourself.oConfAltoNivelDesIti.estadoConEntidad)"/>
 			 		 			<radio label="SIN DESCRIPCION E ITINERARIO" value="SIN" checked="@load(vmConfYourself.oConfAltoNivelDesIti.estadoSinEntidad)"/>
+			 		 		</radiogroup>
+			 		 	</div>
+			 		</div>
+		 		</div>
+		 		<space></space>
+		 		<div>
+			 		<div>
+			 		 	<label value="VISTA DISPONIBILIDAD DE CAMINO INKA: " sclass="lbl_select_title"/>
+			 		 	<div>
+			 		 		<radiogroup orient="vertical" sclass="select_modo_pago" onCheck="@command('cambiarEstadoMuestraDispoCaminoInka',estado=self.selectedItem.value)">
+			 		 			<radio label="MINISTERIO DE CULTURA" value="CON" checked="@load(vmConfYourself.oConfAltoNivelMuestraCaminoInka.estadoConEntidad)"/>
+			 		 			<radio label="PROPIA" value="SIN" checked="@load(vmConfYourself.oConfAltoNivelMuestraCaminoInka.estadoSinEntidad)"/>
 			 		 		</radiogroup>
 			 		 	</div>
 			 		</div>
