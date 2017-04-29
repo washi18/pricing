@@ -982,12 +982,12 @@ public class disponibilidadVM
 				if(listDispoMesActual.isEmpty())
 					listDispoMesActual=recuperarDispoMes(a,m, listaDisponibilidad);
 				actualizarDispoMesAnioActual(a,m,k,listDispoMesActual);
-				int nro=1;
-				for(Integer dispo:listDispoMesActual)
-				{
-					System.out.println("dia-> "+nro+" dispo-> "+dispo);
-					nro++;
-				}
+//				int nro=1;
+//				for(Integer dispo:listDispoMesActual)
+//				{
+//					System.out.println("dia-> "+nro+" dispo-> "+dispo);
+//					nro++;
+//				}
 		    }
 		}
 		//Obtenemos el primer dia del mes seleccionado
@@ -1190,11 +1190,11 @@ public class disponibilidadVM
 					listDispoMesSig=recuperarDispoMes(a,m, listaDisponibilidad);
 				actualizarDispoMesAnioSig(a,m,k,listDispoMesSig);
 				int nro=1;
-				for(Integer dispo:listDispoMesSig)
-				{
-					System.out.println("dia-> "+nro+" dispo-> "+dispo);
-					nro++;
-				}
+//				for(Integer dispo:listDispoMesSig)
+//				{
+//					System.out.println("dia-> "+nro+" dispo-> "+dispo);
+//					nro++;
+//				}
 		    }
 		}
 		//Obtenemos el primer dia y el numero de dias del mes seleccionado

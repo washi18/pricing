@@ -62,7 +62,11 @@ public class CPaqueteDAO extends CConexion
 				(Number)row.get("npreciocinco"),(String)row.get("cdisponibilidad"), 
 				(boolean)row.get("bestado"),(String)row.get("citinerarioidioma1"),(String)row.get("citinerarioidioma2")
 				,(String)row.get("citinerarioidioma3"),(String)row.get("citinerarioidioma4"),(String)row.get("citinerarioidioma5"),
-				(String)row.get("curlreferenciapaquete"));
+				(String)row.get("curlreferenciapaquete"),(int)row.get("nporcentajecobro"),
+				(int)row.get("npagominimo"),(boolean)row.get("bmodoporcentual"),(boolean)row.get("bmodopagototal"),
+				(Number)row.get("ndescuentomenor_estudiante"),(boolean)row.get("bsubirdocpax"),
+				(boolean)row.get("bsubirdoc_y_llenardatospax"),(boolean)row.get("bsubirdoc_o_llenardatospax"),
+				(boolean)row.get("bllenardatosunpax"),(boolean)row.get("bhotelesconcamaadicional"));
 	}
 	public void asignarListaPaquetes(List lista) throws UnsupportedEncodingException
 	{
@@ -83,7 +87,11 @@ public class CPaqueteDAO extends CConexion
 					(boolean)row.get("bestado"),(String)row.get("cfoto1"),(String)row.get("cfoto2"),(String)row.get("cfoto3"),
 					(String)row.get("cfoto4"),(String)row.get("cfoto5"),(String)row.get("citinerarioidioma1"),(String)row.get("citinerarioidioma2")
 					,(String)row.get("citinerarioidioma3"),(String)row.get("citinerarioidioma4"),(String)row.get("citinerarioidioma5"),
-					(String)row.get("curlreferenciapaquete")));
+					(String)row.get("curlreferenciapaquete"),(int)row.get("nporcentajecobro"),
+					(int)row.get("npagominimo"),(boolean)row.get("bmodoporcentual"),(boolean)row.get("bmodopagototal"),
+					(Number)row.get("ndescuentomenor_estudiante"),(boolean)row.get("bsubirdocpax"),
+					(boolean)row.get("bsubirdoc_y_llenardatospax"),(boolean)row.get("bsubirdoc_o_llenardatospax"),
+					(boolean)row.get("bllenardatosunpax"),(boolean)row.get("bhotelesconcamaadicional")));
 		}
 	}
 	public List buscarPaquetesBD(String nombre){
@@ -101,7 +109,10 @@ public class CPaqueteDAO extends CConexion
 				paquete.getnPrecioCinco().doubleValue(),paquete.getcDisponibilidad(),
 				paquete.getnDiaCaminoInka(),paquete.getcFoto1(),paquete.getcFoto2(),paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5(),
 				paquete.getcItinerarioIdioma1(),paquete.getcItinerarioIdioma2(),paquete.getcItinerarioIdioma3(),paquete.getcItinerarioIdioma4(),paquete.getcItinerarioIdioma5(),
-				paquete.getcUrlReferenciaPaquete()};
+				paquete.getcUrlReferenciaPaquete(),paquete.getnPorcentajeCobro(),paquete.getnPagoMinimo(),
+				paquete.isbModoPorcentual(),paquete.isbModoPagoTotal(),paquete.getnDescuentoMenor_Estudiante().doubleValue(),
+				paquete.isbSubirDocPax(),paquete.isbSubirDoc_Y_LlenarDatosPax(),paquete.isbSubirDoc_O_LlenarDatosPax(),
+				paquete.isbLlenarDatosUnPax(),paquete.isbHotelesConCamaAdicional()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaquete", values);
 	}
 	/**METODOS DE PAQUETE SERVICIO**/
@@ -169,7 +180,10 @@ public class CPaqueteDAO extends CConexion
 				paquete.getcFoto3(),paquete.getcFoto4(),paquete.getcFoto5(),paquete.getcItinerarioIdioma1(),
 				paquete.getcItinerarioIdioma2(),paquete.getcItinerarioIdioma3(),
 				paquete.getcItinerarioIdioma4(),paquete.getcItinerarioIdioma5(),
-				paquete.getcUrlReferenciaPaquete()};
+				paquete.getcUrlReferenciaPaquete(),paquete.getnPorcentajeCobro(),paquete.getnPagoMinimo(),
+				paquete.isbModoPorcentual(),paquete.isbModoPagoTotal(),paquete.getnDescuentoMenor_Estudiante().doubleValue(),
+				paquete.isbSubirDocPax(),paquete.isbSubirDoc_Y_LlenarDatosPax(),paquete.isbSubirDoc_O_LlenarDatosPax(),
+				paquete.isbLlenarDatosUnPax(),paquete.isbHotelesConCamaAdicional()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarPaquetes", values);
 	}
 	public List modificarImagenesPaquete(CPaquete paquete)

@@ -50,6 +50,17 @@ public class CPaquete
 	private boolean bEstado;// boolean,				--estado del paquete
 	private int nDiaCaminoInka;//int,
 	private String cUrlReferenciaPaquete;//text
+	private int nPorcentajeCobro;// int 
+	private int nPagoMinimo;// int 
+	private boolean bModoPorcentual;// boolean 
+	private boolean bModoPagoTotal;// boolean 
+	private Number nDescuentoMenor_Estudiante;// decimal(10,2) 
+	private boolean bSubirDocPax;// boolean 
+	private boolean bSubirDoc_Y_LlenarDatosPax;// boolean 
+	private boolean bSubirDoc_O_LlenarDatosPax;// boolean 
+	private boolean bLlenarDatosUnPax;// boolean 
+	private boolean bHotelesConCamaAdicional;// boolean
+	private boolean bHotelesSinCamaAdicional;
 	private String url_pricingPaquete;
 	private String nPrecio1_text;
 	private String nPrecio2_text;
@@ -564,6 +575,72 @@ public class CPaquete
 	public void setConDes_Iti(boolean conDes_Iti) {
 		this.conDes_Iti = conDes_Iti;
 	}
+	public int getnPorcentajeCobro() {
+		return nPorcentajeCobro;
+	}
+	public void setnPorcentajeCobro(int nPorcentajeCobro) {
+		this.nPorcentajeCobro = nPorcentajeCobro;
+	}
+	public int getnPagoMinimo() {
+		return nPagoMinimo;
+	}
+	public void setnPagoMinimo(int nPagoMinimo) {
+		this.nPagoMinimo = nPagoMinimo;
+	}
+	public boolean isbModoPorcentual() {
+		return bModoPorcentual;
+	}
+	public void setbModoPorcentual(boolean bModoPorcentual) {
+		this.bModoPorcentual = bModoPorcentual;
+	}
+	public boolean isbModoPagoTotal() {
+		return bModoPagoTotal;
+	}
+	public void setbModoPagoTotal(boolean bModoPagoTotal) {
+		this.bModoPagoTotal = bModoPagoTotal;
+	}
+	public Number getnDescuentoMenor_Estudiante() {
+		return nDescuentoMenor_Estudiante;
+	}
+	public void setnDescuentoMenor_Estudiante(Number nDescuentoMenor_Estudiante) {
+		this.nDescuentoMenor_Estudiante = nDescuentoMenor_Estudiante;
+	}
+	public boolean isbSubirDocPax() {
+		return bSubirDocPax;
+	}
+	public void setbSubirDocPax(boolean bSubirDocPax) {
+		this.bSubirDocPax = bSubirDocPax;
+	}
+	public boolean isbSubirDoc_Y_LlenarDatosPax() {
+		return bSubirDoc_Y_LlenarDatosPax;
+	}
+	public void setbSubirDoc_Y_LlenarDatosPax(boolean bSubirDoc_Y_LlenarDatosPax) {
+		this.bSubirDoc_Y_LlenarDatosPax = bSubirDoc_Y_LlenarDatosPax;
+	}
+	public boolean isbSubirDoc_O_LlenarDatosPax() {
+		return bSubirDoc_O_LlenarDatosPax;
+	}
+	public void setbSubirDoc_O_LlenarDatosPax(boolean bSubirDoc_O_LlenarDatosPax) {
+		this.bSubirDoc_O_LlenarDatosPax = bSubirDoc_O_LlenarDatosPax;
+	}
+	public boolean isbLlenarDatosUnPax() {
+		return bLlenarDatosUnPax;
+	}
+	public void setbLlenarDatosUnPax(boolean bLlenarDatosUnPax) {
+		this.bLlenarDatosUnPax = bLlenarDatosUnPax;
+	}
+	public boolean isbHotelesConCamaAdicional() {
+		return bHotelesConCamaAdicional;
+	}
+	public void setbHotelesConCamaAdicional(boolean bHotelesConCamaAdicional) {
+		this.bHotelesConCamaAdicional = bHotelesConCamaAdicional;
+	}
+	public boolean isbHotelesSinCamaAdicional() {
+		return bHotelesSinCamaAdicional;
+	}
+	public void setbHotelesSinCamaAdicional(boolean bHotelesSinCamaAdicional) {
+		this.bHotelesSinCamaAdicional = bHotelesSinCamaAdicional;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -614,6 +691,19 @@ public class CPaquete
 		abrirEditorDescripcion=false;
 		nroDestinosSelect=0;
 		ordenDesSelect=0;
+		//nuevas configuraciones
+		this.nPorcentajeCobro=0;
+		this.nPagoMinimo=0;
+		this.bModoPorcentual=true;
+		this.bModoPagoTotal=false;
+		this.nDescuentoMenor_Estudiante=0;
+		this.bSubirDocPax=false;
+		this.bSubirDoc_Y_LlenarDatosPax=false;
+		this.bSubirDoc_O_LlenarDatosPax=false;
+		this.bLlenarDatosUnPax=true;
+		this.bHotelesConCamaAdicional=false;
+		this.bHotelesSinCamaAdicional=true;
+		//======================
 		this.cFoto1="img/tours/tourxdefecto.png";
 		this.cFoto2="img/tours/tourxdefecto.png";
 		this.cFoto3="img/tours/tourxdefecto.png";
@@ -632,7 +722,12 @@ public class CPaquete
 			Number nPrecioCuatro, Number nPrecioCinco, String cDisponibilidad,
 			boolean bEstado,String cItinerarioIdioma1,String cItinerarioIdioma2,
 			String cItinerarioIdioma3,String cItinerarioIdioma4,
-			String cItinerarioIdioma5,String cUrlReferenciaPaquete)
+			String cItinerarioIdioma5,String cUrlReferenciaPaquete,
+			int nPorcentajeCobro,int nPagoMinimo,boolean bModoPorcentual,
+			boolean bModoPagoTotal,Number nDescuentoMenor_Estudiante,
+			boolean bSubirDocPax,boolean bSubirDoc_Y_LlenarDatosPax,
+			boolean bSubirDoc_O_LlenarDatosPax,boolean bLlenarDatosUnPax,
+			boolean bHotelesConCamaAdicional)
 	{
 		this.cPaqueteCod=cPaqueteCod;
 		this.cTituloIdioma1=cTituloIdioma1;
@@ -663,6 +758,18 @@ public class CPaquete
 		this.itinerario="";
 		this.cUrlReferenciaPaquete=cUrlReferenciaPaquete;
 		//===================
+		this.nPorcentajeCobro=nPorcentajeCobro;
+		this.nPagoMinimo=nPagoMinimo;
+		this.bModoPorcentual=bModoPorcentual;
+		this.bModoPagoTotal=bModoPagoTotal;
+		this.nDescuentoMenor_Estudiante=nDescuentoMenor_Estudiante;
+		this.bSubirDocPax=bSubirDocPax;
+		this.bSubirDoc_Y_LlenarDatosPax=bSubirDoc_Y_LlenarDatosPax;
+		this.bSubirDoc_O_LlenarDatosPax=bSubirDoc_O_LlenarDatosPax;
+		this.bLlenarDatosUnPax=bLlenarDatosUnPax;
+		this.bHotelesConCamaAdicional=bHotelesConCamaAdicional;
+		this.bHotelesSinCamaAdicional=!bHotelesConCamaAdicional;
+		//===================
 		listaDestinos=new ArrayList<CDestino>();
 		listaServicios=new ArrayList<CServicio>();
 		listaSubServicios=new ArrayList<CSubServicio>();
@@ -685,7 +792,12 @@ public class CPaquete
 			boolean bEstado,String cFoto1,
 			String cFoto2,String cFoto3,String cFoto4,String cFoto5,String cItinerarioIdioma1,String cItinerarioIdioma2,
 			String cItinerarioIdioma3,String cItinerarioIdioma4,String cItinerarioIdioma5,
-			String cUrlReferenciaPaquete) throws UnsupportedEncodingException {
+			String cUrlReferenciaPaquete,
+			int nPorcentajeCobro,int nPagoMinimo,boolean bModoPorcentual,
+			boolean bModoPagoTotal,Number nDescuentoMenor_Estudiante,
+			boolean bSubirDocPax,boolean bSubirDoc_Y_LlenarDatosPax,
+			boolean bSubirDoc_O_LlenarDatosPax,boolean bLlenarDatosUnPax,
+			boolean bHotelesConCamaAdicional) throws UnsupportedEncodingException {
 		/*******************************/
 		simbolos= new DecimalFormatSymbols();
 		simbolos.setDecimalSeparator('.');
@@ -709,6 +821,17 @@ public class CPaquete
 		this.cItinerarioIdioma4=cItinerarioIdioma4;
 		this.cItinerarioIdioma5=cItinerarioIdioma5;
 		this.cUrlReferenciaPaquete=cUrlReferenciaPaquete;
+		this.nPorcentajeCobro=nPorcentajeCobro;
+		this.nPagoMinimo=nPagoMinimo;
+		this.bModoPorcentual=bModoPorcentual;
+		this.bModoPagoTotal=bModoPagoTotal;
+		this.nDescuentoMenor_Estudiante=nDescuentoMenor_Estudiante;
+		this.bSubirDocPax=bSubirDocPax;
+		this.bSubirDoc_Y_LlenarDatosPax=bSubirDoc_Y_LlenarDatosPax;
+		this.bSubirDoc_O_LlenarDatosPax=bSubirDoc_O_LlenarDatosPax;
+		this.bLlenarDatosUnPax=bLlenarDatosUnPax;
+		this.bHotelesConCamaAdicional=bHotelesConCamaAdicional;
+		this.bHotelesSinCamaAdicional=!bHotelesConCamaAdicional;
 		this.nDias = nDias;
 		this.nNoches = nNoches;
 		this.dias_noches=nDias+" DIAS Y "+nNoches+" NOCHES";

@@ -1080,7 +1080,12 @@ public class paquetesVM {
 		paquete.setAbrirEditorDescripcion(true);
 		BindUtils.postNotifyChange(null, null, paquete, "abrirEditorDescripcion");
 	}
-
+	@Command
+	public void abrirConfigurarPaquete()
+	{
+		Window win_configPaquete = (Window) Executions.createComponents("/configurarPaquete.zul", null, null);
+		win_configPaquete.doModal();
+	}
 	@Command
 	public void Editar(@BindingParam("paquete") CPaquete p) {
 		oPaqueteUpdate.setEditable(false);

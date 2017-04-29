@@ -193,6 +193,9 @@
 							</div>
 						</div>
 						<div zclass="div_space_entre_botones">
+								<button label="Configurar Paquete" onClick="@command('abrirConfigurarPaquete') @global-command('obtenerDatosConfigPaquete',paquete=vmPaquete.oPaquete)" zclass="btn_guardar"/>
+						</div>
+						<div zclass="div_space_entre_botones">
 								<button label="Editar Itinerario" onClick="@command('abrirEditorItinerario',cPaquete=vmPaquete.oPaquete)" zclass="btn_guardar"/>
 						</div>
 						<div zclass="div_space_entre_botones">
