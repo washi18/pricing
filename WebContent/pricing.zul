@@ -186,7 +186,7 @@
 										<div zclass="div_nro_pax">
 											<label value="@bind(each.nNro)"/>
 										</div>
-										<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDocPax)">
+										<div sclass="div_upload" visible="@bind(vmPricing.oReservar.oPaquete.bSubirDocPax)">
 											<div sclass="visible-small-item-pasajero" width="30%">
 												<label value="@bind(vmPricing.etiqueta[68])"/><label value=": "/>
 											</div>
@@ -196,7 +196,7 @@
 												<image src="@load(each.cUrlMostrarDocumento)" width="70px" height="50px" sclass="img_scan"/>
 											</vbox>
 										</div>
-										<div sclass="div_upload" visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
+										<div sclass="div_upload" visible="@bind(vmPricing.oReservar.oPaquete.bSubirDoc_Y_LlenarDatosPax)">
 											<div sclass="visible-small-item-pasajero" width="30%">
 												<label value="@bind(vmPricing.etiqueta[68])"/><label value=": "/>
 											</div>
@@ -225,22 +225,22 @@
 												<comboitem label="@bind(vmPricing.etiqueta[83])" value="7"/>
 											</combobox>
 										</div>
-										<div sclass="div_nroDoc" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+										<div sclass="div_nroDoc" visible="@bind(!vmPricing.oReservar.oPaquete.bSubirDocPax)">
 											<div sclass="visible-small-item-pasajero" width="30%">
 												<label value="@bind(vmPricing.etiqueta[70])"/><label value=": "/>
 											</div>
 											<textbox placeholder="@bind(vmPricing.etiqueta[85])" value="@bind(each.cNroDoc)" width="100px" onChange="@command('changeNroDoc',nro=self.value,idTbNroDoc=self,pasajero=each)" style="text-transform: uppercase;"/></div>
-										<div sclass="div_apellido" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+										<div sclass="div_apellido" visible="@bind(!vmPricing.oReservar.oPaquete.bSubirDocPax)">
 											<div sclass="visible-small-item-pasajero" width="30%">
 												<label value="@bind(vmPricing.etiqueta[71])"/><label value=": "/>
 											</div>
 											<textbox placeholder="@bind(vmPricing.etiqueta[71])" value="@bind(each.cApellidos)" width="150px" onChange="@command('changeApellido',valor=self.value,idTbNombre=self,pasajero=each)" style="text-transform: uppercase;"/></div>
-										<div sclass="div_nombre" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+										<div sclass="div_nombre" visible="@bind(!vmPricing.oReservar.oPaquete.bSubirDocPax)">
 											<div sclass="visible-small-item-pasajero" width="30%">
 												<label value="@bind(vmPricing.etiqueta[72])"/><label value=": "/>
 											</div>
 											<textbox placeholder="@bind(vmPricing.etiqueta[72])" value="@bind(each.cNombres)" width="150px" onChange="@command('changeNombre',valor=self.value,idTbNombre=self,pasajero=each)" style="text-transform: uppercase;"/></div>
-										<div sclass="div_sexo" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+										<div sclass="div_sexo" visible="@bind(!vmPricing.oReservar.oPaquete.bSubirDocPax)">
 											<div sclass="visible-small-item-pasajero" width="30%">
 												<label value="@bind(vmPricing.etiqueta[73])"/><label value=": "/>
 											</div>
@@ -250,7 +250,7 @@
 								                <radio  checked="@bind(each.selectF)" label="@bind(vmPricing.etiqueta[87])" value="F"/>
 								    	    </radiogroup>
 										</div>
-										<div sclass="div_edad" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+										<div sclass="div_edad" visible="@bind(!vmPricing.oReservar.oPaquete.bSubirDocPax)">
 											<div sclass="visible-small-item-pasajero" width="30%">
 												<label value="@bind(vmPricing.etiqueta[74])"/><label value=": "/>
 											</div>
@@ -260,7 +260,7 @@
 												</template>
 											</combobox>
 										</div>
-										<div sclass="div_pais" visible="@bind(!vmPricing.oInterfaz.bSubirDocPax)">
+										<div sclass="div_pais" visible="@bind(!vmPricing.oReservar.oPaquete.bSubirDocPax)">
 											<div sclass="visible-small-item-pasajero" width="30%">
 												<label value="@bind(vmPricing.etiqueta[75])"/><label value=": "/>
 											</div>
@@ -287,7 +287,7 @@
 									  style="text-transform: uppercase;"
 									  model="@bind(vmPricing.listaPasajeros)"
 									  readonly="true"
-									  visible="@bind(vmPricing.oInterfaz.bSubirDoc_Y_llenarDatosPax)">
+									  visible="@bind(vmPricing.oReservar.oPaquete.bSubirDoc_Y_LlenarDatosPax)">
 								<template name="model" var="pasajero">
 									<comboitem label="@bind(pasajero.nombres_Apellidos)" value="@bind(pasajero.nombres_Apellidos)" visible="@bind(pasajero.selectPasajero)"/>
 								</template>
@@ -299,21 +299,21 @@
 									  style="text-transform: uppercase;"
 									  model="@bind(vmPricing.listaPasajeros)"
 									  readonly="true"
-									  visible=" @bind(vmPricing.oInterfaz.bSubirDoc_O_llenarDatosPax)">
+									  visible=" @bind(vmPricing.oReservar.oPaquete.bSubirDoc_O_LlenarDatosPax)">
 								<template name="model" var="pasajero">
 									<comboitem label="@bind(pasajero.nombres_Apellidos)" value="@bind(pasajero.nombres_Apellidos)" visible="@bind(pasajero.selectPasajero)"/>
 								</template>
 							</combobox>
-							<textbox width="240px" visible=" @bind(vmPricing.oInterfaz.bLlenarDatosUnPax)" 
+							<textbox width="240px" visible=" @bind(vmPricing.oReservar.oPaquete.bLlenarDatosUnPax)" 
 									value="@bind(vmPricing.oReservar.cContacto)" 
 									placeholder="@bind(vmPricing.etiqueta[92])" 
 									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)" style="text-transform: uppercase;"/>
-							<textbox width="240px" visible="@bind(vmPricing.oInterfaz.bSubirDocPax)" 
+							<textbox width="240px" visible="@bind(vmPricing.oReservar.oPaquete.bSubirDocPax)" 
 									value="@bind(vmPricing.oReservar.cContacto)" 
 									placeholder="@bind(vmPricing.etiqueta[92])" 
 									onChange="@command('changeContacto',contac=self.value,idTbContacto=self)" style="text-transform: uppercase;"/>
 						</div>
-						<div sclass="div_infoAdicional" visible="@bind(vmPricing.oInterfaz.bLlenarDatosUnPax)">
+						<div sclass="div_infoAdicional" visible="@bind(vmPricing.oReservar.oPaquete.bLlenarDatosUnPax)">
 							<div sclass="div_sub_infoAdicional">
 								<label value="@bind(vmPricing.etiqueta[75])" sclass="pasajeros_datos_add_text"/>
 								<label value=":" sclass="pasajeros_datos_add_text"/>
@@ -481,7 +481,7 @@
 											</template>
 										</combobox>
 									</vbox>
-									<vbox style="@bind(vmPricing.oReservaPaqCatHotel.colorCamaAdicional)" align="center" visible="@bind(vmPricing.oInterfaz.bHotelesConCamaAdicional)">
+									<vbox style="@bind(vmPricing.oReservaPaqCatHotel.colorCamaAdicional)" align="center" visible="@bind(vmPricing.oReservar.oPaquete.bHotelesConCamaAdicional)">
 											<label value="@bind(vmPricing.etiqueta[232])" sclass="selecthab_title"/>
 											<radiogroup onCheck="@command('selectCamaAdicional',val=self.selectedItem.value)">
 												<radio label="@bind(vmPricing.etiqueta[48])" value="si" checked="@bind(vmPricing.oReservaPaqCatHotel.conCamaAdicional)" disabled="@bind(vmPricing.oReservaPaqCatHotel.disableCamaAdicional)"/>
@@ -956,7 +956,7 @@
 												</div>
 											</div>
 										</vbox>
-										<div sclass="div_costoHotel" visible="@bind(vmPricing.oInterfaz.bHotelesConCamaAdicional)">
+										<div sclass="div_costoHotel" visible="@bind(vmPricing.oReservar.oPaquete.bHotelesConCamaAdicional)">
 											<div sclass="div_costoHotelSubTitle">
 												<label value="Con Cama Adicional: " sclass="subDesc_costos"/>
 												<space></space>
@@ -1102,7 +1102,8 @@
 									<image src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
 									<div width="100%">
 										<radiogroup onCheck="@command('selectPaypal',valor=self.selectedItem.value) @global-command('datosDePagoPaypal',textoPorcentaje=vmPricing.textoPorcentaje,montoTotalPorcentual=vmPricing.montoTotalPorcentual,pagos=vmPricing.pagos,etiqueta=vmPricing.etiqueta)">
-											<radio label="@bind(vmPricing.etiqueta[102])" value="1" sclass="radio_color" checked="@load(vmPricing.pagos.pagoParcialPaypal)"/>
+											<radio label="@bind(vmPricing.etiqueta[102])" value="1" sclass="radio_color" checked="@load(vmPricing.pagos.pagoParcialPaypal)"
+												visible="@load(!vmPricing.oReservar.oPaquete.bModoPagoTotal)"/>
 											<radio label="@bind(vmPricing.etiqueta[103])" value="2" sclass="radio_color" checked="@load(vmPricing.pagos.pagoTotalPaypal)"/>
 										</radiogroup>
 									</div>

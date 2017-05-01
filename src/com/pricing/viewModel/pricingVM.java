@@ -355,7 +355,7 @@ public class pricingVM
 //			//==================
 			iniciarEdades();
 			iniciarReserva();
-			if(!oInterfaz.isbLlenarDatosUnPax())
+			if(!oReservar.getoPaquete().isbLlenarDatosUnPax())
 				iniciarPasajeros();
 			//===========================
 			this.paso1=true;
@@ -400,13 +400,13 @@ public class pricingVM
 	
 	public void iniciarPasajeros()
 	{
-		if(!oInterfaz.isbLlenarDatosUnPax())
+		if(!oReservar.getoPaquete().isbLlenarDatosUnPax())
 		{
 			for(int i=1;i<=16;i++)
 			{
 				CPasajero pas=new CPasajero();
 				pas.setnNro(i);
-				if(oInterfaz.isbSubirDocPax())
+				if(oReservar.getoPaquete().isbSubirDocPax())
 				{
 					System.out.println("Entre a activar subida de doc");
 					pas.setEsEdit(true);
@@ -417,14 +417,14 @@ public class pricingVM
 	}
 	public void updateListaPasajeros()
 	{
-		if(!oInterfaz.isbLlenarDatosUnPax())
+		if(!oReservar.getoPaquete().isbLlenarDatosUnPax())
 		{
 			for(CPasajero pax:listaPasajeros)
 			{
 				if(pax.getnNro()<=nroPasajeros && !pax.isSelectPasajero())
 				{
 					pax.setSelectPasajero(true);
-					if(pax.isEsEdit() && !oInterfaz.isbSubirDocPax())pax.setEsEdit(false);
+					if(pax.isEsEdit() && !oReservar.getoPaquete().isbSubirDocPax())pax.setEsEdit(false);
 					BindUtils.postNotifyChange(null, null, pax,"selectPasajero");
 					BindUtils.postNotifyChange(null, null, pax,"esEdit");
 				}else if(pax.getnNro()>nroPasajeros && pax.isSelectPasajero())
@@ -1636,9 +1636,9 @@ public class pricingVM
 		reiniciarReserva();
 		updateRestricciones();
 		validarNroHabPosibles();
-		if(!oInterfaz.isbLlenarDatosUnPax())
+		if(!oReservar.getoPaquete().isbLlenarDatosUnPax())
 			updateListaPasajeros();
-		if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+		if(oReservar.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
 		{
 			for(CPasajero pax:listaPasajeros)
 			{
@@ -1646,7 +1646,7 @@ public class pricingVM
 				{
 					if(pax.isEsEdit())
 					{
-						montoTotal-=30;
+						montoTotal-=oReservar.getoPaquete().getnDescuentoMenor_Estudiante().doubleValue();
 					}
 				}
 			}
@@ -1893,13 +1893,13 @@ public class pricingVM
 		boolean valido=true;
 		if(nroPasajeros>0)
 		{
-			if(oInterfaz.isbSubirDocPax())
+			if(oReservar.getoPaquete().isbSubirDocPax())
 			{
 				valido=analizarSoloSubirDoc(comp);
-			}else if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+			}else if(oReservar.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
 			{
 				valido=analizarLLenadoDatosYsubirDoc(comp);
-			}else if(oInterfaz.isbSubirDoc_O_llenarDatosPax()){
+			}else if(oReservar.getoPaquete().isbSubirDoc_O_LlenarDatosPax()){
 				valido=analizarLLenadoDatos(comp);
 			}
 			if(valido)
@@ -1917,13 +1917,13 @@ public class pricingVM
 		boolean valido=true;
 		if(nroPasajeros>0)
 		{
-			if(oInterfaz.isbSubirDocPax())
+			if(oReservar.getoPaquete().isbSubirDocPax())
 			{
 				valido=analizarSoloSubirDoc(comp);
-			}else if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+			}else if(oReservar.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
 			{
 				valido=analizarLLenadoDatosYsubirDoc(comp);
-			}else if(oInterfaz.isbSubirDoc_O_llenarDatosPax()){
+			}else if(oReservar.getoPaquete().isbSubirDoc_O_LlenarDatosPax()){
 				valido=analizarLLenadoDatos(comp);
 			}
 			if(valido)
@@ -2127,7 +2127,7 @@ public class pricingVM
 		{
 			valido=false;
 			Clients.showNotification(etiqueta[171],Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",2700);
-		}else if(oInterfaz.isbLlenarDatosUnPax())
+		}else if(oReservar.getoPaquete().isbLlenarDatosUnPax())
 		{
 			if(oReservar.getoPasajeroReservante().getnPaisCod()==245)
 			{
@@ -2293,11 +2293,11 @@ public class pricingVM
 		}
 		/**CALCULANDO LOS MONTOS A PAGAR**/
 		String pagoParcial="";
-		if(oImpuesto.isModoPorcentual())
-			pagoParcial=df.format(Double.parseDouble(lblMontoTotal)*(Double.parseDouble(oImpuesto.getPorcentajeCobro())/100));
+		if(oReservar.getoPaquete().isbModoPorcentual())
+			pagoParcial=df.format(Double.parseDouble(lblMontoTotal)*((double)oReservar.getoPaquete().getnPorcentajeCobro()/100));
 		else
 		{
-			pagoParcial=df.format(TotalServicios+TotalHabitaciones+TotalActividades+Double.parseDouble(oImpuesto.getPagoMinimo())*nroPasajeros);
+			pagoParcial=df.format(TotalServicios+TotalHabitaciones+TotalActividades+(oReservar.getoPaquete().getnPagoMinimo()*nroPasajeros));
 		}
 		/**ENVIAR CORREO**/
 		CEmail mail=new CEmail();
@@ -2338,7 +2338,7 @@ public class pricingVM
 			}
 		}
 		CPasajeroDAO pasajeroDao=new CPasajeroDAO();
-		if(!oInterfaz.isbLlenarDatosUnPax())
+		if(!oReservar.getoPaquete().isbLlenarDatosUnPax())
 		{
 			int i=1;
 			for(CPasajero p:listaPasajeros)
@@ -2389,9 +2389,9 @@ public class pricingVM
 		String scan=val.toString();
 		if(scan.equals("yes"))
 		{
-			if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+			if(oReservar.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
 			{
-				montoTotal-=30;
+				montoTotal-=oReservar.getoPaquete().getnDescuentoMenor_Estudiante().doubleValue();
 				lblMontoTotal=df.format(montoTotal);
 			}
 			pasajero.setEsEdit(true);
@@ -2399,9 +2399,9 @@ public class pricingVM
 		}
 		else
 		{
-			if(oInterfaz.isbSubirDoc_Y_llenarDatosPax())
+			if(oReservar.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
 			{
-				montoTotal+=30;
+				montoTotal+=oReservar.getoPaquete().getnDescuentoMenor_Estudiante().doubleValue();
 				lblMontoTotal=df.format(montoTotal);
 			}
 			pasajero.setEsEdit(false);
@@ -2933,11 +2933,11 @@ public class pricingVM
 		{
 			pagos.setPagoParcialPaypal(true);
 			pagos.setPagoTotalPaypal(false);
-			if(oImpuesto.isModoPorcentual())
-				monto_Pagar_sin_impuesto=df.format(Double.parseDouble(lblMontoTotal)*(Double.parseDouble(oImpuesto.getPorcentajeCobro())/100));
+			if(oReservar.getoPaquete().isbModoPorcentual())
+				monto_Pagar_sin_impuesto=df.format(Double.parseDouble(lblMontoTotal)*((double)oReservar.getoPaquete().getnPorcentajeCobro()/100));
 			else
 			{
-				monto_Pagar_sin_impuesto=df.format(TotalServicios+TotalHabitaciones+TotalActividades+Double.parseDouble(oImpuesto.getPagoMinimo())*nroPasajeros);
+				monto_Pagar_sin_impuesto=df.format(TotalServicios+TotalHabitaciones+TotalActividades+oReservar.getoPaquete().getnPagoMinimo()*nroPasajeros);
 			}
 			textoPorcentaje=etiqueta[102];
 		}

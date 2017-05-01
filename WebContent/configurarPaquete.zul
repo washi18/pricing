@@ -9,18 +9,33 @@
 		viewModel="@id('vm') @init('com.pricing.viewModel.configurarPaqueteVM')">
 		<div width="100%" sclass="div_content_config">
 			<div>
-				<label value="CONFIGURACION DE LLENADO DE DATOS DE LOS PASAJEROS" sclass="lbl_select_title"/>
+				<label value="CONFIGURACION DE LLENADO DE DATOS DE LOS PASAJEROS:" sclass="lbl_select_title"/>
 				<div>
 					<radiogroup sclass="select_modo_pago" orient="vertical" onCheck="@command('selectModoLlenadoPax',opcion=self.selectedItem.value)">
 						<radio label="Subir sólo documentos" value="1" checked="@load(vm.oPaquete.bSubirDocPax)"/>
 						<radio label="Subir documentos(estudiante o menor de edad) y llenar datos de los pasajeros" value="2" checked="@load(vm.oPaquete.bSubirDoc_Y_LlenarDatosPax)"/>
+						<div visible="@bind(vm.oPaquete.bSubirDoc_Y_LlenarDatosPax)">
+							<label value="Monto a descontar menor/estudiante:" sclass="lbl_congif_sutitle"/>
+		 					<doublebox value="@bind(vm.oPaquete.nDescuentoMenor_Estudiante)" 
+		 							onChange="@command('changeValorCobro',valor=1,componente=self)"
+		 							width="50px" sclass="txt_config_valor"/>
+						</div>
 						<radio label="Sólo llenar datos de los pasajeros" value="3" checked="@load(vm.oPaquete.bSubirDoc_O_LlenarDatosPax)"/>
 						<radio label="Sólo llenar datos del pasajero que reserva" value="4" checked="@load(vm.oPaquete.bLlenarDatosUnPax)"/>
 					</radiogroup>
 				</div>
 			</div>
 			<div>
-				<label value="CONFIGURACION DE HOTELES" sclass="lbl_select_title"/>
+				<label value="CONFIGURACION DEL PAGO TOTAL/PARCIAL:" sclass="lbl_select_title"/>
+				<div>
+					<radiogroup sclass="select_modo_pago" orient="vertical" onCheck="@command('selectConfigParcialTotal',opcion=self.selectedItem.value)">
+						<radio label="Se puede pagar parcialmente" value="1" checked="@load(vm.oPaquete.bModoPagoPartes)"/>
+						<radio label="El pago es total" value="2" checked="@load(vm.oPaquete.bModoPagoTotal)"/>
+					</radiogroup>
+				</div>
+			</div>
+			<div visible="@bind(vm.oPaquete.conDestino)">
+				<label value="CONFIGURACION DE HOTELES:" sclass="lbl_select_title"/>
 				<div>
 					<radiogroup sclass="select_modo_pago" orient="vertical" onCheck="@command('selectConfigHoteles',opcion=self.selectedItem.value)">
 						<radio label="Con cama adicional" value="1" checked="@load(vm.oPaquete.bHotelesConCamaAdicional)"/>
@@ -29,22 +44,22 @@
 				</div>
 			</div>
 			<div>
-		 			<label value="Modo de Cobro:" sclass="lbl_select_title"/>
+		 			<label value="MODO DE COBRO:" sclass="lbl_select_title"/>
 		 			<div>
 		 				<radiogroup sclass="select_modo_pago" orient="horizontal" onCheck="@command('selectModoDeCobro',modo=self.selectedItem.value)">
 		 					<radio label="Porcentual" value="porcentaje" checked="@bind(vm.oPaquete.bModoPorcentual)"/>
-		 					<radio label="Minimo" value="minimo" checked="@bind(vmImpuesto.oImpuesto.modoMinimo)"/>
+		 					<radio label="Minimo" value="minimo" checked="@bind(vm.oPaquete.bModoMinimo)"/>
 		 				</radiogroup>
-		 				<div visible="@bind(vmImpuesto.oImpuesto.modoPorcentual)" sclass="div_content_config_items">
+		 				<div visible="@bind(vm.oPaquete.bModoPorcentual)" sclass="div_content_config_items">
 		 					<label value="Porcentaje a cobrar:" sclass="lbl_congif_sutitle"/>
-		 					<textbox value="@bind(vmImpuesto.oImpuesto.porcentajeCobro)" 
+		 					<intbox value="@bind(vm.oPaquete.nPorcentajeCobro)" 
 		 							onChange="@command('changeValorCobro',valor=5,componente=self)"
 		 							width="50px" sclass="txt_config_valor"/>
 		 					<label value="%" sclass="lbl_config_porcentaje"/>
 		 				</div>
-		 				<div visible="@bind(vmImpuesto.oImpuesto.modoMinimo)" sclass="div_content_config_items">
+		 				<div visible="@bind(vm.oPaquete.bModoMinimo)" sclass="div_content_config_items">
 		 					<label value="Minimo a cobrar: $" sclass="lbl_congif_sutitle"/>
-		 					<textbox value="@bind(vmImpuesto.oImpuesto.pagoMinimo)" 
+		 					<intbox value="@bind(vm.oPaquete.nPagoMinimo)" 
 			 						onChange="@command('changeValorCobro',valor=6,componente=self)"
 			 						width="50px" sclass="txt_config_valor"/>
 		 					<label value="por pasajero." sclass="lbl_config_porcentaje"/>

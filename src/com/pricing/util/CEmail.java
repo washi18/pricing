@@ -13,24 +13,20 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.BodyPart;
 import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Transport;
 import javax.activation.DataHandler;
 import javax.activation.FileDataSource;
 import javax.mail.internet.MimeMultipart;
 import javax.activation.DataSource;
-import javax.activation.FileDataSource;
 
 import com.lowagie.text.DocumentException;
 import com.pricing.dao.CConfigUrlDAO;
 import com.pricing.dao.CCorreoSmtpDAO;
-import com.pricing.dao.CInterfazDAO;
 import com.pricing.model.CActividad;
 import com.pricing.model.CCupon;
 import com.pricing.model.CDestinoConHoteles;
 import com.pricing.model.CHotel;
 import com.pricing.model.CImpuesto;
-import com.pricing.model.CInterfaz;
 import com.pricing.model.CPagos;
 import com.pricing.model.CPaquete;
 import com.pricing.model.CPasajero;
@@ -441,7 +437,7 @@ public class CEmail
 		String hotel[]=obtenerHtmlHotel(oReservaPCH,etiqueta);
 		/**********************************************/
 		/**Se obtienen los datos de los pasajeros**/
-		String pasajeros[]=obtenerHtmlPasajeros(listaPasajeros,etiqueta);
+		String pasajeros[]=obtenerHtmlPasajeros(listaPasajeros,etiqueta,reserva);
 		/******************************************/
 		/**Se obtienen los datos de los servicios**/
 		String servicios[]=obtenerHtmlServicios(reserva.getoPaquete().getListaServicios(),etiqueta);
@@ -860,12 +856,10 @@ public class CEmail
 		}
 		/**********************************************/
 		/**Se obtienen los datos de los pasajeros**/
-		CInterfazDAO interfazDao=new CInterfazDAO();
-		interfazDao.asignarConfigInterfaz(interfazDao.recuperarConfigInterfazDB());
 		String pasajeros="";
 		for(CPasajero pax:listaPasajeros)
 		{
-			if(!interfazDao.getoInterfaz().isbSubirDoc_Y_llenarDatosPax())
+			if(!reserva.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
 				if(!pax.isSelectPasajero() || pax.isEsEdit())break;
 			pasajeros+=
 						"<tr style='border:1px solid black;'>"+
@@ -1161,12 +1155,10 @@ public class CEmail
 		}
 		/**********************************************/
 		/**Se obtienen los datos de los pasajeros**/
-		CInterfazDAO interfazDao=new CInterfazDAO();
-		interfazDao.asignarConfigInterfaz(interfazDao.recuperarConfigInterfazDB());
 		String pasajeros="";
 		for(CPasajero pax:listaPasajeros)
 		{
-			if(!interfazDao.getoInterfaz().isbSubirDoc_Y_llenarDatosPax())
+			if(!reserva.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
 				if(!pax.isSelectPasajero() || pax.isEsEdit())break;
 			pasajeros+=
 						"<tr style='border:1px solid black;'>"+
@@ -1506,16 +1498,14 @@ public class CEmail
 		}
 		return fechas;
 	}
-	public String[] obtenerHtmlPasajeros(ArrayList<CPasajero> listaPasajeros,String[] etiqueta)
+	public String[] obtenerHtmlPasajeros(ArrayList<CPasajero> listaPasajeros,String[] etiqueta,CReserva reserva)
 	{
-		CInterfazDAO interfazDao=new CInterfazDAO();
-		interfazDao.asignarConfigInterfaz(interfazDao.recuperarConfigInterfazDB());
 		String[] pasajeros=new String[2];
 		pasajeros[0]="";
 		pasajeros[1]="";
 		for(CPasajero p:listaPasajeros)
 		{
-			if(!interfazDao.getoInterfaz().isbSubirDoc_Y_llenarDatosPax())
+			if(!reserva.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
 				if(!p.isSelectPasajero() || p.isEsEdit())break;
 			pasajeros[0]+=
 						"<tr style='border:1px solid black;'>"+

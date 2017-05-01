@@ -5,6 +5,8 @@ import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.GlobalCommand;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
+import org.zkoss.zk.ui.Component;
+import org.zkoss.zk.ui.util.Clients;
 
 import com.pricing.model.CPaquete;
 
@@ -72,6 +74,61 @@ public class configurarPaqueteVM {
 		{
 			oPaquete.setbHotelesSinCamaAdicional(true);
 			oPaquete.setbHotelesConCamaAdicional(false);
+		}
+	}
+	@Command
+	@NotifyChange({"oPaquete"})
+	public void selectConfigParcialTotal(@BindingParam("opcion")String opcion)
+	{
+		if(opcion.toString().equals("1"))//Hoteles con cama adicional
+		{
+			oPaquete.setbModoPagoPartes(true);
+			oPaquete.setbModoPagoTotal(false);
+		}else//Hoteles sin cama adicional
+		{
+			oPaquete.setbModoPagoPartes(false);
+			oPaquete.setbModoPagoTotal(true);
+		}
+	}
+	@Command
+	@NotifyChange({"oPaquete"})
+	public void selectModoDeCobro(@BindingParam("modo")String modo)
+	{
+		if(modo.equals("porcentaje"))
+		{
+			oPaquete.setbModoPorcentual(true);
+			oPaquete.setbModoMinimo(false);
+		}else
+		{
+			oPaquete.setbModoPorcentual(false);
+			oPaquete.setbModoMinimo(true);
+		}
+	}
+	@Command
+	@NotifyChange({"oPaquete"})
+	public void changeValorCobro(@BindingParam("valor")int valor,@BindingParam("componente")Component comp)
+	{
+		if(valor==1)
+		{
+			if(oPaquete.getnDescuentoMenor_Estudiante().doubleValue()<0)
+			{
+				oPaquete.setnDescuentoMenor_Estudiante(0);
+				Clients.showNotification("Digite valores numericos no negativos",Clients.NOTIFICATION_TYPE_ERROR,comp,"before_start",3000);
+			}
+		}else if(valor==5)
+		{
+			if(oPaquete.getnPorcentajeCobro()<0)
+			{
+				oPaquete.setnPorcentajeCobro(0);
+				Clients.showNotification("Digite valores numericos no negativos",Clients.NOTIFICATION_TYPE_ERROR,comp,"before_start",3000);
+			}
+		}else if(valor==6)
+		{
+			if(oPaquete.getnPagoMinimo()<0)
+			{
+				oPaquete.setnPagoMinimo(0);
+				Clients.showNotification("Digite valores numericos no negativos",Clients.NOTIFICATION_TYPE_ERROR,comp,"before_start",3000);
+			}
 		}
 	}
 }

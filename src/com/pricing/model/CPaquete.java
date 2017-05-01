@@ -52,8 +52,10 @@ public class CPaquete
 	private String cUrlReferenciaPaquete;//text
 	private int nPorcentajeCobro;// int 
 	private int nPagoMinimo;// int 
-	private boolean bModoPorcentual;// boolean 
-	private boolean bModoPagoTotal;// boolean 
+	private boolean bModoPorcentual;// boolean
+	private boolean bModoMinimo;
+	private boolean bModoPagoTotal;// boolean
+	private boolean bModoPagoPartes;
 	private Number nDescuentoMenor_Estudiante;// decimal(10,2) 
 	private boolean bSubirDocPax;// boolean 
 	private boolean bSubirDoc_Y_LlenarDatosPax;// boolean 
@@ -641,6 +643,18 @@ public class CPaquete
 	public void setbHotelesSinCamaAdicional(boolean bHotelesSinCamaAdicional) {
 		this.bHotelesSinCamaAdicional = bHotelesSinCamaAdicional;
 	}
+	public boolean isbModoMinimo() {
+		return bModoMinimo;
+	}
+	public void setbModoMinimo(boolean bModoMinimo) {
+		this.bModoMinimo = bModoMinimo;
+	}
+	public boolean isbModoPagoPartes() {
+		return bModoPagoPartes;
+	}
+	public void setbModoPagoPartes(boolean bModoPagoPartes) {
+		this.bModoPagoPartes = bModoPagoPartes;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -695,7 +709,9 @@ public class CPaquete
 		this.nPorcentajeCobro=0;
 		this.nPagoMinimo=0;
 		this.bModoPorcentual=true;
+		this.bModoMinimo=false;
 		this.bModoPagoTotal=false;
+		this.bModoPagoPartes=true;
 		this.nDescuentoMenor_Estudiante=0;
 		this.bSubirDocPax=false;
 		this.bSubirDoc_Y_LlenarDatosPax=false;
@@ -824,7 +840,9 @@ public class CPaquete
 		this.nPorcentajeCobro=nPorcentajeCobro;
 		this.nPagoMinimo=nPagoMinimo;
 		this.bModoPorcentual=bModoPorcentual;
+		this.bModoMinimo=!bModoPorcentual;
 		this.bModoPagoTotal=bModoPagoTotal;
+		this.bModoPagoPartes=!bModoPagoTotal;
 		this.nDescuentoMenor_Estudiante=nDescuentoMenor_Estudiante;
 		this.bSubirDocPax=bSubirDocPax;
 		this.bSubirDoc_Y_LlenarDatosPax=bSubirDoc_Y_LlenarDatosPax;

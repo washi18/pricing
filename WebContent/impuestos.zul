@@ -39,29 +39,6 @@
 		 					width="50px" sclass="txt_config_valor"/>
 		 			<label value="%" sclass="lbl_config_porcentaje"/>
 		 		</div>
-		 		<div>
-		 			<label value="Modo de Cobro:" sclass="lbl_select_title"/>
-		 			<div>
-		 				<radiogroup sclass="select_modo_pago" orient="horizontal" onCheck="@command('selectModoDeCobro',modo=self.selectedItem.value)">
-		 					<radio label="Porcentual" value="porcentaje" checked="@bind(vmImpuesto.oImpuesto.modoPorcentual)"/>
-		 					<radio label="Minimo" value="minimo" checked="@bind(vmImpuesto.oImpuesto.modoMinimo)"/>
-		 				</radiogroup>
-		 				<div visible="@bind(vmImpuesto.oImpuesto.modoPorcentual)" sclass="div_content_config_items">
-		 					<label value="Porcentaje a cobrar:" sclass="lbl_congif_sutitle"/>
-		 					<textbox value="@bind(vmImpuesto.oImpuesto.porcentajeCobro)" 
-		 							onChange="@command('changeValorCobro',valor=5,componente=self)"
-		 							width="50px" sclass="txt_config_valor"/>
-		 					<label value="%" sclass="lbl_config_porcentaje"/>
-		 				</div>
-		 				<div visible="@bind(vmImpuesto.oImpuesto.modoMinimo)" sclass="div_content_config_items">
-		 					<label value="Minimo a cobrar: $" sclass="lbl_congif_sutitle"/>
-		 					<textbox value="@bind(vmImpuesto.oImpuesto.pagoMinimo)" 
-			 						onChange="@command('changeValorCobro',valor=6,componente=self)"
-			 						width="50px" sclass="txt_config_valor"/>
-		 					<label value="por pasajero." sclass="lbl_config_porcentaje"/>
-		 				</div>
-		 			</div>
-		 		</div>
 		 		<space></space>
 			 	<div zclass="div_content_btns_operaciones" align="center" width="100%">
 			 		<button label="ACTUALIZAR" width="100%" zclass="btn_actualizar" onClick="@command('insert_update_impuesto',componente=self) @global-command('actualizar_valores_impuesto')"/>
@@ -88,20 +65,6 @@
 		 			<label value="Impuesto Dinners Club:" sclass="lbl_congif_sutitle"/>
 		 			<label value="@bind(vmImpuesto.oImpuesto.impuestoDinnersClub)" sclass="lbl_config_porcentaje"/>
 		 			<label value="%" sclass="lbl_config_porcentaje"/>
-		 		</div>
-		 		<div>
-		 			<label value="Modo de Cobro:" sclass="lbl_select_title"/>
-		 			<div visible="@bind(vmImpuesto.oImpuesto.modoPorcentual)" sclass="div_content_config_items">
-		 				<label value="Porcentaje a cobrar:" sclass="lbl_congif_sutitle"/>
-		 				<label value="@bind(vmImpuesto.oImpuesto.porcentajeCobro)" sclass="lbl_config_porcentaje"/>
-		 				<label value="%" sclass="lbl_config_porcentaje"/>
-		 			</div>
-		 			<div visible="@bind(vmImpuesto.oImpuesto.modoMinimo)" sclass="div_content_config_items">
-		 				<label value="Minimo a cobrar:" sclass="lbl_congif_sutitle"/>
-		 				<label value="$" sclass="lbl_config_porcentaje"/>
-		 				<label value="@bind(vmImpuesto.oImpuesto.pagoMinimo)" sclass="lbl_config_porcentaje"/>
-		 				<label value="por pasajero." sclass="lbl_config_porcentaje"/>
-		 			</div>
 		 		</div>
 		 		<space></space>
 		 		<div width="100%" align="center">
