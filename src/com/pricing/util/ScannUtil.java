@@ -25,6 +25,10 @@ public class ScannUtil {
 	{
 		return saveFile(media, getPathImagenHoteles());
 	}
+	public static boolean uploadFileAndroid(Media media)
+	{
+		return saveFile(media, getPathImagenAndroid());
+	}
 	public static boolean uploadFilePaquetes(Media media){
 		return saveFile(media, getPathImagenPaquetes());
 	}
@@ -67,6 +71,10 @@ public class ScannUtil {
 	}
 	public static String getPathImagenDestinos(){
 		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"destinos"+separator;
+	}
+	public static String getPathImagenAndroid()
+	{
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"android"+separator;
 	}
 	//save file
 	public static boolean saveFile(Media media, String path){

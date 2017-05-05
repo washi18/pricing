@@ -48,7 +48,7 @@
 /* 	background: #1A5276; */
 /* } */
 
-.contenedor_botones, .contenedor_cmb_mes_anio {
+.contenedor_cmb_mes_anio {
 	display: flex;
 	display: -webkit-flex;
 	display: -moz-flex;

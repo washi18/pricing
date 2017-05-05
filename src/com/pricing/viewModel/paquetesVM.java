@@ -1102,14 +1102,20 @@ public class paquetesVM {
 		if (texto.equals("activar")) {
 			p.setColor_btn_activo(p.COLOR_ACTIVO);
 			p.setColor_btn_desactivo(p.COLOR_TRANSPARENT);
+			p.setEstado_activo(true);
+			p.setEstado_desactivo(false);
 			p.setbEstado(true);
 		} else {
 			p.setColor_btn_activo(p.COLOR_TRANSPARENT);
 			p.setColor_btn_desactivo(p.COLOR_DESACTIVO);
+			p.setEstado_activo(false);
+			p.setEstado_desactivo(true);
 			p.setbEstado(false);
 		}
 		BindUtils.postNotifyChange(null, null, p, "color_btn_activo");
 		BindUtils.postNotifyChange(null, null, p, "color_btn_desactivo");
+		BindUtils.postNotifyChange(null, null, p, "estado_desactivo");
+		BindUtils.postNotifyChange(null, null, p, "estado_activo");
 	}
 
 	@Command

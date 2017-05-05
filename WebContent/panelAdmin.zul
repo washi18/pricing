@@ -197,6 +197,21 @@
 										</div>
 									</div>
 								</div>
+								<!-- ==ANDROID== -->
+								<div zclass="div_mantenimiento_items" onClick="d_android.setVisible(d_android.isVisible()?false:true)">
+									<div>
+										<span sclass="fa fa-android estilos-iconos"/>
+										<label value="ANDROID" sclass="lbls_mantenimientos"/>
+									</div>
+								</div>
+								<div id="d_android" visible="false">
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemMenuAndroid" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosMenu')">
+											<span sclass="fa fa-bars estilos-iconos"/>
+											<label value="Menu de App" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 			</div >
@@ -242,6 +257,7 @@
 									<button width="100%" iconSclass="fa fa-paypal estilos-iconos" visible="@bind(vmAdmin.visibleConfPaypal)" zclass="btn_opciones_config" label="CONFIGURACION DE PAYPAL"/>
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfExtras)" zclass="btn_opciones_config" label="CONFIGURACIONES ADICIONALES"/>
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfAltoNivel)" zclass="btn_opciones_config" label="CONFIGURACIONES ALTO NIVEL"/>
+									<button width="100%" iconSclass="fa fa-bars estilos-iconos" visible="@bind(vmAdmin.visibleMenuAndroid)" zclass="btn_opciones_config" label="MENU DE ANDROID"/>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
@@ -300,6 +316,9 @@
 									</div>
 									<div visible="@bind(vmAdmin.visibleConfAltoNivel)">
 										<include src="confAltoNivel.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleMenuAndroid)">
+										<include src="menu.zul"/>
 									</div>
 								</div>
 							</div>

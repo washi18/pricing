@@ -1,0 +1,127 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmMenu') @init('com.android.viewModel.menuVM')">
+		 <div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_menu_android.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="180px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO MENU"/>
+				</div>
+			</div>
+			<div id="div_llenar_menu_android" visible="false" width="280px">
+				<div>
+					<div zclass="div_contiene_banderas">
+						<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+							onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+							txtPortuName.setVisible(false)"/>
+						<image src="img/en.png" sclass="estilo_banderas"
+							onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+							txtPortuName.setVisible(false)"/>
+						<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+							onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+							txtPortuName.setVisible(true)"/>
+					</div>
+					<div>
+						<label value="NOMBRE MENU: " zclass="lbl_llenar_datos"/>
+						<textbox value="@bind(vmMenu.oMenu.cNombreIdioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+						<textbox value="@bind(vmMenu.oMenu.cNombreIdioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="100%" visible="false"/>
+						<textbox value="@bind(vmMenu.oMenu.cNombreIdioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+					</div>
+					<div zclass="div_space_entre_botones">
+						<button label="Subir Icono del Menu" 
+								onClick="@command('uploadImagenes',menu=vmMenu.oMenu,componente=self,opcion=1)"
+								zclass="btn_guardar"/>
+					</div>
+					<div zclass="div_space_entre_botones">
+						<button label="Subir Imagen de Fondo del Menu" 
+								onClick="@command('uploadImagenes',menu=vmMenu.oMenu,componente=self,opcion=2)"
+								zclass="btn_guardar"/>
+					</div>
+					<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarMenu',componente=self)"/>
+				</div>
+			</div>
+		</div>
+		<space></space>
+		<listbox sclass="listados" model="@bind(vmMenu.listaMenu) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+					<listcell>
+						<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.cMenuCod)"/>
+							</div>
+							<label width="100%" height="30px" sclass="estilo_nombre_paquete"
+					    					value="@bind(each.cNombreIdioma1)" />
+							<separator spacing="2px"/>
+						    <div zclass="div_operacion_etiqueta">
+						    	<button label="Editar"
+						    			onClick="@command('Editar',menu=each)"
+						    			zclass="btn_editar" />
+						    	<separator spacing="2px"></separator>
+						    	<button label="Activo" zclass="btn_activo" visible="@bind(each.estado)"/>
+						    	<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.estado)"/>
+						    </div>
+						  </div>
+					</listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.cMenuCod)"/>
+							</div>
+							<div>
+								<div zclass="div_contiene_banderas">
+									<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+										onClick="@command('cambioIdiomas',idioma='Espanol',menu=each)"/>
+									<image src="img/en.png" sclass="estilo_banderas"
+										onClick="@command('cambioIdiomas',idioma='Ingles',menu=each)"/>
+									<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+										onClick="@command('cambioIdiomas',idioma='Portugues',menu=each)"/>
+								</div>
+								<div>
+									<label value="NOMBRE MENU: " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(each.cNombreIdioma1)" zclass="txt_llenar_datos" placeholder="ESPAÑOL" width="100%" visible="@bind(each.visibleEspanol)"/>
+									<textbox value="@bind(each.cNombreIdioma2)" zclass="txt_llenar_datos" placeholder="INGLES" width="100%" visible="@bind(each.visibleIngles)"/>
+									<textbox value="@bind(each.cNombreIdioma3)" zclass="txt_llenar_datos" placeholder="PORTUGUES" width="100%" visible="@bind(each.visiblePortugues)"/>
+								</div>
+								<div zclass="div_space_entre_botones">
+									<button label="Subir Icono del Menu" 
+											onClick="@command('uploadImagenes',menu=each,componente=self,opcion=1)"
+											zclass="btn_guardar"/>
+								</div>
+								<div zclass="div_space_entre_botones">
+									<button label="Subir Imagen de Fondo del Menu" 
+											onClick="@command('uploadImagenes',menu=each,componente=self,opcion=2)"
+											zclass="btn_guardar"/>
+								</div>
+							</div>
+					    	<div>
+								<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+								<separator bar="true" zclass="lbl_llenar_datos"/>
+								<div>
+									<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_menu',menu=each,texto=self.selectedItem.value)">
+										<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
+										<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+									</radiogroup>
+								</div>
+							</div>
+							<div zclass="div_operacion_etiqueta">
+								<button label="Actualizar"
+					    				onClick="@command('actualizarMenu',menu=each)"
+					    				zclass="btn_actualizar"/>
+							</div>
+					    </div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>
