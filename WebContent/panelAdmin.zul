@@ -211,6 +211,12 @@
 											<label value="Menu de App" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
+									<div width="100%" zclass="div_mantenimiento_items_sub">
+										<div id="itemSubMenuAndroid" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosSubMenu')">
+											<span sclass="fa fa-indent estilos-iconos"/>
+											<label value="Sub-Menu de App" sclass="lbls_mantenimientos"/>
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -258,6 +264,7 @@
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfExtras)" zclass="btn_opciones_config" label="CONFIGURACIONES ADICIONALES"/>
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfAltoNivel)" zclass="btn_opciones_config" label="CONFIGURACIONES ALTO NIVEL"/>
 									<button width="100%" iconSclass="fa fa-bars estilos-iconos" visible="@bind(vmAdmin.visibleMenuAndroid)" zclass="btn_opciones_config" label="MENU DE ANDROID"/>
+									<button width="100%" iconSclass="fa fa-indent estilos-iconos" visible="@bind(vmAdmin.visibleSubMenuAndroid)" zclass="btn_opciones_config" label="SUB-MENU DE ANDROID"/>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
@@ -319,6 +326,9 @@
 									</div>
 									<div visible="@bind(vmAdmin.visibleMenuAndroid)">
 										<include src="menu.zul"/>
+									</div>
+									<div visible="@bind(vmAdmin.visibleSubMenuAndroid)">
+										<include src="submenu.zul"/>
 									</div>
 								</div>
 							</div>

@@ -133,7 +133,7 @@ public class menuVM {
 						org.zkoss.image.Image img = (org.zkoss.image.Image) media;
 						// Con este metodo(uploadFile) de clase guardo la imagen
 						// en la ruta del servidor
-						boolean b = ScannUtil.uploadFilePaquetes(img);
+						boolean b = ScannUtil.uploadFileAndroid(img);
 						// ================================
 						// Una vez creado el nuevo nombre de archivo de imagen
 						// se procede a cambiar el nombre
