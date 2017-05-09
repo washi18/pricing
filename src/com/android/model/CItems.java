@@ -1,5 +1,8 @@
 package com.android.model;
 
+import com.android.dao.CItemsDAO;
+import com.android.dao.CSubMenuDAO;
+
 public class CItems {
 	private int cItemsCod;// integer,
 	private int cSubMenuCod;// integer,
@@ -14,6 +17,11 @@ public class CItems {
 	private String cDescripcionIdioma4;// text,
 	private String cDescripcionIdioma5;// text,
 	private String cImagen;// varchar(100),
+	private boolean editable;
+	private boolean visibleEspanol;
+	private boolean visibleIngles;
+	private boolean visiblePortugues;
+	private String nameSubMenu;
 	//====================================
 	public int getcItemsCod() {
 		return cItemsCod;
@@ -93,6 +101,36 @@ public class CItems {
 	public void setcImagen(String cImagen) {
 		this.cImagen = cImagen;
 	}
+	public boolean isEditable() {
+		return editable;
+	}
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+	public boolean isVisibleEspanol() {
+		return visibleEspanol;
+	}
+	public void setVisibleEspanol(boolean visibleEspanol) {
+		this.visibleEspanol = visibleEspanol;
+	}
+	public boolean isVisibleIngles() {
+		return visibleIngles;
+	}
+	public void setVisibleIngles(boolean visibleIngles) {
+		this.visibleIngles = visibleIngles;
+	}
+	public boolean isVisiblePortugues() {
+		return visiblePortugues;
+	}
+	public void setVisiblePortugues(boolean visiblePortugues) {
+		this.visiblePortugues = visiblePortugues;
+	}
+	public String getNameSubMenu() {
+		return nameSubMenu;
+	}
+	public void setNameSubMenu(String nameSubMenu) {
+		this.nameSubMenu = nameSubMenu;
+	}
 	//==============================
 	public CItems() {
 		// TODO Auto-generated constructor stub
@@ -125,5 +163,17 @@ public class CItems {
 		this.cDescripcionIdioma4 = cDescripcionIdioma4;
 		this.cDescripcionIdioma5 = cDescripcionIdioma5;
 		this.cImagen = cImagen;
+		this.editable=false;
+		this.visibleEspanol=true;
+		this.visibleIngles=false;
+		this.visiblePortugues=false;
+		//==========================
+		obtenerNameSubMenu(cSubMenuCod);
+	}
+	public void obtenerNameSubMenu(int cSubMenuCod)
+	{
+		CItemsDAO itemsDao=new CItemsDAO();
+		itemsDao.asignarNameSubMenu(itemsDao.recuperarNombreSubMenu(cSubMenuCod));
+		setNameSubMenu(itemsDao.getNameSubMenu());
 	}
 }

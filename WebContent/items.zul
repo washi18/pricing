@@ -1,0 +1,136 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+	<div apply="org.zkoss.bind.BindComposer"
+		 viewModel="@id('vmItems') @init('com.android.viewModel.itemsVM')">
+		 <div zclass="div_contenedor_nuevo">
+			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_items_android.setVisible(true)">
+				<div zclass="div_btn_nuevo" width="180px">
+					<span sclass="icon-plus"/>
+					<space></space>
+					<label value="NUEVO ITEM"/>
+				</div>
+			</div>
+			<div id="div_llenar_items_android" visible="false" width="280px">
+				<div zclass="div_content_datos">
+						<div>
+							<label value="SUB-MENU: " zclass="lbl_llenar_datos"/>
+							<combobox model="@load(vmItems.listaSubMenu)" readonly="true" onSelect="@command('selectSubMenu',codSubMenu=self.selectedItem.value,item=vmItems.oItems)" sclass="cbox_llenar_datos">
+								<template name="model">
+									<comboitem label="@load(each.cNombreIdioma1)" value="@load(each.cSubMenuCod)"/>
+								</template>
+							</combobox>
+						</div>
+						<div zclass="div_contiene_banderas">
+							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+								onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
+								txtPortuName.setVisible(false);txtDSpainName.setVisible(true);txtDInglesName.setVisible(false);
+								txtDPortuName.setVisible(false)"/>
+							<image src="img/en.png" sclass="estilo_banderas"
+								onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(true);
+								txtPortuName.setVisible(false);txtDSpainName.setVisible(false);txtDInglesName.setVisible(true);
+								txtDPortuName.setVisible(false)"/>
+							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+								onClick="txtSpainName.setVisible(false);txtInglesName.setVisible(false);
+								txtPortuName.setVisible(true);txtDSpainName.setVisible(false);txtDInglesName.setVisible(false);
+								txtDPortuName.setVisible(true)"/>
+						</div>
+						<div>
+							<label value="NOMBRE ITEM: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmItems.oItems.cTituloIdioma1)" zclass="txt_llenar_datos" id="txtSpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmItems.oItems.cTituloIdioma2)" zclass="txt_llenar_datos" id="txtInglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmItems.oItems.cTituloIdioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div>
+							<label value="DESCRIPCION ITEM: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmItems.oItems.cDescripcionIdioma1)" multiline="true" zclass="txt_llenar_datos" id="txtDSpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmItems.oItems.cDescripcionIdioma2)" multiline="true" zclass="txt_llenar_datos" id="txtDInglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmItems.oItems.cDescripcionIdioma3)" multiline="true" zclass="txt_llenar_datos" id="txtDPortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div zclass="div_space_entre_botones">
+							<button label="Subir Imagen del Item" 
+									onClick="@command('uploadImagenes',item=vmItems.oItems,componente=self)"
+									zclass="btn_guardar"/>
+						</div>
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarItems',componente=self)"/>
+				</div>
+			</div>
+		</div>
+		<space></space>
+		<listbox sclass="listados" model="@bind(vmItems.listaItems) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
+			<listhead>
+				<listheader/>
+			</listhead>
+			<template name="noeditable">
+				<listitem>
+					<listcell>
+						<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.cItemsCod)"/>
+							</div>
+							<label width="100%" height="30px" sclass="estilo_nombre_paquete"
+					    					value="@bind(each.cTituloIdioma1)" />
+							<separator spacing="2px"/>
+						    <div zclass="div_operacion_etiqueta">
+						    	<button label="Editar"
+						    			onClick="@command('Editar',item=each)"
+						    			zclass="btn_editar" />
+						    </div>
+						  </div>
+					</listcell>
+				</listitem>
+			</template>
+			<template name="modeleditable">
+				<listitem>
+				    <listcell>
+				    	<div width="100%" zclass="div_list_cell">
+				    		<div zclass="div_numeracion">
+								<label value="@bind(each.cItemsCod)"/>
+							</div>
+							<div zclass="div_content_datos">
+								<div>
+									<label value="SUB-MENU: " zclass="lbl_llenar_datos"/>
+									<combobox model="@load(vmItems.listaSubMenu)" value="@bind(each.nameSubMenu)" readonly="true" 
+											  onSelect="@command('selectSubMenu',codSubMenu=self.selectedItem.value,item=each)" sclass="cbox_llenar_datos">
+										<template name="model">
+											<comboitem label="@load(each.cNombreIdioma1)" value="@load(each.cSubMenuCod)"/>
+										</template>
+									</combobox>
+								</div>
+								<div zclass="div_contiene_banderas">
+									<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+										onClick="@command('cambioIdiomas',idioma='Espanol',item=each)"/>
+									<image src="img/en.png" sclass="estilo_banderas"
+										onClick="@command('cambioIdiomas',idioma='Ingles',item=each)"/>
+									<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+										onClick="@command('cambioIdiomas',idioma='Portugues',item=each)"/>
+								</div>
+								<div>
+									<label value="NOMBRE ITEM: " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(each.cTituloIdioma1)" zclass="txt_llenar_datos" placeholder="ESPAÑOL" width="100%" visible="@bind(each.visibleEspanol)"/>
+									<textbox value="@bind(each.cTituloIdioma2)" zclass="txt_llenar_datos" placeholder="INGLES" width="100%" visible="@bind(each.visibleIngles)"/>
+									<textbox value="@bind(each.cTituloIdioma3)" zclass="txt_llenar_datos" placeholder="PORTUGUES" width="100%" visible="@bind(each.visiblePortugues)"/>
+								</div>
+								<div>
+									<label value="DESCRIPCION ITEM: " zclass="lbl_llenar_datos"/>
+									<textbox value="@bind(each.cDescripcionIdioma1)" zclass="txt_llenar_datos" placeholder="ESPAÑOL" multiline="true" width="100%" visible="@bind(each.visibleEspanol)"/>
+									<textbox value="@bind(each.cDescripcionIdioma2)" zclass="txt_llenar_datos" placeholder="INGLES" multiline="true" width="100%" visible="@bind(each.visibleIngles)"/>
+									<textbox value="@bind(each.cDescripcionIdioma3)" zclass="txt_llenar_datos" placeholder="PORTUGUES" multiline="true" width="100%" visible="@bind(each.visiblePortugues)"/>
+								</div>
+								<div zclass="div_space_entre_botones">
+									<button label="Cambiar Imagen del item" 
+											onClick="@command('uploadImagenes',item=each,componente=self)"
+											zclass="btn_guardar"/>
+								</div>
+							</div>
+							<div zclass="div_operacion_etiqueta">
+								<button label="Actualizar"
+					    				onClick="@command('actualizarItem',item=each,componente=self)"
+					    				zclass="btn_actualizar"/>
+							</div>
+					    </div>
+				    </listcell>
+				</listitem>
+			</template>
+		</listbox>
+	</div>
+</zk>

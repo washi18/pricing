@@ -164,7 +164,7 @@ public class submenuVM {
 						// Una vez creado el nuevo nombre de archivo de imagen
 						// se procede a cambiar el nombre
 						String urlImagen = ScannUtil.getPathImagenAndroid() + img.getName();
-						asignarRutaImagenMenu(img.getName(), submenu);
+						asignarRutaImagenSubMenu(img.getName(), submenu);
 						Clients.showNotification(img.getName() + " Se subio al servidor.",
 								Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 					} else {
@@ -175,7 +175,7 @@ public class submenuVM {
 			}
 		});
 	}
-	public void asignarRutaImagenMenu(String url,CSubMenu submenu)
+	public void asignarRutaImagenSubMenu(String url,CSubMenu submenu)
 	{
 			submenu.setcImagen("/img/android/"+url);
 			BindUtils.postNotifyChange(null, null, submenu,"cImagen");

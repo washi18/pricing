@@ -1,5 +1,8 @@
 package com.android.model;
 
+import com.android.dao.CElementosDAO;
+import com.android.dao.CItemsDAO;
+
 public class CElementos {
 	private int cElementosCod;// integer,
 	private int cItemsCod;// integer,
@@ -26,6 +29,11 @@ public class CElementos {
 	private String cDirigidoIdioma3;// text,
 	private String cDirigidoIdioma4;// text,
 	private String cDirigidoIdioma5;// text,
+	private boolean editable;
+	private boolean visibleEspanol;
+	private boolean visibleIngles;
+	private boolean visiblePortugues;
+	private String nameItem;
 	//======================================
 	public int getcElementosCod() {
 		return cElementosCod;
@@ -177,6 +185,36 @@ public class CElementos {
 	public void setcDirigidoIdioma5(String cDirigidoIdioma5) {
 		this.cDirigidoIdioma5 = cDirigidoIdioma5;
 	}
+	public boolean isEditable() {
+		return editable;
+	}
+	public void setEditable(boolean editable) {
+		this.editable = editable;
+	}
+	public boolean isVisibleEspanol() {
+		return visibleEspanol;
+	}
+	public void setVisibleEspanol(boolean visibleEspanol) {
+		this.visibleEspanol = visibleEspanol;
+	}
+	public boolean isVisibleIngles() {
+		return visibleIngles;
+	}
+	public void setVisibleIngles(boolean visibleIngles) {
+		this.visibleIngles = visibleIngles;
+	}
+	public boolean isVisiblePortugues() {
+		return visiblePortugues;
+	}
+	public void setVisiblePortugues(boolean visiblePortugues) {
+		this.visiblePortugues = visiblePortugues;
+	}
+	public String getNameItem() {
+		return nameItem;
+	}
+	public void setNameItem(String nameItem) {
+		this.nameItem = nameItem;
+	}
 	//===========================================
 	public CElementos() {
 		// TODO Auto-generated constructor stub
@@ -236,5 +274,17 @@ public class CElementos {
 		this.cDirigidoIdioma3 = cDirigidoIdioma3;
 		this.cDirigidoIdioma4 = cDirigidoIdioma4;
 		this.cDirigidoIdioma5 = cDirigidoIdioma5;
+		this.editable=false;
+		this.visibleEspanol=true;
+		this.visibleIngles=false;
+		this.visiblePortugues=false;
+		//==========================
+		obtenerNameItem(cItemsCod);
+	}
+	public void obtenerNameItem(int cItemsCod)
+	{
+		CElementosDAO elementosDao=new CElementosDAO();
+		elementosDao.asignarNameItem(elementosDao.recuperarNombreItem(cItemsCod));
+		setNameItem(elementosDao.getNameItem());
 	}
 }
