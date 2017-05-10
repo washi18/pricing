@@ -66,7 +66,8 @@ public class CPaqueteDAO extends CConexion
 				(int)row.get("npagominimo"),(boolean)row.get("bmodoporcentual"),(boolean)row.get("bmodopagototal"),
 				(Number)row.get("ndescuentomenor_estudiante"),(boolean)row.get("bsubirdocpax"),
 				(boolean)row.get("bsubirdoc_y_llenardatospax"),(boolean)row.get("bsubirdoc_o_llenardatospax"),
-				(boolean)row.get("bllenardatosunpax"),(boolean)row.get("bhotelesconcamaadicional"));
+				(boolean)row.get("bllenardatosunpax"),(boolean)row.get("bhotelesconcamaadicional"),
+				(String)row.get("ctextoparcial"),(String)row.get("ctextototal"));
 	}
 	public void asignarListaPaquetes(List lista) throws UnsupportedEncodingException
 	{
@@ -91,7 +92,8 @@ public class CPaqueteDAO extends CConexion
 					(int)row.get("npagominimo"),(boolean)row.get("bmodoporcentual"),(boolean)row.get("bmodopagototal"),
 					(Number)row.get("ndescuentomenor_estudiante"),(boolean)row.get("bsubirdocpax"),
 					(boolean)row.get("bsubirdoc_y_llenardatospax"),(boolean)row.get("bsubirdoc_o_llenardatospax"),
-					(boolean)row.get("bllenardatosunpax"),(boolean)row.get("bhotelesconcamaadicional")));
+					(boolean)row.get("bllenardatosunpax"),(boolean)row.get("bhotelesconcamaadicional"),
+					(String)row.get("ctextoparcial"),(String)row.get("ctextototal")));
 		}
 	}
 	public List buscarPaquetesBD(String nombre){
@@ -112,7 +114,8 @@ public class CPaqueteDAO extends CConexion
 				paquete.getcUrlReferenciaPaquete(),paquete.getnPorcentajeCobro(),paquete.getnPagoMinimo(),
 				paquete.isbModoPorcentual(),paquete.isbModoPagoTotal(),paquete.getnDescuentoMenor_Estudiante().doubleValue(),
 				paquete.isbSubirDocPax(),paquete.isbSubirDoc_Y_LlenarDatosPax(),paquete.isbSubirDoc_O_LlenarDatosPax(),
-				paquete.isbLlenarDatosUnPax(),paquete.isbHotelesConCamaAdicional()};
+				paquete.isbLlenarDatosUnPax(),paquete.isbHotelesConCamaAdicional(),paquete.getcTextoParcial(),
+				paquete.getcTextoTotal()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_RegistrarPaquete", values);
 	}
 	/**METODOS DE PAQUETE SERVICIO**/
@@ -183,7 +186,8 @@ public class CPaqueteDAO extends CConexion
 				paquete.getcUrlReferenciaPaquete(),paquete.getnPorcentajeCobro(),paquete.getnPagoMinimo(),
 				paquete.isbModoPorcentual(),paquete.isbModoPagoTotal(),paquete.getnDescuentoMenor_Estudiante().doubleValue(),
 				paquete.isbSubirDocPax(),paquete.isbSubirDoc_Y_LlenarDatosPax(),paquete.isbSubirDoc_O_LlenarDatosPax(),
-				paquete.isbLlenarDatosUnPax(),paquete.isbHotelesConCamaAdicional()};
+				paquete.isbLlenarDatosUnPax(),paquete.isbHotelesConCamaAdicional(),paquete.getcTextoParcial(),
+				paquete.getcTextoTotal()};
 		return getEjecutorSQL().ejecutarProcedimiento("Pricing_sp_ModificarPaquetes", values);
 	}
 	public List modificarImagenesPaquete(CPaquete paquete)

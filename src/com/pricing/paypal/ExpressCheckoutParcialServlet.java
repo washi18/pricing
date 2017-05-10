@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.zkoss.zk.ui.Sessions;
 
 import com.pricing.dao.CEtiquetaDAO;
+import com.pricing.dao.CPaqueteDAO;
 
 public class ExpressCheckoutParcialServlet extends HttpServlet implements javax.servlet.Servlet
 {
@@ -45,12 +46,16 @@ public class ExpressCheckoutParcialServlet extends HttpServlet implements javax.
 		 response.setContentType("text/html;charset=UTF-8");
 		 String montoParcial=request.getParameter("Monto");
 		 String codReserva=request.getParameter("codReserva");
+		 String codPaquete=request.getParameter("codPaquete");
 		 String namePaquete=request.getParameter("namePaquete");
 		 String mail=request.getParameter("mail");
 		 String contacto=request.getParameter("contacto");
 		 String language=request.getParameter("language");
 		 String impuestoPaypal=request.getParameter("impuestoPaypal");
-		 
+		 //==OBTENER EL PAQUETE==
+		 CPaqueteDAO paqueteDao=new CPaqueteDAO();
+		 paqueteDao.asignarPaquete(paqueteDao.recuperarPaqueteBD(codPaquete));
+		 //======================
 		 iniciarEtiquetas(language);
 		 
 		 String tax=df.format((Double.parseDouble(montoParcial)*(Double.parseDouble(impuestoPaypal)/100)));
@@ -62,6 +67,7 @@ public class ExpressCheckoutParcialServlet extends HttpServlet implements javax.
 		 seshttp.setAttribute("token",SECResult[1]);
 		 seshttp.setAttribute("formaPago",1);
 		 seshttp.setAttribute("codReserva", codReserva);
+		 seshttp.setAttribute("codPaquete", codPaquete);
 		 seshttp.setAttribute("porcentajePago","1");
 		 seshttp.setAttribute("mail", mail);
 		 seshttp.setAttribute("contacto", contacto);
@@ -109,7 +115,7 @@ public class ExpressCheckoutParcialServlet extends HttpServlet implements javax.
 			 						out.println("display: -o-flex;");
 			 						out.println("display: flex;'>");
 			 				out.println("<div style='width:70%;font-weight:bold;font-size:20px;' align='right'>");
-			 					out.println(etiqueta[99]+" ("+etiqueta[102]+"): USD");
+			 					out.println(etiqueta[99]+" ("+paqueteDao.getoPaquete().getcTextoParcial()+"): USD");
 			 				out.println("</div>");
 			 				out.println("<div style='width:30%;font-weight:bold;font-size:20px;' align='right'>");
 			 					out.println(montoParcial);
@@ -138,7 +144,7 @@ public class ExpressCheckoutParcialServlet extends HttpServlet implements javax.
 			 						out.println("display: -o-flex;");
 			 						out.println("display: flex;'>");
 			 				out.println("<div style='width:70%;font-weight:bold;color:blue;font-size:20px;' align='right'>");
-			 					out.println(etiqueta[101]+" ("+etiqueta[102]+"): USD");
+			 					out.println(etiqueta[101]+" ("+paqueteDao.getoPaquete().getcTextoParcial()+"): USD");
 			 				out.println("</div>");
 			 				out.println("<div style='width:30%;font-weight:bold;font-size:20px;color:blue;' align='right'>");
 			 					out.println(montoParcialConImpuestoPaypal);

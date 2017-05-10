@@ -22,6 +22,17 @@
 				<label value="@bind(vmAdmin.oUsuario.cNombres)" zclass="lbl_nombre_usuario"/>
 				<space></space>
 				<menubar sclass="cabezera_menubar">
+					<menu label="TUTORIAL">
+						<menupopup sclass="cabecera_menubar_menupopup">
+							<menuitem iconSclass="fa fa-link" label="Tutorial e-ranti" 
+									href="http://www.eddyonsoft.com/portfolio-category/tutorial-e-ranti" target="_blank"/>
+							<menuitem iconSclass="fa fa-link" label="Tutorial TEMA" 
+								    href="http://www.eddyonsoft.com/portfolio-category/tutoriales-tema" target="_blank"/>
+						</menupopup>
+					</menu>
+				</menubar>
+				<space></space>
+				<menubar sclass="cabezera_menubar">
 					<menu label="MI CUENTA">
 						<menupopup sclass="cabecera_menubar_menupopup">
 							<menuitem id="itemUpdateUsuario" iconSclass="icon-cog" label="Cambiar Cuenta" 
@@ -237,6 +248,16 @@
 			    <div id="div_config_perfil" width="100%" visible="false" zclass="div_perfil_responsive">
 			    	<image sclass="style_foto_admin" src="@load(vmAdmin.oUsuario.imgUsuario)"/>
 					<label value="@bind(vmAdmin.oUsuario.cNombres)" zclass="lbl_nombre_usuario"/>
+					<menubar sclass="cabezera_menubar">
+						<menu label="TUTORIAL">
+							<menupopup sclass="cabecera_menubar_menupopup">
+								<menuitem iconSclass="fa fa-link" label="Tutorial e-ranti" 
+										href="http://www.eddyonsoft.com/portfolio-category/tutorial-e-ranti" target="_blank"/>
+								<menuitem iconSclass="fa fa-link" label="Tutorial TEMA" 
+									    href="http://www.eddyonsoft.com/portfolio-category/tutoriales-tema" target="_blank"/>
+							</menupopup>
+						</menu>
+					</menubar>
 					<menubar sclass="cabezera_menubar">
 						<menu label="MI CUENTA">
 							<menupopup sclass="cabecera_menubar_menupopup">

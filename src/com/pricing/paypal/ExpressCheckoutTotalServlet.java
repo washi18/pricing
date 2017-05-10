@@ -15,6 +15,7 @@ import javax.servlet.http.*;
 import org.zkoss.zk.ui.Sessions;
 
 import com.pricing.dao.CEtiquetaDAO;
+import com.pricing.dao.CPaqueteDAO;
 
 public class ExpressCheckoutTotalServlet extends HttpServlet implements javax.servlet.Servlet
 {
@@ -46,11 +47,16 @@ public class ExpressCheckoutTotalServlet extends HttpServlet implements javax.se
 		 response.setContentType("text/html;charset=UTF-8");
 		 String montoTotal=request.getParameter("Monto");
 		 String codReserva=request.getParameter("codReserva");
+		 String codPaquete=request.getParameter("codPaquete");
 		 String namePaquete=request.getParameter("namePaquete");
 		 String mail=request.getParameter("mail");
 		 String contacto=request.getParameter("contacto");
 		 String language=request.getParameter("language");
 		 String impuestoPaypal=request.getParameter("impuestoPaypal");
+		 //==OBTENER PAQUETE DE RESERVA==
+		 CPaqueteDAO paqueteDao=new CPaqueteDAO();
+		 paqueteDao.asignarPaquete(paqueteDao.recuperarPaqueteBD(codPaquete));
+		 //==============================
 		 
 		 iniciarEtiquetas(language);
 		 
@@ -110,7 +116,7 @@ public class ExpressCheckoutTotalServlet extends HttpServlet implements javax.se
 			 						out.println("display: -o-flex;");
 			 						out.println("display: flex;'>");
 			 				out.println("<div style='width:70%;font-weight:bold;font-size:20px;' align='right'>");
-			 					out.println(etiqueta[99]+" ("+etiqueta[103]+"): USD");
+			 					out.println(etiqueta[99]+" ("+paqueteDao.getoPaquete().getcTextoTotal()+"): USD");
 			 				out.println("</div>");
 			 				out.println("<div style='width:30%;font-weight:bold;font-size:20px;' align='right'>");
 			 					out.println(montoTotal);
@@ -139,7 +145,7 @@ public class ExpressCheckoutTotalServlet extends HttpServlet implements javax.se
 			 						out.println("display: -o-flex;");
 			 						out.println("display: flex;'>");
 			 				out.println("<div style='width:70%;font-weight:bold;color:blue;font-size:20px;' align='right'>");
-			 					out.println(etiqueta[101]+" ("+etiqueta[103]+"): USD");
+			 					out.println(etiqueta[101]+" ("+paqueteDao.getoPaquete().getcTextoTotal()+"): USD");
 			 				out.println("</div>");
 			 				out.println("<div style='width:30%;font-weight:bold;font-size:20px;color:blue;' align='right'>");
 			 					out.println(montoTotalConImpuestoPaypal);

@@ -2939,14 +2939,14 @@ public class pricingVM
 			{
 				monto_Pagar_sin_impuesto=df.format(TotalServicios+TotalHabitaciones+TotalActividades+oReservar.getoPaquete().getnPagoMinimo()*nroPasajeros);
 			}
-			textoPorcentaje=etiqueta[102];
+			textoPorcentaje=oReservar.getoPaquete().getcTextoParcial();
 		}
 		else//al 100%
 		{
 			pagos.setPagoTotalPaypal(true);
 			pagos.setPagoParcialPaypal(false);
 			monto_Pagar_sin_impuesto=lblMontoTotal;
-			textoPorcentaje=etiqueta[103];
+			textoPorcentaje=oReservar.getoPaquete().getcTextoTotal();
 		}
 		seshttp.setAttribute("montoPagarSinImpuesto", monto_Pagar_sin_impuesto);
 		

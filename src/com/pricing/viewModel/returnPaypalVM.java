@@ -22,6 +22,7 @@ import com.pricing.dao.CConfigUrlDAO;
 import com.pricing.dao.CEtiquetaDAO;
 import com.pricing.dao.CFechaAlternaDAO;
 import com.pricing.dao.CInterfazDAO;
+import com.pricing.dao.CPaqueteDAO;
 import com.pricing.dao.CPasajeroDAO;
 import com.pricing.dao.CReservaCuponDAO;
 import com.pricing.dao.CReservaDAO;
@@ -141,25 +142,30 @@ public class returnPaypalVM
 			mostrarCodReserva=true;
 			porcentajePago=(String) seshttp.getAttribute("porcentajePago");
 			codReserva=(String)seshttp.getAttribute("codReserva");
+			String codPaquete=(String)seshttp.getAttribute("codPaquete");
 			String namePaquete=(String)seshttp.getAttribute("namePaquete");
 			String email=(String)seshttp.getAttribute("mail");
 			String contacto=(String)seshttp.getAttribute("contacto");
 			String porcentaje="";
 			String estado="";
+			//==RECUPERANDO EL PAQUETE==
+			CPaqueteDAO paqueteDao=new CPaqueteDAO();
+			paqueteDao.asignarPaquete(paqueteDao.recuperarPaqueteBD(codPaquete));
+			//==========================
 			if(porcentajePago.equals("1"))
 			{
 				estado="PAGO PARCIAL";
-				porcentaje=etiqueta[102];
+				porcentaje=paqueteDao.getoPaquete().getcTextoParcial();
 			}
 			else//100%
 			{
 				estado="PAGO TOTAL";
-				porcentaje=etiqueta[103];
+				porcentaje=paqueteDao.getoPaquete().getcTextoTotal();
 			}
 			boolean b=reservaDao.isCorrectOperation(reservaDao.modificarMetodoPago(codReserva, estado,"PAYPAL",codTransac));
 			String pdf=Util.getPathReservas()+"reservas.pdf";
 			CEmail mail=new CEmail();
-			boolean correct=mail.enviarCorreoPagoReserva(etiqueta[199],etiqueta,namePaquete, email, contacto, codReserva, porcentaje, codTransac, pdf);
+			boolean correct=mail.enviarCorreoPagoReserva(etiqueta[199],etiqueta,namePaquete, email, contacto, codReserva, porcentaje, codTransac, pdf,paqueteDao.getoPaquete());
 			/**Enviamos un correo a la empresa**/
 			boolean flag=mail.enviarCorreoPagoReservaAEmpresa(email,"Pago Efectuado", namePaquete, contacto, codReserva, porcentaje, codTransac);
 			/******************************************************************/

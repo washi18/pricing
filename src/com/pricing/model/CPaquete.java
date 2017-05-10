@@ -62,6 +62,8 @@ public class CPaquete
 	private boolean bSubirDoc_O_LlenarDatosPax;// boolean 
 	private boolean bLlenarDatosUnPax;// boolean 
 	private boolean bHotelesConCamaAdicional;// boolean
+	private String cTextoParcial;//varchar(10)
+	private String cTextoTotal;//varchar(10)
 	private boolean bHotelesSinCamaAdicional;
 	private String url_pricingPaquete;
 	private String nPrecio1_text;
@@ -655,6 +657,18 @@ public class CPaquete
 	public void setbModoPagoPartes(boolean bModoPagoPartes) {
 		this.bModoPagoPartes = bModoPagoPartes;
 	}
+	public String getcTextoParcial() {
+		return cTextoParcial;
+	}
+	public void setcTextoParcial(String cTextoParcial) {
+		this.cTextoParcial = cTextoParcial;
+	}
+	public String getcTextoTotal() {
+		return cTextoTotal;
+	}
+	public void setcTextoTotal(String cTextoTotal) {
+		this.cTextoTotal = cTextoTotal;
+	}
 	//=========================================
 	public CPaquete() {
 		// TODO Auto-generated constructor stub
@@ -719,6 +733,8 @@ public class CPaquete
 		this.bLlenarDatosUnPax=true;
 		this.bHotelesConCamaAdicional=false;
 		this.bHotelesSinCamaAdicional=true;
+		this.cTextoParcial="";
+		this.cTextoTotal="";
 		//======================
 		this.cFoto1="img/tours/tourxdefecto.png";
 		this.cFoto2="img/tours/tourxdefecto.png";
@@ -743,7 +759,7 @@ public class CPaquete
 			boolean bModoPagoTotal,Number nDescuentoMenor_Estudiante,
 			boolean bSubirDocPax,boolean bSubirDoc_Y_LlenarDatosPax,
 			boolean bSubirDoc_O_LlenarDatosPax,boolean bLlenarDatosUnPax,
-			boolean bHotelesConCamaAdicional)
+			boolean bHotelesConCamaAdicional,String cTextoParcial,String cTextoTotal)
 	{
 		this.cPaqueteCod=cPaqueteCod;
 		this.cTituloIdioma1=cTituloIdioma1;
@@ -785,6 +801,8 @@ public class CPaquete
 		this.bLlenarDatosUnPax=bLlenarDatosUnPax;
 		this.bHotelesConCamaAdicional=bHotelesConCamaAdicional;
 		this.bHotelesSinCamaAdicional=!bHotelesConCamaAdicional;
+		this.cTextoParcial=cTextoParcial;
+		this.cTextoTotal=cTextoTotal;
 		//===================
 		listaDestinos=new ArrayList<CDestino>();
 		listaServicios=new ArrayList<CServicio>();
@@ -813,7 +831,7 @@ public class CPaquete
 			boolean bModoPagoTotal,Number nDescuentoMenor_Estudiante,
 			boolean bSubirDocPax,boolean bSubirDoc_Y_LlenarDatosPax,
 			boolean bSubirDoc_O_LlenarDatosPax,boolean bLlenarDatosUnPax,
-			boolean bHotelesConCamaAdicional) throws UnsupportedEncodingException {
+			boolean bHotelesConCamaAdicional,String cTextoParcial,String cTextoTotal) throws UnsupportedEncodingException {
 		/*******************************/
 		simbolos= new DecimalFormatSymbols();
 		simbolos.setDecimalSeparator('.');
@@ -850,6 +868,8 @@ public class CPaquete
 		this.bLlenarDatosUnPax=bLlenarDatosUnPax;
 		this.bHotelesConCamaAdicional=bHotelesConCamaAdicional;
 		this.bHotelesSinCamaAdicional=!bHotelesConCamaAdicional;
+		this.cTextoParcial=cTextoParcial;
+		this.cTextoTotal=cTextoTotal;
 		this.nDias = nDias;
 		this.nNoches = nNoches;
 		this.dias_noches=nDias+" DIAS Y "+nNoches+" NOCHES";

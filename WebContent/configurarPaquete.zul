@@ -34,6 +34,17 @@
 					</radiogroup>
 				</div>
 			</div>
+			<div>
+				<label value="TEXTOS DE PAGO PARCIAL/TOTAL:" sclass="lbl_select_title"/>
+				<div>
+					<label value="Texto Pago Parcial:"/>
+					<textbox value="@bind(vm.oPaquete.cTextoParcial)"/>
+				</div>
+				<div>
+					<label value="Texto Pago Total:"/>
+					<textbox value="@bind(vm.oPaquete.cTextoTotal)"/>
+				</div>
+			</div>
 			<div visible="@bind(vm.oPaquete.conDestino)">
 				<label value="CONFIGURACION DE HOTELES:" sclass="lbl_select_title"/>
 				<div>

@@ -1102,9 +1102,9 @@
 									<image src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
 									<div width="100%">
 										<radiogroup onCheck="@command('selectPaypal',valor=self.selectedItem.value) @global-command('datosDePagoPaypal',textoPorcentaje=vmPricing.textoPorcentaje,montoTotalPorcentual=vmPricing.montoTotalPorcentual,pagos=vmPricing.pagos,etiqueta=vmPricing.etiqueta)">
-											<radio label="@bind(vmPricing.etiqueta[102])" value="1" sclass="radio_color" checked="@load(vmPricing.pagos.pagoParcialPaypal)"
+											<radio label="@bind(vmPricing.oReservar.oPaquete.cTextoParcial)" value="1" sclass="radio_color" checked="@load(vmPricing.pagos.pagoParcialPaypal)"
 												visible="@load(!vmPricing.oReservar.oPaquete.bModoPagoTotal)"/>
-											<radio label="@bind(vmPricing.etiqueta[103])" value="2" sclass="radio_color" checked="@load(vmPricing.pagos.pagoTotalPaypal)"/>
+											<radio label="@bind(vmPricing.oReservar.oPaquete.cTextoTotal)" value="2" sclass="radio_color" checked="@load(vmPricing.pagos.pagoTotalPaypal)"/>
 										</radiogroup>
 									</div>
 								</div>

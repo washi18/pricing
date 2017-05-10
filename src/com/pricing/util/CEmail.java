@@ -489,6 +489,7 @@ public class CEmail
 									"<form action='"+configUrlDao.getoConfigUrl().getUrlServletPagoTotal()+"' method='POST'>"+
 										"<input type='hidden' name='Monto' value='"+totalPago+"'/>"+
 										"<input type='hidden' name='codReserva' value='"+reserva.getcReservaCod()+"'/>"+
+										"<input type='hidden' name='codPaquete' value='"+reserva.getoPaquete().getcPaqueteCod()+"'/>"+
 										"<input type='hidden' name='namePaquete' value='"+reserva.getoPaquete().getcTituloIdioma1()+"'/>"+
 										"<input type='hidden' name='mail' value='"+reserva.getcEmail()+"'/>"+
 										"<input type='hidden' name='contacto' value='"+reserva.getcContacto()+"'/>"+
@@ -501,6 +502,7 @@ public class CEmail
 									"<form action='"+configUrlDao.getoConfigUrl().getUrlServletPagoParcial()+"' method='POST'>"+
 										"<input type='hidden' name='Monto' value='"+pagoParcial+"'/>"+
 										"<input type='hidden' name='codReserva' value='"+reserva.getcReservaCod()+"'/>"+
+										"<input type='hidden' name='codPaquete' value='"+reserva.getoPaquete().getcPaqueteCod()+"'/>"+
 										"<input type='hidden' name='namePaquete' value='"+reserva.getoPaquete().getcTituloIdioma1()+"'/>"+
 										"<input type='hidden' name='mail' value='"+reserva.getcEmail()+"'/>"+
 										"<input type='hidden' name='contacto' value='"+reserva.getcContacto()+"'/>"+
@@ -728,18 +730,18 @@ public class CEmail
 			pagoAl= "<table width='100%' style='border:1px solid rgba(0,0,0,0.5);border-collapse: collapse;'>"+
 						"<thead style='font-weight: bold;font-size:20px;'>"+etiqueta[197]+"</thead>"+
 				    	"<tr style='background:rgba(0,0,0,0.1)'>"+
-							"<td width='60%' align='center'><h1 style='color:#F7653A;font-weight:bold;'>"+etiqueta[102]+"</h1></td>"+
+							"<td width='60%' align='center'><h1 style='color:#F7653A;font-weight:bold;'>"+reserva.getoPaquete().getcTextoParcial()+"</h1></td>"+
 				    		"<td width='40%'>"+
 				    			"<table width='100%'>"+
-				    				"<tr><td>"+etiqueta[99]+" ("+etiqueta[102]+"): USD"+"</td><td style='color:#1A5276;' align='right'>"+montoPagar+"</td></tr>"+
+				    				"<tr><td>"+etiqueta[99]+" ("+reserva.getoPaquete().getcTextoParcial()+"): USD"+"</td><td style='color:#1A5276;' align='right'>"+montoPagar+"</td></tr>"+
 				    				"<tr><td>"+etiqueta[100]+": USD</td><td style='color:#1A5276;' align='right'>"+auxImpuesto+"</td></tr>"+
 				    				"<tr><td></td><td style='color:#1A5276;' align='right'>--------------</td></tr>"+
-				    				"<tr><td>"+etiqueta[101]+" ("+etiqueta[102]+"): USD"+"</td><td align='right' style='background:#75BE5C;font-weight:bold;'>"+"USD "+auxImporteTotal+"</td></tr>"+
+				    				"<tr><td>"+etiqueta[101]+" ("+reserva.getoPaquete().getcTextoParcial()+"): USD"+"</td><td align='right' style='background:#75BE5C;font-weight:bold;'>"+"USD "+auxImporteTotal+"</td></tr>"+
 				    			"</table>"+
 				    		"</td>"+
 				    	"</tr>"+
 				    "</table>"+
-				    "<p>"+etiqueta[159]+" <strong style='color:#F7653A;'>"+etiqueta[102]+"</strong>"+etiqueta[161]+
+				    "<p>"+etiqueta[159]+" <strong style='color:#F7653A;'>"+reserva.getoPaquete().getcTextoParcial()+"</strong>"+etiqueta[161]+
 				    "<strong style='color:#F7653A;'>USD "+totalPago+"</strong><br/> "+etiqueta[160]+"</p>";
 		}
 		else//pago total
@@ -757,13 +759,13 @@ public class CEmail
 			pagoAl="<table width='100%' style='border:1px solid rgba(0,0,0,0.5);border-collapse: collapse;'>"+
 					"<thead style='font-weight: bold;font-size:20px;'>"+etiqueta[197]+"</thead>"+
 			    	"<tr style='background:rgba(0,0,0,0.1)'>"+
-			    		"<td width='60%' align='center'><h1 style='color:#F7653A;font-weight:bold;'>"+etiqueta[103]+"</h1></td>"+
+			    		"<td width='60%' align='center'><h1 style='color:#F7653A;font-weight:bold;'>"+reserva.getoPaquete().getcTextoTotal()+"</h1></td>"+
 			    		"<td width='40%'>"+
 			    			"<table width='100%'>"+
-			    				"<tr><td>"+etiqueta[99]+" ("+etiqueta[103]+"): USD"+"</td><td style='color:#1A5276;' align='right'>"+totalPago+"</td></tr>"+
+			    				"<tr><td>"+etiqueta[99]+" ("+reserva.getoPaquete().getcTextoTotal()+"): USD"+"</td><td style='color:#1A5276;' align='right'>"+totalPago+"</td></tr>"+
 			    				"<tr><td>"+etiqueta[100]+": USD</td><td style='color:#1A5276;' align='right'>"+impuesto+"</td></tr>"+
 			    				"<tr><td></td><td style='color:#1A5276;' align='right'>--------------</td></tr>"+
-			    				"<tr><td>"+etiqueta[101]+" ("+etiqueta[103]+"): USD"+"</td><td align='right'style='background:#75BE5C;font-weight:bold;'>"+"USD "+importeTotal+"</td></tr>"+
+			    				"<tr><td>"+etiqueta[101]+" ("+reserva.getoPaquete().getcTextoTotal()+"): USD"+"</td><td align='right'style='background:#75BE5C;font-weight:bold;'>"+"USD "+importeTotal+"</td></tr>"+
 			    			"</table>"+
 			    		"</td>"+
 			    	"</tr>"+
@@ -1298,7 +1300,7 @@ public class CEmail
 		return sendMailToEmpresa(reserva.getcEmail(),titulo,mensajeHTML,imagenes);
 	}
 	public boolean enviarCorreoPagoReserva(String titulo,String[] etiqueta,String namePaquete,String mail,String contacto,
-			String codReserva,String porcentaje,String transac,String urlPdf) throws IOException, DocumentException
+			String codReserva,String porcentaje,String transac,String urlPdf,CPaquete paquete) throws IOException, DocumentException
 	{
 		this.etiqueta=etiqueta;
 		/**************************/
@@ -1311,7 +1313,7 @@ public class CEmail
 		String fechaActual=dia+" "+etiqueta[158]+" "+mes+", "+annio;
 		/**Se obtiene el impuesto e importe total del totalPago**/
 		String mensaje="";
-		if(porcentaje.equals(etiqueta[102]))
+		if(porcentaje.equals(paquete.getcTextoParcial()))
 			mensaje="<p>"+etiqueta[160]+"</p>";
 		String mensajeHTML=
 				"<html>"+
