@@ -251,6 +251,8 @@ public class pricingVM
 	private ConfAltoNivelDAO confAltoNivelDAO;
 	private String integrantes;
 	private String paquetes;
+	private String textoParcial;
+	private String textoTotal;
 	private boolean edadSuperada;
 	//======METODOS===============
 	@Init
@@ -319,6 +321,16 @@ public class pricingVM
 			oReservar=new CReserva(codigoPaquete);
 			codDisponibilidad=obtenerCodDisponibilidad(oReservar.getoPaquete());
 			iniciarEtiquetas();
+			//=================
+			if(oReservar.getoPaquete().isbModoPorcentual())
+			{
+				textoParcial=oReservar.getoPaquete().getnPorcentajeCobro()+" %";
+				textoTotal="100 %";
+			}else
+			{
+				textoParcial=etiqueta[102];
+				textoTotal=etiqueta[103];
+			}
 			//Recuperar la lista de  paises
 			CPaisDAO paisDao=new CPaisDAO();
 			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
@@ -523,7 +535,7 @@ public class pricingVM
 		Sessions.getCurrent().setAttribute("language", language);
 	}
 	@Command
-	@NotifyChange({"etiqueta"})
+	@NotifyChange({"etiqueta","textoParcial","textoTotal"})
 	public void cambiarIdioma(@BindingParam("idioma")Object idioma)
 	{
 		if(idioma.toString().equals("1"))
@@ -690,6 +702,11 @@ public class pricingVM
 					BindUtils.postNotifyChange(null, null, servicio, "listaOpcionServicios");
 				}
 			}
+		}
+		if(!oReservar.getoPaquete().isbModoPorcentual())
+		{
+			textoParcial=etiqueta[102];
+			textoTotal=etiqueta[103];
 		}
 		if(listaCategoriaConHoteles!=null)
 			if(!listaCategoriaConHoteles.isEmpty())
@@ -2208,7 +2225,7 @@ public class pricingVM
 		try
 		{
 			Execution exec = Executions.getCurrent();
-			exec.sendRedirect(configUrlDao.getoConfigUrl().getUrlTerminosYCondiciones(),"_blank");
+			exec.sendRedirect(etiqueta[83],"_blank");
 			exec.setVoided(true);
 		}
 		catch(Exception e)
@@ -2939,14 +2956,20 @@ public class pricingVM
 			{
 				monto_Pagar_sin_impuesto=df.format(TotalServicios+TotalHabitaciones+TotalActividades+oReservar.getoPaquete().getnPagoMinimo()*nroPasajeros);
 			}
-			textoPorcentaje=oReservar.getoPaquete().getcTextoParcial();
+			if(oReservar.getoPaquete().isbModoPorcentual())
+				textoPorcentaje=oReservar.getoPaquete().getnPorcentajeCobro()+" %";
+			else
+				textoPorcentaje=etiqueta[102];
 		}
 		else//al 100%
 		{
 			pagos.setPagoTotalPaypal(true);
 			pagos.setPagoParcialPaypal(false);
 			monto_Pagar_sin_impuesto=lblMontoTotal;
-			textoPorcentaje=oReservar.getoPaquete().getcTextoTotal();
+			if(oReservar.getoPaquete().isbModoPorcentual())
+				textoPorcentaje="100 %";
+			else
+				textoPorcentaje=etiqueta[103];
 		}
 		seshttp.setAttribute("montoPagarSinImpuesto", monto_Pagar_sin_impuesto);
 		
@@ -3470,5 +3493,17 @@ public class pricingVM
 		}
 		public void setVisibleBtnSiguiente(boolean visibleBtnSiguiente) {
 			this.visibleBtnSiguiente = visibleBtnSiguiente;
+		}
+		public String getTextoParcial() {
+			return textoParcial;
+		}
+		public void setTextoParcial(String textoParcial) {
+			this.textoParcial = textoParcial;
+		}
+		public String getTextoTotal() {
+			return textoTotal;
+		}
+		public void setTextoTotal(String textoTotal) {
+			this.textoTotal = textoTotal;
 		}
 }

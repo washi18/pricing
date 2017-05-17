@@ -152,20 +152,27 @@ public class returnPaypalVM
 			CPaqueteDAO paqueteDao=new CPaqueteDAO();
 			paqueteDao.asignarPaquete(paqueteDao.recuperarPaqueteBD(codPaquete));
 			//==========================
+			String textoParcial="";
 			if(porcentajePago.equals("1"))
 			{
 				estado="PAGO PARCIAL";
-				porcentaje=paqueteDao.getoPaquete().getcTextoParcial();
+				if(paqueteDao.getoPaquete().isbModoPorcentual())
+					porcentaje=textoParcial=paqueteDao.getoPaquete().getnPorcentajeCobro()+" %";
+				else
+					porcentaje=textoParcial=etiqueta[102];
 			}
 			else//100%
 			{
 				estado="PAGO TOTAL";
-				porcentaje=paqueteDao.getoPaquete().getcTextoTotal();
+				if(paqueteDao.getoPaquete().isbModoPorcentual())
+					porcentaje="100 %";
+				else
+					porcentaje=etiqueta[103];
 			}
 			boolean b=reservaDao.isCorrectOperation(reservaDao.modificarMetodoPago(codReserva, estado,"PAYPAL",codTransac));
 			String pdf=Util.getPathReservas()+"reservas.pdf";
 			CEmail mail=new CEmail();
-			boolean correct=mail.enviarCorreoPagoReserva(etiqueta[199],etiqueta,namePaquete, email, contacto, codReserva, porcentaje, codTransac, pdf,paqueteDao.getoPaquete());
+			boolean correct=mail.enviarCorreoPagoReserva(etiqueta[199],etiqueta,namePaquete, email, contacto, codReserva, porcentaje, codTransac, pdf,textoParcial);
 			/**Enviamos un correo a la empresa**/
 			boolean flag=mail.enviarCorreoPagoReservaAEmpresa(email,"Pago Efectuado", namePaquete, contacto, codReserva, porcentaje, codTransac);
 			/******************************************************************/

@@ -59,6 +59,11 @@ public class ExpressCheckoutTotalServlet extends HttpServlet implements javax.se
 		 //==============================
 		 
 		 iniciarEtiquetas(language);
+		 String textoTotal="";
+		 if(paqueteDao.getoPaquete().isbModoPorcentual())
+			 textoTotal="100 %";
+		 else
+			 textoTotal=etiqueta[103];
 		 
 		 String tax=df.format((Double.parseDouble(montoTotal)*(Double.parseDouble(impuestoPaypal)/100)));
 		 String montoTotalConImpuestoPaypal=df.format(Double.parseDouble(montoTotal)+Double.parseDouble(tax));
@@ -116,7 +121,7 @@ public class ExpressCheckoutTotalServlet extends HttpServlet implements javax.se
 			 						out.println("display: -o-flex;");
 			 						out.println("display: flex;'>");
 			 				out.println("<div style='width:70%;font-weight:bold;font-size:20px;' align='right'>");
-			 					out.println(etiqueta[99]+" ("+paqueteDao.getoPaquete().getcTextoTotal()+"): USD");
+			 					out.println(etiqueta[99]+" ("+textoTotal+"): USD");
 			 				out.println("</div>");
 			 				out.println("<div style='width:30%;font-weight:bold;font-size:20px;' align='right'>");
 			 					out.println(montoTotal);
@@ -145,7 +150,7 @@ public class ExpressCheckoutTotalServlet extends HttpServlet implements javax.se
 			 						out.println("display: -o-flex;");
 			 						out.println("display: flex;'>");
 			 				out.println("<div style='width:70%;font-weight:bold;color:blue;font-size:20px;' align='right'>");
-			 					out.println(etiqueta[101]+" ("+paqueteDao.getoPaquete().getcTextoTotal()+"): USD");
+			 					out.println(etiqueta[101]+" ("+textoTotal+"): USD");
 			 				out.println("</div>");
 			 				out.println("<div style='width:30%;font-weight:bold;font-size:20px;color:blue;' align='right'>");
 			 					out.println(montoTotalConImpuestoPaypal);

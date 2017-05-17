@@ -1102,9 +1102,9 @@
 									<image src="https://www.paypal.com/en_US/i/btn/btn_xpressCheckout.gif"/>
 									<div width="100%">
 										<radiogroup onCheck="@command('selectPaypal',valor=self.selectedItem.value) @global-command('datosDePagoPaypal',textoPorcentaje=vmPricing.textoPorcentaje,montoTotalPorcentual=vmPricing.montoTotalPorcentual,pagos=vmPricing.pagos,etiqueta=vmPricing.etiqueta)">
-											<radio label="@bind(vmPricing.oReservar.oPaquete.cTextoParcial)" value="1" sclass="radio_color" checked="@load(vmPricing.pagos.pagoParcialPaypal)"
+											<radio label="@bind(vmPricing.textoParcial)" value="1" sclass="radio_color" checked="@load(vmPricing.pagos.pagoParcialPaypal)"
 												visible="@load(!vmPricing.oReservar.oPaquete.bModoPagoTotal)"/>
-											<radio label="@bind(vmPricing.oReservar.oPaquete.cTextoTotal)" value="2" sclass="radio_color" checked="@load(vmPricing.pagos.pagoTotalPaypal)"/>
+											<radio label="@bind(vmPricing.textoTotal)" value="2" sclass="radio_color" checked="@load(vmPricing.pagos.pagoTotalPaypal)"/>
 										</radiogroup>
 									</div>
 								</div>
@@ -1194,7 +1194,7 @@
 	  </html>
 	<div width="100%" sclass="footer">
 		<div width="100%" align="right">
-			<a label="Copyright © 2016 todos los derechos reservados - EddyOnSoft.com" onClick="@command('irAEddyOnSoft')" style="color:white;"/>
+			<a label="Copyright © 2017 todos los derechos reservados - EddyOnSoft.com" onClick="@command('irAEddyOnSoft')" style="color:white;"/>
 		</div>
 		<div width="100%" align="right">
 			<div><label value="Exp: 2099 - 2016"/></div>

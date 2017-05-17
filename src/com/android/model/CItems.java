@@ -1,5 +1,7 @@
 package com.android.model;
 
+import java.util.ArrayList;
+
 import com.android.dao.CItemsDAO;
 import com.android.dao.CSubMenuDAO;
 
@@ -22,6 +24,7 @@ public class CItems {
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
 	private String nameSubMenu;
+	private ArrayList<CElementos> listaElementos;
 	//====================================
 	public int getcItemsCod() {
 		return cItemsCod;
@@ -131,6 +134,12 @@ public class CItems {
 	public void setNameSubMenu(String nameSubMenu) {
 		this.nameSubMenu = nameSubMenu;
 	}
+	public ArrayList<CElementos> getListaElementos() {
+		return listaElementos;
+	}
+	public void setListaElementos(ArrayList<CElementos> listaElementos) {
+		this.listaElementos = listaElementos;
+	}
 	//==============================
 	public CItems() {
 		// TODO Auto-generated constructor stub
@@ -169,11 +178,19 @@ public class CItems {
 		this.visiblePortugues=false;
 		//==========================
 		obtenerNameSubMenu(cSubMenuCod);
+		//==========================
+		recuperarListaElementos(cItemsCod);
 	}
 	public void obtenerNameSubMenu(int cSubMenuCod)
 	{
 		CItemsDAO itemsDao=new CItemsDAO();
 		itemsDao.asignarNameSubMenu(itemsDao.recuperarNombreSubMenu(cSubMenuCod));
 		setNameSubMenu(itemsDao.getNameSubMenu());
+	}
+	public void recuperarListaElementos(int cItemsCod)
+	{
+		CItemsDAO itemDao=new CItemsDAO();
+		itemDao.asignarListaElementos_Item(itemDao.recuperarListaElementosBD_Item(cItemsCod));
+		setListaElementos(itemDao.getListaElementos());
 	}
 }

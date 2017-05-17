@@ -377,7 +377,7 @@ CREATE TABLE TUsuario
 	primary key (cUsuarioCod),
 	foreign key (nPerfilCod) references TPerfil
 );
-insert into tusuario values('42714003','Ags2HNDkaPPvvOoF5+BM2Q==',1,'/img/usuarios/user.jpg','24564789','EDDY PONCE DE LEON HUAMAN','M','2016-12-23','926345634',now(),'info@eddyonsoft.com',true);
+insert into tusuario values('42714003','Ags2HNDkaPPvvOoF5+BM2Q==',1,'/img/usuarios/user.jpg','42714003','EDDY PONCE DE LEON HUAMAN','M','2016-12-23','926345634',now(),'info@eddyonsoft.com',true);
 				
 insert into tperfil values(1,'SUPER ADMINISTRADOR');
 insert into tacceso values(1,1,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true);

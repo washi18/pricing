@@ -637,16 +637,16 @@
 				    				</div>
 				    				</div>
 				    				<div visible="@load(each.manejo_yourself)">
-				    				<label value="DESTINO:" zclass="lbl_llenar_datos"/>
-				    				<combobox id="cbLugares2" value="@bind(each.cTituloIdioma1)" readonly="true" placeholder="Seleccionar destino" width="100%" onSelect="@command('seleccionardestinoUpdate',codDestino=self.selectedItem.label,manejoYourself=self.selectedItem.value,paquete=each)">
-											<comboitem value="MACHUPICCHU" label="Machupicchu"></comboitem>
-											<comboitem value="MACHUPICCHU_HUAYNAPICCHU_1G" label="Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m."></comboitem>
-											<comboitem value="MACHUPICCHU_HUAYNAPICCHU_2G" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>
-											<comboitem value="MACHUPICCHU_MONTANA_1G" label="Machupicchu + Montaña 7:00 a.m.-8:00 a.m."></comboitem>
-											<comboitem value="MACHUPICCHU_MONTANA_2G" label="Machupicchu + Montaña 9:00 a.m.-10:00 a.m."></comboitem>
-<!-- 											<comboitem value="CAMINO_INKA_CLASICO" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
-<!-- 											<comboitem value="CAMINO_INKA_CORTO" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
-									</combobox>
+					    				<label value="DESTINO:" zclass="lbl_llenar_datos"/>
+					    				<combobox id="cbLugares2" value="@bind(each.cTituloIdioma1)" readonly="true" placeholder="Seleccionar destino" width="100%" onSelect="@command('seleccionardestinoUpdate',codDestino=self.selectedItem.label,manejoYourself=self.selectedItem.value,paquete=each)">
+												<comboitem value="MACHUPICCHU" label="Machupicchu"></comboitem>
+												<comboitem value="MACHUPICCHU_HUAYNAPICCHU_1G" label="Machupicchu + Huaynapicchu 1G 7:00-8:00 a.m."></comboitem>
+												<comboitem value="MACHUPICCHU_HUAYNAPICCHU_2G" label="Machupicchu + Huaynapicchu 2G 10:00-11:00 a.m."></comboitem>
+												<comboitem value="MACHUPICCHU_MONTANA_1G" label="Machupicchu + Montaña 7:00 a.m.-8:00 a.m."></comboitem>
+												<comboitem value="MACHUPICCHU_MONTANA_2G" label="Machupicchu + Montaña 9:00 a.m.-10:00 a.m."></comboitem>
+	<!-- 											<comboitem value="CAMINO_INKA_CLASICO" label="Camino Inka 4 dias 3 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
+	<!-- 											<comboitem value="CAMINO_INKA_CORTO" label="Camino Inka 2 dias 1 noche 7:00 a.m.-10:00 a.m." ></comboitem> -->
+										</combobox>
 									</div>
 									<div>
 										<div visible="@bind(!each.manejo_yourself)">
@@ -829,13 +829,6 @@
 												<radio label="CON DESTINO" checked="@bind(each.conDestino)" value="con_destino"/>
 												<radio label="SIN DESTINO" checked="@bind(each.sinDestino)" value="sin_destino"/>
 											</radiogroup>
-											<div>
-												<separator bar="true" orient="horizontal"/>
-												<label value="URL DE REFERENCIA:" zclass="lbl_llenar_datos"/>
-												<textbox value="@bind(each.cUrlReferenciaPaquete)"
-														placeholder="URL" zclass="txt_llenar_datos"/>
-												<separator bar="true" orient="horizontal"/>
-											</div>
 											<div visible="@bind(each.sinDestino)">
 												<label value="N° DE DIAS:" zclass="lbl_llenar_datos" />
 												<intbox value="@bind(each.nDias)" width="80px" placeholder="DIAS" sclass="txt_llenar_datos"

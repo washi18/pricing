@@ -44,6 +44,63 @@
 			</div>
 		</div>
 		<space></space>
+		<listbox sclass="listados" model="@load(vmMenu.listaMenu)" width="300px">
+			<listhead>
+				<listheader></listheader>
+			</listhead>
+			<template name="model" var="menu">
+				<listitem>
+					<listcell>
+						<div width="100%" zclass="div_list_cell">
+							<listbox sclass="listado" model="@load(menu.listaSubMenus)">
+								<listhead>
+									<listheader label="@load(menu.cNombreIdioma1)"/>
+								</listhead>
+								<template name="model" var="submenu">
+									<listitem visible="false">
+										<listcell>
+											<div width="100%" zclass="div_list_cell">
+												<listbox sclass="listados" model="@load(submenu.listaItems)">
+													<listhead>
+														<listheader label="@load(submenu.cNombreIdioma1)"/>
+													</listhead>
+													<template name="model" var="item">
+														<listitem>
+															<listcell>
+																<div width="100%" zclass="div_list_cell">
+																	<listbox sclass="listados" model="@load(item.listaElementos)">
+																		<listhead>
+																			<listheader label="@load(item.cTituloIdioma1)"/>
+																		</listhead>
+																		<template name="model" var="elemento">
+																			<listitem>
+																				<listcell>
+																					<div width="100%" zclass="div_list_cell">
+																						<listbox>
+																							<listhead>
+																								<listheader label="@load(elemento.cNombre1Idioma1)"/>
+																							</listhead>
+																						</listbox>
+																					</div>					
+																				</listcell>
+																			</listitem>
+																		</template>
+																	</listbox>
+																</div>
+															</listcell>
+														</listitem>
+													</template>
+												</listbox>
+											</div>
+										</listcell>
+									</listitem>
+								</template>
+							</listbox>
+						</div>
+					</listcell>
+				</listitem>
+			</template>
+		</listbox>
 		<listbox sclass="listados" model="@bind(vmMenu.listaMenu) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
 			<listhead>
 				<listheader/>

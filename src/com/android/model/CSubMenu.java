@@ -1,5 +1,7 @@
 package com.android.model;
 
+import java.util.ArrayList;
+
 import com.android.dao.CSubMenuDAO;
 
 public class CSubMenu {
@@ -27,6 +29,7 @@ public class CSubMenu {
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
 	private String nameMenu;
+	private ArrayList<CItems> listaItems;
 	//==================================
 	public int getcSubMenuCod() {
 		return cSubMenuCod;
@@ -154,6 +157,12 @@ public class CSubMenu {
 	public void setNameMenu(String nameMenu) {
 		this.nameMenu = nameMenu;
 	}
+	public ArrayList<CItems> getListaItems() {
+		return listaItems;
+	}
+	public void setListaItems(ArrayList<CItems> listaItems) {
+		this.listaItems = listaItems;
+	}
 	//===========================
 	public CSubMenu() {
 		// TODO Auto-generated constructor stub
@@ -193,11 +202,19 @@ public class CSubMenu {
 		this.visiblePortugues=false;
 		//==========================
 		obtenerNameMenu(cMenuCod);
+		//===========================
+		recuperarListaItems(cSubMenuCod);
 	}
 	public void obtenerNameMenu(int cMenuCod)
 	{
 		CSubMenuDAO subMenuDao=new CSubMenuDAO();
 		subMenuDao.asignarNameMenu(subMenuDao.recuperarNombreMenu(cMenuCod));
 		setNameMenu(subMenuDao.getNameMenu());
+	}
+	public void recuperarListaItems(int cSubMenuCod)
+	{
+		CSubMenuDAO submenuDao=new CSubMenuDAO();
+		submenuDao.asignarListaItems_SubMenu(submenuDao.recuperarListaItemsBD_SubMenu(cSubMenuCod));
+		setListaItems(submenuDao.getListaItems());
 	}
 }

@@ -4,6 +4,9 @@ ALTER TABLE treserva alter COLUMN cmetodopago drop DEFAULT;
 
 ALTER TABLE treserva ADD COLUMN ccodtransaccion varchar(20) DEFAULT '';
 ALTER TABLE treserva alter COLUMN ccodtransaccion drop DEFAULT;
+
+ALTER TABLE treserva ADD COLUMN dFechaArribo varchar(20) DEFAULT '2016-01-01';
+ALTER TABLE treserva alter COLUMN dFechaArribo drop DEFAULT;
 --TABLA TPAQUETE--
 ALTER TABLE tpaquete ADD COLUMN citinerarioidioma1 text DEFAULT '';
 ALTER TABLE tpaquete alter COLUMN citinerarioidioma1 drop DEFAULT;

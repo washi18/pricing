@@ -1,5 +1,10 @@
 package com.android.model;
 
+import java.util.ArrayList;
+
+import com.android.dao.CMenuDAO;
+import com.android.dao.CSubMenuDAO;
+
 public class CMenu {
 	private int cMenuCod;// int,
 	private String cNombreIdioma1;// varchar(200),
@@ -21,6 +26,7 @@ public class CMenu {
 	private boolean visibleEspanol;
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
+	private ArrayList<CSubMenu> listaSubMenus;
 	//===============================
 	public int getcMenuCod() {
 		return cMenuCod;
@@ -124,6 +130,12 @@ public class CMenu {
 	public void setVisiblePortugues(boolean visiblePortugues) {
 		this.visiblePortugues = visiblePortugues;
 	}
+	public ArrayList<CSubMenu> getListaSubMenus() {
+		return listaSubMenus;
+	}
+	public void setListaSubMenus(ArrayList<CSubMenu> listaSubMenus) {
+		this.listaSubMenus = listaSubMenus;
+	}
 	//========================
 	public CMenu() {
 		// TODO Auto-generated constructor stub
@@ -155,5 +167,14 @@ public class CMenu {
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
+		//===========================
+		recuperarListaSubMenus(cMenuCod);
+	}
+	public void recuperarListaSubMenus(int cMenuCod)
+	{
+		listaSubMenus=new ArrayList<CSubMenu>();
+		CMenuDAO menuDao=new CMenuDAO();
+		menuDao.asignarListaSubMenuBD_Menu(menuDao.recuperarListaSubMenuBD_Menu(cMenuCod));
+		setListaSubMenus(menuDao.getListaSubMenu());
 	}
 }

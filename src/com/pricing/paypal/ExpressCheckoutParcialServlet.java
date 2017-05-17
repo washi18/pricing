@@ -57,6 +57,11 @@ public class ExpressCheckoutParcialServlet extends HttpServlet implements javax.
 		 paqueteDao.asignarPaquete(paqueteDao.recuperarPaqueteBD(codPaquete));
 		 //======================
 		 iniciarEtiquetas(language);
+		 String textoParcial="";
+		 if(paqueteDao.getoPaquete().isbModoPorcentual())
+			 textoParcial=paqueteDao.getoPaquete().getnPorcentajeCobro()+" %";
+		 else
+			 textoParcial=etiqueta[102];
 		 
 		 String tax=df.format((Double.parseDouble(montoParcial)*(Double.parseDouble(impuestoPaypal)/100)));
 		 String montoParcialConImpuestoPaypal=df.format(Double.parseDouble(montoParcial)+Double.parseDouble(tax));
@@ -115,7 +120,7 @@ public class ExpressCheckoutParcialServlet extends HttpServlet implements javax.
 			 						out.println("display: -o-flex;");
 			 						out.println("display: flex;'>");
 			 				out.println("<div style='width:70%;font-weight:bold;font-size:20px;' align='right'>");
-			 					out.println(etiqueta[99]+" ("+paqueteDao.getoPaquete().getcTextoParcial()+"): USD");
+			 					out.println(etiqueta[99]+" ("+textoParcial+"): USD");
 			 				out.println("</div>");
 			 				out.println("<div style='width:30%;font-weight:bold;font-size:20px;' align='right'>");
 			 					out.println(montoParcial);
@@ -144,7 +149,7 @@ public class ExpressCheckoutParcialServlet extends HttpServlet implements javax.
 			 						out.println("display: -o-flex;");
 			 						out.println("display: flex;'>");
 			 				out.println("<div style='width:70%;font-weight:bold;color:blue;font-size:20px;' align='right'>");
-			 					out.println(etiqueta[101]+" ("+paqueteDao.getoPaquete().getcTextoParcial()+"): USD");
+			 					out.println(etiqueta[101]+" ("+textoParcial+"): USD");
 			 				out.println("</div>");
 			 				out.println("<div style='width:30%;font-weight:bold;font-size:20px;color:blue;' align='right'>");
 			 					out.println(montoParcialConImpuestoPaypal);
