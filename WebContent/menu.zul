@@ -1,17 +1,91 @@
 <?page title="new page title" contentType="text/html;charset=UTF-8"?>
 <zk>
+	<style src="css/menu.css"/>
 	<div apply="org.zkoss.bind.BindComposer"
 		 viewModel="@id('vmMenu') @init('com.android.viewModel.menuVM')">
 		 <div zclass="div_contenedor_nuevo">
-			<div zclass="div_contendor_btn_nuevo" onClick="div_llenar_menu_android.setVisible(true)">
+			<div zclass="div_contendor_btn_nuevo" onClick="@command('mostrarNuevoMenu')">
 				<div zclass="div_btn_nuevo" width="180px">
 					<span sclass="icon-plus"/>
 					<space></space>
 					<label value="NUEVO MENU"/>
 				</div>
 			</div>
-			<div id="div_llenar_menu_android" visible="false" width="280px">
-				<div zclass="div_content_datos">
+			<div width="100%" sclass="content_android_menu">
+				<div zclass="div_content_datos_menu">
+					<listbox sclass="listados_menu" model="@load(vmMenu.listaMenu)" width="100%">
+						<listhead>
+							<listheader></listheader>
+						</listhead>
+						<template name="model" var="menu">
+							<listitem>
+								<listcell>
+										<listbox sclass="listados_menu" model="@load(menu.listaSubMenus)">
+											<listhead sclass="listhead_menu">
+												<listheader label="@load(menu.cNombreIdioma1)" onClick="@command('mostrarSubMenus',menu=menu,opcion=2)"/>
+											</listhead>
+											<template name="model" var="submenu">
+												<listitem sclass="listitem_menu" visible="@bind(menu.visibleSubMenu)">
+													<listcell>
+														<div width="100%" zclass="div_list_cell_menu">
+															<listbox sclass="listados_menu" model="@load(submenu.listaItems)">
+																<listhead sclass="listhead_submenu">
+																	<listheader label="@load(submenu.cNombreIdioma1)" onClick="@command('mostrarItems',submenu=submenu)"/>
+																</listhead>
+																<template name="model" var="item">
+																	<listitem visible="@bind(submenu.visibleItem)">
+																		<listcell>
+																			<div width="100%" zclass="div_list_cell_menu">
+																				<listbox sclass="listados_menu" model="@load(item.listaElementos)">
+																					<listhead sclass="listhead_item">
+																						<listheader label="@load(item.cTituloIdioma1)" onClick="@command('mostrarContentItems',item=item)"/>
+																					</listhead>
+																					<template name="model" var="elemento">
+																						<listitem visible="@bind(item.visibleContent)">
+																							<listcell>
+																								<div width="100%" zclass="div_list_cell_menu">
+																									<listbox>
+																										<listhead sclass="listhead_elemento">
+																											<listheader label="@load(elemento.cNombre1Idioma1)" onClick="@command('mostrarElemento',elemento=elemento)"/>
+																										</listhead>
+																									</listbox>
+																								</div>					
+																							</listcell>
+																						</listitem>
+																					</template>
+																				</listbox>
+																				<listbox sclass="listados_menu" model="@load(item.listaDatosGenerales)">
+																					<template name="model" var="datoGeneral">
+																						<listitem visible="@bind(item.visibleContent)">
+																							<listcell>
+																								<div width="100%" zclass="div_list_cell_menu">
+																									<listbox>
+																										<listhead sclass="listhead_datoGeneral">
+																											<listheader label="@load(datoGeneral.cTituloIdioma1)" onClick="@command('mostrarDatoGeneral',datoGeneral=datoGeneral)"/>
+																										</listhead>
+																									</listbox>
+																								</div>
+																							</listcell>
+																						</listitem>
+																					</template>
+																				</listbox>
+																			</div>
+																		</listcell>
+																	</listitem>
+																</template>
+															</listbox>
+														</div>
+													</listcell>
+												</listitem>
+											</template>
+										</listbox>
+								</listcell>
+							</listitem>
+						</template>
+					</listbox>
+				</div>
+				<!-- MENU -->
+				<div zclass="div_content_datos_menu" visible="@bind(vmMenu.visibleMenu)">
 					<div zclass="div_contiene_banderas">
 						<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
 							onClick="txtSpainName.setVisible(true);txtInglesName.setVisible(false);
@@ -31,154 +105,305 @@
 					</div>
 					<div zclass="div_space_entre_botones">
 						<button label="Subir Icono del Menu" 
-								onClick="@command('uploadImagenes',menu=vmMenu.oMenu,componente=self,opcion=1)"
-								zclass="btn_guardar"/>
+							onClick="@command('uploadImagenes_menu',menu=vmMenu.oMenu,componente=self,opcion=1)"
+							zclass="btn_guardar"/>
 					</div>
 					<div zclass="div_space_entre_botones">
 						<button label="Subir Imagen de Fondo del Menu" 
-								onClick="@command('uploadImagenes',menu=vmMenu.oMenu,componente=self,opcion=2)"
+								onClick="@command('uploadImagenes_menu',menu=vmMenu.oMenu,componente=self,opcion=2)"
 								zclass="btn_guardar"/>
 					</div>
-					<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarMenu',componente=self)"/>
+					<div zclass="div_content_datos" visible="@bind(!vmMenu.oMenu.update)">
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarMenu',componente=self)"/>
+					</div>
+					<div zclass="div_content_datos" visible="@bind(vmMenu.oMenu.update)">
+						<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+						<separator bar="true" zclass="lbl_llenar_datos"/>
+						<div>
+							<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_menu',menu=vmMenu.oMenu,texto=self.selectedItem.value)">
+								<radio label="ACTIVADO" value="activar" checked="@bind(vmMenu.oMenu.estado_activo)" style="@bind(vmMenu.oMenu.color_btn_activo)"/>
+								<radio label="DESACTIVADO" value="desactivar" checked="@bind(vmMenu.oMenu.estado_desactivo)" style="@bind(vmMenu.oMenu.color_btn_desactivo)"/>
+							</radiogroup>
+						</div>
+					</div>
+					<div zclass="div_content_datos" visible="@bind(vmMenu.oMenu.update)">
+						<button label="Actualizar"
+					    		onClick="@command('actualizarMenu',menu=vmMenu.oMenu)"
+					    		zclass="btn_actualizar" width="100%"/>
+					</div>
+					<div zclass="div_contendor_btn_nuevo" 
+						 onClick="@command('mostrarNuevoSubMenu',menu=vmMenu.oMenu)"
+						 visible="@bind(vmMenu.oMenu.update)">
+						<div zclass="div_btn_nuevo" width="100%">
+							<span sclass="icon-plus"/>
+							<space></space>
+							<label value="NUEVO SUB-MENU"/>
+						</div>
+					</div>
+				</div>
+				<!-- SUB-MENU -->
+				<div zclass="div_content_datos_menu" visible="@bind(vmMenu.visibleSubMenu)">
+					<div visible="@bind(!vmMenu.oSubMenu.update)">
+						<label value="MENU: " zclass="lbl_llenar_datos"/>
+						<label value="@bind(vmMenu.oMenu.cNombreIdioma1)" zclass="lbl_llenar_name_datos"/>
+					</div>
+					<div visible="@bind(vmMenu.oSubMenu.update)">
+						<label value="MENU: " zclass="lbl_llenar_datos"/>
+						<label value="@bind(vmMenu.oSubMenu.nameMenu)" zclass="lbl_llenar_name_datos"/>
+					</div>
+					<div zclass="div_contiene_banderas">
+						<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+							onClick="txt1SpainName.setVisible(true);txt1InglesName.setVisible(false);
+							txt1PortuName.setVisible(false)"/>
+						<image src="img/en.png" sclass="estilo_banderas"
+							onClick="txt1SpainName.setVisible(false);txt1InglesName.setVisible(true);
+							txt1PortuName.setVisible(false)"/>
+						<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+							onClick="txt1SpainName.setVisible(false);txt1InglesName.setVisible(false);
+							txt1PortuName.setVisible(true)"/>
+					</div>
+					<div>
+						<label value="NOMBRE SUB-MENU: " zclass="lbl_llenar_datos"/>
+						<textbox value="@bind(vmMenu.oSubMenu.cNombreIdioma1)" zclass="txt_llenar_datos" id="txt1SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+						<textbox value="@bind(vmMenu.oSubMenu.cNombreIdioma2)" zclass="txt_llenar_datos" id="txt1InglesName" placeholder="INGLES" width="100%" visible="false"/>
+						<textbox value="@bind(vmMenu.oSubMenu.cNombreIdioma3)" zclass="txt_llenar_datos" id="txt1PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+					</div>
+					<div zclass="div_space_entre_botones">
+						<button label="Subir Imagen del Sub-Menu" 
+								onClick="@command('uploadImagenes_submenu',submenu=vmMenu.oSubMenu,componente=self)"
+								zclass="btn_guardar"/>
+					</div>
+					<div>
+						<radiogroup sclass="style_restricciones_conDestino" onCheck="@command('select_submenu_conElemento',opcion=self.selectedItem.value,submenu=vmMenu.oSubMenu)">
+							<radio label="CON ELEMENTOS" checked="@bind(vmMenu.oSubMenu.conElemento)" value="con_elemento"/>
+							<radio label="SIN ELEMENTOS" checked="@bind(vmMenu.oSubMenu.sinElemento)" value="sin_elemento"/>
+						</radiogroup>
+					</div>
+					<div zclass="div_content_datos" visible="@bind(!vmMenu.oSubMenu.update)">
+						<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarSubMenu',componente=self)"/>
+					</div>
+					<div zclass="div_content_datos" visible="@bind(vmMenu.oSubMenu.update)">
+						<label value="ESTADO:" zclass="lbl_llenar_datos"/>
+						<separator bar="true" zclass="lbl_llenar_datos"/>
+						<div>
+							<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_submenu',submenu=vmMenu.oSubMenu,texto=self.selectedItem.value)">
+								<radio label="ACTIVADO" value="activar" checked="@bind(vmMenu.oSubMenu.estado_activo)" style="@bind(vmMenu.oSubMenu.color_btn_activo)"/>
+								<radio label="DESACTIVADO" value="desactivar" checked="@bind(vmMenu.oSubMenu.estado_desactivo)" style="@bind(vmMenu.oSubMenu.color_btn_desactivo)"/>
+							</radiogroup>
+						</div>
+					</div>
+					<div zclass="div_content_datos" visible="@bind(vmMenu.oSubMenu.update)">
+						<button label="Actualizar"
+					   		onClick="@command('actualizarSubMenu',submenu=vmMenu.oSubMenu,componente=self)"
+					   		zclass="btn_actualizar" width="100%"/>
+					</div>
+					<div zclass="div_contendor_btn_nuevo" 
+						 onClick="@command('mostrarNuevoItem',submenu=vmMenu.oSubMenu)"
+						 visible="@bind(vmMenu.oSubMenu.update)">
+						<div zclass="div_btn_nuevo" width="100%">
+							<span sclass="icon-plus"/>
+							<space></space>
+							<label value="NUEVO ITEM"/>
+						</div>
+					</div>
+				</div>
+				<!-- ITEM -->
+				<div zclass="div_content_datos_menu" visible="@bind(vmMenu.visibleItem)">
+					<div visible="@bind(!vmMenu.oItem.update)">
+						<label value="SUB-MENU: " zclass="lbl_llenar_datos"/>
+						<label value="@bind(vmMenu.oSubMenu.cNombreIdioma1)" zclass="lbl_llenar_name_datos"/>
+					</div>
+					<div visible="@bind(vmMenu.oItem.update)">
+						<label value="SUB-MENU: " zclass="lbl_llenar_datos"/>
+						<label value="@bind(vmMenu.oItem.nameSubMenu)" zclass="lbl_llenar_name_datos"/>
+					</div>
+					<div zclass="div_contiene_banderas">
+							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+								onClick="txt2SpainName.setVisible(true);txt2InglesName.setVisible(false);
+								txt2PortuName.setVisible(false);txtDSpainName.setVisible(true);txtDInglesName.setVisible(false);
+								txtDPortuName.setVisible(false)"/>
+							<image src="img/en.png" sclass="estilo_banderas"
+								onClick="txt2SpainName.setVisible(false);txt2InglesName.setVisible(true);
+								txt2PortuName.setVisible(false);txtDSpainName.setVisible(false);txtDInglesName.setVisible(true);
+								txtDPortuName.setVisible(false)"/>
+							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+								onClick="txt2SpainName.setVisible(false);txt2InglesName.setVisible(false);
+								txt2PortuName.setVisible(true);txtDSpainName.setVisible(false);txtDInglesName.setVisible(false);
+								txtDPortuName.setVisible(true)"/>
+						</div>
+						<div>
+							<label value="NOMBRE ITEM: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmMenu.oItem.cTituloIdioma1)" zclass="txt_llenar_datos" id="txt2SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmMenu.oItem.cTituloIdioma2)" zclass="txt_llenar_datos" id="txt2InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oItem.cTituloIdioma3)" zclass="txt_llenar_datos" id="txt2PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div>
+							<label value="DESCRIPCION ITEM: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmMenu.oItem.cDescripcionIdioma1)" multiline="true" zclass="txt_llenar_datos" id="txtDSpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmMenu.oItem.cDescripcionIdioma2)" multiline="true" zclass="txt_llenar_datos" id="txtDInglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oItem.cDescripcionIdioma3)" multiline="true" zclass="txt_llenar_datos" id="txtDPortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div zclass="div_space_entre_botones">
+							<button label="Subir Imagen del Item" 
+									onClick="@command('uploadImagenes_item',item=vmMenu.oItem,componente=self)"
+									zclass="btn_guardar"/>
+						</div>
+						<div zclass="div_content_datos" visible="@bind(!vmMenu.oItem.update)">
+							<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarItems',componente=self)"/>
+						</div>
+						<div zclass="div_content_datos" visible="@bind(vmMenu.oItem.update)">
+							<button label="Actualizar"
+					    			onClick="@command('actualizarItem',item=vmMenu.oItem,componente=self)"
+					    			zclass="btn_actualizar" width="100%"/>
+						</div>
+						<div zclass="div_contendor_btn_nuevo" 
+							 onClick="@command('mostrarNuevoElemento',item=vmMenu.oItem)"
+							 visible="@bind(vmMenu.oItem.update)">
+							<div zclass="div_btn_nuevo" width="100%">
+								<span sclass="icon-plus"/>
+								<space></space>
+								<label value="NUEVO ELEMENTO"/>
+							</div>
+						</div>
+						<div zclass="div_contendor_btn_nuevo" 
+							 onClick="@command('mostrarNuevoDatoGeneral',item=vmMenu.oItem)"
+							 visible="@bind(vmMenu.oItem.update)">
+							<div zclass="div_btn_nuevo" width="100%">
+								<span sclass="icon-plus"/>
+								<space></space>
+								<label value="NUEVO DATO GENERAL"/>
+							</div>
+						</div>
+				</div>
+				<!-- ELEMENTOS -->
+				<div zclass="div_content_datos_menu" visible="@bind(vmMenu.visibleElemento)">
+					<div visible="@bind(!vmMenu.oElemento.update)">
+						<label value="ITEM: " zclass="lbl_llenar_datos"/>
+						<label value="@bind(vmMenu.oItem.cTituloIdioma1)" zclass="lbl_llenar_name_datos"/>
+					</div>
+					<div visible="@bind(vmMenu.oElemento.update)">
+						<label value="ITEM: " zclass="lbl_llenar_datos"/>
+						<label value="@bind(vmMenu.oElemento.nameItem)" zclass="lbl_llenar_name_datos"/>
+					</div>
+					<div zclass="div_contiene_banderas">
+							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+								onClick="txt3SpainName.setVisible(true);txt3InglesName.setVisible(false);
+								txt3PortuName.setVisible(false);txt31SpainName.setVisible(true);txt31InglesName.setVisible(false);
+								txt31PortuName.setVisible(false);txt32SpainName.setVisible(true);txt32InglesName.setVisible(false);
+								txt32PortuName.setVisible(false);txt33SpainName.setVisible(true);txt33InglesName.setVisible(false);
+								txt33PortuName.setVisible(false)"/>
+							<image src="img/en.png" sclass="estilo_banderas"
+								onClick="txt3SpainName.setVisible(false);txt3InglesName.setVisible(true);
+								txt3PortuName.setVisible(false);txt31SpainName.setVisible(false);txt31InglesName.setVisible(true);
+								txt31PortuName.setVisible(false);txt32SpainName.setVisible(false);txt32InglesName.setVisible(true);
+								txt32PortuName.setVisible(false);txt33SpainName.setVisible(false);txt33InglesName.setVisible(true);
+								txt33PortuName.setVisible(false)"/>
+							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+								onClick="txt3SpainName.setVisible(false);txt3InglesName.setVisible(false);
+								txt3PortuName.setVisible(true);txt31SpainName.setVisible(false);txt31InglesName.setVisible(false);
+								txt31PortuName.setVisible(true);txt32SpainName.setVisible(false);txt32InglesName.setVisible(false);
+								txt32PortuName.setVisible(true);txt33SpainName.setVisible(false);txt33InglesName.setVisible(false);
+								txt33PortuName.setVisible(true)"/>
+						</div>
+						<div zclass="div_space_entre_botones">
+							<button label="Subir Imagen1 del elemento" 
+									onClick="@command('uploadImagenes_elemento',elemento=vmElemento.oElemento,componente=self,opcion=1)"
+									zclass="btn_guardar"/>
+						</div>
+						<div>
+							<label value="NOMBRE IMAGEN 1: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre1Idioma1)" zclass="txt_llenar_datos" id="txt3SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre1Idioma2)" zclass="txt_llenar_datos" id="txt3InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre1Idioma3)" zclass="txt_llenar_datos" id="txt3PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div zclass="div_space_entre_botones">
+							<button label="Subir Imagen2 del elemento" 
+									onClick="@command('uploadImagenes_elemento',elemento=vmElemento.oElemento,componente=self,opcion=2)"
+									zclass="btn_guardar"/>
+						</div>
+						<div>
+							<label value="NOMBRE IMAGEN 2: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre2Idioma1)" zclass="txt_llenar_datos" id="txt31SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre2Idioma2)" zclass="txt_llenar_datos" id="txt31InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre2Idioma3)" zclass="txt_llenar_datos" id="txt31PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div zclass="div_space_entre_botones">
+							<button label="Subir Imagen3 del elemento" 
+									onClick="@command('uploadImagenes_elemento',elemento=vmElemento.oElemento,componente=self,opcion=3)"
+									zclass="btn_guardar"/>
+						</div>
+						<div>
+							<label value="NOMBRE IMAGEN 3: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre3Idioma1)" zclass="txt_llenar_datos" id="txt32SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre3Idioma2)" zclass="txt_llenar_datos" id="txt32InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmElemento.oElemento.cNombre3Idioma3)" zclass="txt_llenar_datos" id="txt32PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div>
+							<label value="DESCRIPCION DE A QUE PUBLICO VA DIRIGIDO: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmElemento.oElemento.cDirigidoIdioma1)" multiline="true" zclass="txt_llenar_datos" id="txt33SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmElemento.oElemento.cDirigidoIdioma2)" multiline="true" zclass="txt_llenar_datos" id="txt33InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmElemento.oElemento.cDirigidoIdioma3)" multiline="true" zclass="txt_llenar_datos" id="txt33PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div zclass="div_content_datos" visible="@bind(!vmMenu.oElemento.update)">
+							<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarElemento',componente=self)"/>
+						</div>
+						<div zclass="div_content_datos" visible="@bind(vmMenu.oElemento.update)">
+							<button label="Actualizar"
+					    			onClick="@command('actualizarElemento',elemento=vmMenu.oElemento,componente=self)"
+					    			zclass="btn_actualizar" width="100%"/>
+						</div>
+				</div>
+				<!-- DATOS GENERALES -->
+				<div zclass="div_content_datos_menu" visible="@bind(vmMenu.visibleDatoGeneral)">
+					<div visible="@bind(!vmMenu.oDatoGeneral.update)">
+						<label value="ITEM: " zclass="lbl_llenar_datos"/>
+						<label value="@bind(vmMenu.oItem.cTituloIdioma1)" zclass="lbl_llenar_name_datos"/>
+					</div>
+					<div visible="@bind(vmMenu.oDatoGeneral.update)">
+						<label value="ITEM: " zclass="lbl_llenar_datos"/>
+						<label value="@bind(vmMenu.oDatoGeneral.nameItem)" zclass="lbl_llenar_name_datos"/>
+					</div>
+					<div zclass="div_contiene_banderas">
+							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
+								onClick="txt4SpainName.setVisible(true);txt4InglesName.setVisible(false);
+								txt4PortuName.setVisible(false);txt4DSpainName.setVisible(true);txt4DInglesName.setVisible(false);
+								txt4DPortuName.setVisible(false)"/>
+							<image src="img/en.png" sclass="estilo_banderas"
+								onClick="txt4SpainName.setVisible(false);txt4InglesName.setVisible(true);
+								txt4PortuName.setVisible(false);txt4DSpainName.setVisible(false);txt4DInglesName.setVisible(true);
+								txt4DPortuName.setVisible(false)"/>
+							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
+								onClick="txt4SpainName.setVisible(false);txt4InglesName.setVisible(false);
+								txt4PortuName.setVisible(true);txt4DSpainName.setVisible(false);txt4DInglesName.setVisible(false);
+								txt4DPortuName.setVisible(true)"/>
+						</div>
+						<div>
+							<label value="NOMBRE DATO GENERAL: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmMenu.oDatoGeneral.cTituloIdioma1)" zclass="txt_llenar_datos" id="txt4SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmMenu.oDatoGeneral.cTituloIdioma2)" zclass="txt_llenar_datos" id="txt4InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oDatoGeneral.cTituloIdioma3)" zclass="txt_llenar_datos" id="txt4PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div>
+							<label value="DESCRIPCION DATO GENERAL: " zclass="lbl_llenar_datos"/>
+							<textbox value="@bind(vmMenu.oDatoGeneral.cDescripcionIdioma1)" multiline="true" zclass="txt_llenar_datos" id="txt4DSpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmMenu.oDatoGeneral.cDescripcionIdioma2)" multiline="true" zclass="txt_llenar_datos" id="txt4DInglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oDatoGeneral.cDescripcionIdioma3)" multiline="true" zclass="txt_llenar_datos" id="txt4DPortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+						</div>
+						<div zclass="div_space_entre_botones">
+							<button label="Subir Imagen del dato general" 
+									onClick="@command('uploadImagenes_datoGeneral',datoGeneral=vmMenu.oDatoGeneral,componente=self)"
+									zclass="btn_guardar"/>
+						</div>
+						<div zclass="div_content_datos" visible="@bind(!vmMenu.oDatoGeneral.update)">
+							<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarDatoGeneral',componente=self)"/>
+						</div>
+						<div zclass="div_content_datos" visible="@bind(vmMenu.oDatoGeneral.update)">
+							<button label="Actualizar"
+					    			onClick="@command('actualizarDatoGeneral',datoGeneral=vmMenu.oDatoGeneral,componente=self)"
+					    			zclass="btn_actualizar" width="100%"/>
+						</div>
 				</div>
 			</div>
 		</div>
-		<space></space>
-		<listbox sclass="listados" model="@load(vmMenu.listaMenu)" width="300px">
-			<listhead>
-				<listheader></listheader>
-			</listhead>
-			<template name="model" var="menu">
-				<listitem>
-					<listcell>
-						<div width="100%" zclass="div_list_cell">
-							<listbox sclass="listado" model="@load(menu.listaSubMenus)">
-								<listhead>
-									<listheader label="@load(menu.cNombreIdioma1)"/>
-								</listhead>
-								<template name="model" var="submenu">
-									<listitem visible="false">
-										<listcell>
-											<div width="100%" zclass="div_list_cell">
-												<listbox sclass="listados" model="@load(submenu.listaItems)">
-													<listhead>
-														<listheader label="@load(submenu.cNombreIdioma1)"/>
-													</listhead>
-													<template name="model" var="item">
-														<listitem>
-															<listcell>
-																<div width="100%" zclass="div_list_cell">
-																	<listbox sclass="listados" model="@load(item.listaElementos)">
-																		<listhead>
-																			<listheader label="@load(item.cTituloIdioma1)"/>
-																		</listhead>
-																		<template name="model" var="elemento">
-																			<listitem>
-																				<listcell>
-																					<div width="100%" zclass="div_list_cell">
-																						<listbox>
-																							<listhead>
-																								<listheader label="@load(elemento.cNombre1Idioma1)"/>
-																							</listhead>
-																						</listbox>
-																					</div>					
-																				</listcell>
-																			</listitem>
-																		</template>
-																	</listbox>
-																</div>
-															</listcell>
-														</listitem>
-													</template>
-												</listbox>
-											</div>
-										</listcell>
-									</listitem>
-								</template>
-							</listbox>
-						</div>
-					</listcell>
-				</listitem>
-			</template>
-		</listbox>
-		<listbox sclass="listados" model="@bind(vmMenu.listaMenu) @template((each.editable)? 'modeleditable':'noeditable')" vflex="true" mold="paging" pageSize="5" pagingPosition="both">
-			<listhead>
-				<listheader/>
-			</listhead>
-			<template name="noeditable">
-				<listitem>
-					<listcell>
-						<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion">
-								<label value="@bind(each.cMenuCod)"/>
-							</div>
-							<label width="100%" height="30px" sclass="estilo_nombre_paquete"
-					    					value="@bind(each.cNombreIdioma1)" />
-							<separator spacing="2px"/>
-						    <div zclass="div_operacion_etiqueta">
-						    	<button label="Editar"
-						    			onClick="@command('Editar',menu=each)"
-						    			zclass="btn_editar" />
-						    	<separator spacing="2px"></separator>
-						    	<button label="Activo" zclass="btn_activo" visible="@bind(each.estado)"/>
-						    	<button label="Desactivo" zclass="btn_desactivo" visible="@bind(!each.estado)"/>
-						    </div>
-						  </div>
-					</listcell>
-				</listitem>
-			</template>
-			<template name="modeleditable">
-				<listitem>
-				    <listcell>
-				    	<div width="100%" zclass="div_list_cell">
-				    		<div zclass="div_numeracion">
-								<label value="@bind(each.cMenuCod)"/>
-							</div>
-							<div zclass="div_content_datos">
-								<div zclass="div_contiene_banderas">
-									<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
-										onClick="@command('cambioIdiomas',idioma='Espanol',menu=each)"/>
-									<image src="img/en.png" sclass="estilo_banderas"
-										onClick="@command('cambioIdiomas',idioma='Ingles',menu=each)"/>
-									<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
-										onClick="@command('cambioIdiomas',idioma='Portugues',menu=each)"/>
-								</div>
-								<div>
-									<label value="NOMBRE MENU: " zclass="lbl_llenar_datos"/>
-									<textbox value="@bind(each.cNombreIdioma1)" zclass="txt_llenar_datos" placeholder="ESPAÑOL" width="100%" visible="@bind(each.visibleEspanol)"/>
-									<textbox value="@bind(each.cNombreIdioma2)" zclass="txt_llenar_datos" placeholder="INGLES" width="100%" visible="@bind(each.visibleIngles)"/>
-									<textbox value="@bind(each.cNombreIdioma3)" zclass="txt_llenar_datos" placeholder="PORTUGUES" width="100%" visible="@bind(each.visiblePortugues)"/>
-								</div>
-								<div zclass="div_space_entre_botones">
-									<button label="Subir Icono del Menu" 
-											onClick="@command('uploadImagenes',menu=each,componente=self,opcion=1)"
-											zclass="btn_guardar"/>
-								</div>
-								<div zclass="div_space_entre_botones">
-									<button label="Subir Imagen de Fondo del Menu" 
-											onClick="@command('uploadImagenes',menu=each,componente=self,opcion=2)"
-											zclass="btn_guardar"/>
-								</div>
-							</div>
-					    	<div zclass="div_content_datos">
-								<label value="ESTADO:" zclass="lbl_llenar_datos"/>
-								<separator bar="true" zclass="lbl_llenar_datos"/>
-								<div>
-									<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar_menu',menu=each,texto=self.selectedItem.value)">
-										<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
-										<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
-									</radiogroup>
-								</div>
-							</div>
-							<div zclass="div_operacion_etiqueta">
-								<button label="Actualizar"
-					    				onClick="@command('actualizarMenu',menu=each)"
-					    				zclass="btn_actualizar"/>
-							</div>
-					    </div>
-				    </listcell>
-				</listitem>
-			</template>
-		</listbox>
 	</div>
 </zk>

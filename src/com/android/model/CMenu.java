@@ -27,6 +27,8 @@ public class CMenu {
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
 	private ArrayList<CSubMenu> listaSubMenus;
+	private boolean visibleSubMenu;
+	private boolean update;
 	//===============================
 	public int getcMenuCod() {
 		return cMenuCod;
@@ -136,6 +138,18 @@ public class CMenu {
 	public void setListaSubMenus(ArrayList<CSubMenu> listaSubMenus) {
 		this.listaSubMenus = listaSubMenus;
 	}
+	public boolean isVisibleSubMenu() {
+		return visibleSubMenu;
+	}
+	public void setVisibleSubMenu(boolean visibleSubMenu) {
+		this.visibleSubMenu = visibleSubMenu;
+	}
+	public boolean isUpdate() {
+		return update;
+	}
+	public void setUpdate(boolean update) {
+		this.update = update;
+	}
 	//========================
 	public CMenu() {
 		// TODO Auto-generated constructor stub
@@ -149,6 +163,7 @@ public class CMenu {
 		this.estado_activo=true;
 		this.estado=true;
 		this.estado_desactivo=false;
+		this.update=false;
 	}
 	public CMenu(int cMenuCod, String cNombreIdioma1, String cNombreIdioma2, String cNombreIdioma3,
 			String cNombreIdioma4, String cNombreIdioma5, String cImagenIcono, String cImagenFondo, boolean estado) {
@@ -168,7 +183,10 @@ public class CMenu {
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
 		//===========================
+		this.visibleSubMenu=false;
+		this.update=true;
 		recuperarListaSubMenus(cMenuCod);
+		darColor_estado();
 	}
 	public void recuperarListaSubMenus(int cMenuCod)
 	{
@@ -176,5 +194,17 @@ public class CMenu {
 		CMenuDAO menuDao=new CMenuDAO();
 		menuDao.asignarListaSubMenuBD_Menu(menuDao.recuperarListaSubMenuBD_Menu(cMenuCod));
 		setListaSubMenus(menuDao.getListaSubMenu());
+	}
+	public void darColor_estado()
+	{
+		if(estado)
+		{
+			color_btn_activo=COLOR_ACTIVO;
+			color_btn_desactivo=COLOR_TRANSPARENT;
+		}
+		else{
+			color_btn_activo=COLOR_TRANSPARENT;
+			color_btn_desactivo=COLOR_DESACTIVO;
+		}
 	}
 }

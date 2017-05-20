@@ -34,6 +34,7 @@ public class CElementos {
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
 	private String nameItem;
+	private boolean update;
 	//======================================
 	public int getcElementosCod() {
 		return cElementosCod;
@@ -215,6 +216,12 @@ public class CElementos {
 	public void setNameItem(String nameItem) {
 		this.nameItem = nameItem;
 	}
+	public boolean isUpdate() {
+		return update;
+	}
+	public void setUpdate(boolean update) {
+		this.update = update;
+	}
 	//===========================================
 	public CElementos() {
 		// TODO Auto-generated constructor stub
@@ -242,6 +249,7 @@ public class CElementos {
 		this.cDirigidoIdioma3="";// text,
 		this.cDirigidoIdioma4="";// text,
 		this.cDirigidoIdioma5="";
+		this.update=false;
 	}
 	public CElementos(int cElementosCod, int cItemsCod, String cNombre1Idioma1, String cNombre1Idioma2,
 			String cNombre1Idioma3, String cNombre1Idioma4, String cNombre1Idioma5, String cNombre2Idioma1,
@@ -279,6 +287,7 @@ public class CElementos {
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
 		//==========================
+		this.update=true;
 		obtenerNameItem(cItemsCod);
 	}
 	public void obtenerNameItem(int cItemsCod)

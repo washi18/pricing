@@ -2,6 +2,7 @@ package com.android.model;
 
 import java.util.ArrayList;
 
+import com.android.dao.CDatosGeneralesDAO;
 import com.android.dao.CItemsDAO;
 import com.android.dao.CSubMenuDAO;
 
@@ -25,6 +26,9 @@ public class CItems {
 	private boolean visiblePortugues;
 	private String nameSubMenu;
 	private ArrayList<CElementos> listaElementos;
+	private ArrayList<CDatosGenerales> listaDatosGenerales;
+	private boolean visibleContent;
+	private boolean update;
 	//====================================
 	public int getcItemsCod() {
 		return cItemsCod;
@@ -140,6 +144,24 @@ public class CItems {
 	public void setListaElementos(ArrayList<CElementos> listaElementos) {
 		this.listaElementos = listaElementos;
 	}
+	public ArrayList<CDatosGenerales> getListaDatosGenerales() {
+		return listaDatosGenerales;
+	}
+	public void setListaDatosGenerales(ArrayList<CDatosGenerales> listaDatosGenerales) {
+		this.listaDatosGenerales = listaDatosGenerales;
+	}
+	public boolean isVisibleContent() {
+		return visibleContent;
+	}
+	public void setVisibleContent(boolean visibleContent) {
+		this.visibleContent = visibleContent;
+	}
+	public boolean isUpdate() {
+		return update;
+	}
+	public void setUpdate(boolean update) {
+		this.update = update;
+	}
 	//==============================
 	public CItems() {
 		// TODO Auto-generated constructor stub
@@ -155,6 +177,7 @@ public class CItems {
 		this.cDescripcionIdioma4="";
 		this.cDescripcionIdioma5="";
 		this.cImagen="";
+		this.update=false;
 	}
 	public CItems(int cItemsCod, int cSubMenuCod, String cTituloIdioma1, String cTituloIdioma2, String cTituloIdioma3,
 			String cTituloIdioma4, String cTituloIdioma5, String cDescripcionIdioma1, String cDescripcionIdioma2,
@@ -177,9 +200,12 @@ public class CItems {
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
 		//==========================
+		this.visibleContent=false;
+		this.update=true;
 		obtenerNameSubMenu(cSubMenuCod);
 		//==========================
 		recuperarListaElementos(cItemsCod);
+		recuperarListaDatosGenerales(cItemsCod);
 	}
 	public void obtenerNameSubMenu(int cSubMenuCod)
 	{
@@ -192,5 +218,11 @@ public class CItems {
 		CItemsDAO itemDao=new CItemsDAO();
 		itemDao.asignarListaElementos_Item(itemDao.recuperarListaElementosBD_Item(cItemsCod));
 		setListaElementos(itemDao.getListaElementos());
+	}
+	public void recuperarListaDatosGenerales(int cItemsCod)
+	{
+		CItemsDAO itemDao=new CItemsDAO();
+		itemDao.asignarListaDatosGenerales_Item(itemDao.recuperarListaDatosGeneralesBD_Item(cItemsCod));
+		setListaDatosGenerales(itemDao.getListaDatosGenerales());
 	}
 }

@@ -1,5 +1,7 @@
 package com.android.model;
 
+import com.android.dao.CElementosDAO;
+
 public class CDatosGenerales {
 	private int cDatosGeneralesCod;// integer,
 	private int cItemsCod;// integer,
@@ -14,6 +16,8 @@ public class CDatosGenerales {
 	private String cDescripcionIdioma4;// text,
 	private String cDescripcionIdioma5;// text,
 	private String cImagen;// varchar(100),
+	private String nameItem;
+	private boolean update;
 	//====================================
 	public int getcDatosGeneralesCod() {
 		return cDatosGeneralesCod;
@@ -93,6 +97,18 @@ public class CDatosGenerales {
 	public void setcImagen(String cImagen) {
 		this.cImagen = cImagen;
 	}
+	public String getNameItem() {
+		return nameItem;
+	}
+	public void setNameItem(String nameItem) {
+		this.nameItem = nameItem;
+	}
+	public boolean isUpdate() {
+		return update;
+	}
+	public void setUpdate(boolean update) {
+		this.update = update;
+	}
 	//================================
 	public CDatosGenerales() {
 		// TODO Auto-generated constructor stub
@@ -108,6 +124,7 @@ public class CDatosGenerales {
 		this.cDescripcionIdioma4="";// text,
 		this.cDescripcionIdioma5="";// text,
 		this.cImagen="";
+		this.update=false;
 	}
 	public CDatosGenerales(int cDatosGeneralesCod, int cItemsCod, String cTituloIdioma1, String cTituloIdioma2,
 			String cTituloIdioma3, String cTituloIdioma4, String cTituloIdioma5, String cDescripcionIdioma1,
@@ -126,5 +143,14 @@ public class CDatosGenerales {
 		this.cDescripcionIdioma4 = cDescripcionIdioma4;
 		this.cDescripcionIdioma5 = cDescripcionIdioma5;
 		this.cImagen = cImagen;
+		//=====================
+		this.update=true;
+		obtenerNameItem(cItemsCod);
+	}
+	public void obtenerNameItem(int cItemsCod)
+	{
+		CElementosDAO elementosDao=new CElementosDAO();
+		elementosDao.asignarNameItem(elementosDao.recuperarNombreItem(cItemsCod));
+		setNameItem(elementosDao.getNameItem());
 	}
 }

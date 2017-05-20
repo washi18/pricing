@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.android.model.CDatosGenerales;
 import com.android.model.CElementos;
 import com.android.model.CItems;
 import com.pricing.dao.CConexion;
@@ -11,6 +12,7 @@ import com.pricing.dao.CConexion;
 public class CItemsDAO extends CConexion{
 	private ArrayList<CItems> listaItems;
 	private ArrayList<CElementos> listaElementos;
+	private ArrayList<CDatosGenerales> listaDatosGenerales;
 	private String nameSubMenu;
 	//======================================
 	public ArrayList<CItems> getListaItems() {
@@ -35,6 +37,14 @@ public class CItemsDAO extends CConexion{
 
 	public void setListaElementos(ArrayList<CElementos> listaElementos) {
 		this.listaElementos = listaElementos;
+	}
+
+	public ArrayList<CDatosGenerales> getListaDatosGenerales() {
+		return listaDatosGenerales;
+	}
+
+	public void setListaDatosGenerales(ArrayList<CDatosGenerales> listaDatosGenerales) {
+		this.listaDatosGenerales = listaDatosGenerales;
 	}
 
 	//=========================================
@@ -69,6 +79,11 @@ public class CItemsDAO extends CConexion{
 	{
 		Object[] values={codItem};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarTodosElementos_Item",values);
+	}
+	public List recuperarListaDatosGeneralesBD_Item(int codItem)
+	{
+		Object[] values={codItem};
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarTodosDatosGenerales_Item",values);
 	}
 	public List recuperarNombreSubMenu(int codSubMenu)
 	{
@@ -121,6 +136,24 @@ public class CItemsDAO extends CConexion{
 						(String)row.get("cimagen3"),(String)row.get("cdirigidoidioma1"),
 						(String)row.get("cdirigidoidioma2"),(String)row.get("cdirigidoidioma3"),
 						(String)row.get("cdirigidoidioma4"),(String)row.get("cdirigidoidioma5")));
+			}
+		}
+	}
+	public void asignarListaDatosGenerales_Item(List lista)
+	{
+		listaDatosGenerales=new ArrayList<CDatosGenerales>();
+		if(!lista.isEmpty())
+		{
+			for(int i=0;i<lista.size();i++)
+			{
+				Map row=(Map)lista.get(i);
+				listaDatosGenerales.add(new CDatosGenerales((int)row.get("cdatosgeneralescod"),(int)row.get("citemscod"),
+						(String)row.get("ctituloidioma1"),(String)row.get("ctituloidioma2"), 
+						(String)row.get("ctituloidioma3"),(String)row.get("ctituloidioma4"), 
+						(String)row.get("ctituloidioma5"),(String)row.get("cdescripcionidioma1"), 
+						(String)row.get("cdescripcionidioma2"),(String)row.get("cdescripcionidioma3"), 
+						(String)row.get("cdescripcionidioma4"),(String)row.get("cdescripcionidioma5"), 
+						(String)row.get("cimagen")));
 			}
 		}
 	}
