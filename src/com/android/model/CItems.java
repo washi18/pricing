@@ -3,6 +3,7 @@ package com.android.model;
 import java.util.ArrayList;
 
 import com.android.dao.CDatosGeneralesDAO;
+import com.android.dao.CDestinosMovilDAO;
 import com.android.dao.CItemsDAO;
 import com.android.dao.CSubMenuDAO;
 
@@ -27,6 +28,8 @@ public class CItems {
 	private String nameSubMenu;
 	private ArrayList<CElementos> listaElementos;
 	private ArrayList<CDatosGenerales> listaDatosGenerales;
+	private ArrayList<CDestinoMovil> listaDestinosMovil;
+	private ArrayList<CItemsDestino> listaItemsDestino;
 	private boolean visibleContent;
 	private boolean update;
 	//====================================
@@ -162,6 +165,18 @@ public class CItems {
 	public void setUpdate(boolean update) {
 		this.update = update;
 	}
+	public ArrayList<CDestinoMovil> getListaDestinosMovil() {
+		return listaDestinosMovil;
+	}
+	public void setListaDestinosMovil(ArrayList<CDestinoMovil> listaDestinosMovil) {
+		this.listaDestinosMovil = listaDestinosMovil;
+	}
+	public ArrayList<CItemsDestino> getListaItemsDestino() {
+		return listaItemsDestino;
+	}
+	public void setListaItemsDestino(ArrayList<CItemsDestino> listaItemsDestino) {
+		this.listaItemsDestino = listaItemsDestino;
+	}
 	//==============================
 	public CItems() {
 		// TODO Auto-generated constructor stub
@@ -206,6 +221,7 @@ public class CItems {
 		//==========================
 		recuperarListaElementos(cItemsCod);
 		recuperarListaDatosGenerales(cItemsCod);
+		recuperarListaDestinosMovil(cItemsCod);
 	}
 	public void obtenerNameSubMenu(int cSubMenuCod)
 	{
@@ -215,14 +231,40 @@ public class CItems {
 	}
 	public void recuperarListaElementos(int cItemsCod)
 	{
+		listaElementos=new ArrayList<CElementos>();
 		CItemsDAO itemDao=new CItemsDAO();
 		itemDao.asignarListaElementos_Item(itemDao.recuperarListaElementosBD_Item(cItemsCod));
 		setListaElementos(itemDao.getListaElementos());
 	}
 	public void recuperarListaDatosGenerales(int cItemsCod)
 	{
+		listaDatosGenerales=new ArrayList<CDatosGenerales>();
 		CItemsDAO itemDao=new CItemsDAO();
 		itemDao.asignarListaDatosGenerales_Item(itemDao.recuperarListaDatosGeneralesBD_Item(cItemsCod));
 		setListaDatosGenerales(itemDao.getListaDatosGenerales());
+	}
+	public void recuperarListaDestinosMovil(int cItemCod)
+	{
+		listaItemsDestino=new ArrayList<CItemsDestino>();
+		listaDestinosMovil=new ArrayList<CDestinoMovil>();
+		//========Recuperamos los items destino
+		CItemsDAO itemDao=new CItemsDAO();
+		itemDao.asignarListaItemsDestino(itemDao.recuperarListaItemsDestinoBD(cItemCod));
+		setListaItemsDestino(itemDao.getListaItemsDestino());
+		//=======recuperamos los destinos===========
+		CDestinosMovilDAO destinoDao=new CDestinosMovilDAO();
+		destinoDao.asignarListaDestinosMovil(destinoDao.recuperarListaDestinosMovilBD());
+		setListaDestinosMovil(destinoDao.getListaDestinosMovil());
+		//==========================================
+		for(CItemsDestino id:listaItemsDestino)
+		{
+			for(CDestinoMovil d:listaDestinosMovil)
+			{
+				if(id.getnDestinoCod()==d.getnDestinoCod())
+				{
+					d.setSeleccionado(true);
+				}
+			}
+		}
 	}
 }

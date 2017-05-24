@@ -26,16 +26,21 @@ import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
 
 import com.android.dao.CDatosGeneralesDAO;
+import com.android.dao.CDestinosMovilDAO;
 import com.android.dao.CElementosDAO;
 import com.android.dao.CItemsDAO;
 import com.android.dao.CMenuDAO;
 import com.android.dao.CSubMenuDAO;
 import com.android.model.CDatosGenerales;
+import com.android.model.CDestinoMovil;
 import com.android.model.CElementos;
 import com.android.model.CItems;
+import com.android.model.CItemsDestino;
 import com.android.model.CMenu;
 import com.android.model.CSubMenu;
 import com.pricing.model.CPaquete;
+import com.pricing.model.CPaqueteServicio;
+import com.pricing.model.CServicio;
 import com.pricing.util.ScannUtil;
 
 public class menuVM {
@@ -45,6 +50,7 @@ public class menuVM {
 	private CElementos oElemento;
 	private CDatosGenerales oDatoGeneral;
 	private ArrayList<CMenu> listaMenu;
+	private ArrayList<CDestinoMovil> listaDestinosMovil;
 	private boolean visibleMenu;
 	private boolean visibleSubMenu;
 	private boolean visibleItem;
@@ -117,6 +123,12 @@ public class menuVM {
 	public void setVisibleDatoGeneral(boolean visibleDatoGeneral) {
 		this.visibleDatoGeneral = visibleDatoGeneral;
 	}
+	public ArrayList<CDestinoMovil> getListaDestinosMovil() {
+		return listaDestinosMovil;
+	}
+	public void setListaDestinosMovil(ArrayList<CDestinoMovil> listaDestinosMovil) {
+		this.listaDestinosMovil = listaDestinosMovil;
+	}
 	//====================
 	@Init
 	public void initVM()
@@ -144,6 +156,13 @@ public class menuVM {
 		System.out.println("Aqui toy: "+listaMenu.size());
 	}
 	@Command
+	public void selectDestinoMovil(@BindingParam("destino") CDestinoMovil destino) {
+		if (destino.isSeleccionado())
+			destino.setSeleccionado(false);
+		else
+			destino.setSeleccionado(true);
+	}
+	@Command
 	@NotifyChange({"oMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
 	public void mostrarNuevoMenu()
 	{
@@ -167,7 +186,8 @@ public class menuVM {
 		visibleDatoGeneral=false;
 	}
 	@Command
-	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral",
+		"listaDestinosMovil"})
 	public void mostrarNuevoItem(@BindingParam("submenu")CSubMenu submenu)
 	{
 		oItem=new CItems();
@@ -177,6 +197,9 @@ public class menuVM {
 		visibleItem=true;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		CDestinosMovilDAO destinosMovilDao=new CDestinosMovilDAO();
+		destinosMovilDao.asignarListaDestinosMovil(destinosMovilDao.recuperarListaDestinosMovilBD());
+		setListaDestinosMovil(destinosMovilDao.getListaDestinosMovil());
 	}
 	@Command
 	@NotifyChange({"oDatoGeneral","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
@@ -187,8 +210,8 @@ public class menuVM {
 		visibleMenu=false;
 		visibleSubMenu=false;
 		visibleItem=false;
-		visibleElemento=true;
-		visibleDatoGeneral=false;
+		visibleElemento=false;
+		visibleDatoGeneral=true;
 	}
 	@Command
 	@NotifyChange({"oElemento","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
@@ -243,9 +266,17 @@ public class menuVM {
 			return;
 		CItemsDAO itemsDao=new CItemsDAO();
 		CMenuDAO menuDao=new CMenuDAO();
-		boolean correcto=itemsDao.isOperationCorrect(itemsDao.registrarItem(oItem));
-		if(correcto)
+		int codItem=itemsDao.recuperarCodigoItem(itemsDao.registrarItem(oItem));
+		if(codItem!=0)
 		{
+			for(CDestinoMovil destino:listaDestinosMovil)
+			{
+				if(destino.isSeleccionado())
+				{
+					boolean b = itemsDao.isOperationCorrect(
+							itemsDao.insertarItemDestinoMovil(codItem,destino.getnDestinoCod()));
+				}
+			}
 			oItem=new CItems();
 			menuDao.asignarListaMenu(menuDao.recuperarListaMenuBD());
 			setListaMenu(menuDao.getListaMenu());
@@ -407,6 +438,7 @@ public class menuVM {
 		}
 	}
 	@Command
+	@NotifyChange({"listaMenu"})
 	public void actualizarItem(@BindingParam("item")CItems item,@BindingParam("componente")Component comp)
 	{
 		if(!validoParaActualizar_item(comp,item))
@@ -415,6 +447,24 @@ public class menuVM {
 		boolean correcto=itemsDao.isOperationCorrect(itemsDao.modificarItem(item));
 		if(correcto)
 		{
+			for (CDestinoMovil destino : listaDestinosMovil) {
+				boolean estaRegistrado = false;
+				for (CItemsDestino id : item.getListaItemsDestino()) {
+					if (id.getnDestinoCod() == destino.getnDestinoCod()) {
+						estaRegistrado = true;
+						if (!destino.isSeleccionado()) 
+							correcto = itemsDao
+									.isOperationCorrect(itemsDao.eliminarItemDestino(id.getcItemsCod()));
+						break;
+					}
+				}
+				if (destino.isSeleccionado() && !estaRegistrado)
+					correcto = itemsDao.isOperationCorrect(
+							itemsDao.insertarItemDestinoMovil(item.getcItemsCod(), destino.getnDestinoCod()));
+			}
+			CMenuDAO menuDao=new CMenuDAO();
+			menuDao.asignarListaMenu(menuDao.recuperarListaMenuBD());
+			setListaMenu(menuDao.getListaMenu());
 			Clients.showNotification("La modificacion del item fue correcto",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",3000);
 		}
 	}
@@ -803,7 +853,8 @@ public class menuVM {
 		BindUtils.postNotifyChange(null, null, submenu, "visibleItem");
 	}
 	@Command
-	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral",
+		"listaDestinosMovil"})
 	public void mostrarContentItems(@BindingParam("item")CItems item)
 	{
 		item.setVisibleContent(!item.isVisibleContent());
@@ -813,6 +864,7 @@ public class menuVM {
 		visibleItem=true;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		setListaDestinosMovil(item.getListaDestinosMovil());
 		BindUtils.postNotifyChange(null, null, item, "visibleContent");
 	}
 	@Command

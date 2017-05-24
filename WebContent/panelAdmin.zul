@@ -223,21 +223,9 @@
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemSubMenuAndroid" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosSubMenu')">
-											<span sclass="fa fa-indent estilos-iconos"/>
-											<label value="Sub-Menu de App" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemItemsAndroid" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosItems')">
-											<span sclass="fa fa-sitemap estilos-iconos"/>
-											<label value="Items de App" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemElementosAndroid" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosElementos')">
-											<span sclass="fa fa-sitemap estilos-iconos"/>
-											<label value="Elementos de App" sclass="lbls_mantenimientos"/>
+										<div id="itemDestinosAndroid" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('recuperarDestinosMovil')">
+											<span sclass="fa fa-globe estilos-iconos"/>
+											<label value="Destinos de App" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 								</div>
@@ -296,9 +284,7 @@
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfExtras)" zclass="btn_opciones_config" label="CONFIGURACIONES ADICIONALES"/>
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfAltoNivel)" zclass="btn_opciones_config" label="CONFIGURACIONES ALTO NIVEL"/>
 									<button width="100%" iconSclass="fa fa-bars estilos-iconos" visible="@bind(vmAdmin.visibleMenuAndroid)" zclass="btn_opciones_config" label="MENU DE ANDROID"/>
-									<button width="100%" iconSclass="fa fa-indent estilos-iconos" visible="@bind(vmAdmin.visibleSubMenuAndroid)" zclass="btn_opciones_config" label="SUB-MENU DE ANDROID"/>
-									<button width="100%" iconSclass="fa fa-sitemap estilos-iconos" visible="@bind(vmAdmin.visibleItemsAndroid)" zclass="btn_opciones_config" label="ITEMS DE ANDROID"/>
-									<button width="100%" iconSclass="fa fa-sitemap estilos-iconos" visible="@bind(vmAdmin.visibleElementosAndroid)" zclass="btn_opciones_config" label="ELEMENTOS DE ANDROID"/>
+									<button width="100%" iconSclass="fa fa-globe estilos-iconos" visible="@bind(vmAdmin.visibleDestinosAndroid)" zclass="btn_opciones_config" label="DESTINOS DE ANDROID"/>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
@@ -361,14 +347,8 @@
 									<div visible="@bind(vmAdmin.visibleMenuAndroid)">
 										<include src="menu.zul"/>
 									</div>
-									<div visible="@bind(vmAdmin.visibleSubMenuAndroid)">
-										<include src="submenu.zul"/>
-									</div>
-									<div visible="@bind(vmAdmin.visibleItemsAndroid)">
-										<include src="items.zul"/>
-									</div>
-									<div visible="@bind(vmAdmin.visibleElementosAndroid)">
-										<include src="elementos.zul"/>
+									<div visible="@bind(vmAdmin.visibleDestinosAndroid)">
+										<include src="destinoMovil.zul"/>
 									</div>
 								</div>
 							</div>

@@ -275,6 +275,28 @@
 							</div>
 						</div>
 				</div>
+				<div zclass="div_content_datos_menu" visible="@bind(vmMenu.visibleItem)">
+						<div zclass="div_contiene_title">
+							<label value="DESTINOS MOVIL" zclass="title_contiene_paquete"/>
+						</div>
+						<separator bar="true"/>
+						<listbox model="@load(vmMenu.listaDestinosMovil)" sclass="dest_serv_list">
+							<listhead>
+								<listheader/>
+							</listhead>
+							<template name="model">
+								<listitem>
+									<listcell>
+										<div zclass="div_list_content_destino_servicio" width="100%">
+											<checkbox label="@load(each.cDestino)" width="100%" sclass="select_dest_serv" 
+													  checked="@load(each.seleccionado)"
+													  onClick="@command('selectDestinoMovil',destino=each)"/>
+										</div>
+									</listcell>
+								</listitem>
+							</template>
+						</listbox>
+				</div>
 				<!-- ELEMENTOS -->
 				<div zclass="div_content_datos_menu" visible="@bind(vmMenu.visibleElemento)">
 					<div visible="@bind(!vmMenu.oElemento.update)">
@@ -307,42 +329,45 @@
 						</div>
 						<div zclass="div_space_entre_botones">
 							<button label="Subir Imagen1 del elemento" 
-									onClick="@command('uploadImagenes_elemento',elemento=vmElemento.oElemento,componente=self,opcion=1)"
+									onClick="@command('uploadImagenes_elemento',elemento=vmMenu.oElemento,componente=self,opcion=1)"
 									zclass="btn_guardar"/>
+							<window title="fileupload demo" border="normal">
+								<button label="subir" upload="true,multiple=true"/>
+							</window>
 						</div>
 						<div>
 							<label value="NOMBRE IMAGEN 1: " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre1Idioma1)" zclass="txt_llenar_datos" id="txt3SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre1Idioma2)" zclass="txt_llenar_datos" id="txt3InglesName" placeholder="INGLES" width="100%" visible="false"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre1Idioma3)" zclass="txt_llenar_datos" id="txt3PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre1Idioma1)" zclass="txt_llenar_datos" id="txt3SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre1Idioma2)" zclass="txt_llenar_datos" id="txt3InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre1Idioma3)" zclass="txt_llenar_datos" id="txt3PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
 						</div>
 						<div zclass="div_space_entre_botones">
 							<button label="Subir Imagen2 del elemento" 
-									onClick="@command('uploadImagenes_elemento',elemento=vmElemento.oElemento,componente=self,opcion=2)"
+									onClick="@command('uploadImagenes_elemento',elemento=vmMenu.oElemento,componente=self,opcion=2)"
 									zclass="btn_guardar"/>
 						</div>
 						<div>
 							<label value="NOMBRE IMAGEN 2: " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre2Idioma1)" zclass="txt_llenar_datos" id="txt31SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre2Idioma2)" zclass="txt_llenar_datos" id="txt31InglesName" placeholder="INGLES" width="100%" visible="false"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre2Idioma3)" zclass="txt_llenar_datos" id="txt31PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre2Idioma1)" zclass="txt_llenar_datos" id="txt31SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre2Idioma2)" zclass="txt_llenar_datos" id="txt31InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre2Idioma3)" zclass="txt_llenar_datos" id="txt31PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
 						</div>
 						<div zclass="div_space_entre_botones">
 							<button label="Subir Imagen3 del elemento" 
-									onClick="@command('uploadImagenes_elemento',elemento=vmElemento.oElemento,componente=self,opcion=3)"
+									onClick="@command('uploadImagenes_elemento',elemento=vmMenu.oElemento,componente=self,opcion=3)"
 									zclass="btn_guardar"/>
 						</div>
 						<div>
 							<label value="NOMBRE IMAGEN 3: " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre3Idioma1)" zclass="txt_llenar_datos" id="txt32SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre3Idioma2)" zclass="txt_llenar_datos" id="txt32InglesName" placeholder="INGLES" width="100%" visible="false"/>
-							<textbox value="@bind(vmElemento.oElemento.cNombre3Idioma3)" zclass="txt_llenar_datos" id="txt32PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre3Idioma1)" zclass="txt_llenar_datos" id="txt32SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre3Idioma2)" zclass="txt_llenar_datos" id="txt32InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oElemento.cNombre3Idioma3)" zclass="txt_llenar_datos" id="txt32PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
 						</div>
 						<div>
 							<label value="DESCRIPCION DE A QUE PUBLICO VA DIRIGIDO: " zclass="lbl_llenar_datos"/>
-							<textbox value="@bind(vmElemento.oElemento.cDirigidoIdioma1)" multiline="true" zclass="txt_llenar_datos" id="txt33SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
-							<textbox value="@bind(vmElemento.oElemento.cDirigidoIdioma2)" multiline="true" zclass="txt_llenar_datos" id="txt33InglesName" placeholder="INGLES" width="100%" visible="false"/>
-							<textbox value="@bind(vmElemento.oElemento.cDirigidoIdioma3)" multiline="true" zclass="txt_llenar_datos" id="txt33PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oElemento.cDirigidoIdioma1)" multiline="true" zclass="txt_llenar_datos" id="txt33SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
+							<textbox value="@bind(vmMenu.oElemento.cDirigidoIdioma2)" multiline="true" zclass="txt_llenar_datos" id="txt33InglesName" placeholder="INGLES" width="100%" visible="false"/>
+							<textbox value="@bind(vmMenu.oElemento.cDirigidoIdioma3)" multiline="true" zclass="txt_llenar_datos" id="txt33PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
 						</div>
 						<div zclass="div_content_datos" visible="@bind(!vmMenu.oElemento.update)">
 							<button label="Guardar" zclass="btn_guardar" onClick="@command('registrarElemento',componente=self)"/>

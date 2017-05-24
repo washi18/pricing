@@ -1,0 +1,8 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<window title="fileupload demo" border="normal">
+    <button label="Upload" upload="true,multiple=true">
+    </button>
+    <vbox id="pics"/>
+</window>
+</zk>

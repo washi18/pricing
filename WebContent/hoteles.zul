@@ -33,6 +33,11 @@
 								<button label="Editar Descripcion" onClick="@command('abrirEditorDescripcion',chotel=vmHotel.oHotel)" zclass="btn_guardar"/>
 							</div>
 							<div zclass="div_space_entre_botones">
+								<button label="Asignar imagenes existentes" 
+										onClick="@command('invocaImagenesExistentes')"
+										zclass="btn_guardar"/>
+							</div>
+							<div zclass="div_space_entre_botones">
 								<button label="Subir Imagenes del hotel" 
 										onClick="@command('uploadImagenes',cHotel=vmHotel.oHotel,tipoImagen=1,componente=self)"
 										zclass="btn_guardar"/>
@@ -72,6 +77,42 @@
 										</div>
 									</div>
 								</div>
+							</window>
+							<window mode="modal" sclass="win_imagenesHotel" visible="@load(vmHotel.mostrarImagenesExistentes)" position="center">
+								<div zclass="div_cerrar_descHotel">
+									<button label="X" onClick="@command('cerrarImagenesExistentes')" zclass="btn_cerrar_descHotel"/>
+								</div>
+								<grid model="@bind(vmHotel.lista4ImagenesExistentes)">
+									<columns>
+										<column label=""/>
+									</columns>
+									<template name="model">
+										<row sclass="row_grid">
+											<div zclass="div_content_columnas">
+												<div zclass="div_content_col2">
+													<div zclass="@load(each.galeria1.style_Select)"
+														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria1,hotel=vmHotel.oHotel,tipoImagen=1)">
+														<image src="@bind(each.galeria1.rutaImagen)" width="100%" height="150px"/>
+													</div>
+													<div zclass="@load(each.galeria2.style_Select)"
+														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria2,hotel=vmHotel.oHotel,tipoImagen=1)">
+														<image src="@bind(each.galeria2.rutaImagen)" width="100%" height="150px"/>
+													</div>
+												</div>
+												<div zclass="div_content_col2">
+													<div zclass="@load(each.galeria3.style_Select)"
+														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria3,hotel=vmHotel.oHotel,tipoImagen=1)">
+														<image src="@bind(each.galeria3.rutaImagen)" width="100%" height="150px"/>
+													</div>
+													<div zclass="@load(each.galeria4.style_Select)"
+														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria4,hotel=vmHotel.oHotel,tipoImagen=1)">
+														<image src="@bind(each.galeria4.rutaImagen)" width="100%" height="150px"/>
+													</div>
+												</div>
+											</div>
+										</row>
+									</template>
+								</grid>
 							</window>
 <!-- 						</div> -->
 					</div>

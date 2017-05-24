@@ -7,12 +7,14 @@ import java.util.Map;
 import com.android.model.CDatosGenerales;
 import com.android.model.CElementos;
 import com.android.model.CItems;
+import com.android.model.CItemsDestino;
 import com.pricing.dao.CConexion;
 
 public class CItemsDAO extends CConexion{
 	private ArrayList<CItems> listaItems;
 	private ArrayList<CElementos> listaElementos;
 	private ArrayList<CDatosGenerales> listaDatosGenerales;
+	private ArrayList<CItemsDestino> listaItemsDestino;
 	private String nameSubMenu;
 	//======================================
 	public ArrayList<CItems> getListaItems() {
@@ -47,12 +49,36 @@ public class CItemsDAO extends CConexion{
 		this.listaDatosGenerales = listaDatosGenerales;
 	}
 
+	public ArrayList<CItemsDestino> getListaItemsDestino() {
+		return listaItemsDestino;
+	}
+
+	public void setListaItemsDestino(ArrayList<CItemsDestino> listaItemsDestino) {
+		this.listaItemsDestino = listaItemsDestino;
+	}
+
 	//=========================================
 	public CItemsDAO() {
 		// TODO Auto-generated constructor stub
 		super();
 	}
 	//=========================================
+	public List insertarItemDestinoMovil(int codItem,int codDestino)
+	{
+		Object[] values={codItem,codDestino};
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_RegistrarItemDestinoMovil", values);
+	}
+	public int recuperarCodigoItem(List lista)
+	{
+		Map row=(Map)lista.get(0);
+		int cod=(int)row.get("coditem");
+		return cod;
+	}
+	public List recuperarListaItemsDestinoBD(int codItem)
+	{
+		Object[] values={codItem};
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarItemsDestino", values);
+	}
 	public List registrarItem(CItems items)
 	{
 		Object[] values={items.getcSubMenuCod(),items.getcTituloIdioma1(),
@@ -98,6 +124,11 @@ public class CItemsDAO extends CConexion{
 			setNameSubMenu((String)row.get("nombre"));
 		}
 	}
+	public List eliminarItemDestino(int codID)
+	{
+		Object[] values={codID};
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_EliminarItemsDestino", values);
+	}
 	public void asignarListaItems(List lista)
 	{
 		listaItems=new ArrayList<CItems>();
@@ -113,6 +144,19 @@ public class CItemsDAO extends CConexion{
 						(String)row.get("cdescripcionidioma2"),(String)row.get("cdescripcionidioma3"),
 						(String)row.get("cdescripcionidioma4"),(String)row.get("cdescripcionidioma5"),
 						(String)row.get("cimagen")));
+			}
+		}
+	}
+	public void asignarListaItemsDestino(List lista)
+	{
+		listaItemsDestino=new ArrayList<CItemsDestino>();
+		if(!lista.isEmpty())
+		{
+			for(int i=0;i<lista.size();i++)
+			{
+				Map row=(Map)lista.get(i);
+				listaItemsDestino.add(new CItemsDestino((int)row.get("coditemsdestino"), 
+						(int)row.get("citemscod"),(int)row.get("ndestinocod")));
 			}
 		}
 	}
