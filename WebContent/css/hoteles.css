@@ -131,6 +131,31 @@
 	-ms-align-items:center;
 	-o-align-items:center;
 }
+.div_contenido_descHotel{
+	width: 100%;
+	padding: 10px;
+	border-bottom: 2px solid rgba(0,0,0,0.8);
+	margin-bottom: 10px;
+	display: flex;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	align-items:center;
+	-webkit-align-items:center;
+	-moz-align-items:center;
+	-ms-align-items:center;
+	-o-align-items:center;
+}
+@media (max-width:700px){
+	.div_contenido_descHotel{
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+		-o-flex-direction:column;
+	}
+}
 .btn_cerrar_descHotel{
 	border: none;
 	border-radius:2px;
@@ -138,6 +163,7 @@
 	background: #053351;
 	color: white;
 	font-weight: bold;
+	float: right;
 }
 .btn_cerrar_descHotel:hover{
 	background: rgba(0,0,0,0.7);

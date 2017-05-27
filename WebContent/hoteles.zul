@@ -34,7 +34,7 @@
 							</div>
 							<div zclass="div_space_entre_botones">
 								<button label="Asignar imagenes existentes" 
-										onClick="@command('invocaImagenesExistentes')"
+										onClick="@command('invocaImagenesExistentes',hotel=vmHotel.oHotel,opcion=1)"
 										zclass="btn_guardar"/>
 							</div>
 							<div zclass="div_space_entre_botones">
@@ -80,7 +80,37 @@
 							</window>
 							<window mode="modal" sclass="win_imagenesHotel" visible="@load(vmHotel.mostrarImagenesExistentes)" position="center">
 								<div zclass="div_cerrar_descHotel">
+									<label value="Escogio una imagen" 
+											visible="@bind(vmHotel.mostrarTextImgSeleccionado)"
+											style="color:#3BB710;font-size:15px;"/>
+									<label value="✔" zclass="lbl_ok" visible="@bind(vmHotel.mostrarTextImgSeleccionado)"/>
+									<label value="No escogio ninguna imagen" 
+											visible="@bind(!vmHotel.mostrarTextImgSeleccionado)"
+											style="color:red;font-size:15px;"/>
+									<label value="X" zclass="lbl_X" visible="@bind(!vmHotel.mostrarTextImgSeleccionado)"/>
+									<space></space>
 									<button label="X" onClick="@command('cerrarImagenesExistentes')" zclass="btn_cerrar_descHotel"/>
+								</div>
+								<div sclass="div_contenido_descHotel">
+											<div width="100%">
+												<label value="Imagen:" sclass="lbl_llenar_datos"/>
+												<textbox id="txtNameImage1" width="180px" placeholder="nombre imagen" sclass="txt_llenar_datos" onOK="@command('buscarImagen',texto=self.value)"/>
+	<!-- 											<div class="centrar_boton_busqueda"> -->
+													<button iconSclass="fa fa-search" height="20px" width="30px" zclass="estilo_btn_buscar" onClick="@command('buscarImagen',texto=txtNameImage1.value)"/>
+	<!-- 											</div> -->
+											</div>
+											<space/>
+											<div width="100%">
+												<label value="Mostrar:" sclass="lbl_llenar_datos"></label>
+												<combobox value="TODOS" onSelect="@command('selectTipoImagenExistente',tipo=self.selectedItem.value)">
+													<comboitem label="TODOS" value="todos"/>
+													<comboitem label="HOTELES" value="hoteles"/>
+													<comboitem label="TOURS" value="tours"/>
+													<comboitem label="SERVICIOS" value="servicios"/>
+													<comboitem label="DESTINOS" value="destinos"/>
+													<comboitem label="ANDROID" value="android"/>
+												</combobox>
+											</div>
 								</div>
 								<grid model="@bind(vmHotel.lista4ImagenesExistentes)">
 									<columns>
@@ -91,20 +121,24 @@
 											<div zclass="div_content_columnas">
 												<div zclass="div_content_col2">
 													<div zclass="@load(each.galeria1.style_Select)"
+														visible="@load(each.galeria1.visible)"
 														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria1,hotel=vmHotel.oHotel,tipoImagen=1)">
 														<image src="@bind(each.galeria1.rutaImagen)" width="100%" height="150px"/>
 													</div>
 													<div zclass="@load(each.galeria2.style_Select)"
+														visible="@load(each.galeria2.visible)"
 														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria2,hotel=vmHotel.oHotel,tipoImagen=1)">
 														<image src="@bind(each.galeria2.rutaImagen)" width="100%" height="150px"/>
 													</div>
 												</div>
 												<div zclass="div_content_col2">
 													<div zclass="@load(each.galeria3.style_Select)"
+														visible="@load(each.galeria3.visible)"
 														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria3,hotel=vmHotel.oHotel,tipoImagen=1)">
 														<image src="@bind(each.galeria3.rutaImagen)" width="100%" height="150px"/>
 													</div>
 													<div zclass="@load(each.galeria4.style_Select)"
+														visible="@load(each.galeria4.visible)"
 														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria4,hotel=vmHotel.oHotel,tipoImagen=1)">
 														<image src="@bind(each.galeria4.rutaImagen)" width="100%" height="150px"/>
 													</div>
@@ -252,17 +286,17 @@
 				    </listcell>
 				</listitem>
 			</template>
-			<template name="modeleditable">
+			<template name="modeleditable" var="hotel">
 				<listitem>
 				    <listcell>
 				    	<div width="100%" zclass="div_list_cell">
 				    		<div zclass="div_numeracion" width="50px">
-								<label value="@bind(each.nHotelCod)"/>
+								<label value="@bind(hotel.nHotelCod)"/>
 							</div>
 				    		<div zclass="div_content_datos_lista">
 				    			<div>
 									<label value="DESTINO: " zclass="lbl_llenar_datos"/>
-									<combobox  value="@bind(each.nombreDestino)" model="@load(each.listaDestinos)" readonly="true" onSelect="@command('selectDestino_update',codDestino=self.selectedItem.value,hotel=each)" sclass="cbox_llenar_datos">
+									<combobox  value="@bind(hotel.nombreDestino)" model="@load(hotel.listaDestinos)" readonly="true" onSelect="@command('selectDestino_update',codDestino=self.selectedItem.value,hotel=hotel)" sclass="cbox_llenar_datos">
 										<template name="model" var="dest">
 											<comboitem label="@load(dest.cDestino)" value="@load(dest.nDestinoCod)"/>
 										</template>
@@ -272,75 +306,150 @@
 				    				<div width="100%" sclass="horizontal_label_texbox">
 				    					<label value="Hotel:" sclass="estilo_nombre_servicio"/>
 				    					<textbox width="100%" height="30px" sclass="txt_llenar_datos" style="text-transform: uppercase;"
-				    							value="@bind(each.cHotel) @save(each.cHotel,before='actualizarHotel')" />
+				    							value="@bind(hotel.cHotel) @save(hotel.cHotel,before='actualizarHotel')" />
 				    				</div>
 				    				<div>
-										<button label="Cambiar Descripcion" onClick="@command('abrirEditorDescripcion',chotel=each)" zclass="btn_guardar"/>
+										<button label="Cambiar Descripcion" onClick="@command('abrirEditorDescripcion',chotel=hotel)" zclass="btn_guardar"/>
+									</div>
+									<div zclass="div_space_entre_botones">
+										<button label="Asignar imagenes existentes" 
+												onClick="@command('invocaImagenesExistentes',hotel=hotel,opcion=2)"
+												zclass="btn_guardar"/>
 									</div>
 									<div zclass="div_space_entre_botones">
 										<button label="Subir Imagenes del hotel" 
-												onClick="@command('uploadImagenes',cHotel=each,tipoImagen=1,componente=self)"
+												onClick="@command('uploadImagenes',cHotel=hotel,tipoImagen=1,componente=self)"
 												zclass="btn_guardar"/>
 									</div>
 									<div zclass="div_space_entre_botones">
 										<button label="Subir Imagenes de la ubicacion" 
-												onClick="@command('uploadImagenes',cHotel=each,tipoImagen=2,componente=self)"
+												onClick="@command('uploadImagenes',cHotel=hotel,tipoImagen=2,componente=self)"
 												zclass="btn_guardar"/>
 									</div>
 									<div zclass="div_space_entre_botones">
 										<button label="Ver imagenes subidas" 
-												onClick="@command('invocaImagenesSubidas') @global-command('muestraImagenesSubidas',cHotel=each)"
+												onClick="@command('invocaImagenesSubidas') @global-command('muestraImagenesSubidas',cHotel=hotel)"
 												zclass="btn_guardar"/>
 									</div>
-									<window mode="modal" sclass="win_descHotel" visible="@load(each.abrirEditor)" position="center">
+									<window mode="modal" sclass="win_descHotel" visible="@load(hotel.abrirEditor)" position="center">
 										<div zclass="div_cerrar_descHotel">
-											<button label="X" onClick="@command('cerrarEditorDescripcion',chotel=each)" zclass="btn_cerrar_descHotel"/>
+											<button label="X" onClick="@command('cerrarEditorDescripcion',chotel=hotel)" zclass="btn_cerrar_descHotel"/>
 										</div>
 										<div zclass="div_content_datos">
 											<div>
 												<div sclass="div_contiene_banderas">
 							    					<image sclass="estilo_banderas" src="img/Flag-of-Spain.png"
-							    						onClick="@command('cambioIdiomas',idioma='Espanol',hotel=each)">
+							    						onClick="@command('cambioIdiomas',idioma='Espanol',hotel=hotel)">
 							    					</image>
 							    					<image sclass="estilo_banderas" src="img/en.png"
-							    						onClick="@command('cambioIdiomas',idioma='Ingles',hotel=each)">
+							    						onClick="@command('cambioIdiomas',idioma='Ingles',hotel=hotel)">
 							    					</image>
 							    					<image sclass="estilo_banderas" src="img/Flag_of_Brazil.png"
-							    						onClick="@command('cambioIdiomas',idioma='Portugues',hotel=each)">
+							    						onClick="@command('cambioIdiomas',idioma='Portugues',hotel=hotel)">
 							    					</image>
 							    				</div>
 												<div>
 													<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
-													<div visible="@bind(each.visibleEspanol)">
+													<div visible="@bind(hotel.visibleEspanol)">
 								    					<div width="100%" sclass="centrado_datos" height="100%">
 								    						<separator spacing="2px"></separator>
 								    						<div width="100%" sclass="horizontal_label_texbox">
 								    							<ckeditor width="100%"
-								    								value="@bind(each.cDescripcionIdioma1) @save(each.cDescripcionIdioma1,before='actualizarHotel')" />
+								    								value="@bind(hotel.cDescripcionIdioma1) @save(hotel.cDescripcionIdioma1,before='actualizarHotel')" />
 								    						</div>
 								    					</div>
 								    				</div>
-								    				<div visible="@bind(each.visibleIngles)">
+								    				<div visible="@bind(hotel.visibleIngles)">
 								    					<div width="100%" sclass="centrado_datos" height="100%">
 								    						<separator spacing="2px"></separator>
 								    						<div width="100%" sclass="horizontal_label_texbox">
 								    							<ckeditor width="100%"
-								    								value="@bind(each.cDescripcionIdioma2) @save(each.cDescripcionIdioma2,before='actualizarHotel')" />
+								    								value="@bind(hotel.cDescripcionIdioma2) @save(hotel.cDescripcionIdioma2,before='actualizarHotel')" />
 								    						</div>
 								    					</div>
 								    				</div>
-								    				<div visible="@bind(each.visiblePortugues)">
+								    				<div visible="@bind(hotel.visiblePortugues)">
 								    					<div width="100%" sclass="centrado_datos" height="100%">
 								    						<separator spacing="2px"></separator>
 								    						<div width="100%" sclass="horizontal_label_texbox">
 								    							<ckeditor width="100%"
-								    								value="@bind(each.cDescripcionIdioma3) @save(each.cDescripcionIdioma3,before='actualizarHotel')" />
+								    								value="@bind(hotel.cDescripcionIdioma3) @save(hotel.cDescripcionIdioma3,before='actualizarHotel')" />
 								    						</div>
 								    					</div>
 								    				</div>
 								    			</div>
 											</div>
 										</div>
+									</window>
+									<window mode="modal" sclass="win_imagenesHotel" visible="@load(vmHotel.mostrarImagenesExistentesUpdate)" position="center">
+										<div zclass="div_cerrar_descHotel">
+											<label value="Escogio una imagen" 
+													visible="@bind(vmHotel.mostrarTextImgSeleccionado)"
+													style="color:#3BB710;font-size:15px;"/>
+											<label value="✔" zclass="lbl_ok" visible="@bind(vmHotel.mostrarTextImgSeleccionado)"/>
+											<label value="No escogio ninguna imagen" 
+													visible="@bind(!vmHotel.mostrarTextImgSeleccionado)"
+													style="color:red;font-size:15px;"/>
+											<label value="X" zclass="lbl_X" visible="@bind(!vmHotel.mostrarTextImgSeleccionado)"/>
+											<space/>
+											<button label="X" onClick="@command('cerrarImagenesExistentes')" zclass="btn_cerrar_descHotel"/>
+										</div>
+										<div sclass="div_contenido_descHotel">
+													<div width="100%">
+														<label value="Imagen:" sclass="lbl_llenar_datos"/>
+														<textbox id="txtNameImage2" width="180px" placeholder="nombre imagen" sclass="txt_llenar_datos" onOK="@command('buscarImagen',texto=self.value)"/>
+			<!-- 											<div class="centrar_boton_busqueda"> -->
+															<button iconSclass="fa fa-search" height="20px" width="30px" zclass="estilo_btn_buscar" onClick="@command('buscarImagen',texto=txtNameImage2.value)"/>
+			<!-- 											</div> -->
+													</div>
+													<space/>
+													<div width="100%">
+														<label value="Mostrar:" sclass="lbl_llenar_datos"></label>
+														<combobox value="TODOS" onSelect="@command('selectTipoImagenExistente',tipo=self.selectedItem.value)">
+															<comboitem label="TODOS" value="todos"/>
+															<comboitem label="HOTELES" value="hoteles"/>
+															<comboitem label="TOURS" value="tours"/>
+															<comboitem label="SERVICIOS" value="servicios"/>
+															<comboitem label="DESTINOS" value="destinos"/>
+															<comboitem label="ANDROID" value="android"/>
+														</combobox>
+													</div>
+										</div>
+										<grid model="@bind(vmHotel.lista4ImagenesExistentes)">
+											<columns>
+												<column label=""/>
+											</columns>
+											<template name="model">
+												<row sclass="row_grid">
+													<div zclass="div_content_columnas">
+														<div zclass="div_content_col2">
+															<div zclass="@load(each.galeria1.style_Select)"
+																visible="@load(each.galeria1.visible)"
+																onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria1,hotel=hotel,tipoImagen=1)">
+																<image src="@bind(each.galeria1.rutaImagen)" width="100%" height="150px"/>
+															</div>
+															<div zclass="@load(each.galeria2.style_Select)"
+																visible="@load(each.galeria2.visible)"
+																onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria2,hotel=hotel,tipoImagen=1)">
+																<image src="@bind(each.galeria2.rutaImagen)" width="100%" height="150px"/>
+															</div>
+														</div>
+														<div zclass="div_content_col2">
+															<div zclass="@load(each.galeria3.style_Select)"
+																visible="@load(each.galeria3.visible)"
+																onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria3,hotel=hotel,tipoImagen=1)">
+																<image src="@bind(each.galeria3.rutaImagen)" width="100%" height="150px"/>
+															</div>
+															<div zclass="@load(each.galeria4.style_Select)"
+																visible="@load(each.galeria4.visible)"
+																onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria4,hotel=hotel,tipoImagen=1)">
+																<image src="@bind(each.galeria4.rutaImagen)" width="100%" height="150px"/>
+															</div>
+														</div>
+													</div>
+												</row>
+											</template>
+										</grid>
 									</window>
 				    			</div>
 					    	</div>
@@ -350,14 +459,14 @@
 										<label value="ELEGIR LA CATEGORIA DEL HOTEL:" zclass="lbl_llenar_datos"/>
 										<separator bar="true" zclass="lbl_llenar_datos"/>
 										<div>
-											<radiogroup sclass="style_restricciones" onCheck="@command('cambiarCategoriaHotel',categoria=self.selectedItem.value,hotel=each)">
-												<radio label="ECONOMICO (★ ★)" value="economico" checked="@bind(each.select_eco)"/>
-												<radio label="TURISTICO (★ ★ ★)" value="turistico" checked="@bind(each.select_tur)"/>
-												<radio label="TURISTICO SUPERIOR (★ ★ ★)" value="turistico_superior" checked="@bind(each.select_turSup)"/>
-												<radio label="PRIMERA (★ ★ ★ ★)" value="primera" checked="@bind(each.select_pri)"/>
-												<radio label="PRIMERA SUPERIOR (★ ★ ★ ★)" value="primera_superior" checked="@bind(each.select_priSup)"/>
-												<radio label="LUJO (★ ★ ★ ★ ★)" value="lujo" checked="@bind(each.select_lujo)"/>
-												<radio label="LUJO SUPERIOR (★ ★ ★ ★ ★)" value="lujo_superior" checked="@bind(each.select_lujoSup)"/>
+											<radiogroup sclass="style_restricciones" onCheck="@command('cambiarCategoriaHotel',categoria=self.selectedItem.value,hotel=hotel)">
+												<radio label="ECONOMICO (★ ★)" value="economico" checked="@bind(hotel.select_eco)"/>
+												<radio label="TURISTICO (★ ★ ★)" value="turistico" checked="@bind(hotel.select_tur)"/>
+												<radio label="TURISTICO SUPERIOR (★ ★ ★)" value="turistico_superior" checked="@bind(hotel.select_turSup)"/>
+												<radio label="PRIMERA (★ ★ ★ ★)" value="primera" checked="@bind(hotel.select_pri)"/>
+												<radio label="PRIMERA SUPERIOR (★ ★ ★ ★)" value="primera_superior" checked="@bind(hotel.select_priSup)"/>
+												<radio label="LUJO (★ ★ ★ ★ ★)" value="lujo" checked="@bind(hotel.select_lujo)"/>
+												<radio label="LUJO SUPERIOR (★ ★ ★ ★ ★)" value="lujo_superior" checked="@bind(hotel.select_lujoSup)"/>
 											</radiogroup>
 										</div>
 									</div>
@@ -370,35 +479,35 @@
 <!-- 								</div> -->
 								<div>
 									<label value="COSTO SIMPLE($): " zclass="lbl_llenar_datos"/>
-									<textbox width="80px" value="@bind(each.nPrecioSimple_text)" 
-											 onChange="@command('changePrecios_update',precio=self.value,hab='simple',componente=self,hotel=each)"
+									<textbox width="80px" value="@bind(hotel.nPrecioSimple_text)" 
+											 onChange="@command('changePrecios_update',precio=self.value,hab='simple',componente=self,hotel=hotel)"
 											 placeholder="PRECIO" zclass="txt_llenar_datos"/>
 								</div>
 								<div>
 									<label value="COSTO DOBLE($): " zclass="lbl_llenar_datos"/>
-									<textbox width="80px" value="@bind(each.nPrecioDoble_text)" 
-											 onChange="@command('changePrecios_update',precio=self.value,hab='doble',componente=self,hotel=each)"
+									<textbox width="80px" value="@bind(hotel.nPrecioDoble_text)" 
+											 onChange="@command('changePrecios_update',precio=self.value,hab='doble',componente=self,hotel=hotel)"
 											 placeholder="PRECIO" zclass="txt_llenar_datos"/>
 								</div>
 								<div>
 									<label value="COSTO TRIPLE($): " zclass="lbl_llenar_datos"/>
-									<textbox width="80px" value="@bind(each.nPrecioTriple_text)" 
-											 onChange="@command('changePrecios_update',precio=self.value,hab='triple',componente=self,hotel=each)"
+									<textbox width="80px" value="@bind(hotel.nPrecioTriple_text)" 
+											 onChange="@command('changePrecios_update',precio=self.value,hab='triple',componente=self,hotel=hotel)"
 											 placeholder="PRECIO" zclass="txt_llenar_datos"/>
 								</div>
 								<div>
 									<label value="COSTO CAMA ADICIONAL($): " zclass="lbl_llenar_datos"/>
-									<textbox width="80px" value="@bind(each.nPrecioCamaAdicional_text)" 
-											 onChange="@command('changePrecios_update',precio=self.value,hab='camaAd',componente=self,hotel=each)"
+									<textbox width="80px" value="@bind(hotel.nPrecioCamaAdicional_text)" 
+											 onChange="@command('changePrecios_update',precio=self.value,hab='camaAd',componente=self,hotel=hotel)"
 											 placeholder="PRECIO" zclass="txt_llenar_datos"/>
 								</div>
 								<div>
 									<label value="ESTADO:" zclass="lbl_llenar_datos"/>
 									<separator bar="true" zclass="lbl_llenar_datos"/>
 									<div>
-										<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar',hotel=each,texto=self.selectedItem.value)">
-											<radio label="ACTIVADO" value="activar" checked="@bind(each.estado_activo)" style="@bind(each.color_btn_activo)"/>
-											<radio label="DESACTIVADO" value="desactivar" checked="@bind(each.estado_desactivo)" style="@bind(each.color_btn_desactivo)"/>
+										<radiogroup sclass="style_restricciones" onCheck="@command('Activar_Desactivar',hotel=hotel,texto=self.selectedItem.value)">
+											<radio label="ACTIVADO" value="activar" checked="@bind(hotel.estado_activo)" style="@bind(hotel.color_btn_activo)"/>
+											<radio label="DESACTIVADO" value="desactivar" checked="@bind(hotel.estado_desactivo)" style="@bind(hotel.color_btn_desactivo)"/>
 										</radiogroup>
 									</div>
 								</div>
@@ -406,7 +515,7 @@
 				    		<separator spacing="2px"/>
 				    		<div sclass="div_content_actualizar">
 				    			<button label="Actualizar"
-				    				onClick="@command('actualizarHotel',hotel=each,componente=self) @global-command('actualizarEstadoDestinos')"
+				    				onClick="@command('actualizarHotel',hotel=hotel,componente=self) @global-command('actualizarEstadoDestinos')"
 				    				zclass="btn_actualizar"/>
 				    		</div>
 				    	</div>

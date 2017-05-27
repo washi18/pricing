@@ -699,3 +699,11 @@
 	}
 }
 /***************/
+.lbl_ok {
+	color: #3BB710;
+	font-size: 40px;
+}
+.lbl_X {
+	color: red;
+	font-size: 40px;
+}

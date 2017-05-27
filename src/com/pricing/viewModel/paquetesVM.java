@@ -1,5 +1,6 @@
 package com.pricing.viewModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.text.DecimalFormat;
@@ -44,9 +45,12 @@ import com.pricing.dao.CGaleriaPaqueteDAO;
 import com.pricing.dao.CPaqueteDAO;
 import com.pricing.dao.CServicioDAO;
 import com.pricing.dao.ConfAltoNivelDAO;
+import com.pricing.extras.KMP;
 import com.pricing.model.CActividad;
 import com.pricing.model.CDestino;
 import com.pricing.model.CGaleriaHotel;
+import com.pricing.model.CGaleriaImageExist;
+import com.pricing.model.CGaleriaImageExist4;
 import com.pricing.model.CGaleriaPaquete;
 import com.pricing.model.CHotel;
 import com.pricing.model.CPaquete;
@@ -55,6 +59,7 @@ import com.pricing.model.CPaqueteDestino;
 import com.pricing.model.CPaqueteServicio;
 import com.pricing.model.CServicio;
 import com.pricing.model.ConfAltoNivel;
+import com.pricing.model.Nro;
 import com.pricing.util.ScannUtil;
 
 public class paquetesVM {
@@ -74,10 +79,15 @@ public class paquetesVM {
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CServicio> listaServicios;
 	private ArrayList<CActividad> listaActividades;
+	private ArrayList<CGaleriaImageExist> listaImagenesExistentes;
+	private ArrayList<CGaleriaImageExist4> lista4ImagenesExistentes;
 	private boolean visible_caminoinka_manejopropio;
 	private boolean visibilidadYourself;
 	private ConfAltoNivel confAltoNivel;
 	private ConfAltoNivelDAO confAltoNivelDAO;
+	private boolean mostrarImagenesExistentes;
+	private boolean mostrarImagenesExistentesUpdate;
+	private boolean mostrarTextImgSeleccionado;
 
 	/**
 	 * GETTER AND SETTER
@@ -156,6 +166,46 @@ public class paquetesVM {
 		this.confAltoNivel = confAltoNivel;
 	}
 
+	public ArrayList<CGaleriaImageExist> getListaImagenesExistentes() {
+		return listaImagenesExistentes;
+	}
+
+	public void setListaImagenesExistentes(ArrayList<CGaleriaImageExist> listaImagenesExistentes) {
+		this.listaImagenesExistentes = listaImagenesExistentes;
+	}
+
+	public ArrayList<CGaleriaImageExist4> getLista4ImagenesExistentes() {
+		return lista4ImagenesExistentes;
+	}
+
+	public void setLista4ImagenesExistentes(ArrayList<CGaleriaImageExist4> lista4ImagenesExistentes) {
+		this.lista4ImagenesExistentes = lista4ImagenesExistentes;
+	}
+
+	public boolean isMostrarImagenesExistentes() {
+		return mostrarImagenesExistentes;
+	}
+
+	public void setMostrarImagenesExistentes(boolean mostrarImagenesExistentes) {
+		this.mostrarImagenesExistentes = mostrarImagenesExistentes;
+	}
+
+	public boolean isMostrarImagenesExistentesUpdate() {
+		return mostrarImagenesExistentesUpdate;
+	}
+
+	public void setMostrarImagenesExistentesUpdate(boolean mostrarImagenesExistentesUpdate) {
+		this.mostrarImagenesExistentesUpdate = mostrarImagenesExistentesUpdate;
+	}
+
+	public boolean isMostrarTextImgSeleccionado() {
+		return mostrarTextImgSeleccionado;
+	}
+
+	public void setMostrarTextImgSeleccionado(boolean mostrarTextImgSeleccionado) {
+		this.mostrarTextImgSeleccionado = mostrarTextImgSeleccionado;
+	}
+
 	/**
 	 * METODOS Y FUNCIONES DE LA CLASE
 	 */
@@ -177,6 +227,9 @@ public class paquetesVM {
 		listaActividades = new ArrayList<CActividad>();
 		confAltoNivel=new ConfAltoNivel();
 		confAltoNivelDAO=new ConfAltoNivelDAO();
+		mostrarImagenesExistentes=false;
+		mostrarImagenesExistentesUpdate=false;
+		mostrarTextImgSeleccionado=false;
 		/*****************************/
 		Encryptar encrip = new Encryptar();
 		// System.out.println("Aqui esta la contraseña
@@ -193,6 +246,234 @@ public class paquetesVM {
 			recuperarPaquetes();
 			recuperarEstadoYourself();
 		}
+	}
+	public void recuperarTodasImagenesExistentes()
+	{
+		ubicarTodosImagenes();
+		//====Rellenando las imagenes para mostraren la interfaz==
+		rellenarImagenesExistentes();
+	}
+	public void rellenarImagenesExistentes()
+	{
+		for(int i=0;i<listaImagenesExistentes.size();i+=4)
+		{
+			CGaleriaImageExist4 images=new CGaleriaImageExist4();
+			images.setGaleria1(listaImagenesExistentes.get(i));
+			if((i+1)<listaImagenesExistentes.size())
+				images.setGaleria2(listaImagenesExistentes.get(i+1));
+			if((i+2)<listaImagenesExistentes.size())
+				images.setGaleria3(listaImagenesExistentes.get(i+2));
+			if((i+3)<listaImagenesExistentes.size())
+				images.setGaleria4(listaImagenesExistentes.get(i+3));
+			lista4ImagenesExistentes.add(images);
+		}
+		BindUtils.postNotifyChange(null, null, this, "lista4ImagenesExistentes");
+	}
+	@Command
+	public void buscarImagen(@BindingParam("texto")String texto)
+	{
+		ubicarTodosImagenes();
+		ArrayList<CGaleriaImageExist> listaAuxImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		for(CGaleriaImageExist galeria:listaImagenesExistentes)
+		{
+			if(KMP.KMPSearch(texto, galeria.getRutaImagen()))
+				listaAuxImagenesExistentes.add(galeria);
+		}
+		setListaImagenesExistentes(listaAuxImagenesExistentes);
+		rellenarImagenesExistentes();
+	}
+	public void ubicarTodosImagenes()
+	{
+		listaImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		lista4ImagenesExistentes=new ArrayList<CGaleriaImageExist4>();
+		//====HOTELES====
+		File directorio=new File(ScannUtil.getPathImagenHoteles());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/hoteles/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====TOURS======
+		directorio=new File(ScannUtil.getPathImagenPaquetes());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/tours/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====SERVICIOS===
+		directorio=new File(ScannUtil.getPathImagensSubServicios());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/servicios/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====DESTINOS====
+		directorio=new File(ScannUtil.getPathImagenDestinos());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/destinos/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====ANDROID====
+		directorio=new File(ScannUtil.getPathImagenAndroid());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/android/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarHotelesImagenes(){
+		File directorio=new File(ScannUtil.getPathImagenHoteles());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/hoteles/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarToursImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenPaquetes());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/tours/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarServiciosImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagensSubServicios());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/servicios/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarDestinosImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenDestinos());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/destinos/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarAndroidImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenAndroid());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/android/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	@Command
+	@NotifyChange({"mostrarTextImgSeleccionado"})
+	public void selectImagenExist(@BindingParam("galeria4")CGaleriaImageExist4 galeria4,
+			@BindingParam("galeria")CGaleriaImageExist galeria,@BindingParam("paquete")CPaquete paquete)
+	{
+		if(galeria4.getGaleria1().equals(galeria))
+		{
+			if(galeria4.getGaleria1().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria1().setSeleccionado(false);
+				galeria4.getGaleria1().setStyle_Select("div_content_imageHotel");
+				quitarImagen(galeria4.getGaleria1().getRutaImagen(),paquete);
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria1().setSeleccionado(true);
+				galeria4.getGaleria1().setStyle_Select("div_content_imageHotel_selected");
+				asignarRutaImagenPaquete(galeria4.getGaleria1().getRutaImagen(), paquete,true);
+			}
+		}else if(galeria4.getGaleria2().equals(galeria))
+		{
+			if(galeria4.getGaleria2().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria2().setSeleccionado(false);
+				galeria4.getGaleria2().setStyle_Select("div_content_imageHotel");
+				quitarImagen(galeria4.getGaleria2().getRutaImagen(),paquete);
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria2().setSeleccionado(true);
+				galeria4.getGaleria2().setStyle_Select("div_content_imageHotel_selected");
+				asignarRutaImagenPaquete(galeria4.getGaleria2().getRutaImagen(), paquete,true);
+			}
+		}else if(galeria4.getGaleria3().equals(galeria))
+		{
+			if(galeria4.getGaleria3().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria3().setSeleccionado(false);
+				galeria4.getGaleria3().setStyle_Select("div_content_imageHotel");
+				quitarImagen(galeria4.getGaleria3().getRutaImagen(),paquete);
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria3().setSeleccionado(true);
+				galeria4.getGaleria3().setStyle_Select("div_content_imageHotel_selected");
+				asignarRutaImagenPaquete(galeria4.getGaleria3().getRutaImagen(), paquete,true);
+			}
+		}else if(galeria4.getGaleria4().equals(galeria))
+		{
+			if(galeria4.getGaleria4().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria4().setSeleccionado(false);
+				galeria4.getGaleria4().setStyle_Select("div_content_imageHotel");
+				quitarImagen(galeria4.getGaleria4().getRutaImagen(),paquete);
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria4().setSeleccionado(true);
+				galeria4.getGaleria4().setStyle_Select("div_content_imageHotel_selected");
+				asignarRutaImagenPaquete(galeria4.getGaleria4().getRutaImagen(), paquete,true);
+			}
+		}
+		if(Nro.nroImagenes>0)mostrarTextImgSeleccionado=true;
+		else if(Nro.nroImagenes==0)mostrarTextImgSeleccionado=false;
+		refrescarSelect(galeria4);
+	}
+	@Command
+	public void selectTipoImagenExistente(@BindingParam("tipo")String tipo)
+	{
+		listaImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		lista4ImagenesExistentes=new ArrayList<CGaleriaImageExist4>();
+		if(tipo.equals("todos"))ubicarTodosImagenes();
+		else if(tipo.equals("hoteles"))ubicarHotelesImagenes();
+		else if(tipo.equals("tours"))ubicarToursImagenes();
+		else if(tipo.equals("servicios"))ubicarServiciosImagenes();
+		else if(tipo.equals("destinos"))ubicarDestinosImagenes();
+		else if(tipo.equals("android"))ubicarAndroidImagenes();
+		rellenarImagenesExistentes();
 	}
 	@GlobalCommand
 	public void recuperarEstadoYourself(){
@@ -1054,7 +1335,13 @@ public class paquetesVM {
 		}
 		return valido;
 	}
-	
+	@Command
+	@NotifyChange({"mostrarImagenesExistentes","mostrarImagenesExistentesUpdate"})
+	public void cerrarImagenesExistentes()
+	{
+		mostrarImagenesExistentes=false;
+		mostrarImagenesExistentesUpdate=false;
+	}
 	@Command
 	public void cerrarEditorItinerario(@BindingParam("cPaquete")CPaquete paquete)
 	{
@@ -1855,7 +2142,22 @@ public class paquetesVM {
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view) throws WrongValueException, IOException {
 		Selectors.wireComponents(view, this, false);
 	}
-
+	@Command
+	@NotifyChange({"mostrarImagenesExistentes","mostrarImagenesExistentesUpdate","mostrarTextImgSeleccionado"})
+	public void invocaImagenesExistentes(@BindingParam("hotel")CHotel hotel,@BindingParam("opcion")int opcion)
+	{
+		Nro.inicializarNroImagenes();
+		if(opcion==1)
+		{
+			mostrarImagenesExistentes=true;
+			mostrarImagenesExistentesUpdate=false;
+		}else{
+			mostrarImagenesExistentes=false;
+			mostrarImagenesExistentesUpdate=true;
+		}
+		mostrarTextImgSeleccionado=false;
+		recuperarTodasImagenesExistentes();
+	}
 	@Command
 	public void invocaImagenesSubidas() {
 		Window win_imagenes = (Window) Executions.createComponents("/imagenesPaquetes.zul", null, null);
@@ -1879,7 +2181,7 @@ public class paquetesVM {
 						// Una vez creado el nuevo nombre de archivo de imagen
 						// se procede a cambiar el nombre
 						String urlImagen = ScannUtil.getPathImagenPaquetes() + img.getName();
-						asignarRutaImagenPaquete(img.getName(), paquete);
+						asignarRutaImagenPaquete(img.getName(), paquete,false);
 						Clients.showNotification(img.getName() + " Se subio al servidor.",
 								Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 					} else {
@@ -1933,13 +2235,17 @@ public class paquetesVM {
 		BindUtils.postNotifyChange(null, null, paquete, "cTituloIdioma1");
 		BindUtils.postNotifyChange(null, null, paquete, "manejoSelectYourself");
 	}
-	public void asignarRutaImagenPaquete(String nombreImagen, CPaquete paquete)// ===paquete																																						// hotel=====
+	public void asignarRutaImagenPaquete(String nombreImagen, CPaquete paquete,boolean imgExist)// ===paquete																																						// hotel=====
 	{
-		if(estaEnLaListaImagenes("img/tours/"+nombreImagen,paquete)){
+		if(imgExist && estaEnLaListaImagenes(nombreImagen,paquete))return;
+		else if(estaEnLaListaImagenes("img/tours/"+nombreImagen,paquete)){
 			return;
 		}
 		CGaleriaPaquete oGaleriaPaquete = new CGaleriaPaquete();
-		oGaleriaPaquete.setcRutaImagen("img/tours/" + nombreImagen);
+		if(imgExist)
+			oGaleriaPaquete.setcRutaImagen(nombreImagen);
+		else
+			oGaleriaPaquete.setcRutaImagen("img/tours/" + nombreImagen);
 		oGaleriaPaquete.setVisible(true);
 		if (paquete.getcFoto1().equals("img/tours/tourxdefecto.png")
 				|| paquete.getcFoto2().equals("img/tours/tourxdefecto.png")
@@ -1961,6 +2267,17 @@ public class paquetesVM {
 		}
 		paquete.getListaImagenes().add(oGaleriaPaquete);
 	}
+	public void quitarImagen(String rutaImagen,CPaquete paquete)
+	{
+		for(CGaleriaPaquete galeria:paquete.getListaImagenes())
+		{
+			if(rutaImagen.equals(galeria.getcRutaImagen()))
+			{
+				paquete.getListaImagenes().remove(galeria);
+				break;
+			}
+		}
+	}
 	public boolean estaEnLaListaImagenes(String nameImagen,CPaquete paquete)
 	{
 		boolean esta=false;
@@ -1973,5 +2290,12 @@ public class paquetesVM {
 			}
 		}
 		return esta;
+	}
+	public void refrescarSelect(CGaleriaImageExist4 galeria4)
+	{
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria1");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria2");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria3");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria4");
 	}
 }

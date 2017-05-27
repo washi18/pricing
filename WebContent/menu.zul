@@ -104,10 +104,11 @@
 						<textbox value="@bind(vmMenu.oMenu.cNombreIdioma3)" zclass="txt_llenar_datos" id="txtPortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
 					</div>
 					<div zclass="div_space_entre_botones">
-						<button label="Subir Icono del Menu" 
+						<button label="Subir Icono del Menu 40x40" 
 							onClick="@command('uploadImagenes_menu',menu=vmMenu.oMenu,componente=self,opcion=1)"
 							zclass="btn_guardar"/>
 					</div>
+					<a label="Click para descargar iconos" href="https://materialdesignicons.com/" target="_blank"/>
 					<div zclass="div_space_entre_botones">
 						<button label="Subir Imagen de Fondo del Menu" 
 								onClick="@command('uploadImagenes_menu',menu=vmMenu.oMenu,componente=self,opcion=2)"

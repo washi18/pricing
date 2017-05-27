@@ -29,6 +29,10 @@
 							<image width="100%" height="100%" src="@load(vmServicio.oSubServicioNew.cUrlImg)"/>
 						</div>
 						<button label="Subir Imagen" zclass="estilo_subir_imagen" onClick="@command('uploadImagen',componente=self)"/>
+						<space/>
+						<button label="Asignar imagenes existentes" 
+										onClick="@command('invocaImagenesExistentes',opcion=1)"
+										zclass="estilo_subir_imagen"/>
 					</div>
 					<space></space>
 					<div zclass="div_content_datos">
@@ -80,6 +84,76 @@
 				</div>
 			</div>
 		</div>
+		<window mode="modal" sclass="win_imagenesHotel" visible="@load(vmServicio.mostrarImagenesExistentes)" position="center">
+								<div zclass="div_cerrar_descHotel">
+									<label value="Escogio una imagen" 
+											visible="@bind(vmServicio.mostrarTextImgSeleccionado)"
+											style="color:#3BB710;font-size:15px;"/>
+									<label value="✔" zclass="lbl_ok" visible="@bind(vmServicio.mostrarTextImgSeleccionado)"/>
+									<label value="No escogio ninguna imagen" 
+											visible="@bind(!vmServicio.mostrarTextImgSeleccionado)"
+											style="color:red;font-size:15px;"/>
+									<label value="X" zclass="lbl_X" visible="@bind(!vmServicio.mostrarTextImgSeleccionado)"/>
+									<space></space>
+									<button label="X" onClick="@command('cerrarImagenesExistentes')" zclass="btn_cerrar_descHotel"/>
+								</div>
+								<div sclass="div_contenido_descHotel">
+											<div width="100%">
+												<label value="Imagen:" sclass="lbl_llenar_datos"/>
+												<textbox id="txtNameImage1" width="180px" placeholder="nombre imagen" sclass="txt_llenar_datos" onOK="@command('buscarImagen',texto=self.value)"/>
+	<!-- 											<div class="centrar_boton_busqueda"> -->
+													<button iconSclass="fa fa-search" height="20px" width="30px" zclass="estilo_btn_buscar" onClick="@command('buscarImagen',texto=txtNameImage1.value)"/>
+	<!-- 											</div> -->
+											</div>
+											<space/>
+											<div width="100%">
+												<label value="Mostrar:" sclass="lbl_llenar_datos"></label>
+												<combobox value="TODOS" onSelect="@command('selectTipoImagenExistente',tipo=self.selectedItem.value)">
+													<comboitem label="TODOS" value="todos"/>
+													<comboitem label="HOTELES" value="hoteles"/>
+													<comboitem label="TOURS" value="tours"/>
+													<comboitem label="SERVICIOS" value="servicios"/>
+													<comboitem label="DESTINOS" value="destinos"/>
+													<comboitem label="ANDROID" value="android"/>
+												</combobox>
+											</div>
+								</div>
+								<grid model="@bind(vmServicio.lista4ImagenesExistentes)">
+									<columns>
+										<column label=""/>
+									</columns>
+									<template name="model">
+										<row sclass="row_grid">
+											<div zclass="div_content_columnas">
+												<div zclass="div_content_col2">
+													<div zclass="@load(each.galeria1.style_Select)"
+														visible="@load(each.galeria1.visible)"
+														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria1,subservicio=vmServicio.oSubServicioNew)">
+														<image src="@bind(each.galeria1.rutaImagen)" width="100%" height="150px"/>
+													</div>
+													<div zclass="@load(each.galeria2.style_Select)"
+														visible="@load(each.galeria2.visible)"
+														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria2,subservicio=vmServicio.oSubServicioNew)">
+														<image src="@bind(each.galeria2.rutaImagen)" width="100%" height="150px"/>
+													</div>
+												</div>
+												<div zclass="div_content_col2">
+													<div zclass="@load(each.galeria3.style_Select)"
+														visible="@load(each.galeria3.visible)"
+														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria3,subservicio=vmServicio.oSubServicioNew)">
+														<image src="@bind(each.galeria3.rutaImagen)" width="100%" height="150px"/>
+													</div>
+													<div zclass="@load(each.galeria4.style_Select)"
+														visible="@load(each.galeria4.visible)"
+														onClick="@command('selectImagenExist',galeria4=each,galeria=each.galeria4,subservicio=vmServicio.oSubServicioNew)">
+														<image src="@bind(each.galeria4.rutaImagen)" width="100%" height="150px"/>
+													</div>
+												</div>
+											</div>
+										</row>
+									</template>
+								</grid>
+							</window>
 		<space></space>
 		<div sclass="div_busqueda_etiqueta">
 			<textbox id="txtNombre" placeholder="Ingrese busqueda" sclass="txt_llenar_datos" onOK="@command('buscarSubServicios',nombre=self.value)"> 
@@ -161,6 +235,10 @@
 				    				<image id="pics" width="100%" height="100%" src="@bind(each.cUrlImg)" />
 				    			</div>
 				    			<button label="Cambiar Imagen" zclass="estilo_subir_imagen" width="100%" onClick="@command('cambiarImagen',subServicio=each,componente=self)"/>
+				    			<space/>
+								<button label="Asignar imagenes existentes" 
+										onClick="@command('invocaImagenesExistentes',opcion=2)"
+										zclass="estilo_subir_imagen"/>
 				    		</div>
 				    		<space></space>
 				    		<div zclass="div_content_datos_listaSub">
@@ -321,6 +399,76 @@
 									</div>
 								</div>
 				    		</div>
+				    		<window mode="modal" sclass="win_imagenesHotel" visible="@load(vmServicio.mostrarImagenesExistentesUpdate)" position="center">
+								<div zclass="div_cerrar_descHotel">
+									<label value="Escogio una imagen" 
+											visible="@bind(vmServicio.mostrarTextImgSeleccionado)"
+											style="color:#3BB710;font-size:15px;"/>
+									<label value="✔" zclass="lbl_ok" visible="@bind(vmServicio.mostrarTextImgSeleccionado)"/>
+									<label value="No escogio ninguna imagen" 
+											visible="@bind(!vmServicio.mostrarTextImgSeleccionado)"
+											style="color:red;font-size:15px;"/>
+									<label value="X" zclass="lbl_X" visible="@bind(!vmServicio.mostrarTextImgSeleccionado)"/>
+									<space></space>
+									<button label="X" onClick="@command('cerrarImagenesExistentes')" zclass="btn_cerrar_descHotel"/>
+								</div>
+								<div sclass="div_contenido_descHotel">
+											<div width="100%">
+												<label value="Imagen:" sclass="lbl_llenar_datos"/>
+												<textbox id="txtNameImage1" width="180px" placeholder="nombre imagen" sclass="txt_llenar_datos" onOK="@command('buscarImagen',texto=self.value)"/>
+	<!-- 											<div class="centrar_boton_busqueda"> -->
+													<button iconSclass="fa fa-search" height="20px" width="30px" zclass="estilo_btn_buscar" onClick="@command('buscarImagen',texto=txtNameImage1.value)"/>
+	<!-- 											</div> -->
+											</div>
+											<space/>
+											<div width="100%">
+												<label value="Mostrar:" sclass="lbl_llenar_datos"></label>
+												<combobox value="TODOS" onSelect="@command('selectTipoImagenExistente',tipo=self.selectedItem.value)">
+													<comboitem label="TODOS" value="todos"/>
+													<comboitem label="HOTELES" value="hoteles"/>
+													<comboitem label="TOURS" value="tours"/>
+													<comboitem label="SERVICIOS" value="servicios"/>
+													<comboitem label="DESTINOS" value="destinos"/>
+													<comboitem label="ANDROID" value="android"/>
+												</combobox>
+											</div>
+								</div>
+								<grid model="@bind(vmServicio.lista4ImagenesExistentes)">
+									<columns>
+										<column label=""/>
+									</columns>
+									<template name="model" var="img">
+										<row sclass="row_grid">
+											<div zclass="div_content_columnas">
+												<div zclass="div_content_col2">
+													<div zclass="@load(img.galeria1.style_Select)"
+														visible="@load(img.galeria1.visible)"
+														onClick="@command('selectImagenExist',galeria4=img,galeria=img.galeria1,subservicio=each)">
+														<image src="@bind(img.galeria1.rutaImagen)" width="100%" height="150px"/>
+													</div>
+													<div zclass="@load(img.galeria2.style_Select)"
+														visible="@load(img.galeria2.visible)"
+														onClick="@command('selectImagenExist',galeria4=img,galeria=img.galeria2,subservicio=each)">
+														<image src="@bind(img.galeria2.rutaImagen)" width="100%" height="150px"/>
+													</div>
+												</div>
+												<div zclass="div_content_col2">
+													<div zclass="@load(img.galeria3.style_Select)"
+														visible="@load(img.galeria3.visible)"
+														onClick="@command('selectImagenExist',galeria4=img,galeria=img.galeria3,subservicio=each)">
+														<image src="@bind(img.galeria3.rutaImagen)" width="100%" height="150px"/>
+													</div>
+													<div zclass="@load(img.galeria4.style_Select)"
+														visible="@load(img.galeria4.visible)"
+														onClick="@command('selectImagenExist',galeria4=img,galeria=img.galeria4,subservicio=each)">
+														<image src="@bind(img.galeria4.rutaImagen)" width="100%" height="150px"/>
+													</div>
+												</div>
+											</div>
+										</row>
+									</template>
+								</grid>
+							</window>
 				    		<div sclass="div_content_actualizarSub">
 				    			<button label="Actualizar"
 				    				onClick="@command('actualizarSubServicio',subServicio=each) @global-command('actualizarEstadoServicios')"

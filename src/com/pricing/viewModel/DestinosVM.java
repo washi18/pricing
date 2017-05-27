@@ -4,6 +4,8 @@ import org.zkoss.gmaps.event.MapMouseEvent;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.select.SelectorComposer;
 import org.zkoss.zk.ui.select.annotation.Listen;
+
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -28,9 +30,14 @@ import org.zkoss.zul.Messagebox;
 import pe.com.erp.crypto.Encryptar;
 
 import com.pricing.dao.CDestinoDAO;
+import com.pricing.extras.KMP;
 import com.pricing.model.CCodigoPostal;
 import com.pricing.model.CDestino;
+import com.pricing.model.CGaleriaImageExist;
+import com.pricing.model.CGaleriaImageExist4;
 import com.pricing.model.CServicio;
+import com.pricing.model.CSubServicio;
+import com.pricing.model.Nro;
 import com.pricing.util.ScannUtil;
 
 import org.zkoss.gmaps.Gmarker;
@@ -46,6 +53,12 @@ public class DestinosVM{
 	private CDestino oDestinoUpdate;
 	private ArrayList<CDestino> listaDestinos;
 	private ArrayList<CCodigoPostal> listaCodigosPostales;
+	private ArrayList<CGaleriaImageExist> listaImagenesExistentes;
+	private ArrayList<CGaleriaImageExist4> lista4ImagenesExistentes;
+	private CGaleriaImageExist4 galeria4Aux;
+	private boolean mostrarImagenesExistentes;
+	private boolean mostrarImagenesExistentesUpdate;
+	private boolean mostrarTextImgSeleccionado;
 	/*=====getter and setter====*/
 	public ArrayList<CDestino> getListaDestinos() {
 		return listaDestinos;
@@ -78,6 +91,36 @@ public class DestinosVM{
 			ArrayList<CCodigoPostal> listaCodigosPostales) {
 		this.listaCodigosPostales = listaCodigosPostales;
 	}
+	public ArrayList<CGaleriaImageExist> getListaImagenesExistentes() {
+		return listaImagenesExistentes;
+	}
+	public void setListaImagenesExistentes(ArrayList<CGaleriaImageExist> listaImagenesExistentes) {
+		this.listaImagenesExistentes = listaImagenesExistentes;
+	}
+	public ArrayList<CGaleriaImageExist4> getLista4ImagenesExistentes() {
+		return lista4ImagenesExistentes;
+	}
+	public void setLista4ImagenesExistentes(ArrayList<CGaleriaImageExist4> lista4ImagenesExistentes) {
+		this.lista4ImagenesExistentes = lista4ImagenesExistentes;
+	}
+	public boolean isMostrarImagenesExistentes() {
+		return mostrarImagenesExistentes;
+	}
+	public void setMostrarImagenesExistentes(boolean mostrarImagenesExistentes) {
+		this.mostrarImagenesExistentes = mostrarImagenesExistentes;
+	}
+	public boolean isMostrarImagenesExistentesUpdate() {
+		return mostrarImagenesExistentesUpdate;
+	}
+	public void setMostrarImagenesExistentesUpdate(boolean mostrarImagenesExistentesUpdate) {
+		this.mostrarImagenesExistentesUpdate = mostrarImagenesExistentesUpdate;
+	}
+	public boolean isMostrarTextImgSeleccionado() {
+		return mostrarTextImgSeleccionado;
+	}
+	public void setMostrarTextImgSeleccionado(boolean mostrarTextImgSeleccionado) {
+		this.mostrarTextImgSeleccionado = mostrarTextImgSeleccionado;
+	}
 	/*======metodos=====*/
 	@Init
 	public void initVM()
@@ -88,6 +131,10 @@ public class DestinosVM{
 			destinoDao=new CDestinoDAO();
 			oDestinoNuevo=new CDestino();
 			oDestinoUpdate=new CDestino();
+			mostrarImagenesExistentes=false;
+			mostrarImagenesExistentesUpdate=false;
+			mostrarTextImgSeleccionado=false;
+			galeria4Aux=new CGaleriaImageExist4();
 	}
 	@GlobalCommand
 	public void recuperarDestinos()
@@ -105,7 +152,264 @@ public class DestinosVM{
 		BindUtils.postNotifyChange(null, null, this,"listaDestinos");
 		BindUtils.postNotifyChange(null, null, this,"listaCodigosPostales");
 	}
-	
+	@Command
+	public void buscarImagen(@BindingParam("texto")String texto)
+	{
+		ubicarTodosImagenes();
+		ArrayList<CGaleriaImageExist> listaAuxImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		for(CGaleriaImageExist galeria:listaImagenesExistentes)
+		{
+			if(KMP.KMPSearch(texto, galeria.getRutaImagen()))
+				listaAuxImagenesExistentes.add(galeria);
+		}
+		setListaImagenesExistentes(listaAuxImagenesExistentes);
+		rellenarImagenesExistentes();
+	}
+	public void recuperarTodasImagenesExistentes()
+	{
+		ubicarTodosImagenes();
+		//====Rellenando las imagenes para mostraren la interfaz==
+		rellenarImagenesExistentes();
+	}
+	public void rellenarImagenesExistentes()
+	{
+		for(int i=0;i<listaImagenesExistentes.size();i+=4)
+		{
+			CGaleriaImageExist4 images=new CGaleriaImageExist4();
+			images.setGaleria1(listaImagenesExistentes.get(i));
+			if((i+1)<listaImagenesExistentes.size())
+				images.setGaleria2(listaImagenesExistentes.get(i+1));
+			if((i+2)<listaImagenesExistentes.size())
+				images.setGaleria3(listaImagenesExistentes.get(i+2));
+			if((i+3)<listaImagenesExistentes.size())
+				images.setGaleria4(listaImagenesExistentes.get(i+3));
+			lista4ImagenesExistentes.add(images);
+		}
+		BindUtils.postNotifyChange(null, null, this, "lista4ImagenesExistentes");
+	}
+	public void ubicarTodosImagenes()
+	{
+		listaImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		lista4ImagenesExistentes=new ArrayList<CGaleriaImageExist4>();
+		//====HOTELES====
+		File directorio=new File(ScannUtil.getPathImagenHoteles());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/hoteles/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====TOURS======
+		directorio=new File(ScannUtil.getPathImagenPaquetes());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/tours/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====SERVICIOS===
+		directorio=new File(ScannUtil.getPathImagensSubServicios());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/servicios/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====DESTINOS====
+		directorio=new File(ScannUtil.getPathImagenDestinos());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/destinos/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====ANDROID====
+		directorio=new File(ScannUtil.getPathImagenAndroid());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/android/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarHotelesImagenes(){
+		File directorio=new File(ScannUtil.getPathImagenHoteles());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/hoteles/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarToursImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenPaquetes());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/tours/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarServiciosImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagensSubServicios());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/servicios/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarDestinosImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenDestinos());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/destinos/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarAndroidImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenAndroid());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/android/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	@Command
+	@NotifyChange({"mostrarTextImgSeleccionado"})
+	public void selectImagenExist(@BindingParam("galeria4")CGaleriaImageExist4 galeria4,
+			@BindingParam("galeria")CGaleriaImageExist galeria,@BindingParam("destino")CDestino destino)
+	{
+		galeria4Aux.getGaleria1().setSeleccionado(false);
+		galeria4Aux.getGaleria1().setStyle_Select("div_content_imageHotel");
+		galeria4Aux.getGaleria2().setSeleccionado(false);
+		galeria4Aux.getGaleria2().setStyle_Select("div_content_imageHotel");
+		galeria4Aux.getGaleria3().setSeleccionado(false);
+		galeria4Aux.getGaleria3().setStyle_Select("div_content_imageHotel");
+		galeria4Aux.getGaleria4().setSeleccionado(false);
+		galeria4Aux.getGaleria4().setStyle_Select("div_content_imageHotel");
+		if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+		refrescarSelect(galeria4Aux);
+		galeria4Aux=galeria4;
+		if(galeria4.getGaleria1().equals(galeria))
+		{
+			if(galeria4.getGaleria1().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria1().setSeleccionado(false);
+				galeria4.getGaleria1().setStyle_Select("div_content_imageHotel");
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria1().setSeleccionado(true);
+				galeria4.getGaleria1().setStyle_Select("div_content_imageHotel_selected");
+				asignarUrlImagenDestino(galeria4.getGaleria1().getRutaImagen(),destino,true);
+			}
+		}else if(galeria4.getGaleria2().equals(galeria))
+		{
+			if(galeria4.getGaleria2().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria2().setSeleccionado(false);
+				galeria4.getGaleria2().setStyle_Select("div_content_imageHotel");
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria2().setSeleccionado(true);
+				galeria4.getGaleria2().setStyle_Select("div_content_imageHotel_selected");
+				asignarUrlImagenDestino(galeria4.getGaleria2().getRutaImagen(),destino,true);
+			}
+		}else if(galeria4.getGaleria3().equals(galeria))
+		{
+			if(galeria4.getGaleria3().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria3().setSeleccionado(false);
+				galeria4.getGaleria3().setStyle_Select("div_content_imageHotel");
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria3().setSeleccionado(true);
+				galeria4.getGaleria3().setStyle_Select("div_content_imageHotel_selected");
+				asignarUrlImagenDestino(galeria4.getGaleria3().getRutaImagen(),destino,true);
+			}
+		}else if(galeria4.getGaleria4().equals(galeria))
+		{
+			if(galeria4.getGaleria4().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria4().setSeleccionado(false);
+				galeria4.getGaleria4().setStyle_Select("div_content_imageHotel");
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria4().setSeleccionado(true);
+				galeria4.getGaleria4().setStyle_Select("div_content_imageHotel_selected");
+				asignarUrlImagenDestino(galeria4.getGaleria4().getRutaImagen(),destino,true);
+			}
+		}
+		if(Nro.nroImagenes>0)mostrarTextImgSeleccionado=true;
+		else if(Nro.nroImagenes==0)mostrarTextImgSeleccionado=false;
+		refrescarSelect(galeria4);
+	}
+	@Command
+	public void selectTipoImagenExistente(@BindingParam("tipo")String tipo)
+	{
+		listaImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		lista4ImagenesExistentes=new ArrayList<CGaleriaImageExist4>();
+		if(tipo.equals("todos"))ubicarTodosImagenes();
+		else if(tipo.equals("hoteles"))ubicarHotelesImagenes();
+		else if(tipo.equals("tours"))ubicarToursImagenes();
+		else if(tipo.equals("servicios"))ubicarServiciosImagenes();
+		else if(tipo.equals("destinos"))ubicarDestinosImagenes();
+		else if(tipo.equals("android"))ubicarAndroidImagenes();
+		rellenarImagenesExistentes();
+	}
+	@Command
+	@NotifyChange({"mostrarImagenesExistentes","mostrarImagenesExistentesUpdate"})
+	public void cerrarImagenesExistentes()
+	{
+		mostrarImagenesExistentes=false;
+		mostrarImagenesExistentesUpdate=false;
+	}
+	@Command
+	@NotifyChange({"mostrarImagenesExistentes","mostrarImagenesExistentesUpdate","mostrarTextImgSeleccionado"})
+	public void invocaImagenesExistentes(@BindingParam("opcion")int opcion)
+	{
+		Nro.inicializarNroImagenes();
+		if(opcion==1)
+		{
+			mostrarImagenesExistentes=true;
+			mostrarImagenesExistentesUpdate=false;
+		}else{
+			mostrarImagenesExistentes=false;
+			mostrarImagenesExistentesUpdate=true;
+		}
+		mostrarTextImgSeleccionado=false;
+		recuperarTodasImagenesExistentes();
+	}
 	@Command
 	public void selectCodPostal(@BindingParam("codPostal")String cod)
 	{
@@ -194,7 +498,6 @@ public class DestinosVM{
 	@NotifyChange({"listaDestinos"})
 	public void actualizarEstadoDestinos()
 	{
-		listaDestinos.clear();
 		destinoDao.asignarListaDestinos(destinoDao.recuperarListaTodosDestinosBD());
 		setListaDestinos(destinoDao.getListaDestinos());
 	}
@@ -255,7 +558,7 @@ public class DestinosVM{
 				            //================================
 				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
 				            String urlImagen=ScannUtil.getPathImagenDestinos()+img.getName();
-				            asignarUrlImagenDestino(img.getName());
+				            asignarUrlImagenDestino(img.getName(),oDestinoNuevo,false);
 				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
 						} else {
 							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
@@ -263,10 +566,13 @@ public class DestinosVM{
 					}
 			     });
 	}
-	public void asignarUrlImagenDestino(String url)
+	public void asignarUrlImagenDestino(String url,CDestino destino,boolean imgEXist)
 	{
-		oDestinoNuevo.setUrlImagen("img/destinos/"+url);
-		BindUtils.postNotifyChange(null, null, oDestinoNuevo,"urlImagen");
+		if(imgEXist)
+			destino.setUrlImagen(url);
+		else
+			destino.setUrlImagen("img/destinos/"+url);
+		BindUtils.postNotifyChange(null, null, destino,"urlImagen");
 	}
 	@Command
 	public void changeImagen(@BindingParam("componente")final Component comp,@BindingParam("destino")final CDestino destino) {
@@ -280,7 +586,7 @@ public class DestinosVM{
 				            //================================
 				            //Una vez creado el nuevo nombre de archivo de imagen se procede a cambiar el nombre
 				            String urlImagen=ScannUtil.getPathImagenDestinos()+img.getName();
-				            asignarUrlImagenUpdateDestino(img.getName(),destino);
+				            asignarUrlImagenDestino(img.getName(),destino,false);
 				            Clients.showNotification(img.getName()+" Se inserto",Clients.NOTIFICATION_TYPE_INFO,comp,"before_start",2700);
 						} else {
 							Messagebox.show(media+"Error", "Error", Messagebox.OK, Messagebox.ERROR);
@@ -288,13 +594,15 @@ public class DestinosVM{
 					}
 			     });
 	}
-	public void asignarUrlImagenUpdateDestino(String url,CDestino destino)
-	{
-		destino.setUrlImagen("img/destinos/"+url);
-		BindUtils.postNotifyChange(null, null, destino,"urlImagen");
-	}
 	public void refrescaFilaTemplate(CDestino d)
 	{
 		BindUtils.postNotifyChange(null, null, d, "editable");
+	}
+	public void refrescarSelect(CGaleriaImageExist4 galeria4)
+	{
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria1");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria2");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria3");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria4");
 	}
 }

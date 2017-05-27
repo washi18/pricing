@@ -4,6 +4,7 @@ public class CGaleriaImageExist {
 	private String rutaImagen;
 	private String style_Select;
 	private boolean seleccionado;
+	private boolean visible;
 	//==========================
 	public String getRutaImagen() {
 		return rutaImagen;
@@ -23,11 +24,18 @@ public class CGaleriaImageExist {
 	public void setSeleccionado(boolean seleccionado) {
 		this.seleccionado = seleccionado;
 	}
+	public boolean isVisible() {
+		return visible;
+	}
+	public void setVisible(boolean visible) {
+		this.visible = visible;
+	}
 	//================================
 	public CGaleriaImageExist() {
 		// TODO Auto-generated constructor stub
 		this.rutaImagen="";
 		this.style_Select="div_content_imageHotel";
 		this.seleccionado=false;
+		this.visible=false;
 	}
 }
