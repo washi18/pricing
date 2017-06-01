@@ -247,19 +247,19 @@ public class CEmail
             texto.setContent(mensaje, "text/html");
 
             // Se compone el adjunto con el pdf
-            BodyPart adjunto = new MimeBodyPart();
-            if(opcion==1)//Hay que adjuntar pdf (eso es que el cliente efectuo un pago)
-            {
-                adjunto.setDataHandler(
-                    new DataHandler(new FileDataSource(urlPdf)));
-                adjunto.setFileName("DatosReserva.pdf");
-            }
+//            BodyPart adjunto = new MimeBodyPart();
+//            if(opcion==1)//Hay que adjuntar pdf (eso es que el cliente efectuo un pago)
+//            {
+//                adjunto.setDataHandler(
+//                    new DataHandler(new FileDataSource(urlPdf)));
+//                adjunto.setFileName("DatosReserva.pdf");
+//            }
 
             // Una MultiParte para agrupar texto e imagen.
             MimeMultipart multiParte = new MimeMultipart();
             multiParte.addBodyPart(texto);
-            if(opcion==1)
-            	multiParte.addBodyPart(adjunto);
+//            if(opcion==1)
+//            	multiParte.addBodyPart(adjunto);
 
             // Se compone el correo, dando to, from, subject y el
             // contenido.
@@ -525,12 +525,23 @@ public class CEmail
 									"</form>"+
 								"</div>"+
 								"<div>"+
-								"<p>"+etiqueta[130]+" <strong style='color:#F7653A;text-transform: lowercase;'>"+reserva.getoPaquete().getTitulo()+"</strong>"+ 
-								etiqueta[131]+" <strong style='color:#F7653A;'>"+fechaInicio+"</strong> "+etiqueta[132]+ 
-								"<strong style='color:#F7653A;'>"+fechaFin+"</strong> "+etiqueta[133]+" <strong> "+reserva.getnNroPersonas()+" </strong> "+etiqueta[134]+
-								"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+etiqueta[136]+
-								fechas+
-							    arribo+
+									"<p>"+etiqueta[130]+" <strong style='color:#F7653A;'>"+reserva.getoPaquete().getTitulo()+"</strong>"+ 
+									"</strong> "+etiqueta[133]+" <strong> "+reserva.getnNroPersonas()+" </strong> "+etiqueta[134]+
+									"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+
+									"<p><strong>"+etiqueta[253]+"</strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[131]+"<span style='color:rgb(0, 0, 0)'>"+fechaInicio+"</span></strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[132]+"<span style='color:rgb(0, 0, 0)'>"+fechaFin+"</span></strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[249]+"</strong><span style='color:rgb(247, 101, 58)'>:</span><strong>"+fechaArribo+"</strong></p>"+
+									fechas+
+									"<br />"+
+									"<p><strong>"+etiqueta[252]+"</strong><br />"+
+									"<p>"+reserva.getcInformacionAdicional()+"</p>"+
+									
+									"<p><strong>"+etiqueta[250]+"</strong><br />"+
+									"<p>"+reserva.getoPaquete().getDescripcion()+"</p>"+
+	
+									"<p><strong><span style='color:rgb(255, 0, 0)'><strong><span style='color:rgb(0, 0, 0)'>"+etiqueta[251]+"</span></strong><br />"+
+									"<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"' target='_blank'>"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"</a></span></strong></p>"+
 							    "<br/>"+
 							    "<p> "+etiqueta[138]+" </p>"+
 							    "<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
@@ -644,6 +655,10 @@ public class CEmail
 									"<p style='font-weight:bold;'>Codigo de Reserva: <strong style='color:white;'>"+reserva.getcReservaCod()+"</strong></p>"+
 								"</div>"+
 								"<br/>"+
+								"<div>"+
+									"<p>E-mail: "+reserva.getcEmail()+"</p>"+
+									"<p>WhatsApp: "+reserva.getcTelefono()+"</p>"+
+								"</div>"+
 								"<table border='0'>"+
 									"<tr>"+
 								      "<td><p><strong>"+reserva.getcContacto()+"."+"</strong> Realizó una reserva."+
@@ -651,11 +666,22 @@ public class CEmail
 								    "</tr>"+
 								"</table>"+
 								"<div>"+
-									"<p>Su fecha Principal de reserva de <strong style='color:#F7653A;'>"+paquete.getcTituloIdioma1()+"</strong>"+ 
-									" es: <strong style='color:#F7653A;'>"+fechaInicio+"</strong> y "+ 
-									"<strong style='color:#F7653A;'>"+fechaFin+"</strong>"+
+									"<p>Su reserva de <strong style='color:#F7653A;'>"+paquete.getcTituloIdioma1()+"</strong>"+	
+									"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+
+									"<p><strong>DETALLES DEL TOUR/SERVICIO:</strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>Arribo a Cusco:<span style='color:rgb(0, 0, 0)'>"+fechaInicio+"</span></strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>Inicio Tour/Servicio:<span style='color:rgb(0, 0, 0)'>"+fechaFin+"</span></strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>Estadia en la ciudad de Cusco:</strong><span style='color:rgb(247, 101, 58)'>:</span><strong>"+fechaArribo+"</strong></p>"+
 									htmlFechasAlternas+
-								    arribo+
+									"<br />"+
+									"<p><strong>INFORMACION ADICIONAL:</strong><br />"+
+									"<p>"+reserva.getcInformacionAdicional()+"</p>"+
+									
+									"<p><strong>PUNTOS IMPORTANTES:</strong><br />"+
+									"<p>"+reserva.getoPaquete().getDescripcion()+"</p>"+
+	
+									"<p><strong><span style='color:rgb(255, 0, 0)'><strong><span style='color:rgb(0, 0, 0)'>URL MAS INFORMACION:</span></strong><br />"+
+									"<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"' target='_blank'>"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"</a></span></strong></p>"+
 								    "<br/>"+
 								    "<p>Las siguientes tablas muestran datos de su reserva:</p>"+
 								    "<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
@@ -786,10 +812,10 @@ public class CEmail
 			    		"<td width='60%' align='center'><h1 style='color:#F7653A;font-weight:bold;'>"+textoTotal+"</h1></td>"+
 			    		"<td width='40%'>"+
 			    			"<table width='100%'>"+
-			    				"<tr><td>"+etiqueta[99]+" ("+textoTotal+"): USD"+"</td><td style='color:#1A5276;' align='right'>"+totalPago+"</td></tr>"+
-			    				"<tr><td>"+etiqueta[100]+": USD</td><td style='color:#1A5276;' align='right'>"+impuesto+"</td></tr>"+
+			    				"<tr><td>"+etiqueta[99]+" ( "+textoTotal+" ): USD"+"</td><td style='color:#1A5276;' align='right'> "+totalPago+" </td></tr>"+
+			    				"<tr><td>"+etiqueta[100]+": USD</td><td style='color:#1A5276;' align='right'> "+impuesto+" </td></tr>"+
 			    				"<tr><td></td><td style='color:#1A5276;' align='right'>--------------</td></tr>"+
-			    				"<tr><td>"+etiqueta[101]+" ("+textoTotal+"): USD"+"</td><td align='right'style='background:#75BE5C;font-weight:bold;'>"+"USD "+importeTotal+"</td></tr>"+
+			    				"<tr><td>"+etiqueta[101]+" ( "+textoTotal+" ): USD"+"</td><td align='right'style='background:#75BE5C;font-weight:bold;'>"+"USD "+importeTotal+"</td></tr>"+
 			    			"</table>"+
 			    		"</td>"+
 			    	"</tr>"+
@@ -886,7 +912,10 @@ public class CEmail
 		for(CPasajero pax:listaPasajeros)
 		{
 			if(!reserva.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
+			{
 				if(!pax.isSelectPasajero() || pax.isEsEdit())break;
+			}else
+				if(!pax.isSelectPasajero())break;
 			pasajeros+=
 						"<tr style='border:1px solid black;'>"+
 				    		"<td style='border:1px solid black;' align='center'>"+pax.getTipoDocumento()+"</td>"+
@@ -948,12 +977,24 @@ public class CEmail
 								"</div>"+
 								"<br/>"+
 								"<div>"+
-									"<p><strong>"+etiqueta[125]+" </strong>"+reserva.getcContacto()+"."+"<br/> "+etiqueta[130]+" <strong style='color:#F7653A;text-transform: lowercase;'>"+reserva.getoPaquete().getTitulo()+"</strong>"+ 
-									etiqueta[131]+" <strong style='color:#F7653A;'>"+fechaInicio+"</strong>"+etiqueta[132]+ 
-									"<strong style='color:#F7653A;'>"+fechaFin+"</strong> "+etiqueta[133]+" "+reserva.getnNroPersonas()+" "+etiqueta[134]+ 
-									"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+etiqueta[136]+
+									"<p><strong>"+etiqueta[125]+" </strong>"+reserva.getcContacto()+"."+"<br/> "+etiqueta[130]+" <strong style='color:#F7653A;'>"+reserva.getoPaquete().getTitulo()+"</strong>"+ 
+									etiqueta[133]+" "+reserva.getnNroPersonas()+" "+etiqueta[134]+ 
+									"<strong>"+etiqueta[135]+" </strong> "+
+									"<p><strong>"+etiqueta[253]+"</strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[131]+"<span style='color:rgb(0, 0, 0)'>"+fechaInicio+"</span></strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[132]+"<span style='color:rgb(0, 0, 0)'>"+fechaFin+"</span></strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[249]+"</strong><span style='color:rgb(247, 101, 58)'>:</span><strong>"+fechaArribo+"</strong></p>"+
 									fechas+
-								    arribo+
+									"<br />"+
+									"<p><strong>"+etiqueta[252]+"</strong><br />"+
+									"<p>"+reserva.getcInformacionAdicional()+"</p>"+
+									
+									"<p><strong>"+etiqueta[250]+"</strong><br />"+
+									"<p>"+reserva.getoPaquete().getDescripcion()+"</p>"+
+	
+									"<p><strong><span style='color:rgb(255, 0, 0)'><strong><span style='color:rgb(0, 0, 0)'>"+etiqueta[251]+"</span></strong><br />"+
+									"<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"' target='_blank'>"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"</a></span></strong></p>"+
+
 								    "<br/>"+
 								    "<div style='background:#1A5276;border-radius:5px;width:25%;padding:1px 0 1px 0;' align='center'>"+
 										"<p style='font-weight:bold;'>"+etiqueta[123]+" <strong style='color:white;'>"+codTransaccion+"</strong></p>"+
@@ -1021,7 +1062,6 @@ public class CEmail
 								"</div>"+
 								  "<p style='font-size:11px;'>"+etiqueta[153]+" <strong>"+etiqueta[154]+"</strong>"+etiqueta[155]+"</p>"+
 								  "<p style='font-size:11px;'>"+etiqueta[196]+"</p>"+
-								  "<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"'>"+etiqueta[246]+"</a>"+
 								  "<br/>"+
 							        "<strong>"+etiqueta[213]+"</strong>"+
 								"</div>"+
@@ -1250,11 +1290,27 @@ public class CEmail
 								"</div>"+
 								"<br/>"+
 								"<div>"+
-									"<p><strong>"+reserva.getcContacto()+"."+"</strong> Efectuo un pago.<br/>"+"El pago fue efectuado por la reserva del paquete <strong style='color:#F7653A;text-transform: lowercase;'>"+reserva.getoPaquete().getcTituloIdioma1()+"</strong>"+ 
-									" con la siguiente fecha: <strong style='color:#F7653A;'>"+fechaInicio+"</strong>, y "+ 
-									"<strong style='color:#F7653A;'>"+fechaFin+"</strong>"+
+									"<div>"+
+										"<p>E-mail: "+reserva.getcEmail()+"</p>"+
+										"<p>WhatsApp: "+reserva.getcTelefono()+"</p>"+
+									"</div>"+
+									"<p><strong>"+reserva.getcContacto()+"."+"</strong> Efectuo un pago.<br/>"+"El pago fue efectuado por la reserva del paquete <strong style='color:#F7653A;'>"+reserva.getoPaquete().getcTituloIdioma1()+"</strong>"+ 
+									 
+									"<p><strong>DETALLES DEL TOUR/SERVICIO:</strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>Arribo a Cusco:<span style='color:rgb(0, 0, 0)'>"+fechaInicio+"</span></strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>Inicio Tour/Servicio:<span style='color:rgb(0, 0, 0)'>"+fechaFin+"</span></strong></p>"+
+									"<p><strong style='color:rgb(247, 101, 58)'>Estadia en la ciudad de Cusco:</strong><span style='color:rgb(247, 101, 58)'>:</span><strong>"+fechaArribo+"</strong></p>"+
 									fechas+
-								    arribo+
+									"<br />"+
+									"<p><strong>INFORMACION ADICIONAL:</strong><br />"+
+									"<p>"+reserva.getcInformacionAdicional()+"</p>"+
+									
+									"<p><strong>PUNTOS IMPORTANTES:</strong><br />"+
+									"<p>"+reserva.getoPaquete().getDescripcion()+"</p>"+
+	
+									"<p><strong><span style='color:rgb(255, 0, 0)'><strong><span style='color:rgb(0, 0, 0)'>URL MAS INFORMACION:</span></strong><br />"+
+									"<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"' target='_blank'>"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"</a></span></strong></p>"+
+									
 								    "<br/>"+
 								    "<div style='background:#1A5276;border-radius:5px;width:25%;padding:1px 0 1px 0;' align='center'>"+
 										"<p style='font-weight:bold;'>Id Transaccion: <strong style='color:white;'>"+codTransaccion+"</strong></p>"+
@@ -1532,7 +1588,11 @@ public class CEmail
 		for(CPasajero p:listaPasajeros)
 		{
 			if(!reserva.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
+			{
 				if(!p.isSelectPasajero() || p.isEsEdit())break;
+			}else
+				if(!p.isSelectPasajero())break;
+			
 			pasajeros[0]+=
 						"<tr style='border:1px solid black;'>"+
 				    		"<td style='border:1px solid black;' align='center'>"+p.getTipoDocumento()+"</td>"+
