@@ -27,11 +27,10 @@ public class CItems {
 	private boolean visiblePortugues;
 	private String nameSubMenu;
 	private ArrayList<CElementos> listaElementos;
-	private ArrayList<CDatosGenerales> listaDatosGenerales;
-	private ArrayList<CDestinoMovil> listaDestinosMovil;
-	private ArrayList<CItemsDestino> listaItemsDestino;
 	private boolean visibleContent;
 	private boolean update;
+	private boolean vistaMobil;
+	private boolean abrirEditorDescripcion;
 	//====================================
 	public int getcItemsCod() {
 		return cItemsCod;
@@ -147,12 +146,6 @@ public class CItems {
 	public void setListaElementos(ArrayList<CElementos> listaElementos) {
 		this.listaElementos = listaElementos;
 	}
-	public ArrayList<CDatosGenerales> getListaDatosGenerales() {
-		return listaDatosGenerales;
-	}
-	public void setListaDatosGenerales(ArrayList<CDatosGenerales> listaDatosGenerales) {
-		this.listaDatosGenerales = listaDatosGenerales;
-	}
 	public boolean isVisibleContent() {
 		return visibleContent;
 	}
@@ -165,17 +158,17 @@ public class CItems {
 	public void setUpdate(boolean update) {
 		this.update = update;
 	}
-	public ArrayList<CDestinoMovil> getListaDestinosMovil() {
-		return listaDestinosMovil;
+	public boolean isVistaMobil() {
+		return vistaMobil;
 	}
-	public void setListaDestinosMovil(ArrayList<CDestinoMovil> listaDestinosMovil) {
-		this.listaDestinosMovil = listaDestinosMovil;
+	public void setVistaMobil(boolean vistaMobil) {
+		this.vistaMobil = vistaMobil;
 	}
-	public ArrayList<CItemsDestino> getListaItemsDestino() {
-		return listaItemsDestino;
+	public boolean isAbrirEditorDescripcion() {
+		return abrirEditorDescripcion;
 	}
-	public void setListaItemsDestino(ArrayList<CItemsDestino> listaItemsDestino) {
-		this.listaItemsDestino = listaItemsDestino;
+	public void setAbrirEditorDescripcion(boolean abrirEditorDescripcion) {
+		this.abrirEditorDescripcion = abrirEditorDescripcion;
 	}
 	//==============================
 	public CItems() {
@@ -193,6 +186,8 @@ public class CItems {
 		this.cDescripcionIdioma5="";
 		this.cImagen="";
 		this.update=false;
+		this.vistaMobil=false;
+		this.abrirEditorDescripcion=false;
 	}
 	public CItems(int cItemsCod, int cSubMenuCod, String cTituloIdioma1, String cTituloIdioma2, String cTituloIdioma3,
 			String cTituloIdioma4, String cTituloIdioma5, String cDescripcionIdioma1, String cDescripcionIdioma2,
@@ -217,11 +212,11 @@ public class CItems {
 		//==========================
 		this.visibleContent=false;
 		this.update=true;
+		this.vistaMobil=false;
+		this.abrirEditorDescripcion=false;
 		obtenerNameSubMenu(cSubMenuCod);
 		//==========================
 		recuperarListaElementos(cItemsCod);
-		recuperarListaDatosGenerales(cItemsCod);
-		recuperarListaDestinosMovil(cItemsCod);
 	}
 	public void obtenerNameSubMenu(int cSubMenuCod)
 	{
@@ -235,36 +230,5 @@ public class CItems {
 		CItemsDAO itemDao=new CItemsDAO();
 		itemDao.asignarListaElementos_Item(itemDao.recuperarListaElementosBD_Item(cItemsCod));
 		setListaElementos(itemDao.getListaElementos());
-	}
-	public void recuperarListaDatosGenerales(int cItemsCod)
-	{
-		listaDatosGenerales=new ArrayList<CDatosGenerales>();
-		CItemsDAO itemDao=new CItemsDAO();
-		itemDao.asignarListaDatosGenerales_Item(itemDao.recuperarListaDatosGeneralesBD_Item(cItemsCod));
-		setListaDatosGenerales(itemDao.getListaDatosGenerales());
-	}
-	public void recuperarListaDestinosMovil(int cItemCod)
-	{
-		listaItemsDestino=new ArrayList<CItemsDestino>();
-		listaDestinosMovil=new ArrayList<CDestinoMovil>();
-		//========Recuperamos los items destino
-		CItemsDAO itemDao=new CItemsDAO();
-		itemDao.asignarListaItemsDestino(itemDao.recuperarListaItemsDestinoBD(cItemCod));
-		setListaItemsDestino(itemDao.getListaItemsDestino());
-		//=======recuperamos los destinos===========
-		CDestinosMovilDAO destinoDao=new CDestinosMovilDAO();
-		destinoDao.asignarListaDestinosMovil(destinoDao.recuperarListaDestinosMovilBD());
-		setListaDestinosMovil(destinoDao.getListaDestinosMovil());
-		//==========================================
-		for(CItemsDestino id:listaItemsDestino)
-		{
-			for(CDestinoMovil d:listaDestinosMovil)
-			{
-				if(id.getnDestinoCod()==d.getnDestinoCod())
-				{
-					d.setSeleccionado(true);
-				}
-			}
-		}
 	}
 }

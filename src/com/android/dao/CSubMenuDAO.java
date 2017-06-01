@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.android.model.CElementos;
 import com.android.model.CItems;
 import com.android.model.CSubMenu;
 import com.pricing.dao.CConexion;
@@ -11,6 +12,7 @@ import com.pricing.dao.CConexion;
 public class CSubMenuDAO extends CConexion{
 	private ArrayList<CSubMenu> listaSubMenu;
 	private ArrayList<CItems> listaItems;
+	private ArrayList<CElementos> listaElementos;
 	private String nameMenu;
 	//======================================
 
@@ -35,6 +37,14 @@ public class CSubMenuDAO extends CConexion{
 
 	public void setListaItems(ArrayList<CItems> listaItems) {
 		this.listaItems = listaItems;
+	}
+
+	public ArrayList<CElementos> getListaElementos() {
+		return listaElementos;
+	}
+
+	public void setListaElementos(ArrayList<CElementos> listaElementos) {
+		this.listaElementos = listaElementos;
 	}
 
 	//=========================================
@@ -65,6 +75,11 @@ public class CSubMenuDAO extends CConexion{
 	{
 		Object[] values={codSubMenu};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarTodosItems_SubMenu",values);
+	}
+	public List recuperarListaElementosBD_SubMenu(int codSubMenu)
+	{
+		Object[] values={codSubMenu};
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarTodosElementos_SubMenu",values);
 	}
 	public List recuperarNombreMenu(int codMenu)
 	{
@@ -109,6 +124,30 @@ public class CSubMenuDAO extends CConexion{
 						(String)row.get("cdescripcionidioma2"),(String)row.get("cdescripcionidioma3"),
 						(String)row.get("cdescripcionidioma4"),(String)row.get("cdescripcionidioma5"),
 						(String)row.get("cimagen")));
+			}
+		}
+	}
+	public void asignarListaElementos_SubMenu(List lista)
+	{
+		listaElementos=new ArrayList<CElementos>();
+		if(!lista.isEmpty())
+		{
+			for(int i=0;i<lista.size();i++)
+			{
+				Map row=(Map)lista.get(i);
+				listaElementos.add(new CElementos((int)row.get("celementoscod"),(int)row.get("citemscod"),
+						(int)row.get("csubmenucod"),(String)row.get("cnombre1idioma1"),
+						(String)row.get("cnombre1idioma2"),(String)row.get("cnombre1idioma3"),
+						(String)row.get("cnombre1idioma4"),(String)row.get("cnombre1idioma5"),
+						(String)row.get("cnombre2idioma1"),(String)row.get("cnombre2idioma2"),
+						(String)row.get("cnombre2idioma3"),(String)row.get("cnombre2idioma4"),
+						(String)row.get("cnombre2idioma5"),(String)row.get("cnombre3idioma1"),
+						(String)row.get("cnombre3idioma2"),(String)row.get("cnombre3idioma3"),
+						(String)row.get("cnombre3idioma4"),(String)row.get("cnombre3idioma5"),
+						(String)row.get("cimagen1"),(String)row.get("cimagen2"),
+						(String)row.get("cimagen3"),(String)row.get("cdirigidoidioma1"),
+						(String)row.get("cdirigidoidioma2"),(String)row.get("cdirigidoidioma3"),
+						(String)row.get("cdirigidoidioma4"),(String)row.get("cdirigidoidioma5")));
 			}
 		}
 	}

@@ -10,23 +10,19 @@ import com.pricing.dao.CConexion;
 
 public class CDatosGeneralesDAO extends CConexion{
 	private ArrayList<CDatosGenerales> listaDatosGenerales;
-	private String nameItem;
+	private String nameElemento;
 	//======================================
-	
-	public String getNameItem() {
-		return nameItem;
-	}
-
 	public ArrayList<CDatosGenerales> getListaDatosGenerales() {
 		return listaDatosGenerales;
 	}
-
 	public void setListaDatosGenerales(ArrayList<CDatosGenerales> listaDatosGenerales) {
 		this.listaDatosGenerales = listaDatosGenerales;
 	}
-
-	public void setNameItem(String nameItem) {
-		this.nameItem = nameItem;
+	public String getNameElemento() {
+		return nameElemento;
+	}
+	public void setNameElemento(String nameElemento) {
+		this.nameElemento = nameElemento;
 	}
 	//=========================================
 
@@ -37,7 +33,7 @@ public class CDatosGeneralesDAO extends CConexion{
 	//=========================================
 	public List registrarDatoGeneral(CDatosGenerales datoGeneral)
 	{
-		Object[] values={datoGeneral.getcItemsCod(),datoGeneral.getcTituloIdioma1(),
+		Object[] values={datoGeneral.getcElementosCod(),datoGeneral.getcTituloIdioma1(),
 				datoGeneral.getcTituloIdioma2(),datoGeneral.getcTituloIdioma3(),
 				datoGeneral.getcTituloIdioma4(),datoGeneral.getcTituloIdioma5(),
 				datoGeneral.getcDescripcionIdioma1(),datoGeneral.getcDescripcionIdioma2(),
@@ -47,7 +43,7 @@ public class CDatosGeneralesDAO extends CConexion{
 	}
 	public List modificarDatoGeneral(CDatosGenerales datoGeneral)
 	{
-		Object[] values={datoGeneral.getcDatosGeneralesCod(),datoGeneral.getcItemsCod(),
+		Object[] values={datoGeneral.getcDatosGeneralesCod(),datoGeneral.getcElementosCod(),
 				datoGeneral.getcTituloIdioma1(),
 				datoGeneral.getcTituloIdioma2(),datoGeneral.getcTituloIdioma3(),
 				datoGeneral.getcTituloIdioma4(),datoGeneral.getcTituloIdioma5(),
@@ -60,17 +56,17 @@ public class CDatosGeneralesDAO extends CConexion{
 	{
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarTodosDatosGenerales");
 	}
-	public List recuperarNombreItem(int codItem)
+	public List recuperarNombreElemento(int codElemento)
 	{
-		Object[] values={codItem};
-		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarNombreItem", values);
+		Object[] values={codElemento};
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarNombreElemento", values);
 	}
-	public void asignarNameItem(List lista)
+	public void asignarNameElemento(List lista)
 	{
 		if(!lista.isEmpty())
 		{
 			Map row=(Map)lista.get(0);
-			setNameItem((String)row.get("nombre"));
+			setNameElemento((String)row.get("nombre"));
 		}
 	}
 	public void asignarListaDatosGenerales(List lista)

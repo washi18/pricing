@@ -1,11 +1,14 @@
 package com.android.model;
 
+import java.util.ArrayList;
+
 import com.android.dao.CElementosDAO;
 import com.android.dao.CItemsDAO;
 
 public class CElementos {
 	private int cElementosCod;// integer,
 	private int cItemsCod;// integer,
+	private int cSubMenuCod;// integer,
 	private String cNombre1Idioma1;// varchar(200),
 	private String cNombre1Idioma2;// varchar(200),
 	private String cNombre1Idioma3;// varchar(200),
@@ -29,12 +32,15 @@ public class CElementos {
 	private String cDirigidoIdioma3;// text,
 	private String cDirigidoIdioma4;// text,
 	private String cDirigidoIdioma5;// text,
+	private ArrayList<CDestinoMovil> listaDestinosMovil;
+	private ArrayList<CDatosGenerales> listaDatosGenerales;
 	private boolean editable;
 	private boolean visibleEspanol;
 	private boolean visibleIngles;
 	private boolean visiblePortugues;
 	private String nameItem;
 	private boolean update;
+	private boolean vistaMobil;
 	//======================================
 	public int getcElementosCod() {
 		return cElementosCod;
@@ -47,6 +53,12 @@ public class CElementos {
 	}
 	public void setcItemsCod(int cItemsCod) {
 		this.cItemsCod = cItemsCod;
+	}
+	public int getcSubMenuCod() {
+		return cSubMenuCod;
+	}
+	public void setcSubMenuCod(int cSubMenuCod) {
+		this.cSubMenuCod = cSubMenuCod;
 	}
 	public String getcNombre1Idioma1() {
 		return cNombre1Idioma1;
@@ -222,10 +234,29 @@ public class CElementos {
 	public void setUpdate(boolean update) {
 		this.update = update;
 	}
+	public boolean isVistaMobil() {
+		return vistaMobil;
+	}
+	public void setVistaMobil(boolean vistaMobil) {
+		this.vistaMobil = vistaMobil;
+	}
+	public ArrayList<CDestinoMovil> getListaDestinosMovil() {
+		return listaDestinosMovil;
+	}
+	public void setListaDestinosMovil(ArrayList<CDestinoMovil> listaDestinosMovil) {
+		this.listaDestinosMovil = listaDestinosMovil;
+	}
+	public ArrayList<CDatosGenerales> getListaDatosGenerales() {
+		return listaDatosGenerales;
+	}
+	public void setListaDatosGenerales(ArrayList<CDatosGenerales> listaDatosGenerales) {
+		this.listaDatosGenerales = listaDatosGenerales;
+	}
 	//===========================================
 	public CElementos() {
 		// TODO Auto-generated constructor stub
 		this.cItemsCod=0;// integer,
+		this.cSubMenuCod=0;
 		this.cNombre1Idioma1="";// varchar(200),
 		this.cNombre1Idioma2="";// varchar(200),
 		this.cNombre1Idioma3="";// varchar(200),
@@ -250,8 +281,9 @@ public class CElementos {
 		this.cDirigidoIdioma4="";// text,
 		this.cDirigidoIdioma5="";
 		this.update=false;
+		this.vistaMobil=false;
 	}
-	public CElementos(int cElementosCod, int cItemsCod, String cNombre1Idioma1, String cNombre1Idioma2,
+	public CElementos(int cElementosCod, int cItemsCod,int cSubMenuCod, String cNombre1Idioma1, String cNombre1Idioma2,
 			String cNombre1Idioma3, String cNombre1Idioma4, String cNombre1Idioma5, String cNombre2Idioma1,
 			String cNombre2Idioma2, String cNombre2Idioma3, String cNombre2Idioma4, String cNombre2Idioma5,
 			String cNombre3Idioma1, String cNombre3Idioma2, String cNombre3Idioma3, String cNombre3Idioma4,
@@ -259,6 +291,7 @@ public class CElementos {
 			String cDirigidoIdioma2, String cDirigidoIdioma3, String cDirigidoIdioma4, String cDirigidoIdioma5) {
 		this.cElementosCod = cElementosCod;
 		this.cItemsCod = cItemsCod;
+		this.cSubMenuCod = cSubMenuCod;
 		this.cNombre1Idioma1 = cNombre1Idioma1;
 		this.cNombre1Idioma2 = cNombre1Idioma2;
 		this.cNombre1Idioma3 = cNombre1Idioma3;
@@ -286,14 +319,31 @@ public class CElementos {
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
 		this.visiblePortugues=false;
+		this.vistaMobil=false;
 		//==========================
 		this.update=true;
 		obtenerNameItem(cItemsCod);
+		recuperarListaDestinosMovil(cElementosCod);
+		recuperarListaDatosGenerales(cElementosCod);
 	}
 	public void obtenerNameItem(int cItemsCod)
 	{
 		CElementosDAO elementosDao=new CElementosDAO();
 		elementosDao.asignarNameItem(elementosDao.recuperarNombreItem(cItemsCod));
 		setNameItem(elementosDao.getNameItem());
+	}
+	public void recuperarListaDestinosMovil(int cElementosCod)
+	{
+		listaDestinosMovil=new ArrayList<CDestinoMovil>();
+		CElementosDAO elementoDao=new CElementosDAO();
+		elementoDao.asignarListaDestinosElemento(elementoDao.recuperarListaDestinosBD_Elemento(cElementosCod));
+		setListaDestinosMovil(elementoDao.getListaDestinosMovil());
+	}
+	public void recuperarListaDatosGenerales(int cElementosCod)
+	{
+		listaDatosGenerales=new ArrayList<CDatosGenerales>();
+		CElementosDAO elementoDao=new CElementosDAO();
+		elementoDao.asignarListaDatosGeneralesElemento(elementoDao.recuperarListaDatosGeneralesBD_Elemento(cElementosCod));
+		setListaDatosGenerales(elementoDao.getListaDatosGenerales());
 	}
 }

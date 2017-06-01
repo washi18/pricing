@@ -4,7 +4,7 @@ import com.android.dao.CElementosDAO;
 
 public class CDatosGenerales {
 	private int cDatosGeneralesCod;// integer,
-	private int cItemsCod;// integer,
+	private int cElementosCod;// integer,
 	private String cTituloIdioma1;// varchar(200),
 	private String cTituloIdioma2;// varchar(200),
 	private String cTituloIdioma3;// varchar(200),
@@ -18,6 +18,7 @@ public class CDatosGenerales {
 	private String cImagen;// varchar(100),
 	private String nameItem;
 	private boolean update;
+	private boolean vistaMobil;
 	//====================================
 	public int getcDatosGeneralesCod() {
 		return cDatosGeneralesCod;
@@ -25,11 +26,11 @@ public class CDatosGenerales {
 	public void setcDatosGeneralesCod(int cDatosGeneralesCod) {
 		this.cDatosGeneralesCod = cDatosGeneralesCod;
 	}
-	public int getcItemsCod() {
-		return cItemsCod;
+	public int getcElementosCod() {
+		return cElementosCod;
 	}
-	public void setcItemsCod(int cItemsCod) {
-		this.cItemsCod = cItemsCod;
+	public void setcElementosCod(int cElementosCod) {
+		this.cElementosCod = cElementosCod;
 	}
 	public String getcTituloIdioma1() {
 		return cTituloIdioma1;
@@ -109,10 +110,16 @@ public class CDatosGenerales {
 	public void setUpdate(boolean update) {
 		this.update = update;
 	}
+	public boolean isVistaMobil() {
+		return vistaMobil;
+	}
+	public void setVistaMobil(boolean vistaMobil) {
+		this.vistaMobil = vistaMobil;
+	}
 	//================================
 	public CDatosGenerales() {
 		// TODO Auto-generated constructor stub
-		this.cItemsCod=0;// integer,
+		this.cElementosCod=0;// integer,
 		this.cTituloIdioma1="";// varchar(200),
 		this.cTituloIdioma2="";// varchar(200),
 		this.cTituloIdioma3="";// varchar(200),
@@ -125,13 +132,14 @@ public class CDatosGenerales {
 		this.cDescripcionIdioma5="";// text,
 		this.cImagen="";
 		this.update=false;
+		this.vistaMobil=false;
 	}
-	public CDatosGenerales(int cDatosGeneralesCod, int cItemsCod, String cTituloIdioma1, String cTituloIdioma2,
+	public CDatosGenerales(int cDatosGeneralesCod, int cElementosCod, String cTituloIdioma1, String cTituloIdioma2,
 			String cTituloIdioma3, String cTituloIdioma4, String cTituloIdioma5, String cDescripcionIdioma1,
 			String cDescripcionIdioma2, String cDescripcionIdioma3, String cDescripcionIdioma4,
 			String cDescripcionIdioma5, String cImagen) {
 		this.cDatosGeneralesCod = cDatosGeneralesCod;
-		this.cItemsCod = cItemsCod;
+		this.cElementosCod = cElementosCod;
 		this.cTituloIdioma1 = cTituloIdioma1;
 		this.cTituloIdioma2 = cTituloIdioma2;
 		this.cTituloIdioma3 = cTituloIdioma3;
@@ -143,14 +151,15 @@ public class CDatosGenerales {
 		this.cDescripcionIdioma4 = cDescripcionIdioma4;
 		this.cDescripcionIdioma5 = cDescripcionIdioma5;
 		this.cImagen = cImagen;
+		this.vistaMobil=false;
 		//=====================
 		this.update=true;
-		obtenerNameItem(cItemsCod);
+		obtenerNameElemento(cElementosCod);
 	}
-	public void obtenerNameItem(int cItemsCod)
+	public void obtenerNameElemento(int cElementosCod)
 	{
 		CElementosDAO elementosDao=new CElementosDAO();
-		elementosDao.asignarNameItem(elementosDao.recuperarNombreItem(cItemsCod));
+		elementosDao.asignarNameItem(elementosDao.recuperarNombreItem(cElementosCod));
 		setNameItem(elementosDao.getNameItem());
 	}
 }

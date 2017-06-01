@@ -2,6 +2,7 @@ package com.android.model;
 
 public class CDestinoMovil {
 	private int nDestinoCod;// integer,
+	private int cElementosCod;
 	private String cDestino;// varchar(100),
 	private boolean bEstado;// boolean,
 	private String cLatitud;// varchar(200),
@@ -21,6 +22,12 @@ public class CDestinoMovil {
 	}
 	public void setnDestinoCod(int nDestinoCod) {
 		this.nDestinoCod = nDestinoCod;
+	}
+	public int getcElementosCod() {
+		return cElementosCod;
+	}
+	public void setcElementosCod(int cElementosCod) {
+		this.cElementosCod = cElementosCod;
 	}
 	public String getcDestino() {
 		return cDestino;
@@ -85,14 +92,16 @@ public class CDestinoMovil {
 	//=====================================
 	public CDestinoMovil() {
 		// TODO Auto-generated constructor stub
+		this.cElementosCod=0;
 		this.cDestino="";
 		this.cLatitud="";
 		this.cLongitud="";
 		bEstado=false;
 		seleccionado=false;
 	}
-	public CDestinoMovil(int nDestinoCod, String cDestino, boolean bEstado, String cLatitud, String cLongitud) {
+	public CDestinoMovil(int nDestinoCod,int cElementosCod, String cDestino, boolean bEstado, String cLatitud, String cLongitud) {
 		this.nDestinoCod = nDestinoCod;
+		this.cElementosCod=cElementosCod;
 		this.cDestino = cDestino;
 		this.bEstado = bEstado;
 		this.cLatitud = cLatitud;

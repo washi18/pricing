@@ -30,8 +30,10 @@ public class CSubMenu {
 	private boolean visiblePortugues;
 	private String nameMenu;
 	private ArrayList<CItems> listaItems;
+	private ArrayList<CElementos> listaElementos;
 	private boolean visibleItem;
 	private boolean update;
+	private boolean vistaMobil;
 	//==================================
 	public int getcSubMenuCod() {
 		return cSubMenuCod;
@@ -177,6 +179,18 @@ public class CSubMenu {
 	public void setUpdate(boolean update) {
 		this.update = update;
 	}
+	public boolean isVistaMobil() {
+		return vistaMobil;
+	}
+	public void setVistaMobil(boolean vistaMobil) {
+		this.vistaMobil = vistaMobil;
+	}
+	public ArrayList<CElementos> getListaElementos() {
+		return listaElementos;
+	}
+	public void setListaElementos(ArrayList<CElementos> listaElementos) {
+		this.listaElementos = listaElementos;
+	}
 	//===========================
 	public CSubMenu() {
 		// TODO Auto-generated constructor stub
@@ -195,6 +209,7 @@ public class CSubMenu {
 		this.sinElemento=false;
 		//==================
 		this.update=false;
+		this.vistaMobil=false;
 	}
 	public CSubMenu(int cSubMenuCod, int cMenuCod, String cNombreIdioma1, String cNombreIdioma2, String cNombreIdioma3,
 			String cNombreIdioma4, String cNombreIdioma5, String cImagen, boolean estado, boolean elemento) {
@@ -219,9 +234,15 @@ public class CSubMenu {
 		//==========================
 		this.visibleItem=false;
 		this.update=true;
+		this.vistaMobil=false;
 		obtenerNameMenu(cMenuCod);
 		//===========================
-		recuperarListaItems(cSubMenuCod);
+		listaElementos=new ArrayList<CElementos>();
+		listaItems=new ArrayList<CItems>();
+		if(elemento)
+			recuperarListaElementos(cSubMenuCod);
+		else
+			recuperarListaItems(cSubMenuCod);
 		darColor_estado();
 	}
 	public void obtenerNameMenu(int cMenuCod)
@@ -235,6 +256,12 @@ public class CSubMenu {
 		CSubMenuDAO submenuDao=new CSubMenuDAO();
 		submenuDao.asignarListaItems_SubMenu(submenuDao.recuperarListaItemsBD_SubMenu(cSubMenuCod));
 		setListaItems(submenuDao.getListaItems());
+	}
+	public void recuperarListaElementos(int cSubMenuCod)
+	{
+		CSubMenuDAO submenuDao=new CSubMenuDAO();
+		submenuDao.asignarListaElementos_SubMenu(submenuDao.recuperarListaElementosBD_SubMenu(cSubMenuCod));
+		setListaElementos(submenuDao.getListaElementos());
 	}
 	public void darColor_estado()
 	{

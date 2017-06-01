@@ -29,6 +29,7 @@ public class CMenu {
 	private ArrayList<CSubMenu> listaSubMenus;
 	private boolean visibleSubMenu;
 	private boolean update;
+	private boolean vistaMobil;
 	//===============================
 	public int getcMenuCod() {
 		return cMenuCod;
@@ -150,6 +151,12 @@ public class CMenu {
 	public void setUpdate(boolean update) {
 		this.update = update;
 	}
+	public boolean isVistaMobil() {
+		return vistaMobil;
+	}
+	public void setVistaMobil(boolean vistaMobil) {
+		this.vistaMobil = vistaMobil;
+	}
 	//========================
 	public CMenu() {
 		// TODO Auto-generated constructor stub
@@ -164,6 +171,7 @@ public class CMenu {
 		this.estado=true;
 		this.estado_desactivo=false;
 		this.update=false;
+		this.vistaMobil=false;
 	}
 	public CMenu(int cMenuCod, String cNombreIdioma1, String cNombreIdioma2, String cNombreIdioma3,
 			String cNombreIdioma4, String cNombreIdioma5, String cImagenIcono, String cImagenFondo, boolean estado) {
@@ -185,6 +193,7 @@ public class CMenu {
 		//===========================
 		this.visibleSubMenu=false;
 		this.update=true;
+		this.vistaMobil=false;
 		recuperarListaSubMenus(cMenuCod);
 		darColor_estado();
 	}

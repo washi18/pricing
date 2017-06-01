@@ -1,6 +1,6 @@
 package com.android.viewModel;
 
-import java.io.IOException;
+import java.io.File;
 import java.util.ArrayList;
 
 import org.zkoss.bind.BindUtils;
@@ -14,17 +14,12 @@ import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
 import org.zkoss.util.media.Media;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.WrongValueException;
 import org.zkoss.zk.ui.event.EventListener;
 import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
-import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
-import org.zkoss.zul.Div;
 import org.zkoss.zul.Fileupload;
-import org.zkoss.zul.Include;
 import org.zkoss.zul.Messagebox;
-
 import com.android.dao.CDatosGeneralesDAO;
 import com.android.dao.CDestinosMovilDAO;
 import com.android.dao.CElementosDAO;
@@ -35,12 +30,12 @@ import com.android.model.CDatosGenerales;
 import com.android.model.CDestinoMovil;
 import com.android.model.CElementos;
 import com.android.model.CItems;
-import com.android.model.CItemsDestino;
 import com.android.model.CMenu;
 import com.android.model.CSubMenu;
-import com.pricing.model.CPaquete;
-import com.pricing.model.CPaqueteServicio;
-import com.pricing.model.CServicio;
+import com.pricing.extras.KMP;
+import com.pricing.model.CGaleriaImageExist;
+import com.pricing.model.CGaleriaImageExist4;
+import com.pricing.model.Nro;
 import com.pricing.util.ScannUtil;
 
 public class menuVM {
@@ -50,12 +45,18 @@ public class menuVM {
 	private CElementos oElemento;
 	private CDatosGenerales oDatoGeneral;
 	private ArrayList<CMenu> listaMenu;
-	private ArrayList<CDestinoMovil> listaDestinosMovil;
 	private boolean visibleMenu;
 	private boolean visibleSubMenu;
 	private boolean visibleItem;
 	private boolean visibleElemento;
 	private boolean visibleDatoGeneral;
+	private ArrayList<CGaleriaImageExist> listaImagenesExistentes;
+	private ArrayList<CGaleriaImageExist4> lista4ImagenesExistentes;
+	private CGaleriaImageExist4 galeria4Aux;
+	private boolean mostrarImagenesExistentes;
+	private boolean mostrarTextImgSeleccionado;
+	private int opcionImgExist;
+	private int nroImgElemento;
 	//====================
 	public CMenu getoMenu() {
 		return oMenu;
@@ -123,11 +124,29 @@ public class menuVM {
 	public void setVisibleDatoGeneral(boolean visibleDatoGeneral) {
 		this.visibleDatoGeneral = visibleDatoGeneral;
 	}
-	public ArrayList<CDestinoMovil> getListaDestinosMovil() {
-		return listaDestinosMovil;
+	public ArrayList<CGaleriaImageExist> getListaImagenesExistentes() {
+		return listaImagenesExistentes;
 	}
-	public void setListaDestinosMovil(ArrayList<CDestinoMovil> listaDestinosMovil) {
-		this.listaDestinosMovil = listaDestinosMovil;
+	public void setListaImagenesExistentes(ArrayList<CGaleriaImageExist> listaImagenesExistentes) {
+		this.listaImagenesExistentes = listaImagenesExistentes;
+	}
+	public ArrayList<CGaleriaImageExist4> getLista4ImagenesExistentes() {
+		return lista4ImagenesExistentes;
+	}
+	public void setLista4ImagenesExistentes(ArrayList<CGaleriaImageExist4> lista4ImagenesExistentes) {
+		this.lista4ImagenesExistentes = lista4ImagenesExistentes;
+	}
+	public boolean isMostrarImagenesExistentes() {
+		return mostrarImagenesExistentes;
+	}
+	public void setMostrarImagenesExistentes(boolean mostrarImagenesExistentes) {
+		this.mostrarImagenesExistentes = mostrarImagenesExistentes;
+	}
+	public boolean isMostrarTextImgSeleccionado() {
+		return mostrarTextImgSeleccionado;
+	}
+	public void setMostrarTextImgSeleccionado(boolean mostrarTextImgSeleccionado) {
+		this.mostrarTextImgSeleccionado = mostrarTextImgSeleccionado;
 	}
 	//====================
 	@Init
@@ -145,6 +164,12 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		//===============
+		mostrarImagenesExistentes=false;
+		mostrarTextImgSeleccionado=false;
+		galeria4Aux=new CGaleriaImageExist4();
+		opcionImgExist=0;
+		nroImgElemento=0;
 	}
 	@GlobalCommand
 	@NotifyChange("listaMenu")
@@ -154,6 +179,288 @@ public class menuVM {
 		menuDao.asignarListaMenu(menuDao.recuperarListaMenuBD());
 		setListaMenu(menuDao.getListaMenu());
 		System.out.println("Aqui toy: "+listaMenu.size());
+	}
+	@Command
+	public void buscarImagen(@BindingParam("texto")String texto)
+	{
+		ubicarTodosImagenes();
+		ArrayList<CGaleriaImageExist> listaAuxImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		for(CGaleriaImageExist galeria:listaImagenesExistentes)
+		{
+			if(KMP.KMPSearch(texto, galeria.getRutaImagen()))
+				listaAuxImagenesExistentes.add(galeria);
+		}
+		setListaImagenesExistentes(listaAuxImagenesExistentes);
+		rellenarImagenesExistentes();
+	}
+	public void recuperarTodasImagenesExistentes()
+	{
+		ubicarTodosImagenes();
+		//====Rellenando las imagenes para mostraren la interfaz==
+		rellenarImagenesExistentes();
+	}
+	public void rellenarImagenesExistentes()
+	{
+		for(int i=0;i<listaImagenesExistentes.size();i+=4)
+		{
+			CGaleriaImageExist4 images=new CGaleriaImageExist4();
+			images.setGaleria1(listaImagenesExistentes.get(i));
+			if((i+1)<listaImagenesExistentes.size())
+				images.setGaleria2(listaImagenesExistentes.get(i+1));
+			if((i+2)<listaImagenesExistentes.size())
+				images.setGaleria3(listaImagenesExistentes.get(i+2));
+			if((i+3)<listaImagenesExistentes.size())
+				images.setGaleria4(listaImagenesExistentes.get(i+3));
+			lista4ImagenesExistentes.add(images);
+		}
+		BindUtils.postNotifyChange(null, null, this, "lista4ImagenesExistentes");
+	}
+	public void ubicarTodosImagenes()
+	{
+		listaImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		lista4ImagenesExistentes=new ArrayList<CGaleriaImageExist4>();
+		//====HOTELES====
+		File directorio=new File(ScannUtil.getPathImagenHoteles());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/hoteles/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====TOURS======
+		directorio=new File(ScannUtil.getPathImagenPaquetes());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/tours/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====SERVICIOS===
+		directorio=new File(ScannUtil.getPathImagensSubServicios());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/servicios/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====DESTINOS====
+		directorio=new File(ScannUtil.getPathImagenDestinos());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/destinos/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+		//====ANDROID====
+		directorio=new File(ScannUtil.getPathImagenAndroid());
+		imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/android/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarHotelesImagenes(){
+		File directorio=new File(ScannUtil.getPathImagenHoteles());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/hoteles/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarToursImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenPaquetes());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/tours/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarServiciosImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagensSubServicios());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/servicios/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarDestinosImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenDestinos());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/destinos/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	public void ubicarAndroidImagenes()
+	{
+		File directorio=new File(ScannUtil.getPathImagenAndroid());
+		String[] imagenes=directorio.list();
+		for(int i=0;i<imagenes.length;i++)
+		{
+			CGaleriaImageExist galeria=new CGaleriaImageExist();
+			galeria.setRutaImagen("img/android/"+imagenes[i]);
+			galeria.setVisible(true);
+			listaImagenesExistentes.add(galeria);
+		}
+	}
+	@Command
+	@NotifyChange({"mostrarTextImgSeleccionado"})
+	public void selectImagenExist(@BindingParam("galeria4")CGaleriaImageExist4 galeria4,
+			@BindingParam("galeria")CGaleriaImageExist galeria)
+	{
+		galeria4Aux.getGaleria1().setSeleccionado(false);
+		galeria4Aux.getGaleria1().setStyle_Select("div_content_imageHotel");
+		galeria4Aux.getGaleria2().setSeleccionado(false);
+		galeria4Aux.getGaleria2().setStyle_Select("div_content_imageHotel");
+		galeria4Aux.getGaleria3().setSeleccionado(false);
+		galeria4Aux.getGaleria3().setStyle_Select("div_content_imageHotel");
+		galeria4Aux.getGaleria4().setSeleccionado(false);
+		galeria4Aux.getGaleria4().setStyle_Select("div_content_imageHotel");
+		if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+		refrescarSelect(galeria4Aux);
+		galeria4Aux=galeria4;
+		if(galeria4.getGaleria1().equals(galeria))
+		{
+			if(galeria4.getGaleria1().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria1().setSeleccionado(false);
+				galeria4.getGaleria1().setStyle_Select("div_content_imageHotel");
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria1().setSeleccionado(true);
+				galeria4.getGaleria1().setStyle_Select("div_content_imageHotel_selected");
+				if(opcionImgExist==1)
+					asignarRutaImagenSubMenu(galeria4.getGaleria1().getRutaImagen(), oSubMenu,true);
+				else if(opcionImgExist==2)
+					asignarRutaImagenItem(galeria4.getGaleria1().getRutaImagen(), oItem,true);
+				else if(opcionImgExist==3)
+					asignarRutaImagenElemento(galeria4.getGaleria1().getRutaImagen(), oElemento, nroImgElemento,true);
+				else if(opcionImgExist==4)
+					asignarRutaImagenDatoGeneral(galeria4.getGaleria1().getRutaImagen(), oDatoGeneral,true);
+			}
+		}else if(galeria4.getGaleria2().equals(galeria))
+		{
+			if(galeria4.getGaleria2().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria2().setSeleccionado(false);
+				galeria4.getGaleria2().setStyle_Select("div_content_imageHotel");
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria2().setSeleccionado(true);
+				galeria4.getGaleria2().setStyle_Select("div_content_imageHotel_selected");
+				if(opcionImgExist==1)
+					asignarRutaImagenSubMenu(galeria4.getGaleria2().getRutaImagen(), oSubMenu,true);
+				else if(opcionImgExist==2)
+					asignarRutaImagenItem(galeria4.getGaleria2().getRutaImagen(), oItem,true);
+				else if(opcionImgExist==3)
+					asignarRutaImagenElemento(galeria4.getGaleria2().getRutaImagen(), oElemento, nroImgElemento,true);
+				else if(opcionImgExist==4)
+					asignarRutaImagenDatoGeneral(galeria4.getGaleria2().getRutaImagen(), oDatoGeneral,true);
+			}
+		}else if(galeria4.getGaleria3().equals(galeria))
+		{
+			if(galeria4.getGaleria3().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria3().setSeleccionado(false);
+				galeria4.getGaleria3().setStyle_Select("div_content_imageHotel");
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria3().setSeleccionado(true);
+				galeria4.getGaleria3().setStyle_Select("div_content_imageHotel_selected");
+				if(opcionImgExist==1)
+					asignarRutaImagenSubMenu(galeria4.getGaleria3().getRutaImagen(), oSubMenu,true);
+				else if(opcionImgExist==2)
+					asignarRutaImagenItem(galeria4.getGaleria3().getRutaImagen(), oItem,true);
+				else if(opcionImgExist==3)
+					asignarRutaImagenElemento(galeria4.getGaleria3().getRutaImagen(), oElemento, nroImgElemento,true);
+				else if(opcionImgExist==4)
+					asignarRutaImagenDatoGeneral(galeria4.getGaleria3().getRutaImagen(), oDatoGeneral,true);
+			}
+		}else if(galeria4.getGaleria4().equals(galeria))
+		{
+			if(galeria4.getGaleria4().isSeleccionado())
+			{
+				if(Nro.nroImagenes>0)Nro.decrementarNroImagenes();
+				galeria4.getGaleria4().setSeleccionado(false);
+				galeria4.getGaleria4().setStyle_Select("div_content_imageHotel");
+			}else{
+				Nro.incrementarNroImagenes();
+				galeria4.getGaleria4().setSeleccionado(true);
+				galeria4.getGaleria4().setStyle_Select("div_content_imageHotel_selected");
+				if(opcionImgExist==1)
+					asignarRutaImagenSubMenu(galeria4.getGaleria4().getRutaImagen(), oSubMenu,true);
+				else if(opcionImgExist==2)
+					asignarRutaImagenItem(galeria4.getGaleria4().getRutaImagen(), oItem,true);
+				else if(opcionImgExist==3)
+					asignarRutaImagenElemento(galeria4.getGaleria4().getRutaImagen(), oElemento, nroImgElemento,true);
+				else if(opcionImgExist==4)
+					asignarRutaImagenDatoGeneral(galeria4.getGaleria4().getRutaImagen(), oDatoGeneral,true);
+			}
+		}
+		if(Nro.nroImagenes>0)mostrarTextImgSeleccionado=true;
+		else if(Nro.nroImagenes==0)mostrarTextImgSeleccionado=false;
+		refrescarSelect(galeria4);
+	}
+	@Command
+	public void selectTipoImagenExistente(@BindingParam("tipo")String tipo)
+	{
+		listaImagenesExistentes=new ArrayList<CGaleriaImageExist>();
+		lista4ImagenesExistentes=new ArrayList<CGaleriaImageExist4>();
+		if(tipo.equals("todos"))ubicarTodosImagenes();
+		else if(tipo.equals("hoteles"))ubicarHotelesImagenes();
+		else if(tipo.equals("tours"))ubicarToursImagenes();
+		else if(tipo.equals("servicios"))ubicarServiciosImagenes();
+		else if(tipo.equals("destinos"))ubicarDestinosImagenes();
+		else if(tipo.equals("android"))ubicarAndroidImagenes();
+		rellenarImagenesExistentes();
+	}
+	@Command
+	@NotifyChange({"mostrarImagenesExistentes"})
+	public void cerrarImagenesExistentes()
+	{
+		mostrarImagenesExistentes=false;
+	}
+	@Command
+	@NotifyChange({"mostrarImagenesExistentes","mostrarTextImgSeleccionado"})
+	public void invocaImagenesExistentes(@BindingParam("opcionImgExist")int opcionImgExist,
+			@BindingParam("nroImgElemento")int nroImgElemento)
+	{
+		System.out.println("Entre a invocar las imagenes existentes");
+		Nro.inicializarNroImagenes();
+		this.opcionImgExist=opcionImgExist;
+		this.nroImgElemento=nroImgElemento;
+		mostrarImagenesExistentes=true;
+		mostrarTextImgSeleccionado=false;
+		recuperarTodasImagenesExistentes();
 	}
 	@Command
 	public void selectDestinoMovil(@BindingParam("destino") CDestinoMovil destino) {
@@ -186,8 +493,7 @@ public class menuVM {
 		visibleDatoGeneral=false;
 	}
 	@Command
-	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral",
-		"listaDestinosMovil"})
+	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
 	public void mostrarNuevoItem(@BindingParam("submenu")CSubMenu submenu)
 	{
 		oItem=new CItems();
@@ -198,15 +504,13 @@ public class menuVM {
 		visibleElemento=false;
 		visibleDatoGeneral=false;
 		CDestinosMovilDAO destinosMovilDao=new CDestinosMovilDAO();
-		destinosMovilDao.asignarListaDestinosMovil(destinosMovilDao.recuperarListaDestinosMovilBD());
-		setListaDestinosMovil(destinosMovilDao.getListaDestinosMovil());
 	}
 	@Command
 	@NotifyChange({"oDatoGeneral","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
-	public void mostrarNuevoDatoGeneral(@BindingParam("item")CItems item)
+	public void mostrarNuevoDatoGeneral(@BindingParam("elemento")CElementos elemento)
 	{
 		oDatoGeneral=new CDatosGenerales();
-		oDatoGeneral.setcItemsCod(item.getcItemsCod());;
+		oDatoGeneral.setcElementosCod(elemento.getcElementosCod());
 		visibleMenu=false;
 		visibleSubMenu=false;
 		visibleItem=false;
@@ -266,17 +570,9 @@ public class menuVM {
 			return;
 		CItemsDAO itemsDao=new CItemsDAO();
 		CMenuDAO menuDao=new CMenuDAO();
-		int codItem=itemsDao.recuperarCodigoItem(itemsDao.registrarItem(oItem));
-		if(codItem!=0)
+		boolean correcto=itemsDao.isOperationCorrect(itemsDao.registrarItem(oItem));
+		if(correcto)
 		{
-			for(CDestinoMovil destino:listaDestinosMovil)
-			{
-				if(destino.isSeleccionado())
-				{
-					boolean b = itemsDao.isOperationCorrect(
-							itemsDao.insertarItemDestinoMovil(codItem,destino.getnDestinoCod()));
-				}
-			}
 			oItem=new CItems();
 			menuDao.asignarListaMenu(menuDao.recuperarListaMenuBD());
 			setListaMenu(menuDao.getListaMenu());
@@ -302,13 +598,30 @@ public class menuVM {
 	}
 	@Command
 	@NotifyChange({"oElemento","listaMenu"})
-	public void registrarElemento(@BindingParam("componente")Component comp)
+	public void registrarElementoSubmenu(@BindingParam("componente")Component comp)
 	{
 		if(!validoParaInsertar_elemento(comp))
 			return;
 		CElementosDAO elementosDao=new CElementosDAO();
 		CMenuDAO menuDao=new CMenuDAO();
-		boolean correcto=elementosDao.isOperationCorrect(elementosDao.registrarElemento(oElemento));
+		boolean correcto=elementosDao.isOperationCorrect(elementosDao.registrarElementoSubmenu(oElemento));
+		if(correcto)
+		{
+			oElemento=new CElementos();
+			menuDao.asignarListaMenu(menuDao.recuperarListaMenuBD());
+			setListaMenu(menuDao.getListaMenu());
+			Clients.showNotification("El registro del elemento fue correcto",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",3000);
+		}
+	}
+	@Command
+	@NotifyChange({"oElemento","listaMenu"})
+	public void registrarElementoItem(@BindingParam("componente")Component comp)
+	{
+		if(!validoParaInsertar_elemento(comp))
+			return;
+		CElementosDAO elementosDao=new CElementosDAO();
+		CMenuDAO menuDao=new CMenuDAO();
+		boolean correcto=elementosDao.isOperationCorrect(elementosDao.registrarElementoItem(oElemento));
 		if(correcto)
 		{
 			oElemento=new CElementos();
@@ -374,7 +687,7 @@ public class menuVM {
 	public boolean validoParaInsertar_datoGeneral(Component comp)
 	{
 		boolean valido=true;
-		if(oDatoGeneral.getcItemsCod()==0)
+		if(oDatoGeneral.getcElementosCod()==0)
 		{
 			valido=false;
 			Clients.showNotification("Es necesario que seleccione a que item correspondera el item",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
@@ -447,21 +760,6 @@ public class menuVM {
 		boolean correcto=itemsDao.isOperationCorrect(itemsDao.modificarItem(item));
 		if(correcto)
 		{
-			for (CDestinoMovil destino : listaDestinosMovil) {
-				boolean estaRegistrado = false;
-				for (CItemsDestino id : item.getListaItemsDestino()) {
-					if (id.getnDestinoCod() == destino.getnDestinoCod()) {
-						estaRegistrado = true;
-						if (!destino.isSeleccionado()) 
-							correcto = itemsDao
-									.isOperationCorrect(itemsDao.eliminarItemDestino(id.getcItemsCod()));
-						break;
-					}
-				}
-				if (destino.isSeleccionado() && !estaRegistrado)
-					correcto = itemsDao.isOperationCorrect(
-							itemsDao.insertarItemDestinoMovil(item.getcItemsCod(), destino.getnDestinoCod()));
-			}
 			CMenuDAO menuDao=new CMenuDAO();
 			menuDao.asignarListaMenu(menuDao.recuperarListaMenuBD());
 			setListaMenu(menuDao.getListaMenu());
@@ -628,7 +926,7 @@ public class menuVM {
 						// Una vez creado el nuevo nombre de archivo de imagen
 						// se procede a cambiar el nombre
 						String urlImagen = ScannUtil.getPathImagenAndroid() + img.getName();
-						asignarRutaImagenSubMenu(img.getName(), submenu);
+						asignarRutaImagenSubMenu(img.getName(), submenu,false);
 						Clients.showNotification(img.getName() + " Se subio al servidor.",
 								Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 					} else {
@@ -639,9 +937,12 @@ public class menuVM {
 			}
 		});
 	}
-	public void asignarRutaImagenSubMenu(String url,CSubMenu submenu)
+	public void asignarRutaImagenSubMenu(String url,CSubMenu submenu,boolean imgExist)
 	{
-			submenu.setcImagen("/img/android/"+url);
+			if(imgExist)
+				submenu.setcImagen(url);
+			else
+				submenu.setcImagen("img/android/"+url);
 			BindUtils.postNotifyChange(null, null, submenu,"cImagen");
 	}
 	@Command
@@ -660,7 +961,7 @@ public class menuVM {
 						// Una vez creado el nuevo nombre de archivo de imagen
 						// se procede a cambiar el nombre
 						String urlImagen = ScannUtil.getPathImagenAndroid() + img.getName();
-						asignarRutaImagenItem(img.getName(), item);
+						asignarRutaImagenItem(img.getName(), item,false);
 						Clients.showNotification(img.getName() + " Se subio al servidor.",
 								Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 					} else {
@@ -671,9 +972,12 @@ public class menuVM {
 			}
 		});
 	}
-	public void asignarRutaImagenItem(String url,CItems item)
+	public void asignarRutaImagenItem(String url,CItems item,boolean imgExist)
 	{
-			item.setcImagen("/img/android/"+url);
+			if(imgExist)
+				item.setcImagen(url);
+			else
+				item.setcImagen("img/android/"+url);
 			BindUtils.postNotifyChange(null, null, item,"cImagen");
 	}
 	@Command
@@ -692,7 +996,7 @@ public class menuVM {
 						// Una vez creado el nuevo nombre de archivo de imagen
 						// se procede a cambiar el nombre
 						String urlImagen = ScannUtil.getPathImagenAndroid() + img.getName();
-						asignarRutaImagenDatoGeneral(img.getName(), datoGeneral);
+						asignarRutaImagenDatoGeneral(img.getName(), datoGeneral,false);
 						Clients.showNotification(img.getName() + " Se subio al servidor.",
 								Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 					} else {
@@ -703,9 +1007,12 @@ public class menuVM {
 			}
 		});
 	}
-	public void asignarRutaImagenDatoGeneral(String url,CDatosGenerales datoGeneral)
+	public void asignarRutaImagenDatoGeneral(String url,CDatosGenerales datoGeneral,boolean imgExist)
 	{
-			datoGeneral.setcImagen("/img/android/"+url);
+			if(imgExist)
+				datoGeneral.setcImagen(url);
+			else
+				datoGeneral.setcImagen("img/android/"+url);
 			BindUtils.postNotifyChange(null, null, datoGeneral,"cImagen");
 	}
 	@Command
@@ -725,7 +1032,7 @@ public class menuVM {
 						// Una vez creado el nuevo nombre de archivo de imagen
 						// se procede a cambiar el nombre
 						String urlImagen = ScannUtil.getPathImagenAndroid() + img.getName();
-						asignarRutaImagenElemento(img.getName(),elemento,opcion);
+						asignarRutaImagenElemento(img.getName(),elemento,opcion,false);
 						Clients.showNotification(img.getName() + " Se subio al servidor.",
 								Clients.NOTIFICATION_TYPE_INFO, comp, "before_start", 2700);
 					} else {
@@ -736,19 +1043,28 @@ public class menuVM {
 			}
 		});
 	}
-	public void asignarRutaImagenElemento(String url,CElementos elemento,int opcion)
+	public void asignarRutaImagenElemento(String url,CElementos elemento,int opcion,boolean imgExist)
 	{
 		if(opcion==1)
 		{
-			elemento.setcImagen1("/img/android/"+url);
+			if(imgExist)
+				elemento.setcImagen1(url);
+			else
+				elemento.setcImagen1("img/android/"+url);
 			BindUtils.postNotifyChange(null, null, elemento,"cImagen1");
 		}else if(opcion==2)
 		{
-			elemento.setcImagen2("/img/android/"+url);
+			if(imgExist)
+				elemento.setcImagen2(url);
+			else
+				elemento.setcImagen2("img/android/"+url);
 			BindUtils.postNotifyChange(null, null, elemento,"cImagen2");
 		}else
 		{
-			elemento.setcImagen3("/img/android/"+url);
+			if(imgExist)
+				elemento.setcImagen3(url);
+			else
+				elemento.setcImagen3("img/android/"+url);
 			BindUtils.postNotifyChange(null, null, elemento,"cImagen3");
 		}
 	}
@@ -864,7 +1180,6 @@ public class menuVM {
 		visibleItem=true;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
-		setListaDestinosMovil(item.getListaDestinosMovil());
 		BindUtils.postNotifyChange(null, null, item, "visibleContent");
 	}
 	@Command
@@ -889,6 +1204,58 @@ public class menuVM {
 		visibleElemento=false;
 		visibleDatoGeneral=true;
 	}
+	@Command
+	public void vistaMobile_menu(@BindingParam("menu")CMenu menu)
+	{
+		menu.setVistaMobil(true);
+		BindUtils.postNotifyChange(null, null, menu, "vistaMobil");
+	}
+	@Command
+	public void vistaMobile_submenu(@BindingParam("submenu")CSubMenu submenu)
+	{
+		submenu.setVistaMobil(true);
+		BindUtils.postNotifyChange(null, null, submenu, "vistaMobil");
+	}
+	@Command
+	public void vistaMobile_item(@BindingParam("item")CItems item)
+	{
+		item.setVistaMobil(true);
+		BindUtils.postNotifyChange(null, null, item, "vistaMobil");
+	}
+	@Command
+	public void vistaMobile_elemento(@BindingParam("elemento")CElementos elemento)
+	{
+		elemento.setVistaMobil(true);
+		BindUtils.postNotifyChange(null, null, elemento, "vistaMobil");
+	}
+	@Command
+	@NotifyChange({"oMenu","oSubMenu","oItem","oElemento","oDatoGeneral"})
+	public void cerrarVistaMobile()
+	{
+		oMenu.setVistaMobil(false);
+		oSubMenu.setVistaMobil(false);
+		oItem.setVistaMobil(false);
+		oElemento.setVistaMobil(false);
+		oDatoGeneral.setVistaMobil(false);
+	}
+	@Command
+	public void abrirEditorDescripcionItem(@BindingParam("item")CItems item)
+	{
+		item.setAbrirEditorDescripcion(true);
+		BindUtils.postNotifyChange(null, null, item, "abrirEditorDescripcion");
+	}
+	@Command
+	public void cerrarEditorDescripcionItem(@BindingParam("item")CItems item)
+	{
+		item.setAbrirEditorDescripcion(false);
+		BindUtils.postNotifyChange(null, null, item, "abrirEditorDescripcion");
+	}
+	@Command
+	public void vistaMobile_datogeneral(@BindingParam("datogeneral")CDatosGenerales datogeneral)
+	{
+		datogeneral.setVistaMobil(true);
+		BindUtils.postNotifyChange(null, null, datogeneral, "vistaMobil");
+	}
 	public void refrescaFilaTemplate(CMenu m) {
 		BindUtils.postNotifyChange(null, null, m, "editable");
 	}
@@ -896,5 +1263,12 @@ public class menuVM {
 	public void afterCompose(@ContextParam(ContextType.VIEW) Component view)
 	{
 		Selectors.wireComponents(view, this, false);
+	}
+	public void refrescarSelect(CGaleriaImageExist4 galeria4)
+	{
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria1");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria2");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria3");
+		BindUtils.postNotifyChange(null, null, galeria4, "galeria4");
 	}
 }
