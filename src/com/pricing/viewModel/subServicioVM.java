@@ -25,6 +25,7 @@ import org.zkoss.zk.ui.event.UploadEvent;
 import org.zkoss.zk.ui.select.Selectors;
 import org.zkoss.zk.ui.select.annotation.Wire;
 import org.zkoss.zk.ui.util.Clients;
+import org.zkoss.zul.Combobox;
 import org.zkoss.zul.Div;
 import org.zkoss.zul.Fileupload;
 import org.zkoss.zul.Image;
@@ -61,6 +62,7 @@ public class subServicioVM
 	private boolean mostrarImagenesExistentes;
 	private boolean mostrarImagenesExistentesUpdate;
 	private boolean mostrarTextImgSeleccionado;
+	private int codServicioNew;
 	@Wire
 	Div div_llenar_subservicios;
 	/**
@@ -151,6 +153,7 @@ public class subServicioVM
 		mostrarImagenesExistentesUpdate=false;
 		mostrarTextImgSeleccionado=false;
 		galeria4Aux=new CGaleriaImageExist4();
+		codServicioNew=0;
 		/*****************************/
 		Encryptar encrip= new Encryptar();
 		Execution exec = Executions.getCurrent();
@@ -459,6 +462,8 @@ public class subServicioVM
 	}
 	public boolean validoParaInsertar(Component componente)
 	{
+		if(codServicioNew!=0)
+			oSubServicioNew.setnServicioCod(codServicioNew);
 		oSubServicioNew.setcSubServicioIndioma1(oSubServicioNew.getcSubServicioIndioma1().toUpperCase());
 		oSubServicioNew.setcSubServicioIndioma2(oSubServicioNew.getcSubServicioIndioma2().toUpperCase());
 		oSubServicioNew.setcSubServicioIndioma3(oSubServicioNew.getcSubServicioIndioma3().toUpperCase());
@@ -650,6 +655,7 @@ public class subServicioVM
 	@Command
 	@NotifyChange("oSubServicioNew")
 	public void  asignacion_servicio(@BindingParam("servicio")int codServicio){
+		codServicioNew=codServicio;
 		oSubServicioNew.setnServicioCod(codServicio);
 	}
 	@Command

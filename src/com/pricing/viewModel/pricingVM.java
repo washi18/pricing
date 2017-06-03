@@ -568,7 +568,7 @@ public class pricingVM
 						servicio.getListaOpcionServicios().get(0)[0]=etiqueta[48];
 						servicio.getListaOpcionServicios().get(1)[0]=etiqueta[49];
 					}
-					if(servicio.getcRestriccionNum()==0 && servicio.getcRestriccionNum()==0)
+					if(servicio.getcRestriccionNum()==0 && servicio.getcRestriccionYesNo()==0)
 					{
 						for(CSubServicio subServicio:oReservar.getoPaquete().getListaSubServicios())
 						{
@@ -623,7 +623,7 @@ public class pricingVM
 						servicio.getListaOpcionServicios().get(0)[0]=etiqueta[48];
 						servicio.getListaOpcionServicios().get(1)[0]=etiqueta[49];
 					}
-					if(servicio.getcRestriccionNum()==0 && servicio.getcRestriccionNum()==0)
+					if(servicio.getcRestriccionNum()==0 && servicio.getcRestriccionYesNo()==0)
 					{
 						for(CSubServicio subServicio:oReservar.getoPaquete().getListaSubServicios())
 						{
@@ -678,7 +678,7 @@ public class pricingVM
 						servicio.getListaOpcionServicios().get(0)[0]=etiqueta[48];
 						servicio.getListaOpcionServicios().get(1)[0]=etiqueta[49];
 					}
-					if(servicio.getcRestriccionNum()==0 && servicio.getcRestriccionNum()==0)
+					if(servicio.getcRestriccionNum()==0 && servicio.getcRestriccionYesNo()==0)
 					{
 						for(CSubServicio subServicio:oReservar.getoPaquete().getListaSubServicios())
 						{
