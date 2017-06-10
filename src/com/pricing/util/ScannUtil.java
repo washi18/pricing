@@ -69,6 +69,9 @@ public class ScannUtil {
 	public static String getPathImagenPaquetes(){
 		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"tours"+separator;
 	}
+	public static String getPathImagenQR(){
+		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"QR"+separator;
+	}
 	public static String getPathImagenDestinos(){
 		return Executions.getCurrent().getDesktop().getWebApp().getRealPath(separator)+separator+"img"+separator+"destinos"+separator;
 	}

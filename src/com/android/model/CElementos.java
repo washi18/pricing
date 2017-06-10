@@ -27,6 +27,11 @@ public class CElementos {
 	private String cImagen1;// varchar(100),
 	private String cImagen2;// varchar(100),
 	private String cImagen3;// varchar(100),
+	private String cDescripcionIdioma1;// text,
+	private String cDescripcionIdioma2;// text,
+	private String cDescripcionIdioma3;// text,
+	private String cDescripcionIdioma4;// text,
+	private String cDescripcionIdioma5;// text,
 	private String cDirigidoIdioma1;// text,
 	private String cDirigidoIdioma2;// text,
 	private String cDirigidoIdioma3;// text,
@@ -34,13 +39,14 @@ public class CElementos {
 	private String cDirigidoIdioma5;// text,
 	private ArrayList<CDestinoMovil> listaDestinosMovil;
 	private ArrayList<CDatosGenerales> listaDatosGenerales;
-	private boolean editable;
-	private boolean visibleEspanol;
-	private boolean visibleIngles;
-	private boolean visiblePortugues;
 	private String nameItem;
+	private String nameSubMenu;
 	private boolean update;
 	private boolean vistaMobil;
+	private boolean modoSubMenu;
+	private boolean modoItem;
+	private boolean abrirEditorDescripcion;
+	private boolean abrirEditorDirigido;
 	//======================================
 	public int getcElementosCod() {
 		return cElementosCod;
@@ -168,6 +174,36 @@ public class CElementos {
 	public void setcImagen3(String cImagen3) {
 		this.cImagen3 = cImagen3;
 	}
+	public String getcDescripcionIdioma1() {
+		return cDescripcionIdioma1;
+	}
+	public void setcDescripcionIdioma1(String cDescripcionIdioma1) {
+		this.cDescripcionIdioma1 = cDescripcionIdioma1;
+	}
+	public String getcDescripcionIdioma2() {
+		return cDescripcionIdioma2;
+	}
+	public void setcDescripcionIdioma2(String cDescripcionIdioma2) {
+		this.cDescripcionIdioma2 = cDescripcionIdioma2;
+	}
+	public String getcDescripcionIdioma3() {
+		return cDescripcionIdioma3;
+	}
+	public void setcDescripcionIdioma3(String cDescripcionIdioma3) {
+		this.cDescripcionIdioma3 = cDescripcionIdioma3;
+	}
+	public String getcDescripcionIdioma4() {
+		return cDescripcionIdioma4;
+	}
+	public void setcDescripcionIdioma4(String cDescripcionIdioma4) {
+		this.cDescripcionIdioma4 = cDescripcionIdioma4;
+	}
+	public String getcDescripcionIdioma5() {
+		return cDescripcionIdioma5;
+	}
+	public void setcDescripcionIdioma5(String cDescripcionIdioma5) {
+		this.cDescripcionIdioma5 = cDescripcionIdioma5;
+	}
 	public String getcDirigidoIdioma1() {
 		return cDirigidoIdioma1;
 	}
@@ -198,35 +234,17 @@ public class CElementos {
 	public void setcDirigidoIdioma5(String cDirigidoIdioma5) {
 		this.cDirigidoIdioma5 = cDirigidoIdioma5;
 	}
-	public boolean isEditable() {
-		return editable;
-	}
-	public void setEditable(boolean editable) {
-		this.editable = editable;
-	}
-	public boolean isVisibleEspanol() {
-		return visibleEspanol;
-	}
-	public void setVisibleEspanol(boolean visibleEspanol) {
-		this.visibleEspanol = visibleEspanol;
-	}
-	public boolean isVisibleIngles() {
-		return visibleIngles;
-	}
-	public void setVisibleIngles(boolean visibleIngles) {
-		this.visibleIngles = visibleIngles;
-	}
-	public boolean isVisiblePortugues() {
-		return visiblePortugues;
-	}
-	public void setVisiblePortugues(boolean visiblePortugues) {
-		this.visiblePortugues = visiblePortugues;
-	}
 	public String getNameItem() {
 		return nameItem;
 	}
 	public void setNameItem(String nameItem) {
 		this.nameItem = nameItem;
+	}
+	public String getNameSubMenu() {
+		return nameSubMenu;
+	}
+	public void setNameSubMenu(String nameSubMenu) {
+		this.nameSubMenu = nameSubMenu;
 	}
 	public boolean isUpdate() {
 		return update;
@@ -240,6 +258,18 @@ public class CElementos {
 	public void setVistaMobil(boolean vistaMobil) {
 		this.vistaMobil = vistaMobil;
 	}
+	public boolean isModoSubMenu() {
+		return modoSubMenu;
+	}
+	public void setModoSubMenu(boolean modoSubMenu) {
+		this.modoSubMenu = modoSubMenu;
+	}
+	public boolean isModoItem() {
+		return modoItem;
+	}
+	public void setModoItem(boolean modoItem) {
+		this.modoItem = modoItem;
+	}
 	public ArrayList<CDestinoMovil> getListaDestinosMovil() {
 		return listaDestinosMovil;
 	}
@@ -251,6 +281,18 @@ public class CElementos {
 	}
 	public void setListaDatosGenerales(ArrayList<CDatosGenerales> listaDatosGenerales) {
 		this.listaDatosGenerales = listaDatosGenerales;
+	}
+	public boolean isAbrirEditorDescripcion() {
+		return abrirEditorDescripcion;
+	}
+	public void setAbrirEditorDescripcion(boolean abrirEditorDescripcion) {
+		this.abrirEditorDescripcion = abrirEditorDescripcion;
+	}
+	public boolean isAbrirEditorDirigido() {
+		return abrirEditorDirigido;
+	}
+	public void setAbrirEditorDirigido(boolean abrirEditorDirigido) {
+		this.abrirEditorDirigido = abrirEditorDirigido;
 	}
 	//===========================================
 	public CElementos() {
@@ -275,6 +317,11 @@ public class CElementos {
 		this.cImagen1="";// varchar(100),
 		this.cImagen2="";// varchar(100),
 		this.cImagen3="";// varchar(100),
+		this.cDescripcionIdioma1="";
+		this.cDescripcionIdioma2="";
+		this.cDescripcionIdioma3="";
+		this.cDescripcionIdioma4="";
+		this.cDescripcionIdioma5="";
 		this.cDirigidoIdioma1="";// text,
 		this.cDirigidoIdioma2="";// text,
 		this.cDirigidoIdioma3="";// text,
@@ -282,13 +329,19 @@ public class CElementos {
 		this.cDirigidoIdioma5="";
 		this.update=false;
 		this.vistaMobil=false;
+		this.modoItem=false;
+		this.modoSubMenu=false;
+		this.abrirEditorDescripcion=false;
+		this.abrirEditorDirigido=false;
 	}
 	public CElementos(int cElementosCod, int cItemsCod,int cSubMenuCod, String cNombre1Idioma1, String cNombre1Idioma2,
 			String cNombre1Idioma3, String cNombre1Idioma4, String cNombre1Idioma5, String cNombre2Idioma1,
 			String cNombre2Idioma2, String cNombre2Idioma3, String cNombre2Idioma4, String cNombre2Idioma5,
 			String cNombre3Idioma1, String cNombre3Idioma2, String cNombre3Idioma3, String cNombre3Idioma4,
-			String cNombre3Idioma5, String cImagen1, String cImagen2, String cImagen3, String cDirigidoIdioma1,
-			String cDirigidoIdioma2, String cDirigidoIdioma3, String cDirigidoIdioma4, String cDirigidoIdioma5) {
+			String cNombre3Idioma5, String cImagen1, String cImagen2, String cImagen3, String cDescripcionIdioma1,
+			String cDescripcionIdioma2,String cDescripcionIdioma3,String cDescripcionIdioma4,String cDescripcionIdioma5,
+			String cDirigidoIdioma1,String cDirigidoIdioma2, String cDirigidoIdioma3, String cDirigidoIdioma4,
+			String cDirigidoIdioma5) {
 		this.cElementosCod = cElementosCod;
 		this.cItemsCod = cItemsCod;
 		this.cSubMenuCod = cSubMenuCod;
@@ -310,19 +363,33 @@ public class CElementos {
 		this.cImagen1 = cImagen1;
 		this.cImagen2 = cImagen2;
 		this.cImagen3 = cImagen3;
+		this.cDescripcionIdioma1=cDescripcionIdioma1;
+		this.cDescripcionIdioma2=cDescripcionIdioma2;
+		this.cDescripcionIdioma3=cDescripcionIdioma3;
+		this.cDescripcionIdioma4=cDescripcionIdioma4;
+		this.cDescripcionIdioma5=cDescripcionIdioma5;
 		this.cDirigidoIdioma1 = cDirigidoIdioma1;
 		this.cDirigidoIdioma2 = cDirigidoIdioma2;
 		this.cDirigidoIdioma3 = cDirigidoIdioma3;
 		this.cDirigidoIdioma4 = cDirigidoIdioma4;
 		this.cDirigidoIdioma5 = cDirigidoIdioma5;
-		this.editable=false;
-		this.visibleEspanol=true;
-		this.visibleIngles=false;
-		this.visiblePortugues=false;
 		this.vistaMobil=false;
 		//==========================
 		this.update=true;
-		obtenerNameItem(cItemsCod);
+		this.abrirEditorDescripcion=false;
+		this.abrirEditorDirigido=false;
+		if(cItemsCod!=0)
+		{
+			obtenerNameItem(cItemsCod);
+			this.modoItem=true;
+			this.modoSubMenu=false;
+		}
+		else if(cSubMenuCod!=0)
+		{
+			obtenerNameSubMenu(cSubMenuCod);
+			this.modoSubMenu=true;
+			this.modoItem=false;
+		}
 		recuperarListaDestinosMovil(cElementosCod);
 		recuperarListaDatosGenerales(cElementosCod);
 	}
@@ -331,6 +398,12 @@ public class CElementos {
 		CElementosDAO elementosDao=new CElementosDAO();
 		elementosDao.asignarNameItem(elementosDao.recuperarNombreItem(cItemsCod));
 		setNameItem(elementosDao.getNameItem());
+	}
+	public void obtenerNameSubMenu(int cSubMenuCod)
+	{
+		CElementosDAO elementosDao=new CElementosDAO();
+		elementosDao.asignarNameSubMenu(elementosDao.recuperarNombreSubMenu(cSubMenuCod));
+		setNameSubMenu(elementosDao.getNameSubMenu());
 	}
 	public void recuperarListaDestinosMovil(int cElementosCod)
 	{

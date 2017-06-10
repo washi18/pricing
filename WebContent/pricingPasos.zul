@@ -2139,7 +2139,7 @@
 	<div width="100%" sclass="footer">
 		<div width="100%" align="right">
 			<a
-				label="Copyright © 2017 todos los derechos reservados - EddyOnSoft.com"
+				label="Copyright © todos los derechos reservados - EddyOnSoft.com"
 				onClick="@command('irAEddyOnSoft')" style="color:white;" />
 		</div>
 		<div width="100%" align="right">

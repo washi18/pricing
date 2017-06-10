@@ -42,7 +42,7 @@ public class panelAdminVM
 	private boolean visibleCupones;
 	private boolean visibleConfAltoNivel;
 	private boolean visibleMenuAndroid;
-	private boolean visibleDestinosAndroid;
+	private boolean visibleAgencia;
 	//======================================
 	private crearUsuarioVM editarUsuario;
 	private CUsuarioLoginDAO usuarioDao;
@@ -225,11 +225,11 @@ public class panelAdminVM
 	public void setVisibleMenuAndroid(boolean visibleMenuAndroid) {
 		this.visibleMenuAndroid = visibleMenuAndroid;
 	}
-	public boolean isVisibleDestinosAndroid() {
-		return visibleDestinosAndroid;
+	public boolean isVisibleAgencia() {
+		return visibleAgencia;
 	}
-	public void setVisibleDestinosAndroid(boolean visibleDestinosAndroid) {
-		this.visibleDestinosAndroid = visibleDestinosAndroid;
+	public void setVisibleAgencia(boolean visibleAgencia) {
+		this.visibleAgencia = visibleAgencia;
 	}
 	@Init
 	public void Inicializar() {
@@ -283,7 +283,7 @@ public class panelAdminVM
 		visibleConfExtras=visibleCupones=visibleConfAltoNivel=false;
 		//=======Android========
 		visibleMenuAndroid=false;
-		visibleDestinosAndroid=false;
+		visibleAgencia=false;
 	}
 	//================CAMBIO DE VISIBILIDAD========
 	@Command
@@ -293,7 +293,7 @@ public class panelAdminVM
 		"visibleConfiguracion","visibleHoteles","seleccionHoteles","seleccionDestinos","seleccionReportReservas",
 		"seleccionActividades","seleccionReportPagos","visibleEstadisticaPaquetesmasVendidos","visibleEstadisticaPagos",
 		"visibleCrearUser","visibleActualizarUsuario","visibleRegistroUsuarios","visibleConfPaypal","visibleConfExtras",
-		"visibleCupones","visibleConfAltoNivel","visibleMenuAndroid","visibleDestinosAndroid"})
+		"visibleCupones","visibleConfAltoNivel","visibleMenuAndroid","visibleAgencia"})
 	public void Cambio(@BindingParam("cambioInterfaz") String cambios) {
 		System.out.println("entra a esta parte de mektodo cambio");
 		visibleConfiguracion=true;
@@ -308,7 +308,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			} else if (cambios.equals("itemEtiqueta") || cambios.equals("btnEtiquetas") || cambios.equals("tabEtiqueta") ) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -320,7 +320,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			} else if (cambios.equals("itemPaquete") || cambios.equals("btnPaquetes") || cambios.equals("tabPaquete")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -332,7 +332,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			} else if (cambios.equals("itemServicio") || cambios.equals("btnServicios") || cambios.equals("tabServicio")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -344,7 +344,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			} else if (cambios.equals("itemSubServicio") || cambios.equals("btnSubServicios") || cambios.equals("tabSubServicio")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -356,7 +356,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			} else if(cambios.equals("itemActividad")){
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -369,7 +369,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if (cambios.equals("itemImpuesto") || cambios.equals("btnImpuestos") || cambios.equals("tabImpuesto")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -381,7 +381,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if (cambios.equals("itemHoteles") || cambios.equals("btnHoteles") || cambios.equals("tabHotel")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -394,7 +394,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if (cambios.equals("itemDestinos") || cambios.equals("btnDestinos") || cambios.equals("tabDestino")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleConfPaypal=visibleConfAltoNivel=false;
@@ -407,7 +407,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if (cambios.equals("itemReporteReservas") || cambios.equals("btnReporteReservas") || cambios.equals("tabReporteReserva")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=false;
@@ -419,7 +419,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if (cambios.equals("itemReportePagos") || cambios.equals("btnReportePagos") || cambios.equals("tabReportePagos")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -432,7 +432,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if (cambios.equals("itemEstadisticaPagos")) {
 				visibleEstadisticaPaquetesmasVendidos=visibleRegistroUsuarios=false;
 				visibleEstadisticaPagos=visibleActualizarUsuario=visibleConfAltoNivel=false;
@@ -446,7 +446,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if (cambios.equals("itemEstadisticaPaquetesmasVendidos")) {
 					visibleCrearUser=visibleActualizarUsuario=visibleRegistroUsuarios=false;
 					visibleEstadisticaPaquetesmasVendidos=true;
@@ -458,7 +458,7 @@ public class panelAdminVM
 					visibleConfExtras=false;
 					visibleCupones=false;
 					visibleMenuAndroid=false;
-					visibleDestinosAndroid=false;
+					visibleAgencia=false;
 			}else if(cambios.equals("itemCrearUser1")||cambios.equals("itemCrearUser2"))
 			{
 				visibleEstadisticaPaquetesmasVendidos=visibleActualizarUsuario=visibleRegistroUsuarios=false;
@@ -472,7 +472,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if(cambios.equals("itemUpdateUsuario2") || cambios.equals("itemUpdateUsuario"))
 			{ 
 				visibleActualizarUsuario=true;
@@ -487,7 +487,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if(cambios.equals("itemUsuario") || cambios.equals("itemUsuario2"))
 			{ 
 				visibleRegistroUsuarios=true;
@@ -503,7 +503,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if(cambios.equals("itemPaypal"))
 			{ 
 				visibleConfPaypal=true;
@@ -520,7 +520,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if(cambios.equals("itemExtras"))
 			{ 
 				visibleConfPaypal=visibleConfAltoNivel=false;
@@ -537,7 +537,7 @@ public class panelAdminVM
 				visibleConfExtras=true;
 				visibleCupones=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if(cambios.equals("itemCupones"))
 			{
 				visibleConfPaypal=visibleConfAltoNivel=false;
@@ -554,7 +554,7 @@ public class panelAdminVM
 				visibleConfExtras=false;
 				visibleCupones=true;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}
 			else if(cambios.equals("itemConfSuper"))
 			{
@@ -573,7 +573,7 @@ public class panelAdminVM
 				visibleCupones=false;
 				visibleConfAltoNivel=true;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=false;
+				visibleAgencia=false;
 			}else if(cambios.equals("itemMenuAndroid"))
 			{
 				visibleConfPaypal=false;
@@ -591,8 +591,8 @@ public class panelAdminVM
 				visibleCupones=false;
 				visibleConfAltoNivel=false;
 				visibleMenuAndroid=true;
-				visibleDestinosAndroid=false;
-			}else if(cambios.equals("itemDestinosAndroid"))
+				visibleAgencia=false;
+			}else if(cambios.equals("itemAgencia"))
 			{
 				visibleConfPaypal=false;
 				visibleRegistroUsuarios=false;
@@ -609,7 +609,7 @@ public class panelAdminVM
 				visibleCupones=false;
 				visibleConfAltoNivel=false;
 				visibleMenuAndroid=false;
-				visibleDestinosAndroid=true;
+				visibleAgencia=true;
 			}
 	}
 }

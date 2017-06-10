@@ -1,5 +1,8 @@
 package com.android.model;
 
+import com.android.dao.CDatosGeneralesDAO;
+import com.android.dao.CDestinosMovilDAO;
+
 public class CDestinoMovil {
 	private int nDestinoCod;// integer,
 	private int cElementosCod;
@@ -16,6 +19,8 @@ public class CDestinoMovil {
 	private boolean estado_activo;
 	private boolean estado_desactivo;
 	private boolean seleccionado;
+	private boolean update;
+	private String nameElemento;
 	//=======================================
 	public int getnDestinoCod() {
 		return nDestinoCod;
@@ -89,6 +94,18 @@ public class CDestinoMovil {
 	public void setSeleccionado(boolean seleccionado) {
 		this.seleccionado = seleccionado;
 	}
+	public String getNameElemento() {
+		return nameElemento;
+	}
+	public void setNameElemento(String nameElemento) {
+		this.nameElemento = nameElemento;
+	}
+	public boolean isUpdate() {
+		return update;
+	}
+	public void setUpdate(boolean update) {
+		this.update = update;
+	}
 	//=====================================
 	public CDestinoMovil() {
 		// TODO Auto-generated constructor stub
@@ -98,6 +115,7 @@ public class CDestinoMovil {
 		this.cLongitud="";
 		bEstado=false;
 		seleccionado=false;
+		update=false;
 	}
 	public CDestinoMovil(int nDestinoCod,int cElementosCod, String cDestino, boolean bEstado, String cLatitud, String cLongitud) {
 		this.nDestinoCod = nDestinoCod;
@@ -110,7 +128,15 @@ public class CDestinoMovil {
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
 		this.seleccionado=false;
+		this.update=true;
 		darColor_estado();
+		obtenerNameElemento(cElementosCod);
+	}
+	public void obtenerNameElemento(int cElementosCod)
+	{
+		CDestinosMovilDAO destinoDao=new CDestinosMovilDAO();
+		destinoDao.asignarNameElemento(destinoDao.recuperarNombreElemento(cElementosCod));
+		setNameElemento(destinoDao.getNameElemento());
 	}
 	public void darColor_estado()
 	{

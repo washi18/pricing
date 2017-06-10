@@ -1,0 +1,84 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+<style src="css/estilo_configPaypal.css"/>
+	<style src="css/formas_Generales.css"/>
+	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vmAgencia') @init('com.android.viewModel.agenciaVM')" >
+		<groupbox sclass="extras">
+		 		<caption>
+		 			<a iconSclass="fa fa-paypal estilos-iconos"/>
+		 			<label value="AGENCIA"/>
+		 		</caption>
+			  <div zclass="div_list_cell_conf_paypal" visible="@bind(vmAgencia.oAgencia.editable)">	
+				   <div>
+				   		<label value="RAZON SOCIAL:" sclass="lbl_llenar_datos"/>
+				   		<textbox placeholder="Ingrese razon social" value="@bind(vmAgencia.oAgencia.cRazonSocial)" sclass="txt_llenar_datos"></textbox>
+				   </div>
+				   <separator bar="true"/>
+				   <div>
+				   		<label value="DIRECCION:" sclass="lbl_llenar_datos"/>
+				   		<textbox placeholder="Ingrese direccion" value="@bind(vmAgencia.oAgencia.cDireccion)" sclass="txt_llenar_datos"></textbox>
+				   </div>
+				   <separator bar="true"/>
+				   <div>
+				   		<label value="TELEFONO:" sclass="lbl_llenar_datos"/>
+				   		<textbox placeholder="Ingrese telefono" value="@bind(vmAgencia.oAgencia.cTelefono)" sclass="txt_llenar_datos"></textbox>
+				   </div>
+				   <separator bar="true"/>
+				   <div>
+				   		<label value="PAGINA WEB:" sclass="lbl_llenar_datos"/>
+				   		<textbox placeholder="Ingrese pagina web" value="@bind(vmAgencia.oAgencia.cPaginaWeb)" sclass="txt_llenar_datos"></textbox>
+				   </div>
+				   <separator bar="true"/>
+				   <div visible="@bind(vmConfPaypal.configuracionPaypal.bSignature)">
+				   		<label value="EMAIL:" sclass="lbl_llenar_datos"/>
+				   		<textbox placeholder="Ingrese email" value="@bind(vmAgencia.oAgencia.cEmail)" sclass="txt_llenar_datos"></textbox>
+				   </div>
+				   <separator bar="true"/>
+				   <div>
+				   		<label value="FECHA DE CREACION:" sclass="lbl_llenar_datos"/>
+				   		<datebox value="@bind(vmAgencia.oAgencia.dFechaCreacion)" readonly="true" onChange="@command('detFechaCreacion',fecha=self.value)"/>
+				   </div>
+				   <separator bar="true"/>
+				   <div zclass="div_content_btns_operaciones" align="center" width="100%">
+				 		<button label="GUARDAR" width="100%" zclass="btn_guardar" onClick="@command('insert_update_Agencia',componente=self)"/>
+				 		<button label="CANCELAR" width="100%" zclass="btn_editar" onClick="@command('Cancelar')"/>
+				 	</div>
+			 </div>
+			  <div zclass="div_list_cell_conf_paypal" visible="@bind(!vmAgencia.oAgencia.editable)">	
+				   <div>
+				   		<label value="RAZON SOCIAL:" sclass="lbl_llenar_datos"/>
+				   		<label value="@bind(vmAgencia.oAgencia.cRazonSocial)"/>
+				   </div>
+				   <separator bar="true"/>
+				   <div>
+				   		<label value="DIRECCION:" sclass="lbl_llenar_datos"/>
+				   		<label value="@bind(vmAgencia.oAgencia.cDireccion)"/>
+				   </div>
+				   <separator bar="true"/>
+				   <div>
+				   		<label value="TELEFONO:" sclass="lbl_llenar_datos"/>
+				   		<label value="@bind(vmAgencia.oAgencia.cTelefono)"/>
+				   </div>
+				   <separator bar="true"/>
+				   <div>
+				   		<label value="PAGINA WEB:" sclass="lbl_llenar_datos"/>
+				   		<label value="@bind(vmAgencia.oAgencia.cPaginaWeb)"/>
+				   </div>
+				   <separator bar="true"/>
+					<div>
+				   		<label value="EMAIL:" sclass="lbl_llenar_datos"/>
+				   		<label value="@bind(vmAgencia.oAgencia.cEmail)"/>
+				   </div>
+				   <separator bar="true"/>
+				   <div>
+				   		<label value="FECHA DE CREACION:" sclass="lbl_llenar_datos"/>
+				   		<label value="@bind(vmAgencia.fecha)"/>
+				   </div>
+				   <separator bar="true"/>
+				   <div width="100%" align="center">
+				 		<button label="EDITAR" width="200px" zclass="btn_editar" onClick="@command('Editar')"/>
+				 	</div>
+			 </div>
+		</groupbox>
+	 </div>
+</zk>

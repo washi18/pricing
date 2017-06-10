@@ -105,7 +105,7 @@ public class CItemsDAO extends CConexion{
 			for(int i=0;i<lista.size();i++)
 			{
 				Map row=(Map)lista.get(i);
-				listaElementos.add(new CElementos((int)row.get("celementoscod"),(int)row.get("citemscod"),(int)row.get("csubmenucod"), 
+				listaElementos.add(new CElementos((int)row.get("celementoscod"),(int)row.get("citemscod"),0, 
 						(String)row.get("cnombre1idioma1"),(String)row.get("cnombre1idioma2"), 
 						(String)row.get("cnombre1idioma3"),(String)row.get("cnombre1idioma4"), 
 						(String)row.get("cnombre1idioma5"),(String)row.get("cnombre2idioma1"),
@@ -114,7 +114,9 @@ public class CItemsDAO extends CConexion{
 						(String)row.get("cnombre3idioma1"),(String)row.get("cnombre3idioma2"),
 						(String)row.get("cnombre3idioma3"),(String)row.get("cnombre3idioma4"),
 						(String)row.get("cnombre3idioma5"),(String)row.get("cimagen1"),(String)row.get("cimagen2"),
-						(String)row.get("cimagen3"),(String)row.get("cdirigidoidioma1"),
+						(String)row.get("cimagen3"),(String)row.get("cdescripcionidioma1"),(String)row.get("cdescripcionidioma2"),
+						(String)row.get("cdescripcionidioma3"),(String)row.get("cdescripcionidioma4"),
+						(String)row.get("cdescripcionidioma5"),(String)row.get("cdirigidoidioma1"),
 						(String)row.get("cdirigidoidioma2"),(String)row.get("cdirigidoidioma3"),
 						(String)row.get("cdirigidoidioma4"),(String)row.get("cdirigidoidioma5")));
 			}

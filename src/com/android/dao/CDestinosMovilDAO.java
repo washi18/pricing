@@ -12,6 +12,7 @@ import com.pricing.model.CHotel;
 public class CDestinosMovilDAO extends CConexion{
 	private CDestinoMovil oDestinoMovil;
 	private ArrayList<CDestinoMovil> listaDestinosMovil;
+	private String nameElemento;
 	//==============================
 	public CDestinoMovil getoDestinoMovil() {
 		return oDestinoMovil;
@@ -25,6 +26,12 @@ public class CDestinosMovilDAO extends CConexion{
 	public void setListaDestinosMovil(ArrayList<CDestinoMovil> listaDestinosMovil) {
 		this.listaDestinosMovil = listaDestinosMovil;
 	}
+	public String getNameElemento() {
+		return nameElemento;
+	}
+	public void setNameElemento(String nameElemento) {
+		this.nameElemento = nameElemento;
+	}
 	//=====================================
 	public CDestinosMovilDAO() {
 		// TODO Auto-generated constructor stub
@@ -34,7 +41,7 @@ public class CDestinosMovilDAO extends CConexion{
 	public List recuperarListaDestinosMovilBD(int cElementoCod)
 	{
 		Object[] values={cElementoCod};
-		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarDestinosMovil",values);
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarDestinosElemento",values);
 	}
 	public void asignarListaDestinosMovil(List lista)
 	{
@@ -49,13 +56,26 @@ public class CDestinosMovilDAO extends CConexion{
 	}
 	public List insertarDestinoMovil(CDestinoMovil destino)
 	{
-		Object[] values={destino.getcDestino(),destino.getcElementosCod(),destino.getcLatitud(),destino.getcLongitud()};
+		Object[] values={destino.getcElementosCod(),destino.getcDestino(),destino.getcLatitud(),destino.getcLongitud()};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_RegistrarDestinoMovil", values);
 	}
 	public List modificarDestinoMovil(CDestinoMovil destino)
 	{
 		Object[] values={destino.getnDestinoCod(),destino.getcElementosCod(),destino.getcDestino(),destino.isbEstado(),destino.getcLatitud(),destino.getcLongitud()};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_ModificarDestinoMovil", values);
+	}
+	public List recuperarNombreElemento(int codElemento)
+	{
+		Object[] values={codElemento};
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarNombreElemento", values);
+	}
+	public void asignarNameElemento(List lista)
+	{
+		if(!lista.isEmpty())
+		{
+			Map row=(Map)lista.get(0);
+			setNameElemento((String)row.get("nombre"));
+		}
 	}
 	public boolean isOperationCorrect(List lista)
 	{

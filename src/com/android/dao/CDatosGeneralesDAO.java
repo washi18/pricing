@@ -52,10 +52,6 @@ public class CDatosGeneralesDAO extends CConexion{
 				datoGeneral.getcDescripcionIdioma5(),datoGeneral.getcImagen()};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_ModificarDatoGeneral", values);
 	}
-	public List recuperarListaDatosGeneralesBD()
-	{
-		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarTodosDatosGenerales");
-	}
 	public List recuperarNombreElemento(int codElemento)
 	{
 		Object[] values={codElemento};

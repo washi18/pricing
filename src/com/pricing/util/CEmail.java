@@ -1,5 +1,6 @@
 package com.pricing.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -22,6 +23,7 @@ import javax.activation.DataSource;
 import com.lowagie.text.DocumentException;
 import com.pricing.dao.CConfigUrlDAO;
 import com.pricing.dao.CCorreoSmtpDAO;
+import com.pricing.extras.QRCode;
 import com.pricing.model.CActividad;
 import com.pricing.model.CCupon;
 import com.pricing.model.CDestinoConHoteles;
@@ -470,27 +472,84 @@ public class CEmail
 						"<head></head>"+
 						"<body>"+
 							"<div style='width:100%;background:rgb(242, 242, 242);'>"+
-								"<table border='0' width='100%' align='center' style='background:rgb(242, 242, 242);'>"+
-									"<tr>"+
-								      "<td align='center' width='20%' style='padding:8px 20px 8px 20px;'>"+
-								      	"<a href='"+etiqueta[212]+"' style='text-decoration:none;'>"+
-								      		"<img src='"+etiqueta[211]+"' width='90' height='60' border='0' />"+
-								      	"</a>"+
-								      "</td>"+
-								      "<td style='color:black;font-size:17px;font-weight:bold;' align='left' width='80%'>"+reserva.getoPaquete().getTitulo()+"</td>"+
-								    "</tr>"+
+								"<table border='0' cellpadding='0' cellspacing='0' style='background:white;border:1px solid rgb(204, 204, 204);color:rgb(34, 34, 34);font-family:arial,sans-serif;font-size:12.8px;margin:0px auto;width:600px'>"+
+									"<tbody>"+
+										"<tr>"+
+											"<td>"+
+												"<table style='background:rgb(242, 242, 242)'>"+
+													"<tbody>"+
+														"<tr>"+
+															"<td align='left' width='20%' style='padding:8px 20px 8px 20px;'>"+
+																"<a href='"+etiqueta[212]+"' style='text-decoration:none;'>"+
+																	"<img src='"+etiqueta[211]+"' width='100' height='80' border='0' />"+
+																"</a>"+
+															"</td>"+
+															"<td style='color:black;font-size:17px;font-weight:bold;' align='center' width='80%'>"+reserva.getoPaquete().getTitulo()+"</td>"+
+															"<td align='right' width='20%' style='padding:8px 20px 8px 20px;'>"+
+																"<a href='"+etiqueta[212]+"' style='text-decoration:none;'>"+
+																	"<img src='"+etiqueta[211]+"' width='100' height='80' border='0' />"+
+																"</a>"+
+															"</td>"+
+														"</tr>"+
+													"</tbody>"+
+												"</table>"+
+											"</td>"+
+										"</tr>"+
+									"</tbody>"+
 								"</table>"+
 							"<div style='padding:20px;background:white;border:20px solid rgb(242, 242, 242);'>"+
-								"<p style='font-weight:bold;font-size:18px;margin:5px 0 6px 0;'>"+fechaActual[0]+"</p>"+
-								"<div style='background:#1A5276;border-radius:5px;width:25%;padding:1px 0 1px 0;' align='center'>"+
-									"<p style='font-weight:bold;'>"+etiqueta[118]+" <strong style='color:white;'>"+reserva.getcReservaCod()+"</strong></p>"+
-								"</div>"+
-								"<br/>"+
-								"<table border='0'>"+
+								"<table border='0' cellpadding='0' cellspacing='0' style='background:white;border:1px solid rgb(204, 204, 204);color:rgb(34, 34, 34);font-family:arial,sans-serif;font-size:12.8px;margin:0px auto;width:600px'>"+
+									"<tbody>"+
 									"<tr>"+
-								      "<td><p><strong>"+etiqueta[125]+"</strong>"+reserva.getcContacto()+"."+
-								      "</p></td>"+
-								    "</tr>"+
+										"<td style='font-family: Arial, Helvetica, sans-serif; margin: 0px; background-image: initial; background-position: initial; background-size: initial; background-repeat: initial; background-attachment: initial; background-origin: initial; background-clip: initial; font-weight: bold; font-stretch: normal; font-size: 15px; line-height: normal; color: rgb(65, 88, 132);'>"+
+											"<div align='center'>"+
+												"<img alt='¡Tu compra ya está lista! Gracias por preferirnos' border='0' src='https://pbs.twimg.com/media/Cx7h6wnWQAA8KBB.jpg' style='cursor:pointer; height:208px; outline:0px; width:600px' tabindex='0'/>"+
+											"</div>"+
+										"</td>"+
+									"</tr>"+
+									"<tr align='center'>"+
+										"<td style='margin: 0px;'>"+
+										"<table border='0' cellpadding='0' cellspacing='0' style='background-color:white; border-radius:3px; border:2px solid #1a5276; margin:0pt 10px; width:584px;'>"+
+											"<tbody>"+
+												"<tr>"+
+													"<td style='margin: 0px; text-align: center; border-right: 2px solid #1a5276;padding-bottom:15px;' width='380'>"+
+														"<p style='font-weight:bold;font-size:18px;margin:5px 0 6px 0;'>"+fechaActual[0]+"</p>"+
+														"<p style='font-stretch: normal; font-size: 14px; line-height: 12px; font-family: Arial, Helvetica, sans-serif; color:#1a5276; margin-bottom: 3px; padding-top: 15px;'>"+
+															"<strong>"+etiqueta[125]+"</strong>"+
+														"</p>"+
+														"<span style='color:rgb(102, 102, 102); font-family:arial,helvetica,sans-serif; font-size:14px; font-stretch:normal; line-height:14px;'>"+
+															"<strong>"+reserva.getcContacto()+"</strong>"+
+														"</span>"+
+														"<p style='font-stretch: normal; font-size: 14px; line-height: 16px; font-family: Arial, Helvetica, sans-serif; color: #1a5276; margin-bottom: 30px;'>"+
+															"<strong>"+etiqueta[118]+"</strong>"+
+														"</p>"+
+														"<span style='background-color:rgb(204, 204, 204); border-radius:3px; border:1px solid rgb(217, 217, 217); color:rgb(47, 115, 186); font-family:arial,helvetica,sans-serif; font-size:24px; font-stretch:normal; line-height:24px; padding:10px'>"+
+															"<strong>"+reserva.getcReservaCod()+"</strong>"+
+														"</span>"+
+													"</td>"+
+													"<td style='margin: 0px; padding: 0px 15px;' width='204'>"+
+														"<p style='font-stretch: normal; font-size: 14px; line-height: 12px; font-family: Arial, Helvetica, sans-serif; color:#1a5276; margin-bottom: 3px;'>"+
+															"<strong>"+etiqueta[253]+"</strong>"+
+														"</p>"+
+														"<span style='color:rgb(102, 102, 102); font-family:arial,helvetica,sans-serif; font-size:14px; font-stretch:normal; line-height:14px'>"+
+															"<strong style='color:rgb(247, 101, 58)'>"+etiqueta[131]+"<span style='color:rgb(0, 0, 0)'>"+fechaInicio+"</span></strong>"+
+															"<strong style='color:rgb(247, 101, 58)'>"+etiqueta[132]+"<span style='color:rgb(0, 0, 0)'>"+fechaFin+"</span></strong>"+
+															"<strong style='color:rgb(247, 101, 58)'>"+etiqueta[249]+"</strong><span style='color:rgb(247, 101, 58)'>:</span><strong>"+fechaArribo+"</strong>"+
+														"</span>"+
+														"<p style='font-stretch: normal; font-size: 14px; line-height: 12px; font-family: Arial, Helvetica, sans-serif; color:#1a5276; margin-bottom: 3px;'>"+
+															"<strong>Total Pago:</strong>"+
+														"</p>"+
+														"<span style='color:rgb(102, 102, 102); font-family:arial,helvetica,sans-serif; font-size:14px; font-stretch:normal; line-height:14px; padding-bottom:5px'>"+
+															"<strong>US$ 126.62</strong>"+
+														"</span>"+
+														"<span style='color:rgb(102, 102, 102); font-family:arial,helvetica,sans-serif; font-size:14px; font-stretch:normal; line-height:14px; padding-bottom:5px'>(USD)</span>"+
+													"</td>"+
+												"</tr>"+
+											"</tbody>"+
+										"</table>"+
+										"</td>"+
+									"</tr>"+
+									"</tbody>"+
 								"</table>"+
 								"<div align='center'>"+
 									"<p style='color:#F7653A;font-size:18px;font-weight:bold;'>"+etiqueta[126]+"</p>"+
@@ -526,12 +585,7 @@ public class CEmail
 								"</div>"+
 								"<div>"+
 									"<p>"+etiqueta[130]+" <strong style='color:#F7653A;'>"+reserva.getoPaquete().getTitulo()+"</strong>"+ 
-									"</strong> "+etiqueta[133]+" <strong> "+reserva.getnNroPersonas()+" </strong> "+etiqueta[134]+
-									"<strong style='color:#F7653A;'> "+etiqueta[135]+" </strong> "+
-									"<p><strong>"+etiqueta[253]+"</strong></p>"+
-									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[131]+"<span style='color:rgb(0, 0, 0)'>"+fechaInicio+"</span></strong></p>"+
-									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[132]+"<span style='color:rgb(0, 0, 0)'>"+fechaFin+"</span></strong></p>"+
-									"<p><strong style='color:rgb(247, 101, 58)'>"+etiqueta[249]+"</strong><span style='color:rgb(247, 101, 58)'>:</span><strong>"+fechaArribo+"</strong></p>"+
+									"</strong> "+etiqueta[133]+" <strong> "+reserva.getnNroPersonas()+" </strong> "+etiqueta[134]+"<strong> "+etiqueta[135]+" </strong> "+
 									fechas+
 									"<br />"+
 									"<p><strong>"+etiqueta[252]+"</strong><br />"+
@@ -953,8 +1007,23 @@ public class CEmail
 		String arribo="";
 		if(reserva.getoPaquete().isConFechaArribo())
 			arribo="<P>"+etiqueta[243]+": "+fechaArribo+"</P>";
+		//Generando codigo QR
+		QRCode qr = new QRCode();
+		String nameImgQR=generarNombreQR();
+        File f = new File(ScannUtil.getPathImagenQR()+nameImgQR);
+        //FPP=yuri vladimir huallpa vargas=camino inka=01/06/2017=05/06/2017=5=300=931896923=yurihuallpavargas@gmail.com
+        String text ="FPP="+reserva.getcContacto()+"="+reserva.getoPaquete().getTitulo()+"="+
+        			fechaInicio+"="+fechaFin+"="+reserva.getnNroPersonas()+"="+montoPagar+"="+
+        			reserva.getcTelefono()+"="+reserva.getcEmail();
+ 
+        try {
+ 
+            qr.generateQR(f, text, 300, 300);
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		/******************************************/
-		
 		String mensajeHTML=
 				"<html>"+
 					"<head></head>"+
@@ -965,6 +1034,7 @@ public class CEmail
 							      "<td align='center' width='20%' style='padding:8px 20px 8px 20px;'>"+
 							      	"<a href='"+etiqueta[212]+"' style='text-decoration:none;'>"+
 							      		"<img src='"+etiqueta[211]+"' width='90' height='60' border='0' />"+
+							      		"<img src='https://www.e-ranti.com/pricing_demo/img/QR/"+nameImgQR+"' width='90' height='60' border='0' />"+
 							      	"</a>"+
 							      "</td>"+
 							      "<td style='color:black;font-size:17px;font-weight:bold;' align='left' width='80%'>"+reserva.getoPaquete().getTitulo()+"</td>"+
@@ -1830,5 +1900,18 @@ public class CEmail
 			case 12:mes="Diciembre";break;
 		}
 		return mes;
+	}
+	public String generarNombreQR()
+	{
+		String name="";
+		//=========================
+				File directorio=new File(ScannUtil.getPath());
+				String[] imagenes=directorio.list();
+				//=================================
+				if(imagenes!=null)
+					name="qrCode"+imagenes.length+".png";
+				else
+					name="qrCode.png";
+		return name;
 	}
 }

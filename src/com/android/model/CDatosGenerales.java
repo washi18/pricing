@@ -1,5 +1,6 @@
 package com.android.model;
 
+import com.android.dao.CDatosGeneralesDAO;
 import com.android.dao.CElementosDAO;
 
 public class CDatosGenerales {
@@ -16,9 +17,10 @@ public class CDatosGenerales {
 	private String cDescripcionIdioma4;// text,
 	private String cDescripcionIdioma5;// text,
 	private String cImagen;// varchar(100),
-	private String nameItem;
+	private String nameElemento;
 	private boolean update;
 	private boolean vistaMobil;
+	private boolean abrirEditorDescripcion;
 	//====================================
 	public int getcDatosGeneralesCod() {
 		return cDatosGeneralesCod;
@@ -98,11 +100,11 @@ public class CDatosGenerales {
 	public void setcImagen(String cImagen) {
 		this.cImagen = cImagen;
 	}
-	public String getNameItem() {
-		return nameItem;
+	public String getNameElemento() {
+		return nameElemento;
 	}
-	public void setNameItem(String nameItem) {
-		this.nameItem = nameItem;
+	public void setNameElemento(String nameElemento) {
+		this.nameElemento = nameElemento;
 	}
 	public boolean isUpdate() {
 		return update;
@@ -117,6 +119,12 @@ public class CDatosGenerales {
 		this.vistaMobil = vistaMobil;
 	}
 	//================================
+	public boolean isAbrirEditorDescripcion() {
+		return abrirEditorDescripcion;
+	}
+	public void setAbrirEditorDescripcion(boolean abrirEditorDescripcion) {
+		this.abrirEditorDescripcion = abrirEditorDescripcion;
+	}
 	public CDatosGenerales() {
 		// TODO Auto-generated constructor stub
 		this.cElementosCod=0;// integer,
@@ -133,6 +141,7 @@ public class CDatosGenerales {
 		this.cImagen="";
 		this.update=false;
 		this.vistaMobil=false;
+		this.abrirEditorDescripcion=false;
 	}
 	public CDatosGenerales(int cDatosGeneralesCod, int cElementosCod, String cTituloIdioma1, String cTituloIdioma2,
 			String cTituloIdioma3, String cTituloIdioma4, String cTituloIdioma5, String cDescripcionIdioma1,
@@ -152,14 +161,15 @@ public class CDatosGenerales {
 		this.cDescripcionIdioma5 = cDescripcionIdioma5;
 		this.cImagen = cImagen;
 		this.vistaMobil=false;
+		this.abrirEditorDescripcion=false;
 		//=====================
 		this.update=true;
 		obtenerNameElemento(cElementosCod);
 	}
 	public void obtenerNameElemento(int cElementosCod)
 	{
-		CElementosDAO elementosDao=new CElementosDAO();
-		elementosDao.asignarNameItem(elementosDao.recuperarNombreItem(cElementosCod));
-		setNameItem(elementosDao.getNameItem());
+		CDatosGeneralesDAO datoGeneralDao=new CDatosGeneralesDAO();
+		datoGeneralDao.asignarNameElemento(datoGeneralDao.recuperarNombreElemento(cElementosCod));
+		setNameElemento(datoGeneralDao.getNameElemento());
 	}
 }

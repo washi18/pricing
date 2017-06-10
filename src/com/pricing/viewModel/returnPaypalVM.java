@@ -1,5 +1,6 @@
 package com.pricing.viewModel;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,6 +31,7 @@ import com.pricing.dao.CReservaPaqueteActividadDAO;
 import com.pricing.dao.CReservaPaqueteCategoriaHotelDAO;
 import com.pricing.dao.CReservaPaqueteDAO;
 import com.pricing.dao.CReservaPaqueteServicioDAO;
+import com.pricing.extras.QRCode;
 import com.pricing.model.CActividad;
 import com.pricing.model.CImpuesto;
 import com.pricing.model.CInterfaz;
@@ -238,6 +240,7 @@ public class returnPaypalVM
 		}
 		//Se asigna el codigo de reserva al objeto oReserva
 		oReserva.setcReservaCod(resultado[1]);
+		//===================
 		String pdf=Util.getPathReservas()+"reservas.pdf";
 		CEmail mail=new CEmail();
 		boolean b=mail.enviarCorreoConPago(etiqueta[200],etiqueta,oImpuesto,oReservaPaqueteCategoriaHotel,fechaInicio,fechaFin,fechaArribo,oReserva,listacFechasAlternas,montoTotalSinImpuesto,montoPagarSinImpuesto,pdf,codTransac,porcentajePago,listaPasajeros,pagos);

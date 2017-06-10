@@ -8,6 +8,7 @@
 	padding: 0;
 	margin: 0;
 }
+.listhead_destino.z-listhead .z-listheader .z-listheader-content,
 .listhead_datoGeneral.z-listhead .z-listheader .z-listheader-content,
 .listhead_elemento.z-listhead .z-listheader .z-listheader-content,
 .listhead_item.z-listhead .z-listheader .z-listheader-content,
@@ -33,6 +34,9 @@
 }
 .listhead_datoGeneral.z-listhead .z-listheader .z-listheader-content{
 	background: #408080;
+}
+.listhead_destino.z-listhead .z-listheader .z-listheader-content{
+	background: #6f4970;
 }
 .div_list_cell_menu{
 	border-bottom:0;

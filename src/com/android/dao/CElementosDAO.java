@@ -89,9 +89,9 @@ public class CElementosDAO extends CConexion{
 				elemento.getcDirigidoIdioma5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_RegistrarElementoItem", values);
 	}
-	public List modificarElemento(CElementos elemento)
+	public List modificarElemento_Item(CElementos elemento)
 	{
-		Object[] values={elemento.getcElementosCod(),elemento.getcItemsCod(),elemento.getcSubMenuCod(),
+		Object[] values={elemento.getcElementosCod(),elemento.getcItemsCod(),
 				elemento.getcNombre1Idioma1(),elemento.getcNombre1Idioma2(),elemento.getcNombre1Idioma3(),
 				elemento.getcNombre1Idioma4(),elemento.getcNombre1Idioma5(),elemento.getcNombre2Idioma1(),
 				elemento.getcNombre2Idioma2(),elemento.getcNombre2Idioma3(),elemento.getcNombre2Idioma4(),
@@ -100,11 +100,20 @@ public class CElementosDAO extends CConexion{
 				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),elemento.getcDirigidoIdioma1(),
 				elemento.getcDirigidoIdioma2(),elemento.getcDirigidoIdioma3(),elemento.getcDirigidoIdioma4(),
 				elemento.getcDirigidoIdioma5()};
-		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_ModificarElemento", values);
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_ModificarElemento_Item", values);
 	}
-	public List recuperarListaElementosBD()
+	public List modificarElemento_Submenu(CElementos elemento)
 	{
-		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_MostrarTodosElementos");
+		Object[] values={elemento.getcElementosCod(),elemento.getcSubMenuCod(),
+				elemento.getcNombre1Idioma1(),elemento.getcNombre1Idioma2(),elemento.getcNombre1Idioma3(),
+				elemento.getcNombre1Idioma4(),elemento.getcNombre1Idioma5(),elemento.getcNombre2Idioma1(),
+				elemento.getcNombre2Idioma2(),elemento.getcNombre2Idioma3(),elemento.getcNombre2Idioma4(),
+				elemento.getcNombre2Idioma5(),elemento.getcNombre3Idioma1(),elemento.getcNombre3Idioma2(),
+				elemento.getcNombre3Idioma3(),elemento.getcNombre3Idioma4(),elemento.getcNombre3Idioma5(),
+				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),elemento.getcDirigidoIdioma1(),
+				elemento.getcDirigidoIdioma2(),elemento.getcDirigidoIdioma3(),elemento.getcDirigidoIdioma4(),
+				elemento.getcDirigidoIdioma5()};
+		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_ModificarElemento_Submenu", values);
 	}
 	public List recuperarListaDestinosBD_Elemento(int codElemento)
 	{
@@ -191,7 +200,9 @@ public class CElementosDAO extends CConexion{
 						(String)row.get("cnombre3idioma1"),(String)row.get("cnombre3idioma2"),
 						(String)row.get("cnombre3idioma3"),(String)row.get("cnombre3idioma4"),
 						(String)row.get("cnombre3idioma5"),(String)row.get("cimagen1"),(String)row.get("cimagen2"),
-						(String)row.get("cimagen3"),(String)row.get("cdirigidoidioma1"),
+						(String)row.get("cimagen3"),(String)row.get("cdescripcionidioma1"),(String)row.get("cdescripcionidioma2"),
+						(String)row.get("cdescripcionidioma3"),(String)row.get("cdescripcionidioma4"),
+						(String)row.get("cdescripcionidioma5"),(String)row.get("cdirigidoidioma1"),
 						(String)row.get("cdirigidoidioma2"),(String)row.get("cdirigidoidioma3"),
 						(String)row.get("cdirigidoidioma4"),(String)row.get("cdirigidoidioma5")));
 			}

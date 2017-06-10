@@ -44,12 +44,14 @@ public class menuVM {
 	private CItems oItem;
 	private CElementos oElemento;
 	private CDatosGenerales oDatoGeneral;
+	private CDestinoMovil oDestino;
 	private ArrayList<CMenu> listaMenu;
 	private boolean visibleMenu;
 	private boolean visibleSubMenu;
 	private boolean visibleItem;
 	private boolean visibleElemento;
 	private boolean visibleDatoGeneral;
+	private boolean visibleDestino;
 	private ArrayList<CGaleriaImageExist> listaImagenesExistentes;
 	private ArrayList<CGaleriaImageExist4> lista4ImagenesExistentes;
 	private CGaleriaImageExist4 galeria4Aux;
@@ -124,6 +126,18 @@ public class menuVM {
 	public void setVisibleDatoGeneral(boolean visibleDatoGeneral) {
 		this.visibleDatoGeneral = visibleDatoGeneral;
 	}
+	public CDestinoMovil getoDestino() {
+		return oDestino;
+	}
+	public void setoDestino(CDestinoMovil oDestino) {
+		this.oDestino = oDestino;
+	}
+	public boolean isVisibleDestino() {
+		return visibleDestino;
+	}
+	public void setVisibleDestino(boolean visibleDestino) {
+		this.visibleDestino = visibleDestino;
+	}
 	public ArrayList<CGaleriaImageExist> getListaImagenesExistentes() {
 		return listaImagenesExistentes;
 	}
@@ -164,6 +178,7 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		visibleDestino=false;
 		//===============
 		mostrarImagenesExistentes=false;
 		mostrarTextImgSeleccionado=false;
@@ -470,7 +485,7 @@ public class menuVM {
 			destino.setSeleccionado(true);
 	}
 	@Command
-	@NotifyChange({"oMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
 	public void mostrarNuevoMenu()
 	{
 		oMenu=new CMenu();
@@ -479,9 +494,10 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		visibleDestino=false;
 	}
 	@Command
-	@NotifyChange({"oSubMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oSubMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
 	public void mostrarNuevoSubMenu(@BindingParam("menu")CMenu menu)
 	{
 		oSubMenu=new CSubMenu();
@@ -491,9 +507,10 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		visibleDestino=false;
 	}
 	@Command
-	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
 	public void mostrarNuevoItem(@BindingParam("submenu")CSubMenu submenu)
 	{
 		oItem=new CItems();
@@ -503,10 +520,10 @@ public class menuVM {
 		visibleItem=true;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
-		CDestinosMovilDAO destinosMovilDao=new CDestinosMovilDAO();
+		visibleDestino=false;
 	}
 	@Command
-	@NotifyChange({"oDatoGeneral","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oDatoGeneral","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
 	public void mostrarNuevoDatoGeneral(@BindingParam("elemento")CElementos elemento)
 	{
 		oDatoGeneral=new CDatosGenerales();
@@ -516,18 +533,50 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=false;
 		visibleDatoGeneral=true;
+		visibleDestino=false;
 	}
 	@Command
-	@NotifyChange({"oElemento","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
-	public void mostrarNuevoElemento(@BindingParam("item")CItems item)
+	@NotifyChange({"oElemento","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
+	public void mostrarNuevoElementoItem(@BindingParam("item")CItems item)
 	{
 		oElemento=new CElementos();
-		oElemento.setcItemsCod(item.getcItemsCod());;
+		oElemento.setcItemsCod(item.getcItemsCod());
+		oElemento.setModoSubMenu(false);
+		oElemento.setModoItem(true);
 		visibleMenu=false;
 		visibleSubMenu=false;
 		visibleItem=false;
 		visibleElemento=true;
 		visibleDatoGeneral=false;
+		visibleDestino=false;
+	}
+	@Command
+	@NotifyChange({"oElemento","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
+	public void mostrarNuevoElementoSubMenu(@BindingParam("submenu")CSubMenu submenu)
+	{
+		oElemento=new CElementos();
+		oElemento.setcSubMenuCod(submenu.getcSubMenuCod());
+		oElemento.setModoSubMenu(true);
+		oElemento.setModoItem(false);
+		visibleMenu=false;
+		visibleSubMenu=false;
+		visibleItem=false;
+		visibleElemento=true;
+		visibleDatoGeneral=false;
+		visibleDestino=false;
+	}
+	@Command
+	@NotifyChange({"oElemento","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
+	public void mostrarNuevoDestino(@BindingParam("elemento")CElementos elemento)
+	{
+		oDestino=new CDestinoMovil();
+		oDestino.setcElementosCod(elemento.getcElementosCod());
+		visibleMenu=false;
+		visibleSubMenu=false;
+		visibleItem=false;
+		visibleElemento=false;
+		visibleDatoGeneral=false;
+		visibleDestino=true;
 	}
 	@Command
 	@NotifyChange({"oMenu","listaMenu"})
@@ -600,7 +649,7 @@ public class menuVM {
 	@NotifyChange({"oElemento","listaMenu"})
 	public void registrarElementoSubmenu(@BindingParam("componente")Component comp)
 	{
-		if(!validoParaInsertar_elemento(comp))
+		if(!validoParaInsertar_elemento_Submenu(comp))
 			return;
 		CElementosDAO elementosDao=new CElementosDAO();
 		CMenuDAO menuDao=new CMenuDAO();
@@ -617,7 +666,7 @@ public class menuVM {
 	@NotifyChange({"oElemento","listaMenu"})
 	public void registrarElementoItem(@BindingParam("componente")Component comp)
 	{
-		if(!validoParaInsertar_elemento(comp))
+		if(!validoParaInsertar_elemento_Item(comp))
 			return;
 		CElementosDAO elementosDao=new CElementosDAO();
 		CMenuDAO menuDao=new CMenuDAO();
@@ -628,6 +677,23 @@ public class menuVM {
 			menuDao.asignarListaMenu(menuDao.recuperarListaMenuBD());
 			setListaMenu(menuDao.getListaMenu());
 			Clients.showNotification("El registro del elemento fue correcto",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",3000);
+		}
+	}
+	@Command
+	@NotifyChange({"oDestino","listaMenu"})
+	public void registrarDestinoMovil(@BindingParam("componente")Component comp)
+	{
+		if(!validoParaInsertar_destino(comp))
+			return;
+		CDestinosMovilDAO destinoMovilDao=new CDestinosMovilDAO();
+		CMenuDAO menuDao=new CMenuDAO();
+		boolean correcto=destinoMovilDao.isOperationCorrect(destinoMovilDao.insertarDestinoMovil(oDestino));
+		if(correcto)
+		{
+			oDestino=new CDestinoMovil();
+			menuDao.asignarListaMenu(menuDao.recuperarListaMenuBD());
+			setListaMenu(menuDao.getListaMenu());
+			Clients.showNotification("El Destino se inserto correctamente", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start", 2700);
 		}
 	}
 	public boolean validoParaInsertar_menu(Component comp)
@@ -702,7 +768,7 @@ public class menuVM {
 		}
 		return valido;
 	}
-	public boolean validoParaInsertar_elemento(Component comp)
+	public boolean validoParaInsertar_elemento_Item(Component comp)
 	{
 		boolean valido=true;
 		if(oElemento.getcItemsCod()==0)
@@ -721,6 +787,38 @@ public class menuVM {
 		{
 			valido=false;
 			Clients.showNotification("El elemento debe de contar una descripcion a que tipo de cliente esta dirigido",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+		}
+		return valido;
+	}
+	public boolean validoParaInsertar_elemento_Submenu(Component comp)
+	{
+		boolean valido=true;
+		if(oElemento.getcSubMenuCod()==0)
+		{
+			valido=false;
+			Clients.showNotification("Es necesario que seleccione a que submenu correspondera el elemento",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+		}else if(oElemento.getcNombre1Idioma1().equals(""))
+		{
+			valido=false;
+			Clients.showNotification("El elemento debe de tener un nombre",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+		}else if(oElemento.getcImagen1().equals(""))
+		{
+			valido=false;
+			Clients.showNotification("El elemento debe de contar al menos con una imagen",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+		}else if(oElemento.getcDirigidoIdioma1().equals(""))
+		{
+			valido=false;
+			Clients.showNotification("El elemento debe de contar una descripcion a que tipo de cliente esta dirigido",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+		}
+		return valido;
+	}
+	public boolean validoParaInsertar_destino(Component comp)
+	{
+		boolean valido=true;
+		if(oDestino.getcDestino().equals(""))
+		{
+			valido=false;
+			Clients.showNotification("El Destino siempre debe de tener un nombre", Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
 		}
 		return valido;
 	}
@@ -776,19 +874,43 @@ public class menuVM {
 		boolean correcto=datosGeneralesDao.isOperationCorrect(datosGeneralesDao.modificarDatoGeneral(datoGeneral));
 		if(correcto)
 		{
-			Clients.showNotification("La modificacion del item fue correcto",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",3000);
+			Clients.showNotification("La modificacion del dato general fue correcto",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",3000);
 		}
 	}
 	@Command
-	public void actualizarElemento(@BindingParam("elemento")CElementos elemento,@BindingParam("componente")Component comp)
+	public void actualizarElemento_Item(@BindingParam("elemento")CElementos elemento,@BindingParam("componente")Component comp)
 	{
 		if(!validoParaActualizar_elemento(comp,elemento))
 			return;
 		CElementosDAO elementoDao=new CElementosDAO();
-		boolean correcto=elementoDao.isOperationCorrect(elementoDao.modificarElemento(elemento));
+		boolean correcto=elementoDao.isOperationCorrect(elementoDao.modificarElemento_Item(elemento));
 		if(correcto)
 		{
 			Clients.showNotification("La modificacion del elemento fue correcto",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",3000);
+		}
+	}
+	@Command
+	public void actualizarElemento_Submenu(@BindingParam("elemento")CElementos elemento,@BindingParam("componente")Component comp)
+	{
+		if(!validoParaActualizar_elemento(comp,elemento))
+			return;
+		CElementosDAO elementoDao=new CElementosDAO();
+		boolean correcto=elementoDao.isOperationCorrect(elementoDao.modificarElemento_Submenu(elemento));
+		if(correcto)
+		{
+			Clients.showNotification("La modificacion del elemento fue correcto",Clients.NOTIFICATION_TYPE_INFO, comp,"before_start",3000);
+		}
+	}
+	@Command
+	public void actualizarDestinoMovil(@BindingParam("destino")CDestinoMovil destino,@BindingParam("componente")Component comp)
+	{
+		if(!validoParaActualizar_destino(destino,comp))
+			return;
+		CDestinosMovilDAO destinoMovilDao=new CDestinosMovilDAO();
+		boolean correcto=destinoMovilDao.isOperationCorrect(destinoMovilDao.modificarDestinoMovil(destino));
+		if(correcto)
+		{
+			Clients.showNotification("El Destino se actualizo correctamente", Clients.NOTIFICATION_TYPE_INFO, comp,"before_start", 2700);
 		}
 	}
 	public boolean validoParaActualizar_menu(Component comp,CMenu menu)
@@ -862,10 +984,21 @@ public class menuVM {
 		{
 			valido=false;
 			Clients.showNotification("El item debe de contar al menos con una imagen",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
-		}else if(elemento.getcDirigidoIdioma1().equals(""))
+		}else if(elemento.getcDirigidoIdioma1()==null)
 		{
 			valido=false;
 			Clients.showNotification("El elemento debe de contar una descripcion a que tipo de cliente esta dirigido",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
+		}
+		return valido;
+	}
+	public boolean validoParaActualizar_destino(CDestinoMovil destino,Component comp)
+	{
+		destino.setcDestino(destino.getcDestino().toUpperCase());
+		boolean valido=true;
+		if(destino.getcDestino().equals(""))
+		{
+			valido=false;
+			Clients.showNotification("El Destino siempre debe de tener un nombre", Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start", 2700);
 		}
 		return valido;
 	}
@@ -1129,21 +1262,53 @@ public class menuVM {
 		BindUtils.postNotifyChange(null, null, sm, "estado_activo");
 	}
 	@Command
+	public void Activar_Desactivar_destino(@BindingParam("destino")CDestinoMovil d,@BindingParam("texto")String texto)
+	{
+		if(texto.equals("activar"))
+		{
+			d.setColor_btn_activo(d.COLOR_ACTIVO);
+			d.setColor_btn_desactivo(d.COLOR_TRANSPARENT);
+			d.setEstado_activo(true);
+			d.setEstado_desactivo(false);
+			d.setbEstado(true);
+		}else{
+			d.setColor_btn_activo(d.COLOR_TRANSPARENT);
+			d.setColor_btn_desactivo(d.COLOR_DESACTIVO);
+			d.setEstado_activo(false);
+			d.setEstado_desactivo(true);
+			d.setbEstado(false);
+		}
+		BindUtils.postNotifyChange(null, null, d,"estado_activo");
+		BindUtils.postNotifyChange(null, null, d,"estado_desactivo");
+		BindUtils.postNotifyChange(null, null, d,"color_btn_activo");
+		BindUtils.postNotifyChange(null, null, d,"color_btn_desactivo");
+	}
+	@Command
+	@NotifyChange({"oElemento"})
 	public void select_submenu_conElemento(@BindingParam("opcion") String opcion,@BindingParam("submenu")CSubMenu submenu) {
+		CSubMenuDAO submenuDao=new CSubMenuDAO();
 		if (opcion.equals("con_elemento")) {
 			submenu.setConElemento(true);
 			submenu.setSinElemento(false);
 			submenu.setElemento(true);
+			submenu.setListaItems(new ArrayList<CItems>());
+			submenu.recuperarListaElementos(submenu.getcSubMenuCod());
+			submenuDao.isOperationCorrect(submenuDao.modificarElementoSubmenu(submenu.getcSubMenuCod(),true));
 		} else {
 			submenu.setConElemento(false);
 			submenu.setSinElemento(true);
 			submenu.setElemento(false);
+			submenu.setListaElementos(new ArrayList<CElementos>());
+			submenu.recuperarListaItems(submenu.getcSubMenuCod());
+			submenuDao.isOperationCorrect(submenuDao.modificarElementoSubmenu(submenu.getcSubMenuCod(),false));
 		}
 		BindUtils.postNotifyChange(null, null, submenu,"conElemento");
 		BindUtils.postNotifyChange(null, null, submenu,"sinElemento");
+		BindUtils.postNotifyChange(null, null, submenu,"listaItems");
+		BindUtils.postNotifyChange(null, null, submenu,"listaElementos");
 	}
 	@Command
-	@NotifyChange({"oMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
 	public void mostrarSubMenus(@BindingParam("menu")CMenu menu)
 	{
 		menu.setVisibleSubMenu(!menu.isVisibleSubMenu());
@@ -1153,10 +1318,11 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		visibleDestino=false;
 		BindUtils.postNotifyChange(null, null, menu, "visibleSubMenu");
 	}
 	@Command
-	@NotifyChange({"oSubMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oSubMenu","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
 	public void mostrarItems(@BindingParam("submenu")CSubMenu submenu)
 	{
 		submenu.setVisibleItem(!submenu.isVisibleItem());
@@ -1166,11 +1332,11 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		visibleDestino=false;
 		BindUtils.postNotifyChange(null, null, submenu, "visibleItem");
 	}
 	@Command
-	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral",
-		"listaDestinosMovil"})
+	@NotifyChange({"oItem","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
 	public void mostrarContentItems(@BindingParam("item")CItems item)
 	{
 		item.setVisibleContent(!item.isVisibleContent());
@@ -1180,11 +1346,12 @@ public class menuVM {
 		visibleItem=true;
 		visibleElemento=false;
 		visibleDatoGeneral=false;
+		visibleDestino=false;
 		BindUtils.postNotifyChange(null, null, item, "visibleContent");
 	}
 	@Command
-	@NotifyChange({"oElemento","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
-	public void mostrarElemento(@BindingParam("elemento")CElementos elemento)
+	@NotifyChange({"oElemento","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
+	public void mostrarElemento_submenu(@BindingParam("elemento")CElementos elemento)
 	{
 		setoElemento(elemento);
 		visibleMenu=false;
@@ -1192,9 +1359,22 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=true;
 		visibleDatoGeneral=false;
+		visibleDestino=false;
 	}
 	@Command
-	@NotifyChange({"oDatoGeneral","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral"})
+	@NotifyChange({"oElemento","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
+	public void mostrarElemento_item(@BindingParam("elemento")CElementos elemento)
+	{
+		setoElemento(elemento);
+		visibleMenu=false;
+		visibleSubMenu=false;
+		visibleItem=false;
+		visibleElemento=true;
+		visibleDatoGeneral=false;
+		visibleDestino=false;
+	}
+	@Command
+	@NotifyChange({"oDatoGeneral","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
 	public void mostrarDatoGeneral(@BindingParam("datoGeneral")CDatosGenerales datoGeneral)
 	{
 		setoDatoGeneral(datoGeneral);
@@ -1203,6 +1383,25 @@ public class menuVM {
 		visibleItem=false;
 		visibleElemento=false;
 		visibleDatoGeneral=true;
+		visibleDestino=false;
+	}
+	@Command
+	@NotifyChange({"oDestino","visibleMenu","visibleSubMenu","visibleItem","visibleElemento","visibleDatoGeneral","visibleDestino"})
+	public void mostrarDestino(@BindingParam("destino")CDestinoMovil destino)
+	{
+		setoDestino(destino);
+		visibleMenu=false;
+		visibleSubMenu=false;
+		visibleItem=false;
+		visibleElemento=false;
+		visibleDatoGeneral=false;
+		visibleDestino=true;
+	}
+	@Command
+	public void clickMapaInsertar(@BindingParam("latitud")double latitud,@BindingParam("longitud")double longitud){
+			oDestino.setcLatitud(String.valueOf(latitud));
+			oDestino.setcLongitud(String.valueOf(longitud));
+		BindUtils.postNotifyChange(null, null, this, "oDestino");
 	}
 	@Command
 	public void vistaMobile_menu(@BindingParam("menu")CMenu menu)
@@ -1245,10 +1444,46 @@ public class menuVM {
 		BindUtils.postNotifyChange(null, null, item, "abrirEditorDescripcion");
 	}
 	@Command
+	public void abrirEditorDescripcionElemento(@BindingParam("elemento")CElementos elemento)
+	{
+		elemento.setAbrirEditorDescripcion(true);
+		BindUtils.postNotifyChange(null, null, elemento, "abrirEditorDescripcion");
+	}
+	@Command
+	public void abrirEditorDirigidoElemento(@BindingParam("elemento")CElementos elemento)
+	{
+		elemento.setAbrirEditorDirigido(true);
+		BindUtils.postNotifyChange(null, null, elemento, "abrirEditorDirigido");
+	}
+	@Command
+	public void abrirEditorDescripcionDatoGeneral(@BindingParam("datoGeneral")CDatosGenerales dg)
+	{
+		dg.setAbrirEditorDescripcion(true);
+		BindUtils.postNotifyChange(null, null, dg, "abrirEditorDescripcion");
+	}
+	@Command
 	public void cerrarEditorDescripcionItem(@BindingParam("item")CItems item)
 	{
 		item.setAbrirEditorDescripcion(false);
 		BindUtils.postNotifyChange(null, null, item, "abrirEditorDescripcion");
+	}
+	@Command
+	public void cerrarEditorDescripcionElemento(@BindingParam("elemento")CElementos elemento)
+	{
+		elemento.setAbrirEditorDescripcion(false);
+		BindUtils.postNotifyChange(null, null, elemento, "abrirEditorDescripcion");
+	}
+	@Command
+	public void cerrarEditorDirigidoElemento(@BindingParam("elemento")CElementos elemento)
+	{
+		elemento.setAbrirEditorDirigido(false);
+		BindUtils.postNotifyChange(null, null, elemento, "abrirEditorDirigido");
+	}
+	@Command
+	public void cerrarEditorDescripcionDatoGeneral(@BindingParam("datoGeneral")CDatosGenerales dg)
+	{
+		dg.setAbrirEditorDescripcion(false);
+		BindUtils.postNotifyChange(null, null, dg, "abrirEditorDescripcion");
 	}
 	@Command
 	public void vistaMobile_datogeneral(@BindingParam("datogeneral")CDatosGenerales datogeneral)

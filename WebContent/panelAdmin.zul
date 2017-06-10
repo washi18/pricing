@@ -72,30 +72,30 @@
 											<label value="Etiquetas" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoVisa)">
-										<div id="itemVisa" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="fa fa-cc-visa estilos-iconos"/>
-											<label value="Visa" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
+<!-- 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoVisa)"> -->
+<!-- 										<div id="itemVisa" onClick="@command('Cambio',cambioInterfaz=self.id)"> -->
+<!-- 											<span sclass="fa fa-cc-visa estilos-iconos"/> -->
+<!-- 											<label value="Visa" sclass="lbls_mantenimientos"/> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoPaypal)">
 										<div id="itemPaypal" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarConfiguracionPaypal')">
 											<span sclass="fa fa-paypal estilos-iconos"/>
 											<label value="Paypal" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoMasterdCard)">
-										<div id="itemMasterdCard" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="fa fa-cc-mastercard estilos-iconos"/>
-											<label value="Masterd Card" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
-									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoWesternUnion)">
-										<div id="itemWesternUnion" onClick="@command('Cambio',cambioInterfaz=self.id)">
-											<span sclass="fa fa-cc-diners-club estilos-iconos"/>
-											<label value="Diners Club" sclass="lbls_mantenimientos"/>
-										</div>
-									</div>
+<!-- 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoMasterdCard)"> -->
+<!-- 										<div id="itemMasterdCard" onClick="@command('Cambio',cambioInterfaz=self.id)"> -->
+<!-- 											<span sclass="fa fa-cc-mastercard estilos-iconos"/> -->
+<!-- 											<label value="Masterd Card" sclass="lbls_mantenimientos"/> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
+<!-- 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoWesternUnion)"> -->
+<!-- 										<div id="itemWesternUnion" onClick="@command('Cambio',cambioInterfaz=self.id)"> -->
+<!-- 											<span sclass="fa fa-cc-diners-club estilos-iconos"/> -->
+<!-- 											<label value="Diners Club" sclass="lbls_mantenimientos"/> -->
+<!-- 										</div> -->
+<!-- 									</div> -->
 									<div width="100%" zclass="div_mantenimiento_items_sub" visible="@bind(vmAdmin.oAcceso.accesoExtras)">
 										<div id="itemExtras" onClick="@command('Cambio',cambioInterfaz=self.id)">
 											<span sclass="fa fa-wrench estilos-iconos estilos-iconos"/>
@@ -223,9 +223,9 @@
 										</div>
 									</div>
 									<div width="100%" zclass="div_mantenimiento_items_sub">
-										<div id="itemDestinosAndroid" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('recuperarDestinosMovil')">
-											<span sclass="fa fa-globe estilos-iconos"/>
-											<label value="Destinos de App" sclass="lbls_mantenimientos"/>
+										<div id="itemAgencia" onClick="@command('Cambio',cambioInterfaz=self.id) @global-command('cargarDatosMenu')">
+											<span sclass="fa fa-university"/>
+											<label value="Agencia" sclass="lbls_mantenimientos"/>
 										</div>
 									</div>
 								</div>
@@ -284,7 +284,7 @@
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfExtras)" zclass="btn_opciones_config" label="CONFIGURACIONES ADICIONALES"/>
 									<button width="100%" iconSclass="fa fa-wrench estilos-iconos" visible="@bind(vmAdmin.visibleConfAltoNivel)" zclass="btn_opciones_config" label="CONFIGURACIONES ALTO NIVEL"/>
 									<button width="100%" iconSclass="fa fa-bars estilos-iconos" visible="@bind(vmAdmin.visibleMenuAndroid)" zclass="btn_opciones_config" label="MENU DE ANDROID"/>
-									<button width="100%" iconSclass="fa fa-globe estilos-iconos" visible="@bind(vmAdmin.visibleDestinosAndroid)" zclass="btn_opciones_config" label="DESTINOS DE ANDROID"/>
+									<button width="100%" iconSclass="fa fa-university estilos-iconos" visible="@bind(vmAdmin.visibleAgencia)" zclass="btn_opciones_config" label="AGENCIA"/>
 								</div>
 								<div>
 									<div visible="@bind(vmAdmin.visibleDisponibilidad)">
@@ -347,8 +347,8 @@
 									<div visible="@bind(vmAdmin.visibleMenuAndroid)">
 										<include src="menu.zul"/>
 									</div>
-									<div visible="@bind(vmAdmin.visibleDestinosAndroid)">
-										<include src="destinoMovil.zul"/>
+									<div visible="@bind(vmAdmin.visibleAgencia)">
+										<include src="agencia.zul"/>
 									</div>
 								</div>
 							</div>
