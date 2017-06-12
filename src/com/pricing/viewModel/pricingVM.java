@@ -87,6 +87,7 @@ import com.pricing.dao.CReservaPaqueteDAO;
 import com.pricing.dao.CReservaPaqueteServicioDAO;
 import com.pricing.dao.CServicioDAO;
 import com.pricing.dao.ConfAltoNivelDAO;
+import com.pricing.extras.QRCode;
 import com.pricing.model.CActividad;
 import com.pricing.model.CCategoriaConHoteles;
 import com.pricing.model.CCupon;
@@ -2291,10 +2292,41 @@ public class pricingVM
 				Clients.showNotification(etiqueta[2],Clients.NOTIFICATION_TYPE_WARNING, comp,"before_start",2700);
 		}
 	}
+	public String generarNombreQR()
+	{
+		String name="";
+		//=========================
+				File directorio=new File(ScannUtil.getPath());
+				String[] imagenes=directorio.list();
+				//=================================
+				if(imagenes!=null)
+					name="qrCode"+imagenes.length+".png";
+				else
+					name="qrCode.png";
+		return name;
+	}
 	@Command
 	@NotifyChange({"paso4","oReservar"})
 	public void Reservar() throws IOException, DocumentException
 	{
+		//=========
+		QRCode qr = new QRCode();
+		String nameImgQR=generarNombreQR();
+        File file = new File(ScannUtil.getPathImagenQR()+nameImgQR);
+        //FPP=yuri vladimir huallpa vargas=camino inka=01/06/2017=05/06/2017=5=300=931896923=yurihuallpavargas@gmail.com
+//        String text ="FPP="+reserva.getcContacto()+"="+reserva.getoPaquete().getTitulo()+"="+
+//        			fechaInicio+"="+fechaFin+"="+reserva.getnNroPersonas()+"="+montoPagar+"="+
+//        			reserva.getcTelefono()+"="+reserva.getcEmail();
+        String text="Hola mundo";
+ 
+        try {
+ 
+            qr.generateQR(file, text, 300, 300);
+ 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		//==========
 		CReservaDAO reservaDao=new CReservaDAO();
 		String[] resultado=reservaDao.recuperarResultados(reservaDao.registrarReserva(oReservar));
 		//Se asigna el codigo de reserva al objeto oReserva
