@@ -1168,7 +1168,7 @@
 													<template
 														name="model" var="pais">
 														<comboitem
-															label="@load(pais.cNombreEsp)"
+															label="@load(pais.namePais)"
 															value="@load(pais.nPaisCod)" />
 													</template>
 												</combobox>

@@ -266,7 +266,7 @@
 											</div>
 											<combobox model="@load(vmPricing.listaPaises)" value="@bind(each.nombrePais)" placeholder="@bind(vmPricing.etiqueta[75])" onChange="@command('selectCodPais',codPais=self.selectedItem.value,pasajero=each,idCbPais=self)" width="150px">
 												<template name="model" var="pais">
-													<comboitem label="@load(pais.cNombreEsp)" value="@load(pais.nPaisCod)"/>
+													<comboitem label="@load(pais.namePais)" value="@load(pais.nPaisCod)"/>
 												</template>
 											</combobox>
 										</div>

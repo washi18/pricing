@@ -7,6 +7,7 @@ public class CPais
 	private String cAbrevEsp;// varchar(3),				--abreviatura del nombre en espanol
 	private String cNombreIng;// varchar(60),				--nombre del pais en ingles
 	private String cAbrevIng;// varchar(3),				--abreviatura del pais en ingles
+	private String namePais;
 	//=============================
 	public int getnPaisCod() {
 		return nPaisCod;
@@ -37,6 +38,12 @@ public class CPais
 	}
 	public void setcAbrevIng(String cAbrevIng) {
 		this.cAbrevIng = cAbrevIng;
+	}
+	public String getNamePais() {
+		return namePais;
+	}
+	public void setNamePais(String namePais) {
+		this.namePais = namePais;
 	}
 	//=========================
 	public CPais() {

@@ -510,8 +510,8 @@ public class CEmail
 								"</tbody>"+
 							"</table>"+
 							"<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;margin:0;'>"+
-									"<thead style='font-weight: bold;'>Fecha de Reserva</thead>"+
-									"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
+									"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+etiqueta[77]+"</thead>"+
+									"<tr style='border:1px solid black;'>"+
 										"<td style='border:1px solid black;' width='240'>"+
 											"<p style='font-weight:bold;font-size:15px;margin:5px 0 6px 0;'>"+fechaActual[0]+"</p>"+
 										"</td>"+
@@ -519,40 +519,39 @@ public class CEmail
 							"</table>"+
 							"<br />"+
 							"<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;margin:0;'>"+
-										"<thead style='font-weight: bold;'>Datos</thead>"+
-											"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
+										"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+etiqueta[129]+"</thead>"+
+											"<tr style='border:1px solid black;'>"+
 												"<td style='margin: 0px; text-align: center; border-right: 1px solid black;padding-bottom:15px;' width='240'>"+
-													"<p style='font-stretch: normal; font-size: 14px; line-height: 16px; font-family: Arial, Helvetica, sans-serif; color: #1a5276; margin-bottom: 30px;'>"+
-														"<strong>"+etiqueta[118]+"</strong>"+
+													"<p style='color: #1a5276; margin-bottom: 30px;'>"+
+														"<strong style='text-decoration: underline;'>"+etiqueta[118]+"</strong>"+
 													"</p>"+
 													"<span style='background-color:rgb(204, 204, 204); border-radius:3px; border:1px solid rgb(217, 217, 217); color:rgb(47, 115, 186); font-family:arial,helvetica,sans-serif; font-size:24px; font-stretch:normal; line-height:24px; padding:10px'>"+
 														"<strong>"+reserva.getcReservaCod()+"</strong>"+
 													"</span>"+
 												"</td>"+
-												"<td style='margin: 0px; padding: 0px 15px;' width='308'>"+
-													"<p style='font-stretch: normal; font-size: 14px; line-height: 12px; font-family: Arial, Helvetica, sans-serif; color:#1a5276; margin-bottom: 3px; padding-top: 15px;'>"+
-														"<strong>"+etiqueta[125]+"</strong>"+
+												"<td style='margin: 0px;padding:0px 15px;' width='308'>"+
+													"<p>"+
+														"<strong style='text-decoration: underline;'>"+etiqueta[125]+"</strong>"+
 													"</p>"+
-													"<span style='color:rgb(102, 102, 102); font-family:arial,helvetica,sans-serif; font-size:14px; font-stretch:normal; line-height:14px;'>"+
+													"<span style='color:rgb(102, 102, 102);'>"+
 														"<strong>"+reserva.getcContacto()+"</strong>"+
 													"</span>"+
-													"<p style='font-stretch: normal; font-size: 14px; line-height: 12px; font-family: Arial, Helvetica, sans-serif; color:#1a5276; margin-bottom: 3px;'>"+
-														"<strong>"+etiqueta[253]+"</strong>"+
+													"<p>"+
+														"<strong style='text-decoration: underline;'>"+etiqueta[253]+"</strong>"+
 													"</p>"+
-													"<span style='font-family:arial,helvetica,sans-serif; font-size:14px;'>"+
-														"<strong style='color:black'>"+etiqueta[131]+"<span style='color:rgb(102, 102, 102)'>"+fechaInicio+"</span></strong>"+
+													"<span>"+
+														"<strong><span style='color:rgb(102, 102, 102)'>"+fechaInicio+"</span></strong>"+
 														"<br />"+
-														"<strong style='color:black'>"+etiqueta[132]+"<span style='color:rgb(102, 102, 102)'>"+fechaFin+"</span></strong>"+
+														"<strong><span style='color:rgb(102, 102, 102)'>"+fechaFin+"</span></strong>"+
 														"<br />"+
-														"<strong style='color:black'>"+etiqueta[249]+"</strong><span style='color:rgb(102, 102, 102)'>:</span><strong>"+fechaArribo+"</strong>"+
+														"<strong>"+etiqueta[249]+"</strong><strong><span style='color:rgb(102, 102, 102)'>"+fechaArribo+"</span></strong>"+
 													"</span>"+
-													"<p style='font-stretch: normal; font-size: 14px; line-height: 12px; font-family: Arial, Helvetica, sans-serif; color:#1a5276; margin-bottom: 3px;'>"+
-														"<strong>Total Pago:</strong>"+
+													"<p>"+
+														"<strong style='text-decoration: underline;'>"+etiqueta[81]+"</strong>"+
 													"</p>"+
-													"<span style='color:rgb(102, 102, 102); font-family:arial,helvetica,sans-serif; font-size:14px; font-stretch:normal; line-height:14px; padding-bottom:5px'>"+
-														"<strong>US$ "+totalPago+"</strong>"+
+													"<span style='color:rgb(102, 102, 102);'>"+
+														"<strong>USD($) "+totalPago+"</strong>"+
 													"</span>"+
-													"<span style='color:rgb(102, 102, 102); font-family:arial,helvetica,sans-serif; font-size:14px; font-stretch:normal; line-height:14px; padding-bottom:5px'>(USD)</span>"+
 												"</td>"+
 											"</tr>"+
 									"</table>"+
@@ -561,9 +560,10 @@ public class CEmail
 //							"</div>"+
 //							"<p style='font-weight:bold;'>"+etiqueta[127]+"</p>"+
 							"<div align='center'>"+
+							"<br />"+
 							"<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;margin:0;'>"+
-								"<thead style='font-weight: bold;'>Efectuar Pago</thead>"+
-								"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
+								"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+etiqueta[78]+"</thead>"+
+								"<tr style='border:1px solid black;'>"+
 									"<td style='margin: 0px; text-align: center; border-right: 1px solid black;padding-bottom:15px;'>"+
 									etiqueta[128]+"("+textoTotal+")"+
 									"<form action='"+configUrlDao.getoConfigUrl().getUrlServletPagoTotal()+"' method='POST'>"+
@@ -580,7 +580,7 @@ public class CEmail
 									"</form>"+
 						    		"</td>"+
 						    		"<td style='margin: 0px; text-align: center;padding-bottom:15px;'>"+
-									etiqueta[129]+"("+textoParcial+")"+
+									etiqueta[128]+"("+textoParcial+")"+
 									"<form action='"+configUrlDao.getoConfigUrl().getUrlServletPagoParcial()+"' method='POST'>"+
 										"<input type='hidden' name='Monto' value='"+pagoParcial+"'/>"+
 										"<input type='hidden' name='codReserva' value='"+reserva.getcReservaCod()+"'/>"+
@@ -597,43 +597,33 @@ public class CEmail
 								"</tr>"+
 							"</table>"+
 							"</div>"+
+							"<br />"+
 							"<div>"+
 							"<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;margin:0;'>"+
-								"<thead style='font-weight: bold;'>Detalles del paquete</thead>"+
-								"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
+								"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+etiqueta[79]+"</thead>"+
+								"<tr style='border:1px solid black;'>"+
 									"<td style='margin: 0px; border-right: 1px solid black;padding:8px;'>"+
 										"<p>"+etiqueta[130]+" <strong style='color:#F7653A;'>"+reserva.getoPaquete().getTitulo()+"</strong>"+ 
 										"</strong> "+etiqueta[133]+" <strong> "+reserva.getnNroPersonas()+" </strong> "+etiqueta[134]+"<strong> "+etiqueta[135]+" </strong>"+
 										fechas+
 										"<br />"+
-										"<p><strong>"+etiqueta[252]+"</strong><br />"+
+										"<p><strong style='text-decoration: underline;'>"+etiqueta[252]+"</strong><br />"+
 										"<p>"+reserva.getcInformacionAdicional()+"</p>"+
-										"<p><strong>"+etiqueta[250]+"</strong><br />"+
+										"<p><strong style='text-decoration: underline;'>"+etiqueta[250]+"</strong><br />"+
 										"<p>"+reserva.getoPaquete().getDescripcion()+"</p>"+
 					
-										"<p><strong><span style='color:rgb(255, 0, 0)'><strong><span style='color:rgb(0, 0, 0)'>"+etiqueta[251]+"</span></strong><br />"+
+										"<p><strong><span style='color:rgb(255, 0, 0)'><strong><span style='color:rgb(0, 0, 0);text-decoration: underline;'>"+etiqueta[251]+"</span></strong><br />"+
 										"<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"' target='_blank'>"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"</a></span></strong></p>"+
 									"</td>"+
 								"</tr>"+
 							"</table>"+
 							"<br/>"+
 						    "<p> "+etiqueta[138]+" </p>"+
-						    "<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
-						    	"<thead style='font-weight: bold;'>"+etiqueta[88]+"</thead>"+
-						    	"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
-						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[139]+"</td>"+
-						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[140]+"</td>"+
-						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[72]+"</td>"+
-						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[71]+"</td>"+
-						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[73]+"</td>"+
-						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[74]+"</td>"+
-						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[75]+"</td>"+
-						    	"</tr>"+
-						    	pasajeros[0]+
-						    "</table>"+
-						    "<br/>"+
+						    pasajeros[0]+
 						    hotel[0]+
+						    "<br />"+
 						    "<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
+						    	"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+etiqueta[80]+"</thead>"+
 						    	"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
 						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[141]+"</td>"+
 						    		"<td style='border:1px solid black;' align='center'>"+etiqueta[142]+"</td>"+
@@ -646,20 +636,20 @@ public class CEmail
 						    		"<td style='border:1px solid black;' align='center'>-</td>"+
 						    		"<td style='border:1px solid black;' align='right'>"+precioUniPaquete+"</td>"+
 						    		"<td style='border:1px solid black;' align='center'>"+reserva.getnNroPersonas()+"</td>"+
-						    		"<td style='border:1px solid black;color:#1A5276;' align='right'>"+reserva.getnPrecioPaquetePersona().toString()+"</td>"+
+						    		"<td style='border:1px solid black;color:#1A5276;' align='right'>"+df.format(reserva.getnPrecioPaquetePersona())+"</td>"+
 						    	"</tr>"+
 						    	servicios[0]+
 						    	actividades[0]+
 						    "</table>"+
 						    "<table width='100%' style='background:rgba(0,0,0,0.02);border:1px solid black;'>"+
 						    	"<tr>"+
-						    		"<td width='80%'></td>"+
-						    		"<td width='20%'>"+
+						    		"<td width='65%'></td>"+
+						    		"<td width='35%'>"+
 						    			"<table width='100%'>"+
-						    				"<tr><td>"+etiqueta[99]+"</td><td style='color:#1A5276;' align='right'>"+totalPago+"</td></tr>"+
-						    				"<tr><td>"+etiqueta[100]+"</td><td style='color:#1A5276;' align='right'>"+impuesto+"</td></tr>"+
+						    				"<tr><td>"+etiqueta[99]+"</td><td style='color:#1A5276;margin-right:0;' align='right'>"+totalPago+"</td></tr>"+
+						    				"<tr><td>"+etiqueta[100]+"</td><td style='color:#1A5276;margin-right:0;' align='right'>"+impuesto+"</td></tr>"+
 						    				"<tr><td></td><td style='color:#1A5276;' align='right'>--------------</td></tr>"+
-						    				"<tr><td>"+etiqueta[101]+"</td><td style='color:#1A5276;' align='right'>"+importeTotal+"</td></tr>"+
+						    				"<tr><td>"+etiqueta[101]+"</td><td style='color:#1A5276;margin-right:0;' align='right'>"+importeTotal+"</td></tr>"+
 						    			"</table>"+
 						    		"</td>"+
 						    	"</tr>"+
@@ -667,27 +657,33 @@ public class CEmail
 						    "<br/>"+
 						    "<p>"+etiqueta[146]+"</p>"+
 						    "<p>"+etiqueta[147]+"</p>"+
-						    "<table width='80%'>"+
-							    "<tr align='center'>"+
-						    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-						    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-						    	"</tr>"+
-						    	"<tr align='center'>"+
-						    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-						    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
-						    	"</tr>"+
-						    "</table>"+
+						    "<div align='center' width='100%'>"+
+							    "<table width='80%'>"+
+								    "<tr align='center'>"+
+							    		"<td><a href='"+etiqueta[214]+"'><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/></a></td>"+
+							    		"<td><a href='"+etiqueta[215]+"'><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/youtube.png'/></a></td>"+
+							    		"<td><a href='"+etiqueta[216]+"'><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_twitter.png'/></a></td>"+
+							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
+//							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+//							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+							    	"</tr>"+
+//							    	"<tr align='center'>"+
+//							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+//							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
+//							    	"</tr>"+
+							    "</table>"+
+//							    "<img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p>"+
+						    "</div>"+
 						"</div>"+
-						  "<p style='font-size:11px;'>"+etiqueta[153]+" <strong>"+etiqueta[154]+"</strong>"+etiqueta[155]+"</p>"+
-						  "<p style='font-size:11px;'>"+etiqueta[196]+"</p>"+
-						  "<a href='"+reserva.getoPaquete().getcUrlReferenciaPaquete()+"'>"+etiqueta[246]+"</a>"+
+//						  "<p style='font-size:11px;'>"+etiqueta[153]+" <strong>"+etiqueta[154]+"</strong>"+etiqueta[155]+"</p>"+
+						  "<p style='font-size:18px;color:red;font-weight:bold;'>"+etiqueta[112]+"</p>"+
 						  "<br/>"+
 					        "<strong>"+etiqueta[213]+"</strong>"+
 						"</div>"+
-						"<div style='background:gray;"+
+						"<div align='center' style='background:gray;"+
 							"color:white;"+
-							"font-size:15px;font-weight:bold;width:100%;height:60px;'>"+
-							"<p style='padding:20px 0 0 30%;'>Copyright © "+cal.get(Calendar.YEAR)+" "+etiqueta[157]+"</p>"+
+							"font-size:15px;font-weight:bold;width:100%;height:60px;padding:8px 0;'>"+
+							"<p>Copyright © "+cal.get(Calendar.YEAR)+" "+etiqueta[157]+"</p>"+
 						"</div>"+
 					  "</div>"+
 				"</body>"+
@@ -974,13 +970,12 @@ public class CEmail
 				           "<td style='color:#F7653A;font-weight:bold;'>"+fechasAlternas.get(i)+"</td>"+
 				        "</tr>";
 			}
-			
 			fechas="<br/>"+etiqueta[137]+"</p>"+
 					"<table width='40%'>"+
 						fechas+
 				    "</table>";
 		}
-		/**********************************************/
+		/******************************************/
 		/**Se obtienen los datos de los pasajeros**/
 		String pasajeros="";
 		for(CPasajero pax:listaPasajeros)
@@ -1049,16 +1044,30 @@ public class CEmail
 					"<head></head>"+
 					"<body>"+
 						"<div style='width:100%;background:rgb(242, 242, 242);'>"+
-							"<table border='0' width='100%' align='center' style='background:rgb(242, 242, 242);'>"+
-								"<tr>"+
-							      "<td align='center' width='20%' style='padding:8px 20px 8px 20px;'>"+
-							      	"<a href='"+etiqueta[212]+"' style='text-decoration:none;'>"+
-							      		"<img src='"+etiqueta[211]+"' width='90' height='60' border='0' />"+
-							      		"<img src='https://www.e-ranti.com/pricing_demo/img/QR/"+nameImgQR+"' width='90' height='60' border='0' />"+
-							      	"</a>"+
-							      "</td>"+
-							      "<td style='color:black;font-size:17px;font-weight:bold;' align='left' width='80%'>"+reserva.getoPaquete().getTitulo()+"</td>"+
-							    "</tr>"+
+							"<table style='background:white;border:1px solid rgb(204, 204, 204);color:rgb(34, 34, 34);font-family:arial,sans-serif;font-size:12.8px;margin:0px auto;width:600px;border-collapse: collapse;'>"+
+								"<tbody>"+
+									"<tr>"+
+										"<td>"+
+											"<table style='background:rgb(242, 242, 242)'>"+
+												"<tbody>"+
+													"<tr>"+
+														"<td align='left' width='20%' style='padding:8px 20px 8px 20px;'>"+
+															"<a href='"+etiqueta[212]+"' style='text-decoration:none;'>"+
+																"<img src='"+etiqueta[211]+"' width='100' height='80' border='0' />"+
+															"</a>"+
+														"</td>"+
+														"<td style='color:black;font-size:17px;font-weight:bold;' align='center' width='80%'>"+reserva.getoPaquete().getTitulo()+"</td>"+
+														"<td align='right' width='20%' style='padding:8px 20px 8px 20px;'>"+
+															"<a href='"+etiqueta[212]+"' style='text-decoration:none;'>"+
+																"<img src='https://www.e-ranti.com/pricing_demo/img/QR/"+nameImgQR+"' width='100' height='80' border='0' />"+
+															"</a>"+
+														"</td>"+
+													"</tr>"+
+												"</tbody>"+
+											"</table>"+
+										"</td>"+
+									"</tr>"+
+								"</tbody>"+
 							"</table>"+
 							"<div style='padding:20px;background:white;border:20px solid rgb(242, 242, 242);'>"+
 								"<p style='font-weight:bold;font-size:18px;margin:5px 0 6px 0;'>"+fechaActual+"</p>"+
@@ -1675,6 +1684,19 @@ public class CEmail
 		String[] pasajeros=new String[2];
 		pasajeros[0]="";
 		pasajeros[1]="";
+    	boolean hayDatos=hayDatosPasajeros(listaPasajeros,reserva);
+    	if(hayDatos)
+    		pasajeros[0]="<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
+    		    	"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+etiqueta[88]+"</thead>"+
+    		    	"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
+    		    		"<td style='border:1px solid black;' align='center'>"+etiqueta[139]+"</td>"+
+    		    		"<td style='border:1px solid black;' align='center'>"+etiqueta[140]+"</td>"+
+    		    		"<td style='border:1px solid black;' align='center'>"+etiqueta[72]+"</td>"+
+    		    		"<td style='border:1px solid black;' align='center'>"+etiqueta[71]+"</td>"+
+    		    		"<td style='border:1px solid black;' align='center'>"+etiqueta[73]+"</td>"+
+    		    		"<td style='border:1px solid black;' align='center'>"+etiqueta[74]+"</td>"+
+    		    		"<td style='border:1px solid black;' align='center'>"+etiqueta[75]+"</td>"+
+    		    	"</tr>";
 		for(CPasajero p:listaPasajeros)
 		{
 			if(!reserva.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
@@ -1694,8 +1716,25 @@ public class CEmail
 				    		"<td style='border:1px solid black;' align='center'>"+p.getNombrePais()+"</td>"+
 				    	"</tr>";
 		}
+		if(hayDatos)
+			pasajeros[0]+="</table>"+
+					"<br/>";
 		pasajeros[1]=pasajeros[0];
 		return pasajeros;
+	}
+	public boolean hayDatosPasajeros(ArrayList<CPasajero> listaPasajeros,CReserva reserva)
+	{
+		boolean hayDatos=false;
+		for(CPasajero p:listaPasajeros)
+		{
+			if(!reserva.getoPaquete().isbSubirDoc_Y_LlenarDatosPax())
+			{
+				//Si el pasajero no a sido seleccionado o se subio documento
+				if(p.isSelectPasajero() && !p.isEsEdit()){hayDatos=true;break;}
+			}else
+				if(p.isSelectPasajero()){hayDatos=true;break;}
+		}
+		return hayDatos;
 	}
 	public String[] obtenerHtmlServicios(ArrayList<CServicio> listaServicios,String[] etiqueta)
 	{
@@ -1777,7 +1816,7 @@ public class CEmail
 		if(oReservaPCH!=null)
 			if(oReservaPCH.isConHotel())
 			{	hotel[0]="<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
-			    	"<thead style='font-weight: bold;'>"+etiqueta[52]+"</thead>"+
+			    	"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+etiqueta[52]+"</thead>"+
 			    	"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
 			    		"<td style='border:1px solid black;' align='center'>"+etiqueta[51]+"</td>"+
 			    		"<td style='border:1px solid black;' align='center'>"+etiqueta[201]+"</td>"+
@@ -1803,7 +1842,7 @@ public class CEmail
 			    "</table>"+
 			    "<br/>";
 			hotel[1]="<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
-			    	"<thead style='font-weight: bold;'></thead>"+
+			    	"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>HOTELES</thead>"+
 			    	"<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
 			    		"<td style='border:1px solid black;' align='center'>Categoria</td>"+
 			    		"<td style='border:1px solid black;' align='center'>Simples </td>"+
@@ -1831,17 +1870,17 @@ public class CEmail
 				for(CDestinoConHoteles DCH:oReservaPCH.getListaCategoriaDestinosHoteles())
 				{
 					hotel[0]+="<table width='40%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
-					    	"<thead style='font-weight: bold;'>"+DCH.getoDestino().getcDestino()+"</thead>";
+					    	"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+DCH.getoDestino().getcDestino()+"</thead>";
 					hotel[1]+="<table width='40%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;'>"+
-					    	"<thead style='font-weight: bold;'>"+DCH.getoDestino().getcDestino()+"</thead>";
+					    	"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+DCH.getoDestino().getcDestino()+"</thead>";
 					for(CHotel hoteles:DCH.getListaDestinosHoteles())
 					{
-						hotel[0]+="<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
+						hotel[0]+="<tr style='border:1px solid black;'>"+
 						    		"<td style='border:1px solid black;' align='left'>"+
 						    			"<a href='"+hoteles.getcUrl()+"'>"+hoteles.getcHotel()+"</a>"+
 						    		"</td>"+
 						    	"</tr>";
-						hotel[1]+="<tr style='background:rgba(0,0,0,0.1);border:1px solid black;'>"+
+						hotel[1]+="<tr style='border:1px solid black;'>"+
 					    		"<td style='border:1px solid black;' align='left'>"+
 					    			"<a href='"+hoteles.getcUrl()+"'>"+hoteles.getcHotel()+"</a>"+
 					    		"</td>"+

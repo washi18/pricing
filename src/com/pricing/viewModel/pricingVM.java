@@ -332,10 +332,6 @@ public class pricingVM
 				textoParcial=etiqueta[102];
 				textoTotal=etiqueta[103];
 			}
-			//Recuperar la lista de  paises
-			CPaisDAO paisDao=new CPaisDAO();
-			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
-			setListaPaises(paisDao.getListaPaises());
 			//Recuperamos los impuestos
 			impuestoDao.recuperarImpuestosBD();
 			oImpuesto=impuestoDao.getoImpuesto();
@@ -517,6 +513,14 @@ public class pricingVM
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma1());
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma1());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma1());
+			//Recuperar la lista de  paises
+			CPaisDAO paisDao=new CPaisDAO();
+			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
+			for(CPais pais:paisDao.getListaPaises())
+			{
+				pais.setNamePais(pais.getcNombreEsp());
+			}
+			setListaPaises(paisDao.getListaPaises());
 		}
 		else if(language.equals("pt-BR") || language.equals("pt-PT"))
 		{
@@ -524,6 +528,14 @@ public class pricingVM
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma3());
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma3());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma3());
+			//Recuperar la lista de  paises
+			CPaisDAO paisDao=new CPaisDAO();
+			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
+			for(CPais pais:paisDao.getListaPaises())
+			{
+				pais.setNamePais(pais.getcNombreIng());
+			}
+			setListaPaises(paisDao.getListaPaises());
 		}
 		else
 		{
@@ -531,12 +543,20 @@ public class pricingVM
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma2());
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma2());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma2());
+			//Recuperar la lista de  paises
+			CPaisDAO paisDao=new CPaisDAO();
+			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
+			for(CPais pais:paisDao.getListaPaises())
+			{
+				pais.setNamePais(pais.getcNombreIng());
+			}
+			setListaPaises(paisDao.getListaPaises());
 		}
 		Sessions.getCurrent().setAttribute("etiqueta", etiqueta);
 		Sessions.getCurrent().setAttribute("language", language);
 	}
 	@Command
-	@NotifyChange({"etiqueta","textoParcial","textoTotal"})
+	@NotifyChange({"etiqueta","textoParcial","textoTotal","listaPaises"})
 	public void cambiarIdioma(@BindingParam("idioma")Object idioma)
 	{
 		if(idioma.toString().equals("1"))
@@ -547,6 +567,14 @@ public class pricingVM
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma1());
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma1());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma1());
+			//Recuperar la lista de  paises
+			CPaisDAO paisDao=new CPaisDAO();
+			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
+			for(CPais pais:paisDao.getListaPaises())
+			{
+				pais.setNamePais(pais.getcNombreEsp());
+			}
+			setListaPaises(paisDao.getListaPaises());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
@@ -602,6 +630,14 @@ public class pricingVM
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma3());
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma3());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma3());
+			//Recuperar la lista de  paises
+			CPaisDAO paisDao=new CPaisDAO();
+			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
+			for(CPais pais:paisDao.getListaPaises())
+			{
+				pais.setNamePais(pais.getcNombreIng());
+			}
+			setListaPaises(paisDao.getListaPaises());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
@@ -657,6 +693,14 @@ public class pricingVM
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma2());
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma2());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma2());
+			//Recuperar la lista de  paises
+			CPaisDAO paisDao=new CPaisDAO();
+			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
+			for(CPais pais:paisDao.getListaPaises())
+			{
+				pais.setNamePais(pais.getcNombreIng());
+			}
+			setListaPaises(paisDao.getListaPaises());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
