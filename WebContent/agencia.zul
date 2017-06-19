@@ -29,7 +29,7 @@
 				   		<textbox placeholder="Ingrese pagina web" value="@bind(vmAgencia.oAgencia.cPaginaWeb)" sclass="txt_llenar_datos"></textbox>
 				   </div>
 				   <separator bar="true"/>
-				   <div visible="@bind(vmConfPaypal.configuracionPaypal.bSignature)">
+				   <div>
 				   		<label value="EMAIL:" sclass="lbl_llenar_datos"/>
 				   		<textbox placeholder="Ingrese email" value="@bind(vmAgencia.oAgencia.cEmail)" sclass="txt_llenar_datos"></textbox>
 				   </div>

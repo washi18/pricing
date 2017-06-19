@@ -43,6 +43,15 @@
 					</radiogroup>
 				</div>
 			</div>
+			<div visible="@bind(!vm.oPaquete.conDescuento)">
+				<label value="CONFIGURACION DE CUPON:" sclass="lbl_select_title"/>
+				<div>
+					<radiogroup sclass="select_modo_pago" orient="vertical" onCheck="@command('selectConfigCupon',opcion=self.selectedItem.value)">
+						<radio label="Con cupon de descuento" value="1" checked="@load(vm.oPaquete.bConCupon)"/>
+						<radio label="Sin cupon de descuento" value="2" checked="@load(vm.oPaquete.bSinCupon)"/>
+					</radiogroup>
+				</div>
+			</div>
 			<div>
 		 			<label value="MODO DE COBRO:" sclass="lbl_select_title"/>
 		 			<div>

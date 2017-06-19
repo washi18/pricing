@@ -3,10 +3,11 @@ package com.pricing.model;
 public class CPais 
 {
 	private int nPaisCod;// int,					--codigo del pais
-	private String cNombreEsp;// varchar(60),				--nombre del pais en espanol
-	private String cAbrevEsp;// varchar(3),				--abreviatura del nombre en espanol
-	private String cNombreIng;// varchar(60),				--nombre del pais en ingles
-	private String cAbrevIng;// varchar(3),				--abreviatura del pais en ingles
+	private String cNombreIdioma1;// varchar(60),				--nombre del pais en espanol
+	private String cNombreIdioma2;// varchar(3),				--abreviatura del nombre en espanol
+	private String cNombreIdioma3;// varchar(60),				--nombre del pais en ingles
+	private String cNombreIdioma4;// varchar(3),				--abreviatura del pais en ingles
+	private String cNombreIdioma5;
 	private String namePais;
 	//=============================
 	public int getnPaisCod() {
@@ -15,29 +16,35 @@ public class CPais
 	public void setnPaisCod(int nPaisCod) {
 		this.nPaisCod = nPaisCod;
 	}
-	public String getcNombreEsp() {
-		return cNombreEsp;
+	public String getcNombreIdioma1() {
+		return cNombreIdioma1;
 	}
-	public void setcNombreEsp(String cNombreEsp) {
-		this.cNombreEsp = cNombreEsp;
+	public void setcNombreIdioma1(String cNombreIdioma1) {
+		this.cNombreIdioma1 = cNombreIdioma1;
 	}
-	public String getcAbrevEsp() {
-		return cAbrevEsp;
+	public String getcNombreIdioma2() {
+		return cNombreIdioma2;
 	}
-	public void setcAbrevEsp(String cAbrevEsp) {
-		this.cAbrevEsp = cAbrevEsp;
+	public void setcNombreIdioma2(String cNombreIdioma2) {
+		this.cNombreIdioma2 = cNombreIdioma2;
 	}
-	public String getcNombreIng() {
-		return cNombreIng;
+	public String getcNombreIdioma3() {
+		return cNombreIdioma3;
 	}
-	public void setcNombreIng(String cNombreIng) {
-		this.cNombreIng = cNombreIng;
+	public void setcNombreIdioma3(String cNombreIdioma3) {
+		this.cNombreIdioma3 = cNombreIdioma3;
 	}
-	public String getcAbrevIng() {
-		return cAbrevIng;
+	public String getcNombreIdioma4() {
+		return cNombreIdioma4;
 	}
-	public void setcAbrevIng(String cAbrevIng) {
-		this.cAbrevIng = cAbrevIng;
+	public void setcNombreIdioma4(String cNombreIdioma4) {
+		this.cNombreIdioma4 = cNombreIdioma4;
+	}
+	public String getcNombreIdioma5() {
+		return cNombreIdioma5;
+	}
+	public void setcNombreIdioma5(String cNombreIdioma5) {
+		this.cNombreIdioma5 = cNombreIdioma5;
 	}
 	public String getNamePais() {
 		return namePais;
@@ -49,13 +56,13 @@ public class CPais
 	public CPais() {
 		// TODO Auto-generated constructor stub
 	}
-	public CPais(int nPaisCod, String cNombreEsp, String cAbrevEsp,
-			String cNombreIng, String cAbrevIng) {
+	public CPais(int nPaisCod, String cNombreIdioma1, String cNombreIdioma2, String cNombreIdioma3,
+			String cNombreIdioma4, String cNombreIdioma5) {
 		this.nPaisCod = nPaisCod;
-		this.cNombreEsp = cNombreEsp;
-		this.cAbrevEsp = cAbrevEsp;
-		this.cNombreIng = cNombreIng;
-		this.cAbrevIng = cAbrevIng;
+		this.cNombreIdioma1 = cNombreIdioma1;
+		this.cNombreIdioma2 = cNombreIdioma2;
+		this.cNombreIdioma3 = cNombreIdioma3;
+		this.cNombreIdioma4 = cNombreIdioma4;
+		this.cNombreIdioma5 = cNombreIdioma5;
 	}
-	
 }

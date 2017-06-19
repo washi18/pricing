@@ -778,12 +778,12 @@ $$
   )
   returns table (capellidos varchar(100),cnombres varchar(100),csexo char(1),nedad int,cabrevtipodoc varchar(20),cnrodoc varchar(12),cnombreesp varchar(60)) as
   $$
-		select pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp
+		select pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreidioma1
 			from tpasajero as pa
 			 inner join ttipodocumento as tp on(pa.ntipodoc=tp.ntipodoc)
 			 inner join tpais as pais on(pa.npaiscod=pais.npaiscod)
 			 where (pa.creservacod=$1)
-			 group by pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreesp
+			 group by pa.capellidos,pa.cnombres, pa.csexo,pa.nedad,tp.cabrevtipodoc,pa.cnrodoc,pais.cnombreidioma1
 			 order by pa.capellidos
  $$
  LANGUAGE sql;

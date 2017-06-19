@@ -2048,6 +2048,7 @@ public class paquetesVM {
 		} else {
 			oPaquete.setConDescuento(true);
 			oPaquete.setSinDescuento(false);
+			oPaquete.setbConCupon(false);
 		}
 	}
 
@@ -2057,9 +2058,11 @@ public class paquetesVM {
 		if (opcion.equals("sin_descuento")) {
 			paquete.setConDescuento(false);
 			paquete.setSinDescuento(true);
+			paquete.setbConCupon(oPaqueteUpdate.isbConCupon());
 		} else {
 			paquete.setConDescuento(true);
 			paquete.setSinDescuento(false);
+			paquete.setbConCupon(false);
 		}
 		BindUtils.postNotifyChange(null, null, paquete, "conDescuento");
 		BindUtils.postNotifyChange(null, null, paquete, "sinDescuento");

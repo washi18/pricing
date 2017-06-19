@@ -60,6 +60,7 @@ public class CServicio
 	private boolean estado_activo;
 	private boolean estado_desactivo;
 	private boolean seleccionado;
+	private boolean bMostrarEnResumen;
 	//=============================
 	public int getnServicioCod() {
 		return nServicioCod;
@@ -331,6 +332,12 @@ public class CServicio
 	public void setSeleccionado(boolean seleccionado) {
 		this.seleccionado = seleccionado;
 	}
+	public boolean isbMostrarEnResumen() {
+		return bMostrarEnResumen;
+	}
+	public void setbMostrarEnResumen(boolean bMostrarEnResumen) {
+		this.bMostrarEnResumen = bMostrarEnResumen;
+	}
 	//========================================
 	public CServicio(String cServicioIndioma1)
 	{
@@ -420,6 +427,7 @@ public class CServicio
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
 		this.seleccionado=false;
+		this.bMostrarEnResumen=false;
 		/******************/
 		darColor_estado_servicio();
 		activarRestriccion();

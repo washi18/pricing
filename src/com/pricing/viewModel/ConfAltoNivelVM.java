@@ -9,7 +9,6 @@ import org.zkoss.bind.annotation.BindingParam;
 import org.zkoss.bind.annotation.Command;
 import org.zkoss.bind.annotation.Init;
 import org.zkoss.bind.annotation.NotifyChange;
-import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Execution;
 import org.zkoss.zk.ui.Executions;
 import org.zkoss.zk.ui.Sessions;
@@ -84,7 +83,6 @@ public class ConfAltoNivelVM {
 	public void setoConfAltoNivelMuestraCaminoInka(ConfAltoNivel oConfAltoNivelMuestraCaminoInka) {
 		this.oConfAltoNivelMuestraCaminoInka = oConfAltoNivelMuestraCaminoInka;
 	}
-
 	//===========constructores=====
 	@Init
 	public void Inicializa(){

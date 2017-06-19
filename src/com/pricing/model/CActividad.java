@@ -39,6 +39,7 @@ public class CActividad
 	  private boolean estado_activo;
 	  private boolean estado_desactivo;
 	  private boolean seleccionado;
+	  private boolean bMostrarEnResumen;
 	  private boolean comprado;
 	  private boolean noComprado;
 	  private int nroPersonasActividad;
@@ -230,6 +231,12 @@ public class CActividad
 	public void setMostrarInformacionActividad(boolean mostrarInformacionActividad) {
 		this.mostrarInformacionActividad = mostrarInformacionActividad;
 	}
+	public boolean isbMostrarEnResumen() {
+		return bMostrarEnResumen;
+	}
+	public void setbMostrarEnResumen(boolean bMostrarEnResumen) {
+		this.bMostrarEnResumen = bMostrarEnResumen;
+	}
 	/************************/
 	public CActividad() {
 		// TODO Auto-generated constructor stub
@@ -288,6 +295,7 @@ public class CActividad
 		this.estado_activo=bEstado;
 		this.estado_desactivo=!bEstado;
 		this.editable=false;
+		this.bMostrarEnResumen=false;
 		this.visibleEspanol=true;
 		this.visibleIngles=false;
 		this.visiblePortugues=false;

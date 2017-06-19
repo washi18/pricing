@@ -984,7 +984,7 @@ public class menuVM {
 		{
 			valido=false;
 			Clients.showNotification("El item debe de contar al menos con una imagen",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
-		}else if(elemento.getcDirigidoIdioma1()==null)
+		}else if(elemento.getcDirigidoIdioma1().equals(""))
 		{
 			valido=false;
 			Clients.showNotification("El elemento debe de contar una descripcion a que tipo de cliente esta dirigido",Clients.NOTIFICATION_TYPE_ERROR, comp,"before_start",3000);
@@ -1034,12 +1034,12 @@ public class menuVM {
 	{
 		if(opcion==1)
 		{
-			menu.setcImagenIcono("/img/android/"+url);
+			menu.setcImagenIcono("img/android/"+url);
 			BindUtils.postNotifyChange(null, null, menu,"cImagenIcono");
 		}
 		else
 		{
-			menu.setcImagenFondo("/img/android/"+url);
+			menu.setcImagenFondo("img/android/"+url);
 			BindUtils.postNotifyChange(null, null, menu,"cImagenFondo");
 		}
 	}

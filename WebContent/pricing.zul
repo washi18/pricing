@@ -320,7 +320,7 @@
 							</div>
 							<combobox model="@load(vmPricing.listaPaises)" value="@bind(vmPricing.oReservar.oPasajeroReservante.nombrePais)" placeholder="@bind(vmPricing.etiqueta[75])" onChange="@command('selectPaisReservante',codPais=self.selectedItem.value,idCbPais=self)" width="150px">
 								<template name="model" var="pais">
-									<comboitem label="@load(pais.cNombreEsp)" value="@load(pais.nPaisCod)"/>
+									<comboitem label="@load(pais.namePais)" value="@load(pais.nPaisCod)"/>
 								</template>
 							</combobox>
 						</div>
@@ -825,7 +825,7 @@
 									<listbox model="@bind(vmPricing.oReservar.oPaquete.listaServicios)" style="border:none;" visible="@bind(vmPricing.mostrarCostoServicio)">
 										<listhead><listheader label=""/></listhead>
 										<template name="model">
-											<listitem visible="@load(each.seleccionado)">
+											<listitem visible="@load(each.bMostrarEnResumen)">
 												<listcell zclass="list_costoServicios">
 													<div sclass="div_costoServicio">
 														<div sclass="div_costoServiceSubTitle">
@@ -870,7 +870,7 @@
 									<listbox model="@bind(vmPricing.oReservar.oPaquete.listaActividades)" style="border:none;" visible="@bind(vmPricing.mostrarCostoActividades)">
 										<listhead><listheader label=""/></listhead>
 										<template name="model">
-											<listitem visible="@load(each.seleccionado)">
+											<listitem visible="@load(each.bMostrarEnResumen)">
 												<listcell zclass="list_costoServicios">
 													<div sclass="div_costoServicio">
 														<div sclass="div_costoServiceSubTitle">
@@ -1029,14 +1029,14 @@
 					</div>
 					<div zclass="div_comentarios" visible="@bind(!vmPricing.payment)">
 						<label value="@bind(vmPricing.etiqueta[105])"/>
+						<space/>
 					</div>
-					<space visible="@bind(!vmPricing.payment)"/>
 					<button label="@bind(vmPricing.etiqueta[218])" 
 							zclass="button_payment" width="100%" height="80px"
 							onClick="@command('aceptar_Reservar_Pagar',componente=self,opcion=2)" 
 							visible="@bind(!vmPricing.payment)"/>
 					<div sclass="div_payment" visible="@bind(vmPricing.payment)">
-						<div  visible="@bind(vmPricing.oReservar.oPaquete.sinDescuento)" zclass="div_content_aplicar_cupon">
+						<div  visible="@bind(vmPricing.oReservar.oPaquete.bConCupon)" zclass="div_content_aplicar_cupon">
 								<div visible="@bind(vmPricing.oReservar.oCupon.inicioCupon)">
 									<label value="@bind(vmPricing.etiqueta[99])" zclass="cupon_lbl_subtotal"/>
 									<label value=":" zclass="cupon_lbl_subtotal"/>

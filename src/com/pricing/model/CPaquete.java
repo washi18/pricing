@@ -62,6 +62,8 @@ public class CPaquete
 	private boolean bSubirDoc_O_LlenarDatosPax;// boolean 
 	private boolean bLlenarDatosUnPax;// boolean 
 	private boolean bHotelesConCamaAdicional;// boolean
+	private boolean bConCupon;//boolean
+	private boolean bSinCupon;
 	private boolean bHotelesSinCamaAdicional;
 	private String url_pricingPaquete;
 	private String nPrecio1_text;
@@ -643,6 +645,18 @@ public class CPaquete
 	public void setbHotelesSinCamaAdicional(boolean bHotelesSinCamaAdicional) {
 		this.bHotelesSinCamaAdicional = bHotelesSinCamaAdicional;
 	}
+	public boolean isbConCupon() {
+		return bConCupon;
+	}
+	public void setbConCupon(boolean bConCupon) {
+		this.bConCupon = bConCupon;
+	}
+	public boolean isbSinCupon() {
+		return bSinCupon;
+	}
+	public void setbSinCupon(boolean bSinCupon) {
+		this.bSinCupon = bSinCupon;
+	}
 	public boolean isbModoMinimo() {
 		return bModoMinimo;
 	}
@@ -719,6 +733,8 @@ public class CPaquete
 		this.bLlenarDatosUnPax=true;
 		this.bHotelesConCamaAdicional=false;
 		this.bHotelesSinCamaAdicional=true;
+		this.bConCupon=false;
+		this.bSinCupon=true;
 		//======================
 		this.cFoto1="img/tours/tourxdefecto.png";
 		this.cFoto2="img/tours/tourxdefecto.png";
@@ -743,7 +759,7 @@ public class CPaquete
 			boolean bModoPagoTotal,Number nDescuentoMenor_Estudiante,
 			boolean bSubirDocPax,boolean bSubirDoc_Y_LlenarDatosPax,
 			boolean bSubirDoc_O_LlenarDatosPax,boolean bLlenarDatosUnPax,
-			boolean bHotelesConCamaAdicional)
+			boolean bHotelesConCamaAdicional,boolean bConCupon)
 	{
 		this.cPaqueteCod=cPaqueteCod;
 		this.cTituloIdioma1=cTituloIdioma1;
@@ -785,6 +801,7 @@ public class CPaquete
 		this.bLlenarDatosUnPax=bLlenarDatosUnPax;
 		this.bHotelesConCamaAdicional=bHotelesConCamaAdicional;
 		this.bHotelesSinCamaAdicional=!bHotelesConCamaAdicional;
+		this.bConCupon=bConCupon;
 		//===================
 		listaDestinos=new ArrayList<CDestino>();
 		listaServicios=new ArrayList<CServicio>();
@@ -813,7 +830,7 @@ public class CPaquete
 			boolean bModoPagoTotal,Number nDescuentoMenor_Estudiante,
 			boolean bSubirDocPax,boolean bSubirDoc_Y_LlenarDatosPax,
 			boolean bSubirDoc_O_LlenarDatosPax,boolean bLlenarDatosUnPax,
-			boolean bHotelesConCamaAdicional) throws UnsupportedEncodingException {
+			boolean bHotelesConCamaAdicional,boolean bConCupon) throws UnsupportedEncodingException {
 		/*******************************/
 		simbolos= new DecimalFormatSymbols();
 		simbolos.setDecimalSeparator('.');
@@ -850,6 +867,8 @@ public class CPaquete
 		this.bLlenarDatosUnPax=bLlenarDatosUnPax;
 		this.bHotelesConCamaAdicional=bHotelesConCamaAdicional;
 		this.bHotelesSinCamaAdicional=!bHotelesConCamaAdicional;
+		this.bConCupon=bConCupon;
+		this.bSinCupon=!bConCupon;
 		this.nDias = nDias;
 		this.nNoches = nNoches;
 		this.dias_noches=nDias+" DIAS Y "+nNoches+" NOCHES";

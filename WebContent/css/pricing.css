@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Titillium Web Regular'), local('TitilliumWeb-Regular'), url(https://fonts.gstatic.com/s/titilliumweb/v5/7XUFZ5tgS-tD6QamInJTcSo_WB_cotcEMUw1LsIE8mM.woff2) format('woff2');
+  unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+/* latin */
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Titillium Web Regular'), local('TitilliumWeb-Regular'), url(https://fonts.gstatic.com/s/titilliumweb/v5/7XUFZ5tgS-tD6QamInJTcZSnX671uNZIV63UdXh3Mg0.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
+}
 /*****************/
 .div-logoPaises {
 	padding: 20px 20px 20px 0;
@@ -132,6 +147,7 @@
 	position: static;
 }
 .titulo_pasos{
+	font-family: 'Titillium Web';
 	font-size: 16px; 
 	font-weight:bold; 
 	color:black;
@@ -198,6 +214,7 @@
 	}
 }
 .div_titulo_paquete {
+	font-family: 'Titillium Web';
 	padding: 20px 0 20px 0;
 	box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 	-webkit-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
@@ -206,10 +223,12 @@
 	-o-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
 .style_lbl_tituloPaquete {
+	font-family: 'Titillium Web';
 	font-size: 20px;
 	font-weight: bold;
 }
 .style_tituloPaqueteRyC {
+	font-family: 'Titillium Web';
 	font-size: 15px;
 }
 .z-groupbox-header .caption_pasos.z-caption {
@@ -470,6 +489,7 @@
 }
 
 .style_lbl_categoriaSeleccionada {
+	font-family: 'Titillium Web'
 	font-size: 15px;
 	color: #FF33F9;
 	font-weight: bold;
@@ -821,6 +841,7 @@
 }
 
 .style_lblMonto {
+	font-family: 'Titillium Web'
 	color: white;
 	font-size: 20px;
 	font-weight: bold;
@@ -1090,6 +1111,7 @@
 }
 
 .lbl_txt_pago_paypal {
+	font-family: 'Titillium Web';
 	font-size: 16px;
 	font-weight: bold;
 	text-decoration: underline;
@@ -1559,20 +1581,24 @@
 }
 
 .lbl_desc {
+	font-family: 'Titillium Web'
 	font-size: 18px;
 }
 
 .lbl_desc_Total {
+	font-family: 'Titillium Web'
 	font-size: 18px;
 	color: blue;
 }
 
 .lbl_monto {
+	font-family: 'Titillium Web'
 	font-size: 18px;
 	font-weight: bold;
 }
 
 .lbl_monto_Total {
+	font-family: 'Titillium Web'
 	font-size: 18px;
 	font-weight: bold;
 	color: blue;
@@ -2171,17 +2197,20 @@
 }
 
 .lbl_category {
+	font-family: 'Titillium Web'
 	font-size: 14px;
 	color: blue;
 }
 
 .titulo-groupbox {
+	font-family: 'Titillium Web'
 	font-size: 13px;
 	font-weight: bold;
 	color: #1A5276;
 }
 
 .titulo-groupbox.z-a {
+	font-family: 'Titillium Web'
 	font-size: 14px;
 	font-weight: bold;
 	color: #1A5276;
@@ -2238,6 +2267,7 @@
 }
 
 .txtFechaPrincipal.z-textbox {
+	font-family: 'Titillium Web';
 	border-top-left-radius: 0;
 	border-bottom-left-radius: 0;
 	margin-left: -4px;
@@ -2365,12 +2395,14 @@
 }
 
 .lbl_nombre_acti {
+	font-family: 'Titillium Web';
 	color: white;
 	font-size: 18px;
 	font-weight: bold;
 }
 
 .lbl_costo_acti {
+	font-family: 'Titillium Web';
 	color: white;
 	font-size: 18px;
 	font-weight: bold;
@@ -2432,6 +2464,7 @@
 }
 
 .list_lbl_nombre_acti {
+	font-family: 'Titillium Web';
 	color: black;
 	font-size: 12px;
 	font-weight: bold;
@@ -2492,6 +2525,7 @@
 }
 
 .lbl_txt_reserva_efectuada {
+	font-family: 'Titillium Web';
 	color: black;
 	font-size: 14px;
 	font-weight: bold;
@@ -2522,11 +2556,13 @@
 }
 
 .lbl_ok {
+	font-family: 'Titillium Web';
 	color: #3BB710;
 	font-size: 40px;
 }
 
 .btn_aceptar_reserva {
+	font-family: 'Titillium Web';
 	border: 0;
 	padding: 5px;
 	background: #C80042;
@@ -2537,17 +2573,20 @@
 }
 
 .btn_aceptar_reserva:hover {
+	font-family: 'Titillium Web';
 	background: #04B404;
 	color: white;
 }
 
 .lbl_txt_codReserva {
+	font-family: 'Titillium Web';
 	color: black;
 	font-size: 15px;
 	font-weight: bold;
 }
 
 .lbl_codreserva {
+	font-family: 'Titillium Web';
 	color: #F7653A;
 	font-size: 15px;
 	font-weight: bold;
@@ -2595,34 +2634,40 @@
 }
 
 .cupon_lbl_normal {
+	font-family: 'Titillium Web';
 	color: black;
 	font-size: 17px;
 	font-weight: bold;
 }
 
 .cupon_lbl_error {
+	font-family: 'Titillium Web';
 	color: red;
 	font-size: 17px;
 }
 
 .cupon_lbl_subtotal {
+	font-family: 'Titillium Web';
 	color: #1A5276;
 	font-size: 20px;
 	font-weight: bold;
 }
 
 .cupon_lbl_monto_ahorro {
+	font-family: 'Titillium Web';
 	color: #3BB710;
 	font-size: 17px;
 	font-weight: bold;
 }
 
 .lbl_txt_anterior {
+	font-family: 'Titillium Web';
 	color: black;
 	font-size: 17px;
 }
 
 .lbl_monto_anterior {
+	font-family: 'Titillium Web';
 	color: #1A5276;
 	font-size: 17px;
 	text-decoration: line-through;
@@ -2630,11 +2675,13 @@
 }
 
 .lbl_txt_nuevo {
+	font-family: 'Titillium Web';
 	color: black;
 	font-size: 25px;
 }
 
 .lbl_monto_nuevo {
+	font-family: 'Titillium Web';
 	color: #3BB710;
 	font-size: 25px;
 	font-weight: bold;

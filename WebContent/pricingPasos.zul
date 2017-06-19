@@ -822,7 +822,7 @@
 								<!-- 							<listhead><listheader label="@bind(vmPricing.etiqueta[6])" align="center" style="color:white;background:black;font-size:18px;"/></listhead> -->
 								<template name="model">
 									<listitem style="background:white;"
-										visible="@load(each.seleccionado)">
+										visible="@load(each.bMostrarEnResumen)">
 										<listcell
 											style="border-radius:5px;background:white;">
 											<div
@@ -891,7 +891,7 @@
 								</listhead>
 								<template name="model">
 									<listitem
-										visible="@load(each.seleccionado)">
+										visible="@load(each.bMostrarEnResumen)">
 										<listcell>
 											<div
 												zclass="div_content_acti">
@@ -1245,7 +1245,7 @@
 									width="150px">
 									<template name="model" var="pais">
 										<comboitem
-											label="@load(pais.cNombreEsp)" value="@load(pais.nPaisCod)" />
+											label="@load(pais.namePais)" value="@load(pais.nPaisCod)" />
 									</template>
 								</combobox>
 							</div>
@@ -1884,7 +1884,7 @@
 					<div sclass="div_payment"
 						visible="@bind(vmPricing.payment)">
 						<div
-							visible="@bind(vmPricing.oReservar.oPaquete.sinDescuento)"
+							visible="@bind(vmPricing.oReservar.oPaquete.bConCupon)"
 							zclass="div_content_aplicar_cupon">
 							<div visible="@bind(vmPricing.oReservar.oCupon.inicioCupon)">
 								<label

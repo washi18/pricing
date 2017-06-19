@@ -78,6 +78,20 @@ public class configurarPaqueteVM {
 	}
 	@Command
 	@NotifyChange({"oPaquete"})
+	public void selectConfigCupon(@BindingParam("opcion")String opcion)
+	{
+		if(opcion.toString().equals("1"))//Paquete con cupon de descuento
+		{
+			oPaquete.setbConCupon(true);
+			oPaquete.setbSinCupon(false);
+		}else//Paquete sin cupon de descuento
+		{
+			oPaquete.setbConCupon(false);
+			oPaquete.setbSinCupon(true);
+		}
+	}
+	@Command
+	@NotifyChange({"oPaquete"})
 	public void selectConfigParcialTotal(@BindingParam("opcion")String opcion)
 	{
 		if(opcion.toString().equals("1"))//Hoteles con cama adicional

@@ -1,7 +1,5 @@
 package com.pricing.model;
 
-import org.zkoss.bind.annotation.BindingParam;
-import org.zkoss.bind.annotation.Command;
 
 public class ConfAltoNivel {
 		//========atributos=====

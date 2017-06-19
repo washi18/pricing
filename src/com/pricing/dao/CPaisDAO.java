@@ -33,9 +33,9 @@ public class CPaisDAO extends CConexion
 		{
 			Map row=(Map)lista.get(i);
 			if((int)row.get("npaiscod")!=245)
-				listaPaises.add(new CPais((int)row.get("npaiscod"),(String)row.get("cnombreesp"), 
-						(String)row.get("cabrevesp"),(String)row.get("cnombreing"),
-						(String)row.get("cabreving")));
+				listaPaises.add(new CPais((int)row.get("npaiscod"),(String)row.get("cnombreidioma1"), 
+						(String)row.get("cnombreidioma2"),(String)row.get("cnombreidioma3"),
+						(String)row.get("cnombreidioma4"),(String)row.get("cnombreidioma5")));
 		}
 	}
 }

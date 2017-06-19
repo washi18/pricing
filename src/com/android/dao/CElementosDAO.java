@@ -71,7 +71,9 @@ public class CElementosDAO extends CConexion{
 				elemento.getcNombre2Idioma2(),elemento.getcNombre2Idioma3(),elemento.getcNombre2Idioma4(),
 				elemento.getcNombre2Idioma5(),elemento.getcNombre3Idioma1(),elemento.getcNombre3Idioma2(),
 				elemento.getcNombre3Idioma3(),elemento.getcNombre3Idioma4(),elemento.getcNombre3Idioma5(),
-				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),elemento.getcDirigidoIdioma1(),
+				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),
+				elemento.getcDescripcionIdioma1(),elemento.getcDescripcionIdioma2(),elemento.getcDescripcionIdioma3(),
+				elemento.getcDescripcionIdioma4(),elemento.getcDescripcionIdioma5(),elemento.getcDirigidoIdioma1(),
 				elemento.getcDirigidoIdioma2(),elemento.getcDirigidoIdioma3(),elemento.getcDirigidoIdioma4(),
 				elemento.getcDirigidoIdioma5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_RegistrarElementoSubMenu", values);
@@ -84,7 +86,9 @@ public class CElementosDAO extends CConexion{
 				elemento.getcNombre2Idioma2(),elemento.getcNombre2Idioma3(),elemento.getcNombre2Idioma4(),
 				elemento.getcNombre2Idioma5(),elemento.getcNombre3Idioma1(),elemento.getcNombre3Idioma2(),
 				elemento.getcNombre3Idioma3(),elemento.getcNombre3Idioma4(),elemento.getcNombre3Idioma5(),
-				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),elemento.getcDirigidoIdioma1(),
+				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),
+				elemento.getcDescripcionIdioma1(),elemento.getcDescripcionIdioma2(),elemento.getcDescripcionIdioma3(),
+				elemento.getcDescripcionIdioma4(),elemento.getcDescripcionIdioma5(),elemento.getcDirigidoIdioma1(),
 				elemento.getcDirigidoIdioma2(),elemento.getcDirigidoIdioma3(),elemento.getcDirigidoIdioma4(),
 				elemento.getcDirigidoIdioma5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_RegistrarElementoItem", values);
@@ -97,7 +101,9 @@ public class CElementosDAO extends CConexion{
 				elemento.getcNombre2Idioma2(),elemento.getcNombre2Idioma3(),elemento.getcNombre2Idioma4(),
 				elemento.getcNombre2Idioma5(),elemento.getcNombre3Idioma1(),elemento.getcNombre3Idioma2(),
 				elemento.getcNombre3Idioma3(),elemento.getcNombre3Idioma4(),elemento.getcNombre3Idioma5(),
-				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),elemento.getcDirigidoIdioma1(),
+				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),
+				elemento.getcDescripcionIdioma1(),elemento.getcDescripcionIdioma2(),elemento.getcDescripcionIdioma3(),
+				elemento.getcDescripcionIdioma4(),elemento.getcDescripcionIdioma5(),elemento.getcDirigidoIdioma1(),
 				elemento.getcDirigidoIdioma2(),elemento.getcDirigidoIdioma3(),elemento.getcDirigidoIdioma4(),
 				elemento.getcDirigidoIdioma5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_ModificarElemento_Item", values);
@@ -110,7 +116,9 @@ public class CElementosDAO extends CConexion{
 				elemento.getcNombre2Idioma2(),elemento.getcNombre2Idioma3(),elemento.getcNombre2Idioma4(),
 				elemento.getcNombre2Idioma5(),elemento.getcNombre3Idioma1(),elemento.getcNombre3Idioma2(),
 				elemento.getcNombre3Idioma3(),elemento.getcNombre3Idioma4(),elemento.getcNombre3Idioma5(),
-				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),elemento.getcDirigidoIdioma1(),
+				elemento.getcImagen1(),elemento.getcImagen2(),elemento.getcImagen3(),
+				elemento.getcDescripcionIdioma1(),elemento.getcDescripcionIdioma2(),elemento.getcDescripcionIdioma3(),
+				elemento.getcDescripcionIdioma4(),elemento.getcDescripcionIdioma5(),elemento.getcDirigidoIdioma1(),
 				elemento.getcDirigidoIdioma2(),elemento.getcDirigidoIdioma3(),elemento.getcDirigidoIdioma4(),
 				elemento.getcDirigidoIdioma5()};
 		return getEjecutorSQL().ejecutarProcedimiento("Android_sp_ModificarElemento_Submenu", values);

@@ -507,20 +507,21 @@ public class pricingVM
 		
 		language=Executions.getCurrent().getHeader("accept-language").split(",")[0];
 //		System.out.println(Executions.getCurrent().getHeader("accept-language"));
+		//Recuperar la lista de  paises
+		CPaisDAO paisDao=new CPaisDAO();
+		paisDao.asignarPaises(paisDao.recuperarPaisesBD());
+		listaPaises=new ArrayList<CPais>();
+		setListaPaises(paisDao.getListaPaises());
 		if(language.equals("es-ES"))
 		{
 			etiqueta=etiquetaDao.getIdioma().getIdioma1();
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma1());
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma1());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma1());
-			//Recuperar la lista de  paises
-			CPaisDAO paisDao=new CPaisDAO();
-			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
-			for(CPais pais:paisDao.getListaPaises())
+			for(CPais pais:listaPaises)
 			{
-				pais.setNamePais(pais.getcNombreEsp());
+				pais.setNamePais(pais.getcNombreIdioma1());
 			}
-			setListaPaises(paisDao.getListaPaises());
 		}
 		else if(language.equals("pt-BR") || language.equals("pt-PT"))
 		{
@@ -528,14 +529,10 @@ public class pricingVM
 			oReservar.getoPaquete().setTitulo(oReservar.getoPaquete().getcTituloIdioma3());
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma3());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma3());
-			//Recuperar la lista de  paises
-			CPaisDAO paisDao=new CPaisDAO();
-			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
-			for(CPais pais:paisDao.getListaPaises())
+			for(CPais pais:listaPaises)
 			{
-				pais.setNamePais(pais.getcNombreIng());
+				pais.setNamePais(pais.getcNombreIdioma3());
 			}
-			setListaPaises(paisDao.getListaPaises());
 		}
 		else
 		{
@@ -544,13 +541,10 @@ public class pricingVM
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma2());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma2());
 			//Recuperar la lista de  paises
-			CPaisDAO paisDao=new CPaisDAO();
-			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
-			for(CPais pais:paisDao.getListaPaises())
+			for(CPais pais:listaPaises)
 			{
-				pais.setNamePais(pais.getcNombreIng());
+				pais.setNamePais(pais.getcNombreIdioma2());
 			}
-			setListaPaises(paisDao.getListaPaises());
 		}
 		Sessions.getCurrent().setAttribute("etiqueta", etiqueta);
 		Sessions.getCurrent().setAttribute("language", language);
@@ -568,13 +562,10 @@ public class pricingVM
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma1());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma1());
 			//Recuperar la lista de  paises
-			CPaisDAO paisDao=new CPaisDAO();
-			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
-			for(CPais pais:paisDao.getListaPaises())
+			for(CPais pais:listaPaises)
 			{
-				pais.setNamePais(pais.getcNombreEsp());
+				pais.setNamePais(pais.getcNombreIdioma1());
 			}
-			setListaPaises(paisDao.getListaPaises());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
@@ -631,13 +622,10 @@ public class pricingVM
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma3());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma3());
 			//Recuperar la lista de  paises
-			CPaisDAO paisDao=new CPaisDAO();
-			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
-			for(CPais pais:paisDao.getListaPaises())
+			for(CPais pais:listaPaises)
 			{
-				pais.setNamePais(pais.getcNombreIng());
+				pais.setNamePais(pais.getcNombreIdioma3());
 			}
-			setListaPaises(paisDao.getListaPaises());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
@@ -694,13 +682,10 @@ public class pricingVM
 			oReservar.getoPaquete().setDescripcion(oReservar.getoPaquete().getcDescripcionIdioma2());
 			oReservar.getoPaquete().setItinerario(oReservar.getoPaquete().getcItinerarioIdioma2());
 			//Recuperar la lista de  paises
-			CPaisDAO paisDao=new CPaisDAO();
-			paisDao.asignarPaises(paisDao.recuperarPaisesBD());
-			for(CPais pais:paisDao.getListaPaises())
+			for(CPais pais:listaPaises)
 			{
-				pais.setNamePais(pais.getcNombreIng());
+				pais.setNamePais(pais.getcNombreIdioma2());
 			}
-			setListaPaises(paisDao.getListaPaises());
 			if(oReservar.getoPaquete().isConActividad())
 			{
 				for(CActividad acti:oReservar.getoPaquete().getListaActividades())
@@ -800,6 +785,7 @@ public class pricingVM
 		if(opcion.equals("si"))
 		{
 			mostrarCostoActividades=true;
+			actividad.setbMostrarEnResumen(true);
 			if(actividad.isNoComprado())
 			{
 				TotalActividades=TotalActividades+actividad.getnPrecioActividad().doubleValue()*nroPasajeros;
@@ -831,10 +817,12 @@ public class pricingVM
 			actividad.setNoComprado(true);
 			actividad.setNroPersonasActividad(0);
 			actividad.setPrecioTotalActividad(df.format(0));
+			actividad.setbMostrarEnResumen(false);
 			/*********/
 			eliminarReservaPaqueteActividad(cod);
 		}
 		lblTotalActividades=df.format(TotalActividades);
+		BindUtils.postNotifyChange(null, null, actividad, "bMostrarEnResumen");
 		BindUtils.postNotifyChange(null, null, actividad, "precioTotalActividad");
 		BindUtils.postNotifyChange(null, null, actividad, "nroPersonasActividad");
 		BindUtils.postNotifyChange(null, null, actividad, "mostrarInformacionActividad");
@@ -1005,6 +993,7 @@ public class pricingVM
 		mostrarCostoServicio=true;
 		if(opcion.toString().equals("0") || opcion.toString().equals("no"))
 		{
+			servicio.setbMostrarEnResumen(false);
 			servicio.setMostrarDescripcion(false);
 			servicio.setCantidadServicio(0);
 			servicio.setPrecioTotalServicio(df.format(0.0));
@@ -1014,6 +1003,7 @@ public class pricingVM
 		}
 		else
 		{
+			servicio.setbMostrarEnResumen(true);
 			servicio.setMostrarDescripcion(true);
 			//Si restriccionYesNo=0 y restriccionNum=0 significa
 			//que se trata de un servicio con subservicios
@@ -1073,6 +1063,7 @@ public class pricingVM
 				}
 			}
 		}
+		BindUtils.postNotifyChange(null, null, servicio,"bMostrarEnResumen");
 		BindUtils.postNotifyChange(null, null, servicio,"mostrarDescripcion");
 		BindUtils.postNotifyChange(null, null, servicio,"cantidadServicio");
 		BindUtils.postNotifyChange(null, null, servicio,"precioTotalServicio");
