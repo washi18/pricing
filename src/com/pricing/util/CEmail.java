@@ -479,6 +479,11 @@ public class CEmail
 											"<table style='background:rgb(242, 242, 242)'>"+
 												"<tbody>"+
 													"<tr>"+
+														"<td>"+
+															"<p style='font-weight:bold;font-size:15px;margin:5px 0 6px 0;'>"+fechaActual[0]+"</p>"+
+														"</td>"+
+													"</tr>"+
+													"<tr>"+
 														"<td align='left' width='20%' style='padding:8px 20px 8px 20px;'>"+
 															"<a href='"+etiqueta[212]+"' style='text-decoration:none;'>"+
 																"<img src='"+etiqueta[211]+"' width='100' height='80' border='0' />"+
@@ -508,14 +513,6 @@ public class CEmail
 									"</td>"+
 								"</tr>"+
 								"</tbody>"+
-							"</table>"+
-							"<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;margin:0;'>"+
-									"<thead style='background:rgba(0,0,0,0.1);font-weight: bold;'>"+etiqueta[77]+"</thead>"+
-									"<tr style='border:1px solid black;'>"+
-										"<td style='border:1px solid black;' width='240'>"+
-											"<p style='font-weight:bold;font-size:15px;margin:5px 0 6px 0;'>"+fechaActual[0]+"</p>"+
-										"</td>"+
-									"</tr>"+
 							"</table>"+
 							"<br />"+
 							"<table width='100%' style='border:1px solid rgba(0,0,0,0.1);border-collapse: collapse;margin:0;'>"+
@@ -648,36 +645,28 @@ public class CEmail
 						    			"<table width='100%'>"+
 						    				"<tr><td>"+etiqueta[99]+"</td><td style='color:#1A5276;margin-right:0;' align='right'>"+totalPago+"</td></tr>"+
 						    				"<tr><td>"+etiqueta[100]+"</td><td style='color:#1A5276;margin-right:0;' align='right'>"+impuesto+"</td></tr>"+
-						    				"<tr><td></td><td style='color:#1A5276;' align='right'>--------------</td></tr>"+
+						    				"<tr><td></td><td style='color:#1A5276;' align='right'>-------------</td></tr>"+
 						    				"<tr><td>"+etiqueta[101]+"</td><td style='color:#1A5276;margin-right:0;' align='right'>"+importeTotal+"</td></tr>"+
 						    			"</table>"+
 						    		"</td>"+
 						    	"</tr>"+
 						    "</table>"+
 						    "<br/>"+
-						    "<p>"+etiqueta[146]+"</p>"+
-						    "<p>"+etiqueta[147]+"</p>"+
-						    "<div align='center' width='100%'>"+
+						    "<div>"+etiqueta[146]+"</div>"+
+						    "<div>"+etiqueta[147]+"</div>"+
+						    "<div align='left' width='100%'>"+
 							    "<table width='80%'>"+
-								    "<tr align='center'>"+
-							    		"<td><a href='"+etiqueta[214]+"'><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/></a></td>"+
+								    "<tr align='left'>"+
+							    		"<td><a href='"+etiqueta[214]+"'><img width='80' height='80' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/></a></td>"+
 							    		"<td><a href='"+etiqueta[215]+"'><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/youtube.png'/></a></td>"+
 							    		"<td><a href='"+etiqueta[216]+"'><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_twitter.png'/></a></td>"+
-							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
-//							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_facebook.png'/><p>"+etiqueta[148]+" <strong><a href='"+etiqueta[214]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-//							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/youtube.png'/><p>"+etiqueta[149]+" <strong><a href='"+etiqueta[215]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
+							    		"<td style='display:flex;padding-top:17px;box-sizing:border-box;'><img width='50' height='50' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
 							    	"</tr>"+
-//							    	"<tr align='center'>"+
-//							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/logo_twitter.png'/><p>"+etiqueta[150]+" <strong><a href='"+etiqueta[216]+"'>"+etiqueta[152]+"</a></strong></p></td>"+
-//							    		"<td><img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p></td>"+
-//							    	"</tr>"+
 							    "</table>"+
-//							    "<img width='60' height='60' src='https://www.e-ranti.com/pricing_info/img/wathsapp.png'/><p>"+etiqueta[151]+"</p>"+
 						    "</div>"+
 						"</div>"+
 //						  "<p style='font-size:11px;'>"+etiqueta[153]+" <strong>"+etiqueta[154]+"</strong>"+etiqueta[155]+"</p>"+
 						  "<p style='font-size:18px;color:red;font-weight:bold;'>"+etiqueta[112]+"</p>"+
-						  "<br/>"+
 					        "<strong>"+etiqueta[213]+"</strong>"+
 						"</div>"+
 						"<div align='center' style='background:gray;"+
