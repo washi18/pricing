@@ -258,7 +258,7 @@ public class returnPaypalVM
 		ArrayList<String> listaUrlImages=new ArrayList<String>();
 		for(CPasajero pax:listaPasajeros)
 		{
-			if(pax.isEsEdit())
+			if(pax.isEsEdit() && pax.isSelectPasajero())
 			{
 				listaUrlImages.add(ScannUtil.getPath()+pax.getcUrlDocumento());
 			}

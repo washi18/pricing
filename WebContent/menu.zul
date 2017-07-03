@@ -351,16 +351,13 @@
 					<div zclass="div_contiene_banderas">
 							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
 								onClick="txt2SpainName.setVisible(true);txt2InglesName.setVisible(false);
-								txt2PortuName.setVisible(false);txtDSpainName.setVisible(true);txtDInglesName.setVisible(false);
-								txtDPortuName.setVisible(false)"/>
+								txt2PortuName.setVisible(false);"/>
 							<image src="img/en.png" sclass="estilo_banderas"
 								onClick="txt2SpainName.setVisible(false);txt2InglesName.setVisible(true);
-								txt2PortuName.setVisible(false);txtDSpainName.setVisible(false);txtDInglesName.setVisible(true);
-								txtDPortuName.setVisible(false)"/>
+								txt2PortuName.setVisible(false);"/>
 							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
 								onClick="txt2SpainName.setVisible(false);txt2InglesName.setVisible(false);
-								txt2PortuName.setVisible(true);txtDSpainName.setVisible(false);txtDInglesName.setVisible(false);
-								txtDPortuName.setVisible(true)"/>
+								txt2PortuName.setVisible(true);"/>
 						</div>
 						<div>
 							<label value="NOMBRE ITEM: " zclass="lbl_llenar_datos"/>
@@ -437,7 +434,7 @@
 						</div>
 						<div zclass="div_contendor_btn_nuevo" 
 							 onClick="@command('mostrarNuevoElementoItem',item=vmMenu.oItem)"
-							 visible="@bind(vmMenu.oItem.update)">
+							 visible="@bind(vmMenu.oItem.bCrearElemento)">
 							<div zclass="div_btn_nuevo" width="100%">
 								<span sclass="icon-plus"/>
 								<space></space>
@@ -472,20 +469,17 @@
 								onClick="txt3SpainName.setVisible(true);txt3InglesName.setVisible(false);
 								txt3PortuName.setVisible(false);txt31SpainName.setVisible(true);txt31InglesName.setVisible(false);
 								txt31PortuName.setVisible(false);txt32SpainName.setVisible(true);txt32InglesName.setVisible(false);
-								txt32PortuName.setVisible(false);txt33SpainName.setVisible(true);txt33InglesName.setVisible(false);
-								txt33PortuName.setVisible(false)"/>
+								txt32PortuName.setVisible(false);"/>
 							<image src="img/en.png" sclass="estilo_banderas"
 								onClick="txt3SpainName.setVisible(false);txt3InglesName.setVisible(true);
 								txt3PortuName.setVisible(false);txt31SpainName.setVisible(false);txt31InglesName.setVisible(true);
 								txt31PortuName.setVisible(false);txt32SpainName.setVisible(false);txt32InglesName.setVisible(true);
-								txt32PortuName.setVisible(false);txt33SpainName.setVisible(false);txt33InglesName.setVisible(true);
-								txt33PortuName.setVisible(false)"/>
+								txt32PortuName.setVisible(false);"/>
 							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
 								onClick="txt3SpainName.setVisible(false);txt3InglesName.setVisible(false);
 								txt3PortuName.setVisible(true);txt31SpainName.setVisible(false);txt31InglesName.setVisible(false);
 								txt31PortuName.setVisible(true);txt32SpainName.setVisible(false);txt32InglesName.setVisible(false);
-								txt32PortuName.setVisible(true);txt33SpainName.setVisible(false);txt33InglesName.setVisible(false);
-								txt33PortuName.setVisible(true)"/>
+								txt32PortuName.setVisible(true);"/>
 						</div>
 						<separator bar="true"/>
 						<div zclass="div_space_entre_botones">
@@ -521,7 +515,7 @@
 							<textbox value="@bind(vmMenu.oElemento.cNombre1Idioma2)" zclass="txt_llenar_datos" id="txt3InglesName" placeholder="INGLES" width="100%" visible="false"/>
 							<textbox value="@bind(vmMenu.oElemento.cNombre1Idioma3)" zclass="txt_llenar_datos" id="txt3PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
 						</div>
-						<div zclass="div_space_entre_botones" visible="@bind(vmMenu.oElemento.update)">
+						<div zclass="div_space_entre_botones">
 							<button label="Subir Imagen2 del elemento" 
 									onClick="@command('uploadImagenes_elemento',elemento=vmMenu.oElemento,componente=self,opcion=2)"
 									zclass="btn_guardar"/>
@@ -530,13 +524,13 @@
 										onClick="@command('invocaImagenesExistentes',opcionImgExist=3,nroImgElemento=2)"
 										zclass="btn_guardar"/>
 						</div>
-						<div visible="@bind(vmMenu.oElemento.update)">
+						<div>
 							<label value="NOMBRE IMAGEN 2: " zclass="lbl_llenar_datos"/>
 							<textbox value="@bind(vmMenu.oElemento.cNombre2Idioma1)" zclass="txt_llenar_datos" id="txt31SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
 							<textbox value="@bind(vmMenu.oElemento.cNombre2Idioma2)" zclass="txt_llenar_datos" id="txt31InglesName" placeholder="INGLES" width="100%" visible="false"/>
 							<textbox value="@bind(vmMenu.oElemento.cNombre2Idioma3)" zclass="txt_llenar_datos" id="txt31PortuName" placeholder="PORTUGUES" width="100%" visible="false"/>
 						</div>
-						<div zclass="div_space_entre_botones" visible="@bind(vmMenu.oElemento.update)">
+						<div zclass="div_space_entre_botones">
 							<button label="Subir Imagen3 del elemento" 
 									onClick="@command('uploadImagenes_elemento',elemento=vmMenu.oElemento,componente=self,opcion=3)"
 									zclass="btn_guardar"/>
@@ -545,7 +539,7 @@
 										onClick="@command('invocaImagenesExistentes',opcionImgExist=3,nroImgElemento=3)"
 										zclass="btn_guardar"/>
 						</div>
-						<div visible="@bind(vmMenu.oElemento.update)">
+						<div>
 							<label value="NOMBRE IMAGEN 3: " zclass="lbl_llenar_datos"/>
 							<textbox value="@bind(vmMenu.oElemento.cNombre3Idioma1)" zclass="txt_llenar_datos" id="txt32SpainName" placeholder="ESPAÑOL" width="100%" visible="true"/>
 							<textbox value="@bind(vmMenu.oElemento.cNombre3Idioma2)" zclass="txt_llenar_datos" id="txt32InglesName" placeholder="INGLES" width="100%" visible="false"/>
@@ -607,7 +601,7 @@
 															txt2InglesItinerario.setVisible(false);txt2PortuItinerario.setVisible(true)"/>
 										</div>
 										<div>
-											<label value="DESCRIPCION: " zclass="lbl_llenar_datos"/>
+											<label value="DIRIGIDO A: " zclass="lbl_llenar_datos"/>
 											<ckeditor value="@bind(vmMenu.oElemento.cDirigidoIdioma1)" id="txt2SpainItinerario" visible="true" width="100%"/>
 											<ckeditor value="@bind(vmMenu.oElemento.cDirigidoIdioma2)" id="txt2InglesItinerario" visible="false" width="100%"/>
 											<ckeditor value="@bind(vmMenu.oElemento.cDirigidoIdioma3)" id="txt2PortuItinerario" visible="false" width="100%"/>
@@ -665,16 +659,13 @@
 					<div zclass="div_contiene_banderas">
 							<image src="img/Flag-of-Spain.png" sclass="estilo_banderas"
 								onClick="txt4SpainName.setVisible(true);txt4InglesName.setVisible(false);
-								txt4PortuName.setVisible(false);txt4DSpainName.setVisible(true);txt4DInglesName.setVisible(false);
-								txt4DPortuName.setVisible(false)"/>
+								txt4PortuName.setVisible(false);"/>
 							<image src="img/en.png" sclass="estilo_banderas"
 								onClick="txt4SpainName.setVisible(false);txt4InglesName.setVisible(true);
-								txt4PortuName.setVisible(false);txt4DSpainName.setVisible(false);txt4DInglesName.setVisible(true);
-								txt4DPortuName.setVisible(false)"/>
+								txt4PortuName.setVisible(false);"/>
 							<image src="img/Flag_of_Brazil.png" sclass="estilo_banderas"
 								onClick="txt4SpainName.setVisible(false);txt4InglesName.setVisible(false);
-								txt4PortuName.setVisible(true);txt4DSpainName.setVisible(false);txt4DInglesName.setVisible(false);
-								txt4DPortuName.setVisible(true)"/>
+								txt4PortuName.setVisible(true);"/>
 						</div>
 						<div>
 							<label value="NOMBRE DATO GENERAL: " zclass="lbl_llenar_datos"/>

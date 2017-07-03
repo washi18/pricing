@@ -31,6 +31,7 @@ public class CItems {
 	private boolean update;
 	private boolean vistaMobil;
 	private boolean abrirEditorDescripcion;
+	private boolean bCrearElemento;
 	//====================================
 	public int getcItemsCod() {
 		return cItemsCod;
@@ -170,6 +171,12 @@ public class CItems {
 	public void setAbrirEditorDescripcion(boolean abrirEditorDescripcion) {
 		this.abrirEditorDescripcion = abrirEditorDescripcion;
 	}
+	public boolean isbCrearElemento() {
+		return bCrearElemento;
+	}
+	public void setbCrearElemento(boolean bCrearElemento) {
+		this.bCrearElemento = bCrearElemento;
+	}
 	//==============================
 	public CItems() {
 		// TODO Auto-generated constructor stub
@@ -214,6 +221,7 @@ public class CItems {
 		this.update=true;
 		this.vistaMobil=false;
 		this.abrirEditorDescripcion=false;
+		this.bCrearElemento=true;
 		obtenerNameSubMenu(cSubMenuCod);
 		//==========================
 		recuperarListaElementos(cItemsCod);
@@ -230,5 +238,7 @@ public class CItems {
 		CItemsDAO itemDao=new CItemsDAO();
 		itemDao.asignarListaElementos_Item(itemDao.recuperarListaElementosBD_Item(cItemsCod));
 		setListaElementos(itemDao.getListaElementos());
+		if(!listaElementos.isEmpty())
+			bCrearElemento=false;
 	}
 }

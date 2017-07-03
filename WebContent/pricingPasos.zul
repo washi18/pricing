@@ -822,7 +822,7 @@
 								<!-- 							<listhead><listheader label="@bind(vmPricing.etiqueta[6])" align="center" style="color:white;background:black;font-size:18px;"/></listhead> -->
 								<template name="model">
 									<listitem style="background:white;"
-										visible="@load(each.bMostrarEnResumen)">
+										visible="@load(each.seleccionado)">
 										<listcell
 											style="border-radius:5px;background:white;">
 											<div
@@ -891,7 +891,7 @@
 								</listhead>
 								<template name="model">
 									<listitem
-										visible="@load(each.bMostrarEnResumen)">
+										visible="@load(each.seleccionado)">
 										<listcell>
 											<div
 												zclass="div_content_acti">
@@ -1541,7 +1541,7 @@
 											<listheader label="" />
 										</listhead>
 										<template name="model">
-											<listitem visible="@load(each.seleccionado)">
+											<listitem visible="@load(each.bMostrarEnResumen)">
 												<listcell
 													zclass="list_costoServicios">
 													<div
@@ -1616,7 +1616,7 @@
 											<listheader label="" />
 										</listhead>
 										<template name="model">
-											<listitem visible="@load(each.seleccionado)">
+											<listitem visible="@load(each.bMostrarEnResumen)">
 												<listcell
 													zclass="list_costoServicios">
 													<div
@@ -2120,22 +2120,32 @@
 	</div>
 	<space></space>
 	<html width="100%">
-		<!-- PayPal Logo -->
-		<div class="div_content_autority">
-			<a href="https://www.paypal.com/webapps/mpp/paypal-popup"
-				title="How PayPal Works"
-				onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;">
-				<img
-					src="https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg"
-					border="0" alt="PayPal Logo" />
-			</a>
-			<span id="siteseal">
-				<script type="text/javascript"
-					src="https://seal.godaddy.com/getSeal?sealID=D70S55dOUR6TffSfj01cDCmdXZUJygvTp01XnLZ41Xb4iNS4i6yXlnb4JqAk">
-				</script>
-			</span>
-		</div>
-	</html>
+	  		<!-- PayPal Logo -->
+	  		<div class="div_content_autority">
+		  		<div width="100%">
+		  			<img src="img/payment/PCI.png" style="height:60px;"/>
+		  		</div>
+		  		<div width="100%">
+		  			<img src="img/payment/seal-safety.png" style="height:60px;"/>
+		  		</div>
+		  		<div width="100%">
+		  			<img src="img/payment/truste.jpg" style="height:60px;"/>
+		  		</div>
+		  		<div width="100%">
+		  			<img src="img/payment/secure-online-shopping.jpg" style="height:60px;"/>
+			  	</div>
+			  	<div width="100%">
+				  	<a href="https://www.paypal.com/webapps/mpp/paypal-popup" 
+				  	   title="How PayPal Works" 
+				  	   onclick="javascript:window.open('https://www.paypal.com/webapps/mpp/paypal-popup','WIPaypal','toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700'); return false;">
+				  	   <img src="img/payment/paypal-verified.png" border="0" alt="PayPal Logo" style="height:60px;"/>
+				  	</a>
+			  	</div>
+			  	<div width="100%">
+		  			<span id="siteseal"><script type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=D70S55dOUR6TffSfj01cDCmdXZUJygvTp01XnLZ41Xb4iNS4i6yXlnb4JqAk"></script></span>
+		  		</div>
+	  		</div>
+	  </html>
 	<div width="100%" sclass="footer">
 		<div width="100%" align="right">
 			<a

@@ -10,4 +10,7 @@
 <!-- 		<timeout-uri>/timeout.zul</timeout-uri>An empty URL can cause the browser to reload the same URL -->
 		<timeout-message>Session timeout. Please reload.</timeout-message>
 	</device-config>
+	<session-config>
+	  <timer-keep-alive>true</timer-keep-alive>
+	</session-config>
 </zk>

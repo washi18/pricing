@@ -171,19 +171,19 @@ public class disponibilidadVM
 		else
 			iniciarListaAniosNormal(365);
 		//Obteniendo la configuracion para la muestra de la disponibilidad del camino inka
-		ConfAltoNivelDAO confAltoNivelDAO=new ConfAltoNivelDAO();
-		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("muestra_camino_inka"));
-		if(confAltoNivelDAO.getoConfAltoNivel().isbEstado())
-		{
-			if(cdisponibilidad==20)
-			{
-				//Recuperar datos del webservice
-			    listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
-				listaDisponibilidad.addAll(recuperarListaDispoJson());
-//				ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
-			}else
-				ingresarDatosListaDispoOtros();
-		}else
+//		ConfAltoNivelDAO confAltoNivelDAO=new ConfAltoNivelDAO();
+//		confAltoNivelDAO.asignarListaConfAltoNivel(confAltoNivelDAO.recuperarconfAltoNivel("muestra_camino_inka"));
+//		if(confAltoNivelDAO.getoConfAltoNivel().isbEstado())
+//		{
+//			if(cdisponibilidad==20)
+//			{
+//				//Recuperar datos del webservice
+//			    listaDisponibilidad=new ArrayList<CCalendarioDisponibilidad>();
+//				listaDisponibilidad.addAll(recuperarListaDispoJson());
+////				ingresarDatosListaDispoCaminoInka(listaDisponibilidad);
+//			}else
+//				ingresarDatosListaDispoOtros();
+//		}else
 			ingresarDatosListaDispoOtros();
 	}
 	public void iniciarListaAniosNormal(int nroDias)
@@ -599,7 +599,6 @@ public class disponibilidadVM
 			antDia.setPrioridad(0);
 			antDia.setElegido(false);
 			refrescarDia(antDias7,antDia);
-
 			//Se quita la fecha principal
 			eliminarFechaSeleccionada(antDia,1);
 		}
@@ -704,16 +703,6 @@ public class disponibilidadVM
 			listaFechasSeleccionadas.get(1)[0]=dia.getcNroDia();
 			listaFechasSeleccionadas.get(1)[1]=mesRecuperado;
 			listaFechasSeleccionadas.get(1)[2]=cbAnio.getValue();
-//			for(int i=1;i<5;i++)
-//			{
-//				if(listaFechasSeleccionadas.get(i)[0].equals(""))
-//				{
-//					listaFechasSeleccionadas.get(i)[0]=dia.getcNroDia();
-//					listaFechasSeleccionadas.get(i)[1]=mesRecuperado;
-//					listaFechasSeleccionadas.get(i)[2]=cbAnio.getValue();
-//					break;
-//				}
-//			}
 		}
 		//-----------------------------
 		BindUtils.postNotifyChange(null, null, this,"listaFechasSeleccionadas");
@@ -732,16 +721,6 @@ public class disponibilidadVM
 			listaFechasSeleccionadas.get(1)[0]="";
 			listaFechasSeleccionadas.get(1)[1]="";
 			listaFechasSeleccionadas.get(1)[2]="";
-//			for(int i=1;i<5;i++)
-//			{
-//				if(listaFechasSeleccionadas.get(i)[0].equals(dia.getcNroDia()))
-//				{
-//					listaFechasSeleccionadas.get(i)[0]="";
-//					listaFechasSeleccionadas.get(i)[1]="";
-//					listaFechasSeleccionadas.get(i)[2]="";
-//					break;
-//				}
-//			}
 		}
 		//-----------------------------
 		BindUtils.postNotifyChange(null, null, this,"listaFechasSeleccionadas");
@@ -1190,11 +1169,6 @@ public class disponibilidadVM
 					listDispoMesSig=recuperarDispoMes(a,m, listaDisponibilidad);
 				actualizarDispoMesAnioSig(a,m,k,listDispoMesSig);
 				int nro=1;
-//				for(Integer dispo:listDispoMesSig)
-//				{
-//					System.out.println("dia-> "+nro+" dispo-> "+dispo);
-//					nro++;
-//				}
 		    }
 		}
 		//Obtenemos el primer dia y el numero de dias del mes seleccionado

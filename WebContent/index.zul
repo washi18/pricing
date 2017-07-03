@@ -8,6 +8,7 @@
 	<style src="css/hotelesPorCategoria.css"/>
 	<style src="css/disponibilidad.css"/>
 	<style src="css/imagenesHotel.css"/>
+	<timer id="timerKeepAliveSession" repeats="true" delay="1800000" onTimer=""/>
 	<div apply="org.zkoss.bind.BindComposer" viewModel="@id('vmIndex') @init('com.pricing.viewModel.indexVM')">
 <!-- 		<div visible="@bind(vmIndex.mostrarAdmin)"><include src="panelAdmin.zul"/></div> -->
 	</div>

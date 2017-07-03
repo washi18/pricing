@@ -294,7 +294,7 @@ public class pricingVM
 		setoInterfaz(interfazDao.getoInterfaz());
 		/*************************/
 		//============
-		//this.nombreDoc=generarNombreImagen();
+		this.nombreDoc=generarNombreImagen();
 		this.acceptedTermsAndCond=false;
 		//=================
 		this.nroPasajeros=0;
@@ -1602,7 +1602,7 @@ public class pricingVM
 		TotalHabitaciones=0.0;
 		oReservaPaqCatHotel.setConCamaAdicional(false);
 		oReservaPaqCatHotel.setSinCamaAdicional(true);
-		oReservaPaqCatHotel.setPrecioCamaAdicional(df.format(0));
+//		oReservaPaqCatHotel.setPrecioCamaAdicional(df.format(0));
 		montoTotal=TotalActividades+TotalHabitaciones+TotalServicios+TotalPaquete;
 		lblMontoTotal=df.format(montoTotal);
 		lblTotalHabitaciones=df.format(TotalHabitaciones);
@@ -2327,41 +2327,10 @@ public class pricingVM
 				Clients.showNotification(etiqueta[2],Clients.NOTIFICATION_TYPE_WARNING, comp,"before_start",2700);
 		}
 	}
-	public String generarNombreQR()
-	{
-		String name="";
-		//=========================
-				File directorio=new File(ScannUtil.getPath());
-				String[] imagenes=directorio.list();
-				//=================================
-				if(imagenes!=null)
-					name="qrCode"+imagenes.length+".png";
-				else
-					name="qrCode.png";
-		return name;
-	}
 	@Command
 	@NotifyChange({"paso4","oReservar"})
 	public void Reservar() throws IOException, DocumentException
 	{
-		//=========
-		QRCode qr = new QRCode();
-		String nameImgQR=generarNombreQR();
-        File file = new File(ScannUtil.getPathImagenQR()+nameImgQR);
-        //FPP=yuri vladimir huallpa vargas=camino inka=01/06/2017=05/06/2017=5=300=931896923=yurihuallpavargas@gmail.com
-//        String text ="FPP="+reserva.getcContacto()+"="+reserva.getoPaquete().getTitulo()+"="+
-//        			fechaInicio+"="+fechaFin+"="+reserva.getnNroPersonas()+"="+montoPagar+"="+
-//        			reserva.getcTelefono()+"="+reserva.getcEmail();
-        String text="Hola mundo";
- 
-        try {
- 
-            qr.generateQR(file, text, 300, 300);
- 
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		//==========
 		CReservaDAO reservaDao=new CReservaDAO();
 		String[] resultado=reservaDao.recuperarResultados(reservaDao.registrarReserva(oReservar));
 		//Se asigna el codigo de reserva al objeto oReserva
@@ -2370,7 +2339,7 @@ public class pricingVM
 		listaUrlImages=new ArrayList<String>();
 		for(CPasajero p:listaPasajeros)
 		{
-			if(p.isEsEdit())
+			if(p.isEsEdit() && p.isSelectPasajero())
 			{
 				listaUrlImages.add(ScannUtil.getPath()+p.getcUrlDocumento());
 			}
@@ -2548,7 +2517,8 @@ public class pricingVM
 		}
 	}
 	@Command
-	public void selectPaisReservante(@BindingParam("codPais")Object cod,@BindingParam("idCbPais")Component comp)
+	public void selectPaisReservante(@BindingParam("codPais")Object cod,
+			@BindingParam("idCbPais")Component comp)
 	{
 		if(cod==null)
 		{
@@ -2843,7 +2813,7 @@ public class pricingVM
 		}
 	}
 	@Command
-	@NotifyChange({"mostrarPrecios","nroSimples","nroDobles","nroTriples"})
+	@NotifyChange({"oReservaPaqCatHotel","mostrarPrecios","nroSimples","nroDobles","nroTriples"})
 	public void clickOpcionCategoria(@BindingParam("CConHoteles")CCategoriaConHoteles CCH)
 	{
 		//===========================
@@ -2857,6 +2827,7 @@ public class pricingVM
 			oReservaPaqCatHotel.setCodPaqueteCategoriaH(recuperarCodPaqueteCategoria(CCH.getCodCat()));
 			oReservaPaqCatHotel.setCategoria(CCH.getNameCategory());
 			oReservaPaqCatHotel.setListaCategoriaDestinosHoteles(CCH.getListaCategoriaDestinosHoteles());
+			oReservaPaqCatHotel.setPrecioCamaAdicional(CCH.getPrecioCamaAdicional());
 			CCH.setColor(CCH.COLOR_SELECT);
 			BindUtils.postNotifyChange(null, null, CCH, "color");
 			for(CCategoriaConHoteles oCCH:listaCategoriaConHoteles)

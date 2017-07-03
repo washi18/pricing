@@ -46,6 +46,7 @@
 }
 
 .footer {
+	font-family: 'Titillium Web';
 	align-self: flex-end;
 	-webkit-align-self: flex-end;
 	-moz-align-self: flex-end;
@@ -74,6 +75,7 @@
 }
 
 .div_contenedor_pricing {
+	font-family: 'Titillium Web';
 	margin: 0;
 	padding: 0;
 	display: flex;
@@ -92,6 +94,7 @@
 }
 
 .contenedor_proceso_pricing_pasos {
+	font-family: 'Titillium Web';
 	width: 100%;
 	height: auto;
 	background: white;
@@ -118,6 +121,7 @@
 }
 
 .contenedor_proceso_pricing {
+	font-family: 'Titillium Web';
 	width: 100%;
 	height: auto;
 	background: white;
@@ -129,6 +133,7 @@
 }
 
 .contenedor_3_pasos {
+	font-family: 'Titillium Web';
 	width: 100%; 
 	display : flex;
 	display: -webkit-flex;
@@ -138,10 +143,12 @@
 	display: flex;
 }
 .contendor_3_barras{
+	font-family: 'Titillium Web';
 	width: 100%;
 }
 
 .imagenes_pasos {
+	font-family: 'Titillium Web';
 	width: 50px;
 	height: 50px;
 	position: static;
@@ -232,12 +239,14 @@
 	font-size: 15px;
 }
 .z-groupbox-header .caption_pasos.z-caption {
+	font-family: 'Titillium Web';
 	padding: 5px 0 5px 0;
 	border-radius: 8px;
 }
 /**ESTILOS DE LA MUESTRA DE LOS COSTOS**/
 /***************************************/
 .div_costos {
+	font-family: 'Titillium Web';
 	background: white;
 	width: 30%;
 	display: flex;
@@ -263,6 +272,7 @@
 	position: fixed;
 }
 .div_fechas {
+	font-family: 'Titillium Web';
 	width: 100%;
 	display: -webkit-flex;
 	display: -o-flex;
@@ -285,6 +295,7 @@
 	background: #F7653A;
 }
 .div_fechaReserva {
+	font-family: 'Titillium Web';
 	/* 	padding:10px; */
 	height: auto;
 	width: 90%;
@@ -340,6 +351,7 @@
 	}
 }
 .div_costoServiceSubTitle {
+	font-family: 'Titillium Web';
 	width: 70%;
 	display: flex;
 	display: -webkit-flex;
@@ -364,6 +376,7 @@
 	width: 100%;
 }
 .div_costoServiceSubTitleTotal {
+	font-family: 'Titillium Web';
 	width: 70%;
 	display: flex;
 	display: -webkit-flex;
@@ -377,9 +390,11 @@
 	-o-justify-content: flex-end;
 }
 .div_costoServiceMontoTotal {
+	font-family: 'Titillium Web';
 	width: 30%;
 }
 .div_costoServicio {
+	font-family: 'Titillium Web';
 	display: flex;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -388,6 +403,7 @@
 	width: 100%;
 }
 .div_costoPaqueteSubTitle {
+	font-family: 'Titillium Web';
 	width: 70%;
 	display: flex;
 	display: -webkit-flex;
@@ -402,9 +418,11 @@
 	font-weight: bold;
 }
 .div_costoPaqueteMonto {
+	font-family: 'Titillium Web';
 	width: 30%;
 }
 .div_costoPaquete {
+	font-family: 'Titillium Web';
 	display: flex;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -413,6 +431,7 @@
 	width: 100%;
 }
 .div_costoHotelSubTitle {
+	font-family: 'Titillium Web';
 	width: 70%;
 	display: flex;
 	display: -webkit-flex;
@@ -427,9 +446,11 @@
 	font-weight: bold;
 }
 .div_costoHotelMonto {
+	font-family: 'Titillium Web';
 	width: 30%;
 }
 .div_costoHotel {
+	font-family: 'Titillium Web';
 	display: flex;
 	display: -webkit-flex;
 	display: -moz-flex;
@@ -438,6 +459,7 @@
 	width: 100%;
 }
 .div_mostrarHotel {
+	font-family: 'Titillium Web';
 	padding: 0 10px 0 10px;
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -448,6 +470,7 @@
 }
 
 .div_mostrarServicios {
+	font-family: 'Titillium Web';
 	padding: 0 10px 0 10px;
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -459,6 +482,7 @@
 }
 
 .div_info_costo_servicios {
+	font-family: 'Titillium Web';
 	padding: 0 10px 0 0;
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -468,10 +492,12 @@
 }
 
 .list_costoServicios {
+	font-family: 'Titillium Web';
 	background: rgba(0, 0, 0, 0.1);
 }
 
 .div_mostrarPaquete {
+	font-family: 'Titillium Web';
 	padding: 0 10px 0 10px;
 	box-sizing: border-box;
 	-webkit-box-sizing: border-box;
@@ -482,6 +508,7 @@
 }
 
 .titulo_costo_servicios {
+	font-family: 'Titillium Web';
 	color: #034ea2;
 	font-size: 14px;
 	font-weight: bold;
@@ -489,23 +516,26 @@
 }
 
 .style_lbl_categoriaSeleccionada {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	font-size: 15px;
 	color: #FF33F9;
 	font-weight: bold;
 }
 
 .subDesc_costos {
+	font-family: 'Titillium Web';
 	font-size: 15px;
 	color: black;
 }
 
 .subDesc_costos_serv {
+	font-family: 'Titillium Web';
 	font-size: 13px;
 	color: black;
 }
 
 .monto {
+	font-family: 'Titillium Web';
 	color: blue;
 	font-size: 15px;
 	float: right;
@@ -513,11 +543,13 @@
 }
 
 .usd_monto {
+	font-family: 'Titillium Web';
 	color: blue;
 	font-size: 15px;
 }
 
 .montoTotal {
+	font-family: 'Titillium Web';
 	color: black;
 	font-size: 15px;
 	float: right;
@@ -525,12 +557,14 @@
 }
 
 .usd_MontoTotal {
+	font-family: 'Titillium Web';
 	color: black;
 	font-size: 15px;
 	font-weight: bold;
 }
 
 .div_Total {
+	font-family: 'Titillium Web';
 	background: black;
 	color: white;
 	width: 100%;
@@ -583,6 +617,7 @@
 
 .hotel_list .z-listbox-header table tbody tr .z-listheader .z-listheader-content
 	{
+	font-family: 'Titillium Web';
 	color: white;
 	text-align: center;
 }
@@ -615,11 +650,13 @@
 
 .hotel_list .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content .z-listitem-checkable .z-listitem-icon
 	{
+	font-family: 'Titillium Web';
 	color: #1A5276;
 }
 
 .listSub_hoteles .z-listbox-header table tbody tr .z-listheader .z-listheader-content
 	{
+	font-family: 'Titillium Web';
 	background: black;
 	height: 20px;
 	font-size: 12px;
@@ -646,6 +683,7 @@
 
 .listSub_hoteles .z-listbox-body table tbody .z-listitem .z-listcell .z-listcell-content a
 	{
+	font-family: 'Titillium Web';
 	font-size: 10px;
 }
 
@@ -654,6 +692,7 @@
 }
 
 .btn_desglozar_hoteles {
+	font-family: 'Titillium Web';
 	border: 2px solid #0083d8;
 	background: #0083d8;
 	color: #fff;
@@ -670,12 +709,14 @@
 }
 
 .precios_hoteles {
+	font-family: 'Titillium Web';
 	color: orange;
 	font-size: 17px;
 	font-weight: bold;
 }
 /*****************/
 .check_terminos.z-checkbox input[type=checkbox] {
+	font-family: 'Titillium Web';
 	border: 4px solid #1A5276;
 	color: #1A5276;
 	border-radius: 0;
@@ -690,6 +731,7 @@
 
 @media ( max-width :640px) {
 	.div_TotalResponsive {
+		font-family: 'Titillium Web';
 		background: black;
 		color: white;
 		width: 100%;
@@ -742,16 +784,19 @@
 }
 
 .titulo-pasos {
+	font-family: 'Titillium Web';
 	font-size: 18px;
 	font-weight: bold;
 }
 
 .style_info {
+	font-family: 'Titillium Web';
 	font-size: 18px;
 	font-weight: bold;
 }
 
 .style_Step {
+	font-family: 'Titillium Web';
 	/* 	padding:0 8px 0 8px; */
 	height: 30px;
 	width: 30px;
@@ -841,7 +886,7 @@
 }
 
 .style_lblMonto {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	color: white;
 	font-size: 20px;
 	font-weight: bold;
@@ -855,6 +900,7 @@
 }
 
 .titulo_servicio {
+	font-family: 'Titillium Web';
 	font-size: 13px;
 	font-weight: bold;
 }
@@ -866,6 +912,7 @@
 }
 
 .comentarios_service {
+	font-family: 'Titillium Web';
 	text-align: justify;
 	color: black;
 	font-weight: bold;
@@ -1119,6 +1166,7 @@
 }
 
 .button_payment {
+	font-family: 'Titillium Web';
 	background: #77BD37;
 	border: none;
 	height: 60px;
@@ -1139,6 +1187,7 @@
 }
 
 .button_payment:hover {
+	font-family: 'Titillium Web';
 	border: 2px solid #77BD37;
 	color: #77BD37;
 	background: white;
@@ -1263,17 +1312,20 @@
 }
 
 .AltDate_info_label {
+	font-family: 'Titillium Web';
 	color: black;
 	font-weight: bold;
 	text-align: center;
 }
 
 .info_label_datos {
+	font-family: 'Titillium Web';
 	font-size: 15px;
 	color: black;
 }
 
 .style_icon_info {
+	font-family: 'Titillium Web';
 	text-decoration: none;
 	font-size: 30px;
 	/* 	font-weight: bold; */
@@ -1281,12 +1333,14 @@
 }
 
 .div_info_item_label {
+	font-family: 'Titillium Web';
 	font-size: 16px;
 	font-weight: bold;
 	color: #034ea2;
 }
 
 .div_info_item_Total {
+	font-family: 'Titillium Web';
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -1341,6 +1395,7 @@
 }
 
 .div_info_item_label_Total {
+	font-family: 'Titillium Web';
 	font-size: 20px;
 	font-weight: bold;
 	color: #B2F73A;
@@ -1363,6 +1418,7 @@
 }
 
 .precioHab {
+	font-family: 'Titillium Web';
 	font-size: 20px;
 	/* 	color:#8E0E7F; */
 	color: fuchsia;
@@ -1370,6 +1426,7 @@
 }
 
 .precioHab_total {
+	font-family: 'Titillium Web';
 	font-size: 20px;
 	color: green;
 	font-weight: bold;
@@ -1382,6 +1439,7 @@
 }
 
 .btn_cancelar_x {
+	font-family: 'Titillium Web';
 	float: right;
 	border: none;
 	color: #1A5276;
@@ -1393,23 +1451,27 @@
 }
 
 .hab_title {
+	font-family: 'Titillium Web';
 	font-size: 20px;
 	color: #1A5276;
 	font-weight: bold;
 }
 
 .pasajeros_datos_add_text {
+	font-family: 'Titillium Web';
 	/* 	font-size:15px; */
 	color: black;
 	font-weight: bold;
 }
 
 .stilo-a-personas {
+	font-family: 'Titillium Web';
 	font-size: 15px;
 	color: teal;
 }
 
 .aceptar {
+	font-family: 'Titillium Web';
 	background: #1A5276;
 	border-radius: 5px;
 	padding: 5px;
@@ -1419,6 +1481,7 @@
 }
 
 .cancelar {
+	font-family: 'Titillium Web';
 	background: gray;
 	border-radius: 5px;
 	padding: 5px;
@@ -1428,12 +1491,14 @@
 }
 
 .selecthab_title {
+	font-family: 'Titillium Web';
 	font-size: 14px;
 	color: white;
 	font-weight: lighter;
 }
 
 .titleGeneral_hab {
+	font-family: 'Titillium Web';
 	font-size: 20px;
 	color: #1A5276;
 	font-weight: lighter;
@@ -1575,30 +1640,31 @@
 }
 
 .btn_paypal {
+	font-family: 'Titillium Web';
 	border: none;
 	border-radius: 20px;
 	background: white;
 }
 
 .lbl_desc {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	font-size: 18px;
 }
 
 .lbl_desc_Total {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	font-size: 18px;
 	color: blue;
 }
 
 .lbl_monto {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	font-size: 18px;
 	font-weight: bold;
 }
 
 .lbl_monto_Total {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	font-size: 18px;
 	font-weight: bold;
 	color: blue;
@@ -1662,6 +1728,7 @@
 }
 
 .div_nro_pax {
+	font-family: 'Titillium Web';
 	background: #053351;
 	color: white;
 	font-size: 18px;
@@ -1692,6 +1759,7 @@
 /**********************ESTILOS PARA PRICING PASOS*********************/
 /*********************************************************************/
 .div_pasos_progres_interno {
+	font-family: 'Titillium Web';
 	background: #d1d1d1;
 	color: black;
 	font-size: 18px;
@@ -1719,6 +1787,7 @@
 }
 
 .div_pasos_inicio {
+	font-family: 'Titillium Web';
 	background: #d1d1d1;
 	color: black;
 	border-radius: 2px 0px 0px 2px;
@@ -1747,6 +1816,7 @@
 }
 
 .div_pasos_final {
+	font-family: 'Titillium Web';
 	background: #d1d1d1;
 	color: black;
 	border-radius: 0px 2px 2px 0px;
@@ -1819,6 +1889,7 @@
 }
 
 .btn_siguiente {
+	font-family: 'Titillium Web';
 	background: #72CB2E url(/img/icono-next.png);
 	border-radius: 5px;
 	width: 300px;
@@ -1831,6 +1902,7 @@
 }
 
 .btn_retorno {
+	font-family: 'Titillium Web';
 	background: #FF7522 url(/img/icono-next.png);
 	border-radius: 5px;
 	width: 100px;
@@ -1884,6 +1956,7 @@
 }
 
 .style_nro_paso {
+	font-family: 'Titillium Web';
 	display: inline-block;
 	min-width: 10px;
 	padding: 3px 7px;
@@ -2186,31 +2259,33 @@
 }
 
 .stilo-a {
+	font-family: 'Titillium Web';
 	text-decoration: none;
 	color: white;
 }
 
 .stilo-a-start {
+	font-family: 'Titillium Web';
 	text-decoration: none;
 	color: orange;
 	font-size: 35px;
 }
 
 .lbl_category {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	font-size: 14px;
 	color: blue;
 }
 
 .titulo-groupbox {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	font-size: 13px;
 	font-weight: bold;
 	color: #1A5276;
 }
 
 .titulo-groupbox.z-a {
-	font-family: 'Titillium Web'
+	font-family: 'Titillium Web';
 	font-size: 14px;
 	font-weight: bold;
 	color: #1A5276;
@@ -2226,6 +2301,7 @@
 }
 
 .btn_cerrar_popup_dispo {
+	font-family: 'Titillium Web';
 	border: 0;
 	background: gray;
 	font-weight: bold;
@@ -2274,6 +2350,7 @@
 }
 
 .div_content_icon_calendar_FP {
+	font-family: 'Titillium Web';
 	border-top-left-radius: 5px;
 	border-bottom-left-radius: 5px;
 	-webkit-box-shadow: 0 1px 0 #fff, 0 -2px 5px rgba(0, 0, 0, 0.08) inset;
@@ -2311,14 +2388,14 @@
 }
 /*********************************************/
 .texto_advertencia1 {
-	font-family: Arial;
+	font-family: 'Titillium Web';
 	color: #F7653A;
 	font-size: 12px;
 	font-weight: bold;
 }
 
 .texto_advertencia {
-	font-family: Arial;
+	font-family: 'Titillium Web';
 	color: #B0F91C;
 	font-size: 12px;
 	font-weight: bold;
@@ -2383,6 +2460,7 @@
 }
 
 .btn_cerrar_actividad {
+	font-family: 'Titillium Web';
 	position: absolute;
 	right: -6px;
 	top: -6px;
@@ -2426,7 +2504,7 @@
 .btn_agregar {
 	border: none;
 	border-radius: 5px;
-	font-family: "Myriad Pro";
+	font-family: 'Titillium Web';
 	font-size: 15px;
 	background: #123866;
 	color: #fff;
@@ -2448,6 +2526,7 @@
 /**PAYPAL**/
 /**********/
 .radio_color {
+	font-family: 'Titillium Web';
 	font-size: 18px;
 	font-weight: bold;
 	color: green;
@@ -2499,6 +2578,14 @@
 	-ms-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 	-o-box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, 0.5);
 }
+@media (max-width:700px){
+	.div_content_autority{
+		flex-direction:column;
+		-webkit-flex-direction:column;
+		-moz-flex-direction:column;
+		-ms-flex-direction:column;
+	}
+}
 /*******ACEPTAR RESERVA******/
 .win_content_reserva_exitosa.z-window {
 	border-radius: 5px;
@@ -2532,6 +2619,7 @@
 }
 
 .div_ok {
+	font-family: 'Titillium Web';
 	font-weight: bold;
 	border-radius: 50%;
 	width: 40px;
@@ -2625,6 +2713,7 @@
 }
 
 .btn_cupon {
+	font-family: 'Titillium Web';
 	background: #1A5276;
 	border: 0;
 	padding: 5px;
@@ -2693,6 +2782,7 @@
 	margin:8px 0 8px 0;
 }
 .button_descripcion{
+font-family: 'Titillium Web';
  padding: 10px 35px;
  overflow:hidden;
  position:relative;

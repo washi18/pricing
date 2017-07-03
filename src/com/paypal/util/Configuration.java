@@ -59,8 +59,8 @@ public class Configuration {
 		Map<String,String> configMap = new HashMap<String,String>();
 		
 		// Endpoints are varied depending on whether sandbox OR live is chosen for mode
-//		configMap.put("mode", "sandbox");
-		configMap.put("mode", "live");
+		configMap.put("mode", "sandbox");
+//		configMap.put("mode", "live");
 		
 
 		// These values are defaulted in SDK. If you want to override default values, uncomment it and add your value.

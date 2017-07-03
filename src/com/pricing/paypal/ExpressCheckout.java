@@ -35,10 +35,10 @@ public class ExpressCheckout {
 				.setExpressCheckout(Monto,Descripcion,datosConfigPaypal.getCaccountId(),datosConfigPaypal.getCsellerUserName());
 		if(setExpressCheckoutResponse.getAck().getValue().equals("Success"))
 		{
-			result[0]="https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
-					+ setExpressCheckoutResponse.getToken();
-//			result[0]="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
+//			result[0]="https://www.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
 //					+ setExpressCheckoutResponse.getToken();
+			result[0]="https://www.sandbox.paypal.com/cgi-bin/webscr?cmd=_express-checkout&token="
+					+ setExpressCheckoutResponse.getToken();
 			result[1]=setExpressCheckoutResponse.getToken();
 		}
 		return result;
